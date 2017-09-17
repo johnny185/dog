@@ -1,0 +1,29 @@
+1.git init 初始化操作
+
+  ls =>查看当前目录下的文件夹
+  mkdir => 查看当前目录下的文件
+
+2.git config --global user.name "你的git名称"
+  git config --global user.name "你的git邮箱"
+
+3.git add 文件名 把文件放进暂存区
+
+4.git status
+
+5.git commit -m 提交 讲暂存区的文件提交到版本仓库里
+
+6. git push 将版本库里文件推送到线上github
+
+7.git diff 
+
+8.git reset --hard HEAD^ 删除后回到第一个状态
+
+9.git reflog  查看提交版本号
+
+10.git reset --hard ***(HEAD-> master) 退回到指定版本号
+
+11.git remote add origin https://github.com/github仓库
+
+12.git push -u origin master 推送到分支上
+
+13.git clone 地址
