@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>tianjian首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/farm.css">	
+
+</head>
+<body>
+	<!-- 导航栏 -->
+	<div class='full-main'> 
+		<div class = 'banner2 fixed'>
+			<div class="banner2-list-btn"><img src="../../image/list.png"></div>
+			<div class="banner-select" id="location-select">
+				<select>
+					<option>天津七镰种植基地</option>
+					<option>大兴西瓜种植基地</option>
+				</select>
+			</div>
+			<div class="banner2-people-btn"><img src="../../image/people.png"></div>
+			<div class="banner-text">当前在线：<span>5人</span></div>	
+		</div>
+	</div>
+
+	<!-- 内容 -->
+	<div class="sub-container-notop sub-container-nobottom">
+		<!-- 地图 -->
+		<div class="map-container">
+			<img class="map-img" src="../../image/map.png">
+		</div>
+		<!-- sub-nav -->
+		<div class="sub-nav-container fixed">
+			<div class="col-5 left center sub-nac-btn-l">
+				<input type="button" name="" value="待处理" class="tobe-process-btn">
+			</div>
+			<div class="center-btn-container">
+				<div class="center-btn" onclick="toField()" id="sign">签到</div>
+			</div>
+			<div class="col-5 right center sub-nac-btn-r">
+				<input type="button" name="" value="已处理" class="processed-btn">
+			</div>
+		</div>
+	</div>
+
+	<!-- 底部导航栏 -->
+	 <div class="nav fixed">
+	            	<ul>
+	            		<li>
+	            		</li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            	</ul>
+	</div>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		var signbtn = document.getElementById("sign");
+		var signflag = false;
+		signbtn.onclick = function(){
+			if (!signflag) {
+				signbtn.innerHTML = '签退';
+				signbtn.style.backgroundColor = "#999";
+				signflag = true;
+			}
+			else if(signflag){
+				signbtn.innerHTML = '签到';
+				signbtn.style.backgroundColor = "#A2CDA5";
+				signflag =false;
+			}
+		}
+		
+		
+		
+		apiready = function(){
+
+	    };
+	    
+		toField = Function(){
+		    api.openFrame({
+	            name: '',
+	            url: '../frm_field.html',
+	            rect: {
+		            x:0,
+		            y:0,
+		            w:0,
+		            h:0
+	            }
+            });
+		}
+	</script>
+</body>
+</html>
+

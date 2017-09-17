@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>通知公告</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <style>
+    	*{
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+            overflow-y: auto;
+            background-color: #f2f2f2;
+            padding-top: 1.26rem;
+        }
+        
+        #top{
+            width: 100%;
+            height: 0.46rem;
+            background: #00c558;
+            margin-bottom: 0.82rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+        header{
+            position: fixed;
+            left: 0;
+            top: 0.44rem;
+            width: 100%;
+            background: #00c558;
+            z-index: 99;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.82rem;
+            line-height: 0.82rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{
+            display: inline-block;
+            position: absolute;
+            left: 0.25rem;
+            bottom: 0.28rem;
+            width: 0.16rem;
+            height: 0.28rem;
+            background-image: url(../../../image/harvest_back.png);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat; 
+        }
+       #content{
+       		width:100%;
+       		/*padding-bottom:0.98rem;*/
+       }
+       #content img{
+       		display:block;
+       		width:100%;	
+       }
+    </style>
+</head>
+<body>
+	<div id="top"></div>
+    <header>        
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+                                   公告详情
+        </div>
+    </header>
+	<div id="content">
+		<img src="../../../image/home_notice_more_info1.html" style="height: 2.89rem"/>
+		<img src="../../../image/home_notice_more_info2.html" style="height: 3.41rem"/>
+		<img src="../../../image/home_notice_more_info3.html" style="height: 7.43rem"/>
+		<img src="../../../image/home_notice_more_info4.html" style="height: 6.94rem"/>
+		<img src="../../../image/home_notice_more_info5.html" style="height: 9.03rem"/>
+	</div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+
+<script type="text/javascript" src="../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+
+//打开公告详情页面***************************************************
+function openNoticeInfo(){
+	$api.openWin({
+		name : "home_notice_more_info",
+		url : "widget://html/home/noticeMore/home_notice_more_info.html",
+		reload : true,
+		selecteIndex : '3',
+		slidBackEnabled : false,
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+};
+
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+</script>
+</html>

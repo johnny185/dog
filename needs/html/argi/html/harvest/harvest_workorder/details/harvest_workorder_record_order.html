@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>记工单-详情</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name = "format-detection" content = "telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+<body>
+	<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="col-1">
+					<a href="javascript:void(0);" onclick="back();">
+						<div class="back-btn"><img src="../../../../image/back-button.png"></div>
+					</a>
+				</div>
+				<div class="banner-title2">
+					<span class="banner-title2h4"><h4>添加</h4></span>
+				</div>
+			</div>
+	</div>
+	<div class="container">
+		<div class="full-main">
+			<div class="sub-container sub-container-notop">
+				<form name="addform3-0" id="addform">
+					<input id="pNo-input" type="text" data-rule="*" data-nullmsg="人员编号不能为空" data-errmsg="" data-sucmsg=""  class="table-textarea1" name="serialNumber" placeholder="请输入人员编号">
+					<div class="addtable">
+						<table class="addtablestyle level1color">
+							<tr>
+								<th>级别</th><th>规格(头/筐)</th><th>筐数</th>
+							</tr>
+							<tr >
+								<td>
+									<!--<input id="level-input-0" type="number" data-rule="n0-10" data-nullmsg="采收总量不能为空" data-errmsg="采收总量只能输入0-10位正整数" data-sucmsg="" class="table-textarea3 quantity" name="recordOrderDetailsList[0].quantity"  disabled="disabled" placeholder="采收总量">-->
+									<input id="level-input-0" class="table-textarea3" disabled="disabled" placeholder="一级品">
+									<input type="hidden" name="recordOrderDetailsList[0].quantity" class="quantity">
+									<input type="hidden" name="recordOrderDetailsList[0].grade" value="1">
+								</td>
+								<td><input id="feature-input-0" type="number" data-rule="n0-3" data-nullmsg="规格不能为空" data-errmsg="规格只能输入0-3位正整数" data-sucmsg="" class="table-textarea3 specifications autoClass" name="recordOrderDetailsList[0].specifications" placeholder="规格"></td> 
+								<td><input id="basket-input-0"  type="number" data-rule="n0-6" data-nullmsg="筐数不能为空" data-errmsg="筐数只能输入0-6位正整数" data-sucmsg="" class="table-textarea3 baskets autoClass" name="recordOrderDetailsList[0].baskets" placeholder="筐数"></td>
+							</tr>			
+						</table>
+						<table class="addtablestyle level2color">
+							<tr>
+								<th>级别</th> <th>规格(头/筐)</th><th>筐数</th>
+							</tr>
+							<tr >
+								<td>
+									<!--<input id="level-input-0" type="number" data-rule="n0-10" data-nullmsg="采收总量不能为空" data-errmsg="采收总量只能输入0-10位正整数" data-sucmsg="" class="table-textarea3 quantity" name="recordOrderDetailsList[1].quantity"  disabled="disabled" placeholder="采收总量">-->
+									<input id="level-input-0" class="table-textarea3" disabled="disabled" placeholder="二级品">
+									<input type="hidden" name="recordOrderDetailsList[1].quantity" class="quantity">
+									<input type="hidden" name="recordOrderDetailsList[1].grade" value="2">
+								</td>
+								<td><input id="feature-input-0" type="number" data-rule="n0-3" data-nullmsg="规格不能为空" data-errmsg="规格只能输入0-3位正整数" data-sucmsg="" class="table-textarea3 autoClass specifications" name="recordOrderDetailsList[1].specifications" placeholder="规格"></td> 
+								<td><input id="basket-input-0"  type="number" data-rule="n0-6" data-nullmsg="筐数不能为空" data-errmsg="筐数只能输入0-6位正整数" data-sucmsg="" class="table-textarea3 autoClass baskets" name="recordOrderDetailsList[1].baskets" placeholder="筐数"></td>
+							</tr>			
+						</table>
+						<!-- <table class="addtablestyle level3color">
+							<tr>
+								<th>三级品</th> <th>规格(头/筐)</th><th>筐数</th>
+							</tr>
+							<tr >
+								<td>
+									<input id="level-input-0" type="textarea" data-rule="n0-10" data-nullmsg="采收总量不能为空" data-errmsg="采收总量只能输入0-10位正整数" data-sucmsg="" class="table-textarea2" name="recordOrderDetailsList[2].quantity" placeholder="采收总量">
+									<input type="hidden" name="recordOrderDetailsList[2].grade" value="3">
+								</td>
+								<td><input id="feature-input-0" type="textarea" data-rule="n0-3" data-nullmsg="规格不能为空" data-errmsg="规格只能输入0-3位正整数" data-sucmsg="" class="table-textarea2" name="recordOrderDetailsList[2].specifications"></td> 
+								<td><input id="basket-input-0"  type="textarea" data-rule="n0-6" data-nullmsg="筐数不能为空" data-errmsg="筐数只能输入0-6位正整数" data-sucmsg="" class="table-textarea2" name="recordOrderDetailsList[2].baskets"></td>
+							</tr>			
+						</table> -->
+						
+					</div>
+				</form>
+				<br>
+				<div class="main">记录人: <span id="recorderName"></span></div>
+			</div>
+			<div class="short-container">
+				<div class="main">
+					<div class=" center">
+						<input id = "submitBtn" class="btn-style2 clear" type="button" name="save" value="提交" >
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../../../script/common/form2js.js"></script>
+<script type="text/javascript" src="../../../../script/common/availdate-v1.0.2.js"></script>
+<script type="text/javascript">
+var userId  = null;
+var orderId = null;//工单id
+var orderStatus = null;//工单状态
+var userName = null;
+apiready = function(){
+	userId = $api.getStorage("userId");
+	orderId = api.pageParam.orderId;
+	orderStatus = api.pageParam.orderStatus;
+	userName = api.pageParam.userName;
+	$("#recorderName").text(userName);
+	
+	/* 表单校验,保存记工单数据   */
+	ac.form({
+        area: "#addform",
+        btn: "#submitBtn",
+        endSuccess: function () {
+    		$("#submitBtn").attr("disabled","true");
+			var params = form2js($("#addform")[0]);
+			params.workOrderId = orderId;
+			params.userId = userId;
+			pds.ajaxSubmit({
+				url:"app/harvestworkorder/saveHarvestRecordOrder",
+				data:{"data":JSON.stringify(params)},
+				success:function(e){
+					back();
+				},
+				error:function(e){
+					$("#submitBtn").removeAttr("disabled");
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+        }
+    });
+}
+
+//$("body").on("input propertychange",".autoClass",function(){
+//	var that = $(this);
+//	var $tr = that.closest("tr");
+//	var specifications = $tr.find(".specifications").val()*1;
+//	var baskets = $tr.find(".baskets").val()*1;
+//	var quantity = Math.ceil(specifications*baskets);
+
+//	$tr.find(".quantity").each(function(){
+//		var tmpObj = $(this)[0];
+//		tmpObj.value=quantity;
+//	});
+//});
+
+/* 回退事件  */
+function back(){
+	api.closeWin();
+  	//刷新数据
+  	api.execScript({
+  	 	name:'harvest_record_list',
+      	script:'getHarvestRecordOrderList('+userId+","+orderId+');'
+  	});
+}
+</script>
+</body>
+</html>

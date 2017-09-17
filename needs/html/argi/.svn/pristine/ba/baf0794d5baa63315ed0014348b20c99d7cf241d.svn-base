@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收计划</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	  <link rel="stylesheet" type="text/css" href="../../css/aui-theme-style1.css">
+		<script type="text/javascript" src="../../script/remote.config.js"></script>
+	<style>
+		body{background:#fafafa;}
+		.aui-title p{color:#fff;
+			font-size:0.9rem;
+		}
+		.aui-bar.aui-bar-nav{
+			position:fixed;
+			height: 8.5rem;padding-top:0.4rem; background-color:#60bc56;
+		}
+		.list-tops-fixed{
+			margin-top:8.5rem;
+		}
+		header #title span{
+			display: inline-block;
+			position: absolute;
+			left: 13px;
+			top: 10px;
+			width: 12px;
+			height: 18px;
+			background-image: url(../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav" id="header">
+	<a id="title" class="aui-pull-left aui-btn" tapmode onclick="closeWin()">
+		 <span></span>
+		</a>
+    <div class="aui-title">
+    		<p>等级标准</p>
+    		<p class="level-pic"><img src="../../image/harvest_grade_standard_topIcon.png" alt=""></p>
+    </div>
+</header>
+<section class="aui-content list-tops-fixed" id="levelStandard">
+</section>
+<script type="text/javascript" src="../../lib/harvest/harvest_level.js?12211c36ef2c4883f651"></script></body>
+</html>

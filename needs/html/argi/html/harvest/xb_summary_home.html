@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+    <title>title</title>
+    <link href="../../css/aui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/aui-theme-style1.css">
+    <style>
+        #search input::-webkit-input-placeholder {
+            color: #a7d533!important
+        }
+
+        .searchbar-input-style {
+            position: relative;
+            border: solid 1px #a7d533;
+            height: 34px;
+            border-radius: 40px;
+            background-color: transparent;
+        }
+
+        #search-input {
+            border: none;
+            height: 34px;
+            background-color: transparent;
+        }
+
+        .aui-searchbar-input input {
+            width: 100%;
+            text-align: center;
+            color: #a7d533
+        }
+
+        .searchbar-input-style .aui-iconfont {
+            color: #a7d533!important
+        }
+
+        .aui-radio:checked,
+        .aui-radio.aui-checked,
+        .aui-checkbox:checked,
+        .aui-checkbox.aui-checked {
+            background-color: #ff8c13;
+            border: solid 1px #ff8c13;
+        }
+
+        .i-show {
+            display: block;
+        }
+
+        .i-hide {
+            display: none;
+        }
+        header #title span{
+			display: inline-block;
+			position: absolute;
+			left: 13px;
+			top:13px;
+			width: 12px;
+			height: 18px;
+			background-image: url(../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+			
+    </style>
+</head>
+
+<body style="background-color:#f2f2f2">
+    
+    <header class="aui-bar aui-bar-nav" id="header" style="padding-top:20px;background-color: #00c558">
+        <a id="title" class="aui-pull-left aui-btn" tapmode onclick="closeWin()">
+            <span></span>
+        </a>
+        <div class="aui-title">总共收了多少</div>
+        <div class="aui-searchbar" id="search" style="background-color:#f2f2f2">
+            
+            <div class="aui-searchbar-input searchbar-input-style" style="text-align:center">
+                
+                <i class="aui-iconfont aui-icon-search" id="i-search" style="position:absolute;left:10px;top:3px"></i>
+                <form action="javascript:search();">
+                    <input type="search" placeholder="搜索" id="search-input">
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <footer class="aui-bar aui-bar-tab aui-margin-t-15 aui-active" style="border-top:solid 1px #e47833" id="footer">
+        <div class="aui-bar-tab-item aui-text-white" tapmode style="width: auto;text-align:left;padding-left:0.75rem" id="checkAll">
+            <label style="color:#e47833">
+            <input type="checkbox" id="chk-all" class="aui-checkbox" style="width:1.2rem;height:1.2rem;border-radius:100%;
+            margin-right:25px"><span id="spanChkAll">全选</span>
+          </label>
+        </div>
+        <div class="aui-bar-tab-item aui-text-white" tapmode style="width: auto;background:#e47833" id="reportWrk">报工</div>
+
+    </footer>
+<script type="text/javascript" src="../../lib/harvest/xb_summary_home.js?12211c36ef2c4883f651"></script></body>
+
+</html>

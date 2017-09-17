@@ -1,0 +1,43 @@
+header{
+	width:100%;
+	overflow:hidden;
+	background-color:#60bc56;
+	font-size:0.37rem;
+	color:#fff;
+	position:relative;
+	padding-top:26px;
+	box-sizing:border-box;
+}
+.left,.title,.right{
+	float:left;
+	height:0.8rem;
+	line-height:0.8rem;
+	text-align:center;
+}
+.left span{
+	display:block;
+	width:12px;
+	height:16px;
+	background:url("../image/business_img/back.png") no-repeat;
+	background-size:100% 100%;
+}
+.left {
+	width: 15%;
+	position:absolute;
+	left:0;
+	padding:0.2rem;
+	box-sizing:border-box;
+}
+.title {
+	width: 100%;
+}
+.right {
+	width: 20%;
+	position:absolute;
+	right:0;
+	color:#fff;
+}
+
+
+
+

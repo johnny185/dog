@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <script type="text/javascript" src="../script/rem-750.js"></script>
+    <style>
+    	html,body{
+    		background:#f2f2f2;
+    		width:100%;
+    		padding-top:0.9rem;
+    	}
+    	header{
+			width: 100%;
+			height:0.9rem;
+			position:fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 99;
+		}
+		header .title{
+			position: relative;
+			width: 100%;
+			height: 0.9rem;
+			line-height: 0.9rem;
+			background: #00c558;
+			text-align: center;font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #E9F2EB; 
+		}
+		header .title span{
+			display: inline-block;
+			position: absolute;
+			left: 13px;
+			bottom: 14px;
+			width: 10px;
+			height: 18px;
+			background-image: url(../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		#content{
+			position: relative;
+			width:100%;
+		}
+		#content .emptyBcImg{
+			width:4.18rem;
+			height:2.81rem;
+			margin:0 auto;
+			margin-top:2.95rem;
+			background-image: url(../image/emptyPageIcon.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		#content p{
+			width:100%;
+			height:0.35rem;
+			line-height:0.35rem;
+			margin-top:1.15rem;
+			text-align: center;
+			font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #999999;
+		}
+		
+    </style>
+</head>
+<body>
+	<header>
+		<div class="title"><span onclick="back()"></span>种植工单</div>
+	</header>
+	<div id="content">
+		<div class="emptyBcImg"></div>
+		<p>亲，还没有新的内容哦~</p>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+	//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+</script>
+</html>

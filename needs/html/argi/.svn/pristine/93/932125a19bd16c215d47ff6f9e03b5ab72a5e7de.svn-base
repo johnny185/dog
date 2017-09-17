@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/tel.css" />
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+    <style>
+    	.mybutton{
+    	background-color:#40ACF6;
+    	color: #FFFFFF;
+    	width: 70px;
+    	height:32px;
+    	border:0px;
+    	outline:none;
+    	font-size:14px;
+    	}
+    	
+    	 .lists  {
+    	 text-align:right;
+    	 background-color: #FFFFFF; 
+    	 font-size:10px;    
+    	    
+    	 }
+            .lists > h2 {
+            	float:left;
+            	vertical-align: "center";
+            	line-height:32px;
+            }
+     .autoNum {
+            	display:inline-block;
+            	width: 16px;
+            	height:16px;
+            	line-height:16px;
+            	border-radius: 16px;
+            	background-color:red;
+            	color:#fff;
+            	font-size:.74564em;
+            	text-align:center;
+            	
+            }
+            
+            #toast
+           {   
+			position: fixed;   
+			top: 200px;   
+			left: 50%;   
+			width: 200px;   
+			margin-left: -100px;   
+			border: 1px solid #666;   
+			background-color: #B1BCCF;   
+			padding: 10px 0 ;   
+			text-align:center;   
+			opacity: .9;  
+			radius:18px;
+			  
+			-webkit-transition: opacity 0.5s ease-out ;
+			-moz-transition: opacity 0.5s ease-out; 
+			-ms-transition: opacity 0.5s ease-out;  
+			-o-transition: opacity 0.5s ease-out; 
+			transition: opacity 0.5s ease-out;   
+			 
+			-webkit-transition: opacity 0.5s ease-out; /* Saf3.2+, Chrome */  
+			-moz-transition: opacity 0.5s ease-out; /* FF4+ */  
+			-ms-transition: opacity 0.5s ease-out; /* IE10? */  
+			-o-transition: opacity 0.5s ease-out; /* Opera 10.5+ */  
+			transition: opacity 0.5s ease-out;   
+           }
+          /* #punchCard_btn{
+           margin-top:20px;
+           }*/
+           .li{height:50px; line-height:50px;}
+            h2{font-weight:normal;}	
+    	    
+    </style>
+</head>
+<body>
+	<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4 id="harvestTitle">田间管理</h4>
+				</div>
+				<a href="javascript:void(0);" onclick="back();">
+					<span class = "banner-back-btn banner-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+				</a>
+			</div>
+	</div> 
+    <div id="main" style="margin-top: 52px;">
+        <ul >
+            <li><a tapmode=""  class="lists"><h2 style="color: #f00;">提示：签到成功后，您的位置将会被记录监控</h2></a></li>
+            <li><a tapmode=""  class="lists"><h2>上下班打卡</h2><button class="mybutton"  onclick="punchCard(this)" type="button" id ="punchCard"></button></a></li>
+            <li><a tapmode="" onclick="TaskTodo(this)" status = "assigned" class="lists"><h2>我的待办任务</h2><span class="autoNum" id="taskNum"></span></a></li>
+            <li><a tapmode="" onclick="TaskTodo(this)" status = "completed" class="lists"><h2>我的农事记录</h2><span class="autoNum" id="taskNub"></span></a></li>
+       </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/kendo.core.min.js"></script>
+<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+
+<script type="text/javascript" src="../script/pds.ajax.js"></script>
+<script type="text/javascript" src="../script/getLoacat.js"></script>
+<script type="text/javascript">
+
+       
+       
+       var userId =null;
+       var map = null; 
+       var ajaxtimer = null;
+       var coordinate = null;
+       var cardType = null;
+       var db = null;
+       
+     apiready = function(){
+         
+	      db =pds.getDb();
+	      userId = $api.getStorage("userId");   
+	      map = pds.getMap();
+		  findPushType(userId);
+	      redsum();
+	      api.getPrefs({
+	           key:'loc'
+           },function(ret,err){
+               if(ret.value){
+                  getlocation();
+                  api.removePrefs({
+	                  key:'loc'
+                  });
+               }
+           });
+	       		
+	};
+    
+     function punchCard(dom){
+            var cardText = document.getElementById("punchCard").innerHTML;//打卡内容
+             //创建本地数据库的方法
+             creatDatabase();  
+             push(dom,cardText);
+     }
+     
+  function back(){
+  	api.closeWin();
+  }
+  
+  function creatDatabase(){
+        db.openDatabase({
+		    name: 'pointData',
+		    path:'fs://pointData.db'
+		}, function(ret, err){        
+		    if( ret.status ){
+		        //如果数据库创建成功【就会创建数据表
+	            db.executeSql({
+				    name: 'pointData',
+				    sql: 'CREATE TABLE Point(Id_P int, userId varchar(255), logTime varchar(255), longitude varchar(255), latitude varchar(255),type varchar(255))'    
+				}, function(ret, err){               
+
+				});
+		    }else{
+		     
+		    }
+		});
+  }
+  
+
+  function push(dom,cardText){
+      if (cardText=="签到"){
+	        api.setPrefs({ key:'datakey',value:[]});
+	        cardType = "1"; 
+	        pds.getLocat();
+	        //定时器器
+	        ajaxtimer = pds.setInterval();
+	        api.alert({msg:"签到成功"});
+	  }else if(cardText=="签退"){
+	         cardType = "2"; 
+	         map.stopLocation();
+	         window.clearInterval(ajaxtimer);
+	         api.alert({msg:"签退成功"});
+	  }
+					 
+	  var myDate = new Date();                    
+	  var myDatestring = myDate.getFullYear()+"-"+(myDate.getMonth()*1+1)+"-"+myDate.getDate()+" "+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds(); 
+      var userId = $api.getStorage("userId");
+      var pushdata = {'userId':userId,
+      				   'time':myDatestring,
+      				   'type':cardType,
+      				   'SignDetailsData':{'signinType':cardType,
+      				                      'longitude':'123',//ret.lon,
+      				                      'latitude':'123',//ret.lat,
+      				                      'signDate':myDatestring
+      				                     }
+      			     };
+       var data = kendo.stringify(pushdata);
+	   pds.ajaxSubmit({
+			 url:"app/farmland/recordtime",
+			 data:{'data':data},
+			 success:function(e){
+			    //dom.setAttribute("flag","1");
+			   if(e){
+			      findPushType(userId);
+			   }
+			},
+			error:function(e){
+			    dom.setAttribute("flag","1");
+				alert("服务器异常，请联系管理员!!!!");
+			}
+		});
+}
+          
+         var findPushType = function(userId){
+             
+              pds.ajaxSubmit({
+				 url:"app/farmland/find/pushtype",
+				 data:{'userId':userId},
+				 success:function(e){
+				   if(e){
+				      if(e.data==1){
+				          document.getElementById("punchCard").innerHTML="签退";
+				      }else{
+				          document.getElementById("punchCard").innerHTML="签到";
+				      }
+				   
+				   } 
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!!!");
+				}
+			});
+         }
+        
+        
+      //跳转到任务列表页面
+	   function TaskTodo(dom){
+	   
+	   var data = dom.getAttribute("status");
+	      map.stopLocation(); 
+          api.openWin({
+	          name: 'win_field_taskList',
+	          url: 'win_field_taskList.html',
+	          pageParam:{status:data},
+	          slidBackEnabled:false,
+	          reload:true,
+    		  animation:{
+	             type:"movein",                //动画类型（详见动画类型常量）
+	             subType:"from_right",       //动画子类型（详见动画子类型常量）
+	             duration:300                //动画过渡时间，默认300毫秒
+	          }
+          });
+        }
+        
+      //页面跳转过来执行此方法  
+      getlocation = function(){
+          pds.ajaxSubmit({
+				 url:"app/farmland/find/pushtype",
+				 data:{'userId':userId},
+				 success:function(e){
+				   if(e){
+				      if(e.data==1){
+				        pds.getLocat();
+				        pds.setInterval();
+				      }
+				   } 
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!!!");
+				}
+			});
+      }
+
+
+	
+	function redsum(){
+	      //小红点
+	      var data =  $.extend({userId:userId},{status:"assigned"});   
+          pds.ajaxSubmit({
+				url:"app/farmland/count",
+				data:data,
+				success:function(e){
+				    var snmdata = e.data;
+		            document.getElementById("taskNum").innerHTML=snmdata;	
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	        var data =  $.extend({userId:userId},{status:"completed"});
+	        pds.ajaxSubmit({
+				url:"app/farmland/count",
+				data:data,
+				success:function(e){
+				  var sbmdata = e.data;
+				  document.getElementById("taskNub").innerHTML=sbmdata;	
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	}
+
+</script>
+</html>

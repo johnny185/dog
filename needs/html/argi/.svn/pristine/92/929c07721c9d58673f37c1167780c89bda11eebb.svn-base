@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>农事数据采集</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+		<style>
+			.content-inner {
+				background: #ccc;
+			}
+		</style>
+		<script type="text/javascript" src="../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+		<script type="text/javascript" src="../../script/getLoacat.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4 >农事数据采集</h4> </span>
+					<a href="javascript:void(0);" onclick="back()";><span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+					<span class="banner-title right" onclick="addTask(farmId)"> <h4 >新增任务</h4> </span>
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="container sub-container-notop">
+				<div class="full-main">
+					<div class="content-inner" id="list">
+						待办农事记录单
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var farmId;
+			apiready = function() {
+				farmId = api.pageParam.farmId;
+				cropList();
+			}
+			//返回上一级
+			function back() {
+				api.closeWin();
+			}
+
+			function addTask(farmId) {
+				$api.openWin({
+					name : "fieldData",
+					url : "widget://html/farmData/fieldData.html",
+					reload : true,
+					selecteIndex:'2',
+					pageParam : {
+						"farmId" : farmId
+					},
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+//			function cropDataCollect() {
+//				api.openWin({
+//					name : "frm_field_taskListMap",
+//					url : "../frm_field_taskListMap.html",
+//					reload : true,
+//					slidBackEnabled : false,
+//					animation : {
+//						type : "movein", //动画类型（详见动画类型常量）
+//						subType : "from_right", //动画子类型（详见动画子类型常量）
+//						duration : 300 //动画过渡时间，默认300毫秒
+//					}
+//				});
+//			}
+
+			//获取待办农事列表
+			function cropList() {
+				pds.ajaxSubmit({
+					url : "app/farmland/backlogFarmOperation",
+					success : function(res) {
+					
+						var el = $api.byId("list");
+						var data = res.data;
+					
+						for (var i = 0; i < data.length; i++) {
+							var str = '<div class="argi-lists-in" data-latItude="'+data[i].latItude+'" data-longItude="'+data[i].longItude+'" data-landid="'+data[i].landName+'" data-name="'+data[i].farmId+'" data-farmId="'+data[i].farmId+'" data-id="'+ data[i].id+'"onclick="detail(this)"><a href="javascript:void(0);" class="argi-flex"><div class="flex-full"><span>工单类型:</span><span>农事记录表</span></div><div class="argi-flex-2"><span>发起人:</span><span>' + data[i].name + '</span></div><div class="argi-flex-2"><span>下达时间:</span><span>' + data[i].createDate + '</span></div><span class="arrow-a"><img class="sm-button" src="../../image/next-button.png"></span></a></div>'
+							$api.append(el, str);
+							
+						}
+					}
+				})
+			}
+//,longItude,latItude,farmId,landname
+			//点击待办进入农事记录单详情页面
+		function detail(obj) {
+		  var listId=$(obj).attr('data-id');
+		   var listfarmId=$(obj).attr('data-farmId');
+		   var landName=$(obj).attr('data-landid');
+		   var lanId=$(obj).attr('data-name');
+		   var longItude=$(obj).attr('data-longItude');
+		   var latItude=$(obj).attr('data-latItude');
+		   
+		
+		
+		    var data = $.extend({}, {}, {id:listId,lon:longItude,lat:latItude,farmId:listfarmId,landname:landName}); 
+		    
+		  
+		    
+		  
+			$api.openWin({
+				name : 'frm_field_taskListMap',
+				url : "widget://html/frm_field_taskListMap.html",
+				reload : true,
+				pageParam : data,
+				selecteIndex:'2',
+			
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+
+		</script>
+	</body>
+</html>

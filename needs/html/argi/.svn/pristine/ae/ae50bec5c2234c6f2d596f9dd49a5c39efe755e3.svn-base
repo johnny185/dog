@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收工单-详情</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+        <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+
+<body>
+	<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4>详情</h4>
+				</div>
+				<a href="javascript:void(0);" onclick="back();">
+					<span class = "banner-btn banner-back-btn"><input id='return-btn' type='button' name='return' value=''></span>
+				</a>
+				<a href="javascript:void(0);" onclick="toTransportOrder();" id="transportBtn" style="display: none;">
+					<span id = 'morebtn' class = "banner-btn banner-trans-btn"><input type='button' name='more' value='运输单'></span>
+				</a>	
+			</div>
+	</div>
+	<div class="container">
+		<div class="full-main">
+			<div class="sub-container sub-container-notop">
+				<form id="harvestWorkOrderForm">
+					<div id="harvestWorkOrderContainer">
+						
+					</div>	
+				</form>
+			</div>
+			<!-- 接单、退回按钮  -->
+			<div class="short-container2" id="confirmHarvestOrderBtn" style="display:none;">
+				<div class="center main">
+					<input id = "" opt-flag="1" class="btn-style2 clear harvestOrderBtn" type="button" value="接单">
+					<input id = "" opt-flag="2" class="btn-style5 clear harvestOrderBtn" type="button" value="退回">
+				</div>
+			</div>
+			<!-- 提交按钮  -->
+			<div class="short-container clear" id="submitHarvestOrderBtn" style="display:none;">
+				<div class="main">
+					<div class="center">
+						<input id = "submitBtn" class="btn-style2 clear"  type="button" value="提交" >
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../../../script/common/availdate-v1.0.2.js"></script>
+<script id="harvestWorkOrderTmp" type="text/x-dot-template">
+	<div 
+			{{? it.orderStatus == "CONFIRMING"}}
+				style="display:none;"
+			{{? }}
+			class="detailcontainer dc-color1" 
+			onClick="toHarvestRecordList({{=it.id}},'{{=it.orderStatus}}')" id="harvestRecordCountMode">
+				<h3>单据采收总量(头)</h3>
+				<h1>{{=it.farmQuantity}}</h1>
+				<br>
+				<h3>地块累计采收量(头)</h3>
+				<h2>{{=it.landQuantity}}</h2>
+	</div>
+
+	<div class="sub-title sub-title2">
+		<h4>基本信息</h4>
+	</div>
+		<div class="">
+			<table class="table-detail-1">
+				<tr><th>地块名称:</th><td>{{=it.landName}}</td></tr>
+				<tr><th>品名:</th><td>{{=it.catalogName}}</td></tr> 
+				<tr><th>品种:</th><td>{{=it.categoryName}}</td></tr> 
+				<tr><th>茬口:</th><td>{{=it.cropRotationName}}</td></tr> 
+				<tr><th>要求开始时间:</th><td>{{=it.planStartDateStr}}</td></tr>
+				<tr><th>计划采摘数量:</th><td>{{=it.realQuantity}}</td></tr> 
+				<tr><th>计划人数:</th><td>{{=it.realPersons}}</td></tr>
+			</table>
+		</div>
+	<div class="sub-title sub-title2">
+		<h4>执行对象</h4>
+	</div>
+	<div class="">
+		<table class="table-detail-1"> 
+			<tr>
+				<th >执行部门:</th>
+				<td >
+					{{=it.executeDeptName}}
+				</td>
+			</tr>
+			<tr>
+				<th>执行人:</th>
+				<td>
+					{{=it.executorName}}
+				</td>
+			</tr> 
+		</table>
+	</div>
+	<div id = "d2-feedback" 
+		{{? it.orderStatus == "CONFIRMING"}}
+			style ="display: none;"
+		{{?}}
+	>
+		<div class="sub-title sub-title2">
+			<h4>工单反馈</h4>
+		</div>
+			<div class="">
+				<input type="hidden"  class="harvestWorkOrderData" name="id" value="{{=it.id}}"/>
+				<table class="table-detail-1"> 
+					<tr>
+						<th>实际开始时间:</th>
+						<td>
+							<input type="date" 
+								{{? it.orderStatus != "CONFIRMED"}}
+									style ="display: none;"
+								{{?}}
+								name="realStartDate" id="realStartDate" class="harvestOrderInput select-block select-1 harvestWorkOrderData" value="{{=it.realStartDate}}" data-rule="*" data-nullmsg="实际开始时间不能为空" data-errmsg="" data-sucmsg=""/>
+							<span 
+								class="harvestOrderSpan"
+								{{? it.orderStatus == "CONFIRMING"  || it.orderStatus == "CONFIRMED"}}
+									style ="display: none;"
+								{{?}}
+							>{{=it.realStartDate}}</span>
+						</td>
+					</tr>
+					<tr>
+						<th>实际结束时间:</th>
+						<td>
+							<input type="date" 
+								{{? it.orderStatus != "CONFIRMED"}}
+									style ="display: none;"
+								{{?}}
+								name="realEndDate" id="realEndDate" class="harvestOrderInput select-block select-1 harvestWorkOrderData" value="{{=it.realEndDate}}" data-rule="*" data-nullmsg="实际结束时间不能为空" data-errmsg="" data-sucmsg=""/>
+							<span class="harvestOrderSpan"
+								{{? it.orderStatus == "CONFIRMING"  || it.orderStatus == "CONFIRMED"}}
+									style ="display: none;"
+								{{?}}
+							>{{=it.realEndDate}}</span>
+						</td>
+					</tr> 
+				</table>
+			</div>
+		<br>	
+	</div>
+</script>	
+<script type="text/javascript">
+var userId  = null;
+var orderId = null;//工单id
+var orderStatus = null;//工单状态
+
+apiready = function(){
+	userId = $api.getStorage("userId");
+	orderId = api.pageParam.orderId;
+	orderStatus = api.pageParam.orderStatus;
+	
+	/* 加载工单详情  */
+	getHarvestWorkOrderDetails(userId,orderId);
+	
+	/* 采收工单提交表单校验   */
+	ac.form({
+        area: "#harvestWorkOrderForm",
+        btn: "#submitBtn",
+        endSuccess: function (e) {
+        	var startDateStr = $("#realStartDate").val();
+        	var endDateStr = $("#realEndDate").val();
+        	
+        	if(!dateCompare(createDate,startDateStr)){
+        		api.alert({msg:"实际开始时间不能早于工单下达时间!"});
+	        	return;
+        	}
+        	if(!dateCompare(startDateStr,endDateStr)){
+        		api.alert({msg:"实际结束时间不能早于实际开始时间!"});
+	        	return;
+        	}
+        	$("#submitBtn").attr("disabled","true");
+			saveHarvestWorkOrder();
+        }
+    });	
+}
+
+/* 时间比较   */
+function dateCompare(startDate,endDate){   
+	// 去掉时间
+	if(startDate.indexOf(" ")>-1){
+		startDate = startDate.substring(0,startDate.indexOf(" "));
+	}
+	if(endDate.indexOf(" ")>-1){
+		endDate = endDate.substring(0,endDate.indexOf(" "));
+	}
+  
+	var arr=startDate.split("-");    
+	var starttime=new Date(arr[0],arr[1],arr[2]);    
+	var starttimes=starttime.getTime();   
+	  
+	var arrs=endDate.split("-");    
+	var lktime=new Date(arrs[0],arrs[1],arrs[2]);    
+	var lktimes=lktime.getTime();   
+	  
+
+	if(starttimes>lktimes){   
+		return false;   
+	}
+	return true;   
+}  	
+
+/* 提交工单  */
+function saveHarvestWorkOrder(){
+	var params = {"userId":userId};
+	$(".harvestWorkOrderData[name]").each(function(){
+		var attrName = $(this).attr("name");
+		params[attrName] = $(this).val();
+	});
+	params["validateFlag"] = "1";
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/saveHarvestWorkOrder",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			if(e.status == "error"){
+                api.confirm({
+				    title: '确认提交吗?',
+				    msg: e.message,
+				    buttons: ['确定', '取消']
+				}, function(ret, err){
+				    if( ret ){
+				        if(ret.buttonIndex*1 == 1){
+				        	//提交
+				        	confirmSubmit(params);
+				        }else{
+				        	$("#submitBtn").removeAttr("disabled");
+				        }
+				    }else{
+				    	 $("#submitBtn").removeAttr("disabled");
+				    }
+				});
+			}else{
+				back();
+			}
+		},
+		error:function(e){
+			$("#submitBtn").removeAttr("disabled");
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+function confirmSubmit(params){
+	params["validateFlag"] = "0";
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/saveHarvestWorkOrder",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			$("#submitBtn").removeAttr("disabled");
+			back();
+		},
+		error:function(e){
+			$("#submitBtn").removeAttr("disabled");
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+/* 跳转至记工单列表 */
+function toHarvestRecordList(harvestWorkOrderId,orderStatus){
+	api.openWin({
+        name: "harvest_record_list",
+        url:  "./harvest_record_list.html",
+        pageParam: {"orderId":harvestWorkOrderId,"orderStatus":orderStatus},
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+}
+
+/* 跳转至运输单页面  */
+function toTransportOrder(){
+	api.openWin({
+        name: "harvest_workorder_transport_order",
+        url:  "./harvest_workorder_transport_order.html",
+        pageParam: {"orderId":orderId,"orderStatus":orderStatus},
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+}
+var createDate ;//下单时间
+/* 查询工单详情  */
+function getHarvestWorkOrderDetails(loginId,orderId){
+	var params = {"userId":loginId,"id":orderId};
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/getHarvestWorkOrderDetails",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var harvestWorkOrder = e.data;
+			orderId = harvestWorkOrder["id"];//工单id
+			orderStatus = harvestWorkOrder["orderStatus"];//工单状态
+			var isTransportOrderFlag = harvestWorkOrder["isTransportOrderFlag"]*1;
+			createDate = harvestWorkOrder["createDate"];
+
+			if(orderStatus=="CONFIRMED" && isTransportOrderFlag == 1){
+				$("#transportBtn").show();
+			}else{			
+				$("#transportBtn").hide();
+			}
+			
+			if(orderStatus == "CONFIRMING"){
+				$("#confirmHarvestOrderBtn").show();
+				$("#submitHarvestOrderBtn").hide();
+			}else if(orderStatus == "CONFIRMED"){
+				$("#confirmHarvestOrderBtn").hide();
+				$("#submitHarvestOrderBtn").show();
+			}else{
+				$("#confirmHarvestOrderBtn").hide();
+				$("#submitHarvestOrderBtn").hide();
+			}
+			var interText = doT.template($("#harvestWorkOrderTmp").text());
+			$("#harvestWorkOrderContainer").html(interText(harvestWorkOrder));
+		},
+		error:function(e){
+		
+		}
+	});
+}
+
+/* 接单、退回操作  */
+function updateHarvestWorkOrderStatus(optType,userId,orderId,successCallback,errorCallback){
+	var params = {"userId":userId,"id":orderId,"flag":optType};
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/updateHarvestWorkOrderStatus",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			if(successCallback){
+				successCallback.call(null,e.data);
+			}
+		},
+		error:function(e){
+			if(errorCallback){
+				errorCallback.call(null,e.data);
+			}
+		}
+	});
+}
+		
+/* 回退事件  */
+function back(){
+	 api.closeWin();
+	  //刷新数据
+	  api.execScript({
+	  	  name:'harvest_index_frm',
+	      frameName:'harvest_workorder_list',
+	      script: 'getDataList('+userId+',"'+orderStatus+'",1);'
+	  });
+}
+
+/* 采收工单接单、退回按钮  */
+$(".harvestOrderBtn").off("click");
+$(".harvestOrderBtn").on("click",function(){
+	var that = $(this);
+	var optType = that.attr("opt-flag")*1;
+	$(".harvestOrderBtn").attr("disabled","disabled");
+	updateHarvestWorkOrderStatus(optType,userId,orderId,function(){
+		if(optType == 1){
+			//接单
+			$("#harvestRecordCountMode").show();
+			$("#confirmHarvestOrderBtn").hide(); 
+			$("#submitHarvestOrderBtn").show();
+			$("#d2-feedback").show();
+			$(".harvestOrderInput").show();
+			$(".harvestOrderSpan").hide();			
+		}else{
+			//退回
+			back();
+		}
+	},function(){
+		$(".harvestOrderBtn").removeAttr("disabled");
+		api.alert({msg:"服务器错误，请联系管理员!"});
+	});
+});
+</script>
+</body>
+</html>

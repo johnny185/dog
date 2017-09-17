@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>基地詳情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+	</head>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/common/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+	<script type="text/javascript" src="../../script/common/zepto.touchWipe.js"></script>
+	<script type="text/javascript" src="../../script/common/form2js.js"></script>
+	<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+	<body>
+		<div>
+			<div id="main">
+				<div id="wrap">
+					<div id="header">
+						<div class="btn back" tapmode="topbar-active" onclick="back();">
+							<i class="i-back"></i>
+							<span class="title">返回 </span>
+						</div>
+					</div>
+					<div id="content">
+						<div data-template="li-template" data-bind="source:resources"></div>
+					</div>
+				</div>
+				<div>
+					<span> 基地查看 </span>
+				</div>
+			</div>
+			<div id="detail">
+				基地名称
+				<input id="farmName" name="farmName" type="text" maxlength="20"/>
+				<br />
+				基地面积
+				<input id="farmArea" name="farmArea" type="text" maxlength="12"/>
+				<br />
+				负责人
+				<input id="farmUserName" name="farmUserName" type="text" maxlength="20"/>
+				<br />
+				手机号
+				<input id="farmMobile" name="farmMobile" type="text" maxlength="12"/>
+				<br />
+				<button onclick="address();">
+					基地地址
+				</button>
+				<input id="addressName" name="" type="text" maxlength="20"/>
+				<input id="farmProvinceCode" name="farmProvinceCode"  type="hidden" maxlength="20"/>
+				<input id="farmCityCode" name="farmCityCode" type="hidden" maxlength="20"/>
+				<input id="farmCountyCode" name="farmCountyCode" type="hidden" maxlength="20"/>
+				基地详细地址
+				<input id="farmAddress" name="farmAddress" type="text" maxlength="20"/>
+				<br />
+				流转年限
+				<input id="limitYears" name="limitYears" type="text" maxlength="5"/>
+				<br />
+				冷库面积
+				<input id="farmStorageArea" name="farmStorageArea" type="text" maxlength="12"/>
+				<br />
+				基地简介
+				<input id="farmRemark" name="farmRemark" type="text" maxlength="4000"/>
+				<br />
+			</div>
+			<div>
+				<input id="submitId" type="button" value="修改并保存" style="color: green" onclick="updateFarmInfo();"/>
+			</div>
+			<a onclick="goLand();">地块详情</a>
+			<a onclick="goCropProtection();">植保详情</a>
+		</div>
+		<div id="test">
+			test
+		</div>
+	</body>
+	<script type="text/javascript">
+		var pageParam = null;
+		apiready = function() {
+			pageParam = api.pageParam;
+			// 根据基地ID获取基地信息
+			pds.ajaxSubmit({
+				url : "app/farm/getFarmData",
+				data : {
+					"farmId" : pageParam.farmId
+				}, //
+				success : function(e) {
+					if (e.status == 'error') {
+						alert(e.message);
+					} else {
+						var farm = e.data;
+						$('#farmName').val(farm.farmName);
+						$('#farmArea').val(farm.farmArea);
+						$('#farmUserName').val(farm.farmUserName);
+						$('#farmMobile').val(farm.farmMobile);
+						$('#farmProvinceCode').val(farm.farmProvinceCode);
+						$('#farmCityCode').val(farm.farmCityCode);
+						$('#farmCountyCode').val(farm.farmCountyCode);
+						$('#farmAddress').val(farm.farmAddress);
+						$('#limitYears').val(farm.limitYears);
+						$('#farmStorageArea').val(farm.farmStorageArea);
+						$('#farmRemark').val(farm.farmStorageArea);
+						farmOfficeId = farm.farmOfficeId;
+					}
+				},
+				error : function(e) {
+					alert({
+						msg : "服务器错误，请联系管理员!"
+					});
+				}
+			});
+		}
+		function updateFarmInfo() {
+			// 提交按钮失效,避免重复提交
+			$("#submitId").attr("disabled", "disabled");
+			var farm = {};
+			farm.farmName = $('#farmName').val();
+			farm.farmArea = $('#farmArea').val();
+			farm.farmUserName = $('#farmUserName').val();
+			farm.farmMobile = $('#farmMobile').val();
+			farm.farmProvinceCode = $('#farmProvinceCode').val();
+			farm.farmCityCode = $('#farmCityCode').val();
+			farm.farmCountyCode = $('#farmCountyCode').val();
+			farm.farmAddress = $('#farmAddress').val();
+			farm.limitYears = $('#limitYears').val();
+			farm.farmStorageArea = $('#farmStorageArea').val();
+			farm.farmRemark = $('#farmRemark').val();
+			farm.id = pageParam.farmId;
+			farm.farmOfficeId = pageParam.farmOfficeId;
+			pds.ajaxSubmit({
+				url : "app/farm/saveFarmData",
+				data : {
+					"data" : JSON.stringify(farm)
+				},
+				success : function(e) {
+					// 让提交按钮恢复
+					$('#submitId').removeAttr("disabled");
+					if (e.status == 'error') {
+						alert(e.message);
+					} else {
+						alert("修改成功!");
+					}
+				},
+				error : function(e) {
+					alert("服务器错误，请联系管理员!");
+					// 让提交按钮恢复
+					$('#submitId').removeAttr("disabled");
+				}
+			});
+		}
+
+		// 进入地块详情
+		function goLand() {
+			api.openWin({
+				name : 'LandManagement',
+				url : '../land/LandManagement.html',
+				pageParam : {
+					"farmId" : pageParam.farmId
+				}
+			});
+		}
+
+		// 进入植保详情
+		function goCropProtection() {
+			api.openWin({
+				name : 'crop_message',
+				url : '../mysetting/mysettings/crop/crop_message.html',
+				pageParam : {
+					"farmId" : pageParam.farmId
+				}
+			});
+		}
+
+		//返回
+		function back() {
+			api.closeWin({
+			});
+			// 执行win_home窗口里的exec()方法
+			api.execScript({
+				name : pageParam.sourceName,
+				script : "exec('farm_add');"
+			});
+		}
+
+		//跳转到省市区县选择页面
+		function address() {
+			api.openWin({
+				name : 'adress_province',
+				url : '../mysetting/mysettings/address/address_province.html',
+				reload : true,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				},
+				// name指定的是回跳的窗口名，fun指定的是回调用的方法名
+				pageParam : {
+					"name" : "farm_detail",
+					"fun" : "getAddressCode"
+				}
+			});
+		}
+
+		// 获取选择省市的code码
+		function getAddressCode(addressName, proCode, cityCode, countryCode) {
+			$("#addressName").val(addressName);
+			$("#farmProvinceCode").val(proCode);
+			$("#farmCityCode").val(cityCode);
+			$("#farmCountyCode").val(countryCode);
+		}
+
+		// 获得省级数据列表
+		function getProviceList(provinceId) {
+			api.ajax({
+				url : 'http://192.168.10.1:8000/argi/app/farm/findProAreaList?farmId=1998',
+				method : 'get'
+			}, function(ret, err) {
+				if (ret) {
+					var proviceList = ret.data;
+					var str = "";
+					alert(proviceList[0].sort);
+					$.each(proviceList, function(index, area) {
+						str += "<option value=" + area.sort + ">" + area.sort + "</option>";
+					});
+					var result = "省：<select id='province' value=" + provinceId + ">" + str + "</select>";
+					alert(result);
+					$("#area").html(str);
+				} else {
+					api.alert(err);
+				}
+			});
+		}
+
+		// 根据省级ID获取对应市级列表
+		function getCityListByProviceId(provinceId) {
+			api.ajax({
+				url : 'http://192.168.10.1:8000/argi/app/farm/findCityList?farmId=1998',
+				method : 'get'
+			}, function(ret, err) {
+				if (ret) {
+				} else {
+					api.alert(err);
+				}
+			});
+		}
+
+		// 根据市级ID获取对应区县级列表
+		function getCountryListByCityId() {
+			api.ajax({
+				url : 'http://192.168.10.1:8000/argi/app/farm/findCountyList?farmId=1998',
+				method : 'get'
+			}, function(ret, err) {
+				if (ret) {
+				} else {
+					api.alert(err);
+				}
+			});
+		}
+	</script>
+</html>

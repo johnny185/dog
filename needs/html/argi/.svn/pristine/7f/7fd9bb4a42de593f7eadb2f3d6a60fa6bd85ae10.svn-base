@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css"  href="../css/api.css"/>
+    <style>
+    	body{
+    		font-family: "Microsoft YaHei";
+    	}
+    	.lists {
+    		display:inline-block;
+			height: 26px;
+			padding-left:10px;
+			padding-right:10px;
+			font-size: 16px;
+			color: #609EED;
+			text-align: center;
+			line-height: 26px;
+			-webkit-border-radius:26px;
+			-moz-border-radius:26px;
+			border-radius:26px;
+			margin-top:10px;
+			margin-bottom:10px;
+			font-family: "Microsoft YaHei";
+		}
+		.lists h3 {
+			padding: 0;
+			margin:0;
+		}
+		.map-li {
+			background-color: #66BB6A;
+			text-align:right;padding-right:10px;
+		}
+		.back {
+			float:left;
+		    display:inline-block;
+			height: 26px;
+			padding: 0 5px;
+			font-size: 16px;
+			line-height: 26px;
+			-webkit-border-radius:26px;
+			-moz-border-radius:26px;
+			border-radius:26px;
+			margin-top:10px;
+			margin-bottom:10px;
+			font-family: "Microsoft YaHei";
+		
+		}
+		.i-back {
+				display: inline-block;
+				padding: 23px 10px 3px;
+				background-color:#000000;
+				background:  url(../image/ic_global_title_bar_48_back.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			#header {
+				
+				font-size: 18px;
+				color: #fff;
+				
+			}
+		.tablestyle1{
+			background-color: #C8CDD3; 
+			height: 25px; 
+			width:100%;
+		}
+		.tabletitle1{
+			margin: 0px 15px;
+		}
+		.tablelat{
+		    margin-left:15px;
+		}
+    </style>
+</head>
+<body>
+	<div>
+	   <ul >
+            <li class="map-li" >
+            	<span class="btn back" id="header" onclick="closeWin()">
+            		<i class="i-back"></i>
+                 	<span class="title">返回</span>
+                </span>
+               <a tapmode="" class="lists"></a>
+            </li>
+            <li class="tablestyle1 clear" style="">
+	            <table>
+	               <tr>
+	                 <td><span class="tabletitle1 clear">当前位置</span></td>
+	                 <td><span>经：</span></td>
+	                 <td><span id="longitude" class="clear">---</span></td>
+	                 <td><span class="tablelat clear">纬：</span></td>
+	                 <td><span id="asdf" class="clear">---</span></td>
+	               </tr>
+	            </table>
+            </li>
+       </ul>
+	</div>
+</body>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/kendo.core.min.js"></script>
+<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/pds.ajax.js"></script>
+<script type="text/javascript" src="../script/getLoacat.js"></script>
+<script type="text/javascript">
+
+
+
+ function closeWin() {
+	api.closeWin();
+ }
+   //定义全局变量map
+    var map = null;
+    var bMap = null;
+    var taskId = null;
+    var Locatimer = null;
+    var ajaxtimer = null;
+    var pageParam = null;
+    var farmId = null;
+    var landname = null;
+    var userId = null;
+    var db = null;
+    
+  apiready = function(){
+    db = pds.getDb();
+    map = api.require('bMap');
+    userId = $api.getStorage("userId");
+    pageParam = api.pageParam;
+    taskId = pageParam.id;//$api.getStorage("id");
+	farmId = pageParam.farmId;
+	landname = pageParam.landname;
+	bMap = pds.getMap();
+	getlocation();
+	//修改显示坐标信息
+	pointInformation();
+    window.setInterval(pointInformation, 3000);
+	//调用它的open方法
+    map.open({
+	    rect: {//模块的位置及尺寸
+	        x: 0,
+	        y: 68,
+        },
+        zoomLevel: 18,//设置百度地图缩放等级，取值范围：3-18级
+	    showUserLocation: true,//是否在地图上显示用户位置
+	    fixed: true,
+	    center:{
+                lon: pageParam.lon,       //数字类型；打开地图时设置的中心点经度
+                lat: pageParam.lat         //数字类型；打开地图时设置的中心点纬度
+               // lon: 116.3247,       //数字类型；打开地图时设置的中心点经度
+               // lat: 40.0454         //数字类型；打开地图时设置的中心点纬度
+               }            //模块是否随所属 Window 或 Frame 滚动
+    },
+   function(ret){ //ret为JSON类型
+        if(ret.status){
+         //获取数据
+           gettaskDetail(map,pageParam);
+        }
+   }); 
+  //设置右上角的指南针
+   map.setCompass({ position: {x:100, y:100}});
+}
+
+
+    function pointInformation(){
+    
+    var sql = 'SELECT longitude,latitude FROM Point';
+   		db.selectSql({
+		    name:'pointData',
+		    sql: sql
+		}, function(ret, err){
+		    
+		    if(ret.status){
+		        var data = ret.data;  
+		        var longi = data[data.length-1].longitude*1; 
+		        var lati = data[data.length-1].latitude*1;
+		       
+		        document.getElementById("longitude").innerHTML = longi.toFixed(5);
+		        document.getElementById("asdf").innerHTML = lati.toFixed(5);
+		      
+		    } else{
+		       
+		    };
+		    
+		});
+       
+    }
+
+    getlocation = function(){  
+          pds.ajaxSubmit({
+				 url:"app/farmland/find/pushtype",
+				 data:{'userId':userId},
+				 success:function(e){
+				     if(e.data==1){
+	                     pds.getLocat();
+				      }
+	             },
+				error:function(e){
+					alert("服务器异常，请联系管理员!!!");
+				}
+			});
+      }
+
+	 //根据用户id和任务状态加载数据
+	 function gettaskDetail(map,pageParam){
+	      
+	     $.extend(pageParam,{taskId:taskId});
+	        pds.ajaxSubmit({
+				url:"app/farmland/task_list",
+				data:pageParam,
+				success:function(e){
+				    var pointArray = [];
+				    //var point ={};
+					var gloableData = e.data;
+                     
+                      for(var i=0;i<gloableData.length;i++){
+		                var point ={};
+				        point.lat =  gloableData[i].latItude;
+				        point.lon =  gloableData[i].longItude;
+				        point.id =  gloableData[i].id;
+				        pointArray[i] = point;
+				      }
+//				       map.addAnnotations({
+//						    annotations:pointArray,
+//				            draggable: true
+//					   });
+                    map.addAnnotations({
+					    annotations: [{
+					        id: pageParam.taskId, lon:pageParam.lon, lat:pageParam.lat
+					    }],
+					    draggable: false
+					}, function(ret){
+					
+						//获取用户当前坐标	
+					     map.getLocation({
+						    accuracy: '10m',
+						    autoStop: true,
+						    filter: 1
+						}, function(mre, err){
+						    
+						    if(mre.status){
+						    
+								//添加这线任务点到用户坐标    
+									    
+									    
+								//获取两点之间的距离        
+					            map.getDistance({
+									    start: {
+									        lon: pageParam.lon,
+									        lat: pageParam.lat
+									    },
+									    end: {
+									        lon: mre.lon,
+									        lat: mre.lat
+									    }
+							   },function(pre){
+//							         var pageParamdata={}
+//							         pageParamdata.id = taskId;
+//							         pageParamdata.landname = landname;
+//							         pageParamdata.farmId = farmId;
+							         
+									  if(pre.status){
+//									      if( pre.distance<500){
+									            bMap.stopLocation();
+					                            api.openWin({
+										           name: 'fieldData',
+										           url: 'farmData/fieldData.html',
+										           pageParam: {
+											           "id":taskId,
+											           "landName":landname,
+											           "lanId":farmId
+										           },
+						                           reload:true,
+										           animation:{ 
+									                 type:"movein",              //动画类型（详见动画类型常量）
+									                 subType:"from_right",       //动画子类型（详见动画子类型常量）
+									                 duration:300                //动画过渡时间，默认300毫秒
+										      	   }
+										       });
+										       
+//									      }else{
+//									          alert("不在任务点范围内");
+//									      }
+									  }
+								});
+	                          }
+				         });	
+					 });
+		        },
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+	    });
+     }
+
+</script>
+</html>

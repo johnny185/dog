@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>系统使用情况及问题反馈</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    
+ 	<style>
+
+ 		.content{
+ 			font-size:0.28rem;
+ 			color:#817d79;
+ 		}
+ 		span{
+ 			display:inline-block;
+ 		}
+ 		
+		.compent{
+			width: 100%;
+			line-height:0.76rem;
+			border-bottom:1px solid #ddd;
+			font-size:0.26rem;
+		}
+		.compent img{
+			display:inline-block;
+			width: 0.29rem;
+			height:0.24rem;
+			vertical-align: inherit;
+			margin-left:0.1rem;
+		}
+		.tabel{
+			width:100%;
+			overflow: hidden;
+	 		padding:0.18rem;
+	 		box-sizing: border-box;
+		}
+		tr{
+			height:0.6rem;
+		}
+		th{
+			text-align:center;
+			color:#fff;
+			background:#c0d3ec;
+			font-weight:normal;
+		}
+		td{
+			text-align:center;
+			color:#8aabd3;
+			font-size: 0.26rem;
+		}
+		
+		.item{
+	 		width:100%;
+	 		min-height:0.77rem;
+	 		line-height:0.77rem;
+	 		overflow: hidden;
+	 	}
+	 	.item .left{
+	 		width:100%;
+	 		font-size:0.26rem;
+	 		color:#727171;
+	 	}
+		.text_box{
+	 		width:100%;
+	 		height:2.2rem;
+	 		border:1px solid #d5d3d3;
+ 			color:#817d79;
+	 		padding:0.2rem;
+	 		box-sizing: border-box;
+	 		overflow:hidden;
+	 		line-height:0.4rem;
+	 	}
+	 	.btn{
+            width:100%;
+            overflow: hidden;
+            padding:0.2rem;
+	 		box-sizing: border-box;
+	 		position:fixed;
+            bottom: 0;
+            z-index: 19999;
+        }
+	 	.btn button{
+            display:block;
+            width:100%;
+            height:0.77rem;
+            background:#ef8233;
+            color:#fff;
+            font-size:0.3rem;
+            text-align:center;
+            line-height: 0.77rem;
+            border:none;
+            border-radius:0.1rem;
+            
+        }
+	 	
+	 	 /*textarea提示信息字颜色*/		
+		textarea::-webkit-input-placeholder {
+		  color: #d1cdcd;
+		}
+		textarea:-moz-placeholder {
+		   color: #d1cdcd;
+		}
+		textarea:-ms-input-placeholder {
+		   color: #d1cdcd;
+		}
+    </style>
+</head>
+<body>
+
+  		<div class="content" id="context">
+			<div class="build" id="build"></div>
+			<!--公司-->	
+			<div class="compent">
+				<img src="../../../image/che_img/all.png" alt="" />
+				<span>中农普惠金服</span>
+			</div>
+			<div class="tabel">
+				<table  border="1" bordercolor="#ddd" style="border-collapse:collapse;width: 100%;">
+					<tr>
+						<th>统计项</th>
+						<th>截止上月</th>
+						<th>截止当前</th>
+					</tr>
+					<tr>
+						<td>系统中总用户数</td>
+						<td class="last">11</td>
+						<td class="now">12</td>
+					</tr>
+					<tr>
+						<td>用户登录总次数</td>
+						<td class="last">11</td>
+						<td class="now">12</td>
+					</tr>
+					<tr>
+						<td>种植计划总数</td>
+						<td class="last">11</td>
+						<td class="now">12</td>
+					</tr>
+					<tr>
+						<td>有计划田间工单</td>
+						<td class="last">11</td>
+						<td class="now">12</td>
+					</tr>
+					<tr>
+						<td>无计划田间工单</td>
+						<td class="last">11</td>
+						<td class="now">12</td>
+					</tr>
+					<tr>
+						<td>农事记录单</td>
+						<td class="last">11</td>
+						<td class="now">12</td>
+					</tr>
+				
+				</table>
+			
+				<div class="item">
+					<span class="left">系统当前使用情况</span>
+					<textarea  id="recentWork" class=" text_box"placeholder="请描述当前系统使用情况，如登录次数较少或工单较少，询问使用系统是否遇到困难" maxlength="200"  name="text" ></textarea>		
+				</div>
+				<div class="item">
+					<span class="left">希望通过系统解决什么问题？</span>
+					<textarea  id="recentWork" class=" text_box"placeholder="请描述客户对系统的建设意见" maxlength="200"  name="text" ></textarea>		
+				</div>
+			</div><!--tabel-->
+			<div class="btn">
+                  <button  id="saveBtn">保存</button>
+            </div>
+  		</div><!--content-->
+</body>  		
+</html>

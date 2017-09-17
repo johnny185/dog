@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>保密协议</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/login-style.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+    <style>
+    	
+    </style>
+</head>
+<body>
+	    <div class="container">
+	        <div class="full-main">
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>保密协议</h4>
+					</div>
+					<a href="./../login/login.html">
+						<span class = "banner-btn banner-back-btn"></span>
+					</a>
+				</div>
+
+				<div class="sub-container-notop">
+					<div class="center">
+	            		<form class="register-form" id="resendPasswordForm">
+	            			<div class="register-input-container input-b-margin">
+	            			
+	            			</div>
+
+	            			
+	            			
+		            		
+	            		</form>
+	            	</div>
+	            </div>
+				</div>
+	        </div>      
+	    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+</script>
+</html>

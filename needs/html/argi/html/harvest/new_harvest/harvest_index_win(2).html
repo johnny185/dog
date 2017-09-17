@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../../css/api.css">
+	<style type="text/css">
+		html,body{
+			width:100%;
+			height:100%;
+		}
+		header{
+			width: 100%;
+			padding-top: 20px;
+			background: #00c558;
+		}
+		header>div{
+			width: 100%;
+			height:44px;
+			background: #00c558;
+			line-height: 44px;
+			text-align: center;
+			font-size: 18px;font-family: PingFangSC-Regular, sans-serif;color: #E9F2EB;background: #00c558;
+		}
+		#banner{
+			position: relative;
+			width:100%;
+			height:197px;
+		}
+		#banner .wrap{
+			position: relative;
+			width: 100%;
+			height:100%;
+		}
+		#banner .wrap>img{
+			position: relative;
+			width: 100%;
+			height:100%;
+		}
+		#content{
+			position: relative;
+			width:100%;
+			background: #f8f8f8;
+			padding-bottom: 5px; 
+		}
+		#content ul{
+			width:100%;
+			
+		}
+		#content ul li{
+			width:100%;
+			height: 119px;
+			background: #fff;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			/*-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;*/
+			-webkit-box-align: center;
+			box-align: center;
+			align-items: center;
+			/*-webkit-align-items: center; align-items: center;*/
+		}
+		#content ul li:first-of-type{
+			margin-bottom: 5px;
+		}
+		#content ul li>div{
+			position: relative;
+			height: 100%;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+
+		}
+		#content ul li>div{
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;	
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;*/
+			
+			/*-webkit-box-align:flex-start;
+			box-align:flex-start;
+			align-items:flex-start;*/		
+		}
+		#content ul li>div:first-of-type{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;	
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			
+			-webkit-align-items: flex-start; 
+			box-align:flex-start;
+			align-items: flex-start;
+			padding-left:20px;
+		}
+		#content ul li>div:last-of-type{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-pack: end;
+			-webkit-justify-content: flex-end;
+			justify-content: flex-end;
+			
+			-webkit-align-items: center; 
+			-webkit-box-align: center;
+			align-items: center;
+			padding-right:18px;
+		}
+		#content ul li>div:first-of-type>p{
+			font-size: 18px;font-family: PingFangSC-Regular, sans-serif;color: #6D8792; 
+			padding-bottom: 6px;
+		}
+		#content ul li>div:first-of-type>p>span:last-of-type{
+			display: inline-block;
+			vertical-align: center;
+			width:11px;
+			height:11px;
+			margin-left: 11px;
+			background-image: url(../../../image/harvest_in.png);
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		#content ul li>div:first-of-type>p:last-of-type{
+			font-size: 14px;font-family: PingFangSC-Regular, sans-serif;color: #FE9A02; 
+			padding-top: 6px;
+		}
+		#content ul .harvest_record>div:last-of-type>img{
+			position: relative;
+			width:126px;
+			height:58px;
+		}
+		/*#content ul .harvest_transport>div:last-of-type>img{
+			position: relative;
+			width:2.14rem;
+			height:1.33rem;
+			margin-right: 0.24rem;
+		}*/	
+		</style>
+</head>
+<body>
+	<header>
+		<div>采收</div>
+	</header>
+	<div id="banner">
+		<div class="wrap"><img src="../../../image/harvest_banner.png"></div>
+	</div>
+	<div id="content">
+		<ul>
+			<li class="harvest_record">
+				<div onclick="openHarvestDetail()">
+					<p><span>记工单</span><span></span></p>
+					<p>快捷记工，简单易用</p>
+				</div>
+				<div>
+					<img src="../../../image/harvest_record.png">
+				</div>
+			</li>
+			<!--<li class="harvest_transport">
+				<div>
+					<p><span>运输单</span><span></span></p>
+					<p>数据精准，运输无忧</p>
+				</div>
+				<div>
+					<img src="../../../image/harvest_transport.png">
+				</div>
+			</li>-->
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+<script type="text/javascript">
+	apiready=function(){
+		
+	}
+	
+	function openHarvestDetail(){
+//		$api.openWin({
+//			name : "harvest_transport_win",
+//			url : "widget://html/harvest/new_harvest/harvest_transport/harvest_transport_win.html",
+//			reload : true,
+//			selecteIndex : '3',
+//			slidBackEnabled : false,
+//			animation : {
+//				type : "movein", //动画类型（详见动画类型常量）
+//				subType : "from_right", //动画子类型（详见动画子类型常量）
+//				duration : 300 //动画过渡时间，默认300毫秒
+//			}
+//		});
+		
+		api.openFrame({
+	            name: 'harvest_transport_list',
+	            url: './harvest_transport/harvest_transport_win.html',
+	            bounces: false,
+	            rect: {
+	                x: 0,
+	                y: 0,
+	                w: 'auto',
+	                h: 'auto'
+	            }
+	        })
+	}
+</script>
+</html>

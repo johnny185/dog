@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>登录</title>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/login-style.css">
+	    <link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	    <style>
+	    	.login-input-cb-l{
+	    		
+	    	}
+	    </style>
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	            <div class="sub-container-notop">
+	            	<!-- 登陆图片 -->
+	            	<div class="center login-img-container">
+	            		<img class="img-size-profile" src="../../image/hui.png">
+	            	</div>
+	            	<!-- 登陆表格 -->
+	            	<div class="center">
+	            		<form class="login-form" id="loginForm">
+	            			<div class="login-input-container">
+	            				<div class="login-input-ta-container ">
+	            					<div class="input-b-border">
+	            						<img class="login-input-img" id = "un-img" src="../../image/contact.png">
+		            					<input type="textarea" data-rule="*" maxlength="11" data-nullmsg="姓名不能为空" data-errmsg="验证失败" data-sucmsg=""   id = "username" name="username" placeholder="手机号/邮箱/用户名" value="" class="login-input-ta">
+	            					</div>
+		            				
+		            			</div>
+		            			<div class="login-input-ta-container">
+		            				<img class="login-input-img" id = "pw-img" src="../../image/lock.png">
+		            				<input type="password" data-rule="*" data-nullmsg="密码不能为空" data-errmsg="验证失败" data-sucmsg=""  id = "password" name="password" placeholder="密码" value="" class="login-input-ta">
+		            			</div>
+	            			</div>
+	            			       <br><br>
+	            			       <div class="login-input-cb-l">
+	            			       		<img class="login-input-img login-input-img-accept" id = "accept-img" src="../../image/checked.png" value="true">
+	            			       		<span>
+				            			我接受
+				            			</span> 
+				            			<a href="javascript:void(0);" onclick="agreement()" id="sys" name="sys">
+				            				<label class = "login-lable-1" >《慧种地服务保密协议》</label>
+				            			</a>
+				            			
+				            			
+			            		   </div>
+                                     
+                                                              
+                                     
+                                     
+                                     
+							<br><br>
+							<div class="login-btn-container btn_zu">
+	            				
+	            					<input id="loginBtn" class="btn-login btn-login-text" type="button" value="登录">
+	            				
+			            			<!--<span class="login-input-cb">-->
+			            			<br><br>
+			            				<div class="login-input-cb-l" style="text-align:right">
+				            			 <a href="javascript:void(0);" onclick="forget()" ><label  class = "login-lable-1" >忘记密码</label></a> 
+			            				</div>
+			            				<div class="login-input-cb-r">
+			            					<!-- <a href="./../register/register.html"><label class = "login-lable-1">注册</label></a> -->
+			            				</div>
+			            			<!--</span>-->
+			            		</form>
+			            	</div>
+	            </div>
+	        </div>      
+	    </div>
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src= "../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+
+<script type="text/javascript">
+// 注册事件监听
+addAcceptImgClickListener();
+addInputAccountChanageListener();
+
+function acceptConfid(){
+	$("#accept-img").attr("value",true);
+	$("#accept-img").attr("src","../../image/checked.png");
+	swichSubmitButton();
+}
+// 接受按钮 监听事件
+function addAcceptImgClickListener(){
+	$("#accept-img").click(function (){
+		
+		var val = $("#accept-img").attr("value");
+		if(val == "true" || val === true){
+			$(this).attr("src","../../image/unCheck.png");
+			$("#accept-img").attr("value",false);
+		}else{
+			$(this).attr("src","../../image/checked.png");
+			$("#accept-img").attr("value",true);
+		}
+		swichSubmitButton();
+	});
+}
+
+
+
+var pageParams = null;
+var ajpush = null;
+// 是否激活按钮
+function swichSubmitButton(){
+	if($("#username").val().length > 5 && $("#accept-img").attr("value") == "true"){
+		$("#loginBtn").css("background","#66BB6A");
+		$("#loginBtn").removeAttr("disabled");
+	}else{
+		$("#loginBtn").css("background","gray");
+		$("#loginBtn").attr("disabled","true");
+	}
+}
+
+	// 注册chanage事件
+function addInputAccountChanageListener(){
+	$("#username").keyup(function (){
+		swichSubmitButton();
+	})
+}
+apiready=function(){
+	
+	api.setFullScreen({
+	    fullScreen:false
+	});
+	
+	//app消息推送开始
+	ajpush = api.require('ajpush');
+	ajpush.init(function(ret) {
+				
+					if (ret && ret.status ) {
+						//success
+						ajpush.setListener(function(ret) {
+							var id = ret.id;
+							var title = ret.title;
+							var content = ret.content;
+							var extra = ret.extra;
+							
+//							console.log("id=" + id + ",title=" + title + ",content=" + content + ",extra=" + extra);
+						});
+					}
+				});
+//			ajpush.init();
+	api.addEventListener({name:'appintent'}, function(ret,err) {
+//      alert('通知被点击，收到数据11：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+        
+        var extra = JSON.parse(ret.appParam.ajpush.extra);
+        var name = extra.jump2name;
+        var url = extra.jump2url;
+        if(url.indexOf("widget:")<0)url ="widget://"+url;
+       var selecteIndex = extra.jump2menu||'0';
+        $api.openWin({
+	        name: name,
+	        url:  url,
+	        vScrollBarEnabled:false,
+	        slidBackEnabled:false,
+	        selecteIndex:selecteIndex,
+	        animation:{
+	            type:"movein",                //动画类型（详见动画类型常量）
+	            subType:"from_right",       //动画子类型（详见动画子类型常量）
+	            duration:300                //动画过渡时间，默认300毫秒
+	        }
+      });
+        
+    })
+    //因为IOS和andriod监听不同所以我这里不同的作了不同的处理
+    api.addEventListener({name:'noticeclicked'}, function(ret,err) {
+//      alert('通知被点击，收到数据11：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+        
+        var extra = JSON.parse(ret.value.extra);
+        var name = extra.jump2name;
+        var url = extra.jump2url;
+        if(url.indexOf("widget:")<0)url ="widget://"+url;
+        var selecteIndex = extra.jump2menu||'0';
+        $api.openWin({
+	        name: name,
+	        url:  url,
+	        vScrollBarEnabled:false,
+	        slidBackEnabled:false,
+	        selecteIndex:selecteIndex,
+	        animation:{
+	            type:"movein",                //动画类型（详见动画类型常量）
+	            subType:"from_right",       //动画子类型（详见动画子类型常量）
+	            duration:300                //动画过渡时间，默认300毫秒
+	        }
+      });
+        
+    })
+    api.addEventListener({name:'pause'}, function(ret,err) {
+        onPause();//监听应用进入后台，通知jpush暂停事件
+    });
+        
+    api.addEventListener({name:'resume'}, function(ret,err) {
+        onResume();//监听应用恢复到前台，通知jpush恢复事件
+    });
+			
+	//app消息推送结束
+	
+	
+   	$api.fixIos7Bar($(".content"));
+ 	pageParams = api.pageParam;
+	phone = pageParams.username;
+	if(phone!=null){
+		$api.val(document.getElementById("username"), phone);
+		$api.val(document.getElementById("password"), '');
+	}
+	var username =  $api.getStorage('argi_login_username');
+	var password = $api.getStorage('argi_login_password');
+	var userId = $api.getStorage('userId');
+	
+	if(userId!=null){
+		if(username!=null && username.length>0){				
+			$api.val(document.getElementById("username"), username);
+		}
+		if(password!=null && password.length>0){				
+			$("#password").attr("type", "password");
+			$api.val(document.getElementById("password"), password);
+		}
+	}
+
+	ac.form({
+		area:"#loginForm",
+		btn:"#loginBtn",
+		startCheck: function () {   
+        	$("#loginBtn").attr("disabled","true");
+     	},
+     	singleError: function (e, msg) { 
+        	$("#loginBtn").removeAttr("disabled");
+     	},
+		endSuccess: function () {
+			$("#loginBtn").removeAttr("disabled");
+			login();
+		}
+	});
+	
+	 
+          api.addEventListener({
+              name: 'keyback'
+          }, function(ret, err){           		         		
+				api.closeWin();
+          });                  
+           
+        // 初始化   
+        swichSubmitButton();
+}
+
+
+//统计-app恢复
+function onResume(){
+//  jpush.onResume();
+    console.log('JPush onResume');
+}
+
+//统计-app暂停
+function onPause(){
+//  jpush.onPause();
+    console.log('JPush onPause');
+}
+
+
+
+
+/* 清空账号、密码 */
+function cleanAccount(){
+	$api.val(document.getElementById("username"),"");
+	$api.val(document.getElementById("password"),"");
+}
+
+function login(){
+	// 电话号码校验
+	if(!testPhone()){
+		return ;
+	}
+	// 密码校验
+	if(!testPassword()){
+		return ;
+	}
+	
+   var username = $('#username').val();
+   var password = $('#password').val();
+   //ajax访问后端数据
+   pds.ajaxSubmit({
+		url:"app/sys/enter",
+		data:{"username":username,"password":password},
+		success:function(e){
+	        if(e.status == "error"){
+	        	$('#username').val("");
+	    		$('#password').val("");
+	    		$api.clearStorage();	
+                api.alert({msg:e.message});
+                swichSubmitButton();
+		    }else{
+			    var sType = api.systemType;
+			    //if(e.data!=null){
+			    	$api.setStorage("userId",e.data);
+			    	//			} 
+//	        	$api.setStorage("user", e.data);
+		    	$api.setStorage('argi_login_username',username);
+				$api.setStorage('argi_login_password',password);
+	        	
+			    api.openWin({		
+	        		name:'win_home',
+	        		url:'./../win_home.html',
+	        		slidBackEnabled:false,
+	        		reload:true,
+	        		animation:{
+			            type:"movein",                //动画类型（详见动画类型常量）
+			            subType:"from_right",       //动画子类型（详见动画子类型常量）
+			            duration:300                //动画过渡时间，默认300毫秒
+			        }
+		    	});
+		    	bindAlias(username);
+		    }
+		},
+		error:function(e){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+			swichSubmitButton();
+		}
+  });
+
+}
+function bindAlias(username){
+	var ajpush = api.require('ajpush');
+	var param = {
+		alias : username,
+		tags : ['tag1', 'tag2']
+	};
+	ajpush.bindAliasAndTags(param, function(ret) {
+		var statusCode = ret.statusCode;
+	});
+}
+/* 跳转至忘记密码页面   */
+function forget(){
+	var username = document.getElementById("username").value;
+	api.openWin({
+            name: 'resend_password',
+            url: './../register/resend_password.html',
+            pageParam: {"username":username,},
+	        slidBackEnabled:false,
+	        reload:false,
+	        animation:{
+	            type:"movein",                //动画类型（详见动画类型常量）
+	            subType:"from_right",       //动画子类型（详见动画子类型常量）
+	            duration:300                //动画过渡时间，默认300毫秒
+	        }		             
+	});
+}
+
+/*保密协议*/
+function agreement(){
+
+ 
+    var sys = document.getElementById("sys").value;
+   
+   api.openWin({
+            name: 'sys',
+            url: '../register/resend_agreement.html',
+            pageParam: {"sys":sys},
+	        slidBackEnabled:false,
+	        reload:true,
+	        animation:{
+	            type:"movein",                //动画类型（详见动画类型常量）
+	            subType:"from_right",       //动画子类型（详见动画子类型常量）
+	            duration:300                //动画过渡时间，默认300毫秒
+	        }		             
+	});
+
+}
+
+
+$("#username").click(function(){
+	$("#un-img").attr("src","../../image/contact_green.png");
+});
+$("#username").blur(function(){
+	$("#un-img").attr("src","../../image/contact.png");
+});
+$("#password").click(function(){
+	$("#pw-img").attr("src","../../image/lock-green.png");
+});
+$("#password").blur(function(){
+	$("#pw-img").attr("src","../../image/lock.png");
+});
+$("#sys").click(function(){
+	$("#zz-img").attr("src","../../image/chevron_down_round.png");
+});
+$("#sys").blur(function(){
+	$("#zz-img").attr("src","../../image/checked.png");
+});
+
+
+
+ function testPhone(){
+  	var zhi = document.getElementById("username").value;
+	var reg = "^1[3|4|5|8][0-9]\\d{8}$";
+	var re = new RegExp(reg);
+	if (re.test(zhi)) {
+	    return true;
+	}
+	else {
+	    api.alert({title:"账号格式错误",msg:'请输入正确的手机号！'});
+	    return false;
+	}
+ }
+
+ //密码验证
+ function testPassword(){
+		var password= $("#password").val();
+        var reg = /^([a-z0-9\.\@\!\#\$\%\^\&\*\(\)]){6,20}$/i;
+        if (reg.test(password)) {
+            return true;
+        } else {
+       	 	api.alert({title:"密码格式错误",msg:"请输入6-20位数字字符"});
+            return false;
+        }
+    }
+</script>
+	</body>
+</html>
+
+

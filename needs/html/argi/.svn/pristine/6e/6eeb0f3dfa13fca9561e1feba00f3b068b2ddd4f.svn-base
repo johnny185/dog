@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>审阅周报</title>
+    <link rel="stylesheet" href="../../../css/aui.css" />
+    <link rel="stylesheet" href="../../../css/aui_bar.css" />
+    <style>
+    	/*tab切换类*/
+		.aui-tab {
+			height:0.75rem;
+			position: relative;
+		    background-color: #ffffff;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-flex-wrap: nowrap;
+		            flex-wrap: nowrap;
+		    -webkit-align-self: center;
+		            align-self: center;
+		    border-top:1px solid #f6f3f3;
+		    border-bottom:1px solid #f6f3f3;
+		    margin-bottom:0.26rem;
+		}
+		.aui-tab-item {
+		    width: 100%;
+		    height: 0.75rem;
+		    line-height: 0.75rem;
+		    position: relative;
+		    font-size: 0.3rem;
+		    text-align: center;
+		    color: #949996;
+		    margin-left: -1px;
+		    -webkit-box-flex: 1;
+		            box-flex: 1;
+		}
+		.aui-tab-item.aui-active {
+		    color: #00c558;
+		    border-bottom: 2px solid #00c558;
+		}
+			
+    	
+    </style>
+</head>
+<body>
+	    
+	
+     <header class="aui-bar aui-bar-nav" id="aui-header">
+        <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" >审阅周报</div>
+      	
+     </header>
+     
+     <div class="aui-tab" id="tab">
+	    <div class="aui-tab-item aui-active">Item1</div>
+	    <div class="aui-tab-item"><div></div>Item2</div>
+	 </div>
+     
+	    
+	    
+<script type="text/javascript" src="../../../script/api.js"></script> 
+<script type="text/javascript" src="../../../script/rem.js"></script> 
+</body>
+
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header); 
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        api.openFrame({
+            name: 'review_frm',
+            url: 'review_frm.html',
+            bounces: true,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        })
+    };
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+</script>
+</html>

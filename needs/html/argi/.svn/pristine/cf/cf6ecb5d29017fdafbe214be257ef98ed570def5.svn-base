@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户管理</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+    <style>
+    	body{
+    		
+    	}
+    </style>
+</head>
+<body>
+<div class="container">
+ <div class="full-main">
+ 	<!-- 顶部菜单栏 -->
+    <div class = 'banner fixed center'>
+		<span class="banner-title center">
+			<h4 >经营信息</h4>
+		</span>
+		<a href="customers_look.html">
+			<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+		</a>
+	</div>
+	<!-- 内容区域 -->
+	<div class="sub-container-notop">
+		<div class="argi-body">
+			<div class="container-panel">
+			<ul class="infos-list-panel">
+				<li class="infos-panel-line argi-flex">
+					<div>客户来源</div>
+					<div class="argi-flex-2">
+						<input type="text" placeholder="请输入客户来源" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>运营模式</div>
+					<div class="argi-flex-2">
+						<select class="select-form-control" name="" id="">
+							<option value="">自营</option>
+							<option value="">合作</option>
+							<option value="">托管</option>
+						</select>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>主营业务</div>
+					<div class="argi-flex-2">
+						<input type="text" placeholder="请输入主营业务" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>营业额（元）</div>
+					<div class="argi-flex-2">
+						<input type="text" placeholder="金额/元" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>备注</div>
+					<div class="argi-flex-2">
+						<textarea placehoder="选填项" class="argi-textarea-control"></textarea>
+					</div>
+				</li>
+				
+			</ul>
+			</div>
+			<div class="album-group argi-flex">
+				<div class="flex-full center">客户相关信息上传（如营业执照）</div>
+				<div class="argi-flex-1 album-box"><a href="#" class="album-list"><img src="../../../../image/refreshing_image_02.png" alt="" /></a></div>
+				<div class="argi-flex-1 album-box"><a href="#" class="album-list"><img src="../../../../image/farm_map1.jpg" alt="" /></a></div>
+				<div class="argi-flex-1 album-box"><a href="#" class="album-list"><img src="../../../../image/aaa.png" alt="" /></a></div>
+			</div>
+			
+			<div class="foot-btn-group">
+				<div class="argi-flex">
+					<div class="argi-flex-1"><a href="customers_look.html" class="argi-btn argi-btn-big btn-full argi-btn-default">返回</a></div>
+					<div class="argi-flex-1"><button href="#" class="argi-btn argi-btn-big btn-full argi-btn-success">保存</button></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+ </div>
+</div>
+</body>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../script/kendo.core.min.js"></script>
+<script type="text/javascript" src="../../../../script/kendo.data.min.js"></script>
+<script type="text/javascript" src="../../../../script/kendo.binder.min.js"></script>
+<script type="text/javascript" src="../../../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+</script>
+</html>

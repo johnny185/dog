@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>农化列表页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+</head>
+
+<body>
+	
+	<div style="margin-left:15px">
+		<span><h3><b>基础信息<h3></h3></b></h3></span>
+	</div>
+	<ul class="aui-list aui-list-in" id="detail-item"></ul>
+
+	<div style="margin-left:15px">
+		<span><h3><b>记工信息<h3></h3></b></h3></span>
+	</div>
+	<ul class="aui-list aui-list-in" id="work-list">
+
+
+
+	</ul>
+
+<script type="text/javascript" src="../../lib/harvest/xb_list_frm.js?ea1bb08562824f2d486a"></script></body>
+<script type="text/javascript">apiready=function(){xbListFrm.init(),xbListFrm.findHarvestCollectLevel()}</script>
+
+</html>

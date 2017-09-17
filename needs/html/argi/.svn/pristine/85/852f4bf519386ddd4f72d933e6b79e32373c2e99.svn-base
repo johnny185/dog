@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>资源添加</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+		<style>
+			.content {
+				margin-top: 52px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			td {
+				padding: 3% 5%;
+				border: 1px solid #999;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>资源添加</h4> </span>
+					<a href="crop_message.html"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<div class="content">
+					<table>
+						<tr>
+							<td><label> 资源种类选择 </label></td>
+							<td>
+							<select id="reKinds" onchange="addElement()">
+								<option>请选择</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td><label>资源名称 </label></td>
+							<td>
+							<select id="reName" onclick="getReName()">
+								<option>请选择</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td><label> 资源单位 </label></td>
+							<td>
+							<select  id="reUn">
+								<option value="">请选择</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td><label>工序属性 </label></td>
+							<td>
+							<input id="proAttr" type="text" name="" required value=""/>
+							</td>
+						</tr>
+						<tr>
+							<td><label>资源属性 </label></td>
+							<td>
+							<select id="resourceAttr">
+								<option value="">请选择</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td><label>亩数 </label></td>
+							<td>
+							<input id="mu"type="text" name=""required  value=""/>
+							</td>
+						</tr>
+						<tr>
+							<td><label>效率值</label></td>
+							<td>
+							<input id="effValue"type="text" name="" required value=""/>
+						</tr>
+						<tr>
+							<td><label>使用方式 </label></td>
+							<td>
+							<input id="ways"type="text" name=""required  value=""/>
+						</tr>
+						<tr>
+							<td><label>总量 </label></td>
+							<td>
+							<input id="total"type="text" name=""required  value=""/>
+						</tr>
+						<tr>
+							<td><label>金额 </label></td>
+							<td>
+							<input id="price"type="text" name="" required value=""/>
+						</tr>
+					</table>
+					<a href="javascript:void(0)"> <span class = "addSave" >
+						<input id ="" type='button' name='add' onclick="addSave()"  value='保存并新增'>
+					</span> </a>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var landId;
+		apiready = function() {
+			//获取资源种类
+			landId = api.pageParam.landId;
+			reKinds();
+			//资源单位
+			getReUn();
+			//资源属性
+			getResourceAttr();
+			
+			//addElement();
+		};
+		//获取资源种类
+		function reKinds() {
+			pds.ajaxSubmit({
+				url : "app/customer/getSubResourceList",
+				success : function(res) {
+					var el = $api.byId("reKinds");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<option data-id="' + data[i].id + '" value="' + data[i].name + '">' + data[i].name + '</option>';
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		//添加厂家和成分
+		function addElement() {
+//		alert(1)
+			var reCheck = $("#reKinds").find("option:selected");
+			var eqId = reCheck.attr('data-id');
+			if (eqId == 29 || eqId == 46) {
+				//alert(3333)
+				$('#resourceAttr').closest('tr').after('<tr class="dl"><td><label>成分</label></td><td><input id="com" type="text" name=""  value=""/></td></tr><tr class="dl"><td><label>厂家</label></td><td><input id="manu" type="text" name=""  value=""/></tr>');
+			}else{
+				$(".dl").remove();
+				
+			}
+		}
+
+		//资源名称传参数id调用
+		function getReId(id) {
+			pds.ajaxSubmit({
+				url : "app/customer/getSubResourceSon",
+				data : {
+					id : id
+				},
+				success : function(res) {
+					var el = $api.byId("reName");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<option  value="' + data[i].name + '">' + data[i].name + '</option>';
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		//获取资源名称
+		function getReName() {
+			var reCheck = $("#reKinds").find("option:selected");
+			var reCheckA = reCheck.val();
+			if (reCheck && reCheckA != "请选择") {
+				var eqId = reCheck.attr('data-id');
+				//资源种类名称id
+				var len = $('#reName').find('option').length;
+				//资源名称设备option长度34
+				//设备id=15
+				if (eqId == 15 && len == 1) {
+					getReId(eqId)
+				}
+				//种苗id=24
+				if (eqId == 24 && len == 1) {
+					getReId(eqId)
+				}
+				//农药id=29
+				if (eqId == 29 && len == 1) {
+					getReId(eqId);
+				}
+				//灌溉id=34
+				if (eqId == 34 && len == 1) {
+					getReId(eqId)
+				}
+				//工具id=36
+				if (eqId == 36 && len == 1) {
+					getReId(eqId)
+				}
+				//肥料id=46
+				if (eqId == 46 && len == 1) {
+					getReId(eqId)
+				}
+				//其他id=52
+				if (eqId == 52 && len == 1) {
+					getReId(eqId)
+				}
+				//人工id=1832
+				if (eqId == 1832 && len == 1) {
+					getReId(eqId)
+				}
+			}
+		}
+
+		//资源单位获取
+		function getReUn() {
+			pds.ajaxSubmit({
+				url : "common/getResUnitList",
+				success : function(res) {
+					var el = $api.byId("reUn");
+					var data = res.data;
+					$.each(data, function(index, val) {
+						$("#reUn").append("<option value='" + val.name + "'>" + val.name + "</option>");
+					});
+				}
+			})
+		}
+
+		//资源属性的获取
+		function getResourceAttr() {
+			pds.ajaxSubmit({
+				url : "app/customer/getSubType",
+				success : function(res) {
+					var el = $api.byId("resourceAttr");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<option  value="' + data[i].catName + '">' + data[i].catName + '</option>';
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		//保存并新增
+		function addSave() {
+			var $reKinds = $("#reKinds").find("option:selected").val();
+//			alert($reKinds);
+//			alert("landId" + landId)
+			var $reName = $("#reName").find("option:selected").val();
+			var $reUn = $("#reUn").find("option:selected").val();
+			var $proAttr = $('#proAttr').val();
+			var $resourceAttr = $('#resourceAttr').find("option:selected").val();
+			var $mu = $('#mu').val();
+			var $effValue = $('#effValue').val();
+			var $ways = $('#ways').val();
+			var $total = $('#total').val();
+			var $price = $('#price').val();
+			if ($reKinds && $reKinds != '请选择' && $reName && $reName != '请选择' && $reUn && $reUn != '请选择' && $proAttr && $resourceAttr && $resourceAttr != '请选择' && $mu && $effValue && $ways && $total && $price) {
+				var $com = $('#com');
+				var $manu = $('#manu');
+				var data = {};
+				if ($com && $manu) {
+					var $comVal = $com.val();
+					var $manuVal = $manu.val();
+					data.landId = landId;
+					data.resourceType = $reKinds;
+					data.resourceName = $reName;
+					data.resourceUnit = $reUn;
+					data.processAttribute = $proAttr;
+					data.resourceAttribute = $resourceAttr;
+					data.muCount = $mu;
+					data.dosage = $effValue;
+					data.usePattern = $ways;
+					data.element = $comVal;
+					data.company = $manuVal;
+					data.sumMoney = $price;
+					data.gross = $total;
+//					alert(JSON.stringify(data));
+					pds.ajaxSubmit({
+						url : "app/customer/saveResourceList",
+						data : {
+							"data" : JSON.stringify(data)
+						},
+						success : function(e) {
+							alert("保存成功!");
+						}
+					});
+				} else {
+					data.landId = landId;
+					data.resourceType = $reKinds;
+					data.resourceName = $reName;
+					data.resourceUnit = $reUn;
+					data.processAttribute = $proAttr;
+					data.resourceAttribute = $resourceAttr;
+					data.muCount = $mu;
+					data.dosage = $effValue;
+					data.usePattern = $ways;
+					data.sumMoney = $price;
+					data.gross = $total;
+					pds.ajaxSubmit({
+						url : "app/customer/saveResourceList",
+						data : {
+							"data" : JSON.stringify(data)
+						},
+						success : function(e) {
+							alert("保存成功!");
+						}
+					});
+				}
+			}
+		}
+	</script>
+</html>

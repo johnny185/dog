@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>历史记工查看</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link rel="stylesheet" href="../../css/mui.picker.min.css">
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+	<style>
+		#history-content>ul>div {
+			background-color: #236b8e;
+		}
+
+		#head_img {
+			width: 100%;
+			height: 100px;
+			background-image: url('../../image/history_record_check.png');
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			background-position: center;
+		}
+
+		#head_img>div {
+			border: 1px solid #fff;
+			width: 50%;
+			border-radius: 40px;
+			background-color: transparent;
+			margin: 50px auto;
+		}
+		/*.mui-content {
+			height: 0px;
+			margin: 0px;
+			background-color: #efeff4;
+		}
+
+		h5.mui-content-padded {
+			margin-left: 3px;
+			margin-top: 20px !important;
+		}
+
+		h5.mui-content-padded:first-child {
+			margin-top: 12px !important;
+		}*/
+
+		.mui-btn {
+			font-size: 16px;
+			padding: 8px;
+			margin: 3px;
+		}
+
+		.ui-alert {
+			text-align: center;
+			padding: 20px 10px;
+			font-size: 16px;
+			background-color: #3232cd;
+		}
+
+		* {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+		}
+
+		.hiddenInput {
+			display: none;
+		}
+
+		.showInput {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	
+	<div id="input-date">
+		<div id="beginDate">
+			开始时间<input id="dat" name="begin" data-options='{"type":"date"}' class="btn mui-btn mui-btn-block">
+		</div>
+		<div id="beginDate">
+			结束时间<input id="dat" name="end" data-options='{"type":"date"}' class="btn mui-btn mui-btn-block">
+		</div>
+		<div id="btn">
+			<div class="aui-btn aui-btn-warning aui-btn-block aui-btn-outlined" style="width:50%" id="cancle">取消</div>
+			<div class="aui-btn aui-btn-warning aui-btn-block" style="width:50%" id="confirm">确定</div>
+		</div>
+	</div>
+	<div id="history-content">
+	</div>
+	
+
+	<script src="../../script/mui.min.js"></script>
+
+	<script src="../../script/mui.picker.min.js"></script>
+<script type="text/javascript" src="../../lib/harvest/xb_historyView_frm.js?06cd979c7da1bac94214"></script></body>
+<script>!function(t){t.init();var e=t("#result")[0];t(".btn").each(function(i,n){n.addEventListener("tap",function(){var i=this;if(i.picker)i.picker.show(function(t){e.innerText="选择结果: "+t.text,i.picker.dispose(),i.picker=null});else{var n=this.getAttribute("data-options")||"{}",r=JSON.parse(n);this.getAttribute("id"),i.picker=new t.DtPicker(r),i.picker.show(function(t){e.innerText="选择结果: "+t.text,i.picker.dispose(),i.picker=null})}},!1)})}(mui)</script>
+
+</html>

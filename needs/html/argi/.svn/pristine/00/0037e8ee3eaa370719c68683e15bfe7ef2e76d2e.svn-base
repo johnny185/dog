@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	body{
+    		
+    	}
+    </style>
+</head>
+<body>
+	<div>
+    <span>作物数据采集列表</span>
+    <span>农事数据采集列表</span>
+</div>
+<table>
+
+</table>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		 pds.ajaxSubmit({
+        url:'',
+        success:function(result){
+             for(var i=0;i<result.length;i++){
+             str+="<tr><ul><li>工单类型:农事记录表</li><li>发起人: <span>"+result+"</span></li><li>下达时间:<span>"+result+"</span></li></ul></tr>"
+
+             }
+          $('table').append(str)
+
+
+        }})
+	};
+</script>
+</html>

@@ -1,0 +1,205 @@
+html body{
+	background-color: #fafafas;
+	overflow-x:hidden;
+}
+/*派图*/
+.pi-container{
+	margin-top: 22px;
+	position: relative;
+	width: 100%;
+	height: 220px;
+}
+
+/*导航*/
+.nav-container{
+	padding-top: 20px; 
+	position: relative;
+	width: 100%;
+	height: auto;
+	background-color: #FFFS;
+}
+.nav-table{
+	margin: 0px auto;
+	width: 100%;
+}
+.nav-table td{
+	text-align: center;
+	width: 33.33333%;
+}
+.nav-table td img{
+	width: 56px;
+	height: 56px;
+	margin: 10px auto;
+}
+.nav-table span{
+	display: block;
+	text-align: center;
+	font-size: 12px;
+	margin-top:  -8px;
+	color: #999;
+}
+
+/*计划进度*/
+.plan-container{
+	height: auto;
+}
+/*-------标题---------*/
+.plan-title{
+	margin: 15px auto 0px;
+	line-height: 44px;
+	height: 44px;
+}
+.plan-title h1{
+	display: inline-block;
+	float: left;
+	width: 30%;
+	font-size: 18px;
+	text-align: center;
+	color: #999;
+}
+.hr-l{
+	width: 35%;
+	display: inline-block;
+	float: left;
+	color: #999;
+	margin-top: 22px;
+}
+/*-------子标题---------*/
+.plan-sub-title{
+	text-align: center;
+	height: 32px;
+	line-height: 32px;
+	background-color: #66BB6A;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	margin-top: 15px;
+}
+.plan-chart{
+	border: 1px solid #A2CDA5;
+	width: 100%;
+	height: 140px;
+}
+/*-------条状图---------*/
+.hr-chart{
+	padding: 0px 10px;
+}
+.timegroup{
+	position: relative;
+	top: 12px;
+	
+}
+.timetext{
+	padding-left: 3px;
+	display: inline-block;
+	float: left;
+	color: #999;
+	font-size: 10px;
+}
+.timeimg{
+	display: inline-block;
+	float: left;
+	
+	width: 12px;
+	height: auto;
+}
+
+.peoplegroup{
+	margin-top: -10px;
+}
+.peopleimg{
+	position: relative;
+	top: 23px;
+	width: 30px;
+	height: auto;
+}
+.chart1-people1{left: 30px;}  .chart1-people2{left: 40px;} .chart1-people3{left: 130px;}  .chart1-people4{left: 180px;} .chart1-people5{left: 240px;} .chart1-people6{left: 255px;} 
+.chart2-people1{left: 40px;}  .chart2-people2{left: 50px;} .chart2-people3{left: 110px;}  .chart2-people4{left: 150px;} .chart2-people5{left: 220px;} .chart2-people6{left: 275px;}
+.chart3-people1{left: 22px;}  .chart3-people2{left: 67px;} .chart3-people3{left: 98px;}  .chart3-people4{left: 120px;} .chart3-people5{left: 190px;} .chart3-people6{left: 315px;}
+.chart2-time{ left: 90px; }
+.chart3-time{ left: 180px; }
+.line-chart{
+	position: relative;
+	top: 25px;
+	width: 800px;
+	height: 10px;
+	background-color: #A2CDA5;
+	z-index: -2;
+}
+.red-line{
+	position: relative;
+	display: inline-block;
+	float: left;
+	margin-right: -50px;
+	top: 0px;
+	width: 50px;
+	height: 10px;
+	background-color: rgb(238, 95, 80);
+	z-index: -1;
+}
+.point-margin{
+	
+}
+.point{
+	position: relative;
+	height: 10px;
+	width: 10px;
+	background-color: #fff;
+	border-radius: 50%;
+	margin-left: 50px;
+	display: inline-block;
+	float: left;
+	z-index: 1;
+}
+.line-text-first{
+	margin-left: 22px;
+	display: inline-block;
+	float: left;
+	width: 15px;
+	height: auto;
+	font-size: 12px;
+}
+.line-text{
+	margin-left: 45px;
+	display: inline-block;
+	float: left;
+	width: 15px;
+	height: auto;
+	font-size: 12px;
+}
+
+/*横向滚动*/
+div[class^="wrapper"]{
+	position: relative;
+	z-index: 1;
+	height: 135px;
+	width: 100%;
+	background: #fff;
+	overflow: hidden;
+	-ms-touch-action: none;
+}
+
+div[class^="scroller"]{
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 2400px;
+	height: 160px;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+
+

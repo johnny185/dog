@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>window</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			/*header*/
+			.header {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				border-bottom: 1px solid #E5E5E5;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				background-color: #E5E5E;
+			}
+			.header-title {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			.header a {
+				display: block;
+				background-size: 20px;
+				padding: 20px;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			.header .back {
+				background-image: url("../image/left.png");
+			}
+			.header .logo {
+				background-size: 45px;
+				background-position: center;
+			}
+			.header .title {
+				font-size: 28px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<a class="back"  onclick="goback()"></a>
+				<div class="header-title">
+					<a class="logo" tapmode=""><span class="title">农事记录</span></a>
+				</div>
+			</div>
+		</header>
+		<script type="text/javascript" src="../script/api.js"></script>
+		<script>
+			function goback() {
+				api.closeToWin({
+		          name : 'win_field_taskList',
+		          url : 'win_field_taskList.html',
+		          reload:true,
+		          animation:{
+		              type:"movein",              //动画类型（详见动画类型常量）
+		              subType:"from_right",       //动画子类型（详见动画子类型常量）
+		              duration:300                //动画过渡时间，默认300毫秒
+		          }
+		       });
+		       
+		        api.execScript({
+		          name:'win_field_taskList',
+		          frameName: 'frm_field_taskList',
+		          script: 'getlocation();'
+		        });
+			}
+			apiready=function(){
+			   
+			   var pageParam = api.pageParam
+				var $header=$api.dom('.header');
+					$api.fixIos7Bar($header);
+				var $header_h=$api.offset($header).h;
+				
+					api.openFrame({
+						name:'frm_field_ taskedit',
+						url:'frm_field_ taskedit.html',
+						pageParam:pageParam,
+						rect:{
+						x:0,
+						y:$header_h,
+						w:'auto',
+						h:'auto'
+						}
+					})
+					
+				}
+		</script>
+	</body>
+</html>

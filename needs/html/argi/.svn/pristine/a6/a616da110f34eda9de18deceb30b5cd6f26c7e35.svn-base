@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>tianjian首页</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../css/farm.css">
+	</head>
+	<body>
+		<!-- 导航栏 -->
+		<div class='full-main'>
+			<div class = 'banner2 fixed'>
+				<div class="banner2-list-btn"><img src="../image/list.png">
+				</div>
+				<div class="banner-select" id="location-select">
+					<select>
+						<option>天津七镰种植基地</option>
+					</select>
+				</div>
+				<div class="banner2-people-btn"><img src="../image/people.png">
+				</div>
+				<div class="banner-text">
+					当前在线：<span>5人</span>
+				</div>
+			</div>
+		</div>
+		<!-- 内容 -->
+		<div class="sub-container-notop sub-container-nobottom">
+			<!-- 地图 -->
+			<div class="frm-map-top"></div>
+			<div><img  src="../image/map2.png">
+			</div>
+			<!-- sub-nav -->
+			<div class="sub-nav-container fixed" style="z-index:9999;">
+				<div class="col-5 left center sub-nac-btn-l" onclick="farm()">
+					<input type="button" name="" value="待处理" class="tobe-process-btn">
+				</div>
+				<div class="center-btn-container">
+					<div class="center-btn" id="sign">
+						<a tapmode=""  class="lists"><button class="mybutton"  onclick="punchCard(this)" type="button" id ="punchCard"></button></a>
+					</div>
+				</div>
+				<div class="col-5 right center sub-nac-btn-r" onclick="processedIn()">
+					<input type="button" name="" value="已处理" class="processed-btn">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../script/api.js"></script>
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.core.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+		<script type="text/javascript" src="../script/pds.ajax.js"></script>
+		<script type="text/javascript" src="../script/getLoacat.js"></script>
+		<script type="text/javascript">
+			var userId = null;
+			var map = null;
+			var ajaxtimer = null;
+			var coordinate = null;
+			var cardType = null;
+			var db = null;
+			var latitude = null;
+			var longitude = null;
+			apiready = function() {
+				//获取客户列表信息
+				db = pds.getDb();
+				userId = $api.getStorage("userId");
+				map = pds.getMap();
+				findPushType(userId);
+				map.getLocation({
+					accuracy : '100m',
+					autoStop : true,
+					filter : 1
+				}, function(ret, err) {
+					if (ret.status) {
+						var lon = ret.lon;
+						//大
+						longitude = lon;
+						var lat = ret.lat;
+						//小,
+						latitude = lat;
+						map.getNameFromCoords({
+							lon : lon,
+							lat : lat
+						});
+					} else {
+						//api.alert({msg: err.code});
+					}
+				});
+			};
+			function farm() {
+				var farmId = 1;
+				api.openWin({
+					name : 'agriculturalData.html',
+					url : './farmData/agriculturalData.html',
+					reload : true,
+					pageParam : {
+						"farmId" : farmId
+					},
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+			function punchCard(dom) {
+				var cardText = document.getElementById("punchCard").innerHTML;
+				//打卡内容
+				//创建本地数据库的方法
+				creatDatabase();
+				push(dom, cardText);
+			}
+
+			function creatDatabase() {
+				db.openDatabase({
+					name : 'pointData',
+					path : 'fs://pointData.db'
+				}, function(ret, err) {
+					if (ret.status) {
+						//如果数据库创建成功【就会创建数据表
+						db.executeSql({
+							name : 'pointData',
+							sql : 'CREATE TABLE Point(Id_P int, userId varchar(255), logTime varchar(255), longitude varchar(255), latitude varchar(255),type varchar(255))'
+						}, function(ret, err) {
+						});
+					} else {
+					}
+				});
+			}
+
+			function push(dom, cardText) {
+				if (cardText == "签到") {
+					api.setPrefs({
+						key : 'datakey',
+						value : []
+					});
+					cardType = "1";
+					pds.getLocat();
+					//定时器器
+					ajaxtimer = pds.setInterval();
+					api.alert({
+						msg : "签到成功,您的位置将会被记录"
+					});
+				} else if (cardText == "签退") {
+					cardType = "2";
+					map.stopLocation();
+					window.clearInterval(ajaxtimer);
+					api.alert({
+						msg : "签退成功"
+					});
+				}
+				var myDate = new Date();
+				var myDatestring = myDate.getFullYear() + "-" + (myDate.getMonth() * 1 + 1) + "-" + myDate.getDate() + " " + myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds();
+				var userId = $api.getStorage("userId");
+				var pushdata = {
+					'userId' : userId,
+					'time' : myDatestring,
+					'type' : cardType,
+					'SignDetailsData' : {
+						'signinType' : cardType,
+						'longitude' : longitude, //ret.lon,
+						'latitude' : latitude, //ret.lat,
+						'signDate' : myDatestring
+					}
+				};
+				var data = kendo.stringify(pushdata);
+				pds.ajaxSubmit({
+					url : "app/farmland/recordtime",
+					data : {
+						'data' : data
+					},
+					success : function(e) {
+						//dom.setAttribute("flag","1");
+						if (e) {
+							findPushType(userId);
+						}
+					},
+					error : function(e) {
+						dom.setAttribute("flag", "1");
+						api.alert({
+							msg : "服务器异常，请联系管理员!!!!"
+						});
+					}
+				});
+			}
+
+			var findPushType = function(userId) {
+				pds.ajaxSubmit({
+					url : "app/farmland/find/pushtype",
+					data : {
+						'userId' : userId
+					},
+					success : function(e) {
+						if (e) {
+							if (e.data == 1) {
+								document.getElementById("punchCard").innerHTML = "签退";
+								$('#sign').css('background','red');
+							} else {
+								document.getElementById("punchCard").innerHTML = "签到";
+								$('#sign').css('background','#ccc');
+							}
+						}
+					},
+					error : function(e) {
+						api.alert({
+							msg : "服务器异常，请联系管理员!!!!"
+						});
+					}
+				});
+			}
+			//var signbtn = document.getElementById("sign");
+			//var signflag = false;
+			//signbtn.onclick = function(){
+			//			if (!signflag) {
+			//				signbtn.innerHTML = '签退';
+			//				signbtn.style.backgroundColor = "#999";
+			//				signflag = true;
+			//			}
+			//			else if(signflag){
+			//				signbtn.innerHTML = '签到';
+			//				signbtn.style.backgroundColor = "#A2CDA5";
+			//				signflag =false;
+			//			}
+			//}
+			//		apiready = function(){
+			//		    var  map = api.require('bMap');
+			//		    map.open({
+			//			    rect: {//模块的位置及尺寸
+			//			        x: 0,
+			//			        y: 68,
+			//			        h: 449
+			//		        },
+			//		        zoomLevel: 18,//设置百度地图缩放等级，取值范围：3-18级
+			//			    showUserLocation: true,//是否在地图上显示用户位置
+			//			    fixed: true,
+			//			    center:{
+			//		                lon: 116.3247,       //数字类型；打开地图时设置的中心点经度
+			//		                lat: 40.0454         //数字类型；打开地图时设置的中心点纬度
+			//		               }            //模块是否随所属 Window 或 Frame 滚动
+			//		    },
+			//		   function(ret){ //ret为JSON类型
+			//		        if(ret.status){
+			//
+			//		        }
+			//		   });
+			//		 };
+			processedIn = function(s) {
+				api.openWin({
+					name : 'processedIn',
+					url : 'farmData/processedIn.html',
+				});
+			}
+		</script>
+	</body>
+</html>

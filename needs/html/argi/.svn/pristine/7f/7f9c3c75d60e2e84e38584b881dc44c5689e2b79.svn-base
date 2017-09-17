@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>基地详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+	</head>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/common/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+	<script type="text/javascript" src="../../script/common/zepto.touchWipe.js"></script>
+	<script type="text/javascript" src="../../script/common/form2js.js"></script>
+	<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+	<body>
+		<div>
+			<div id="main">
+				<div id="wrap">
+					<div id="header">
+						<div class="btn back" tapmode="topbar-active" onclick="back();">
+							<i class="i-back"></i>
+							<span class="title">返回 </span>
+						</div>
+					</div>
+					<div id="content">
+						<div data-template="li-template" data-bind="source:resources"></div>
+					</div>
+				</div>
+				<div>
+					<span> 基地查看 </span>
+				</div>
+			</div>
+			<div id="detail">
+				基地名称
+				<input id="farmName" name="farmName" type="text" maxlength="20"/>
+				<br />
+				基地面积
+				<input id="farmArea" name="farmArea" type="text" maxlength="12"/>
+				<br />
+				负责人
+				<input id="farmUserName" name="farmUserName" type="text" maxlength="20"/>
+				<br />
+				手机号
+				<input id="farmMobile" name="farmMobile" type="text" maxlength="12"/>
+				<br />
+				基地地址
+				<input id="address" name="" type="text" maxlength="20" disabled="true" />
+				<button onclick="selectAddress();">
+					选择地址
+				</button>
+				<input id="farmProvinceCode" name="farmProvinceCode"  type="hidden" maxlength="20"/>
+				<input id="farmCityCode" name="farmCityCode" type="hidden" maxlength="20"/>
+				<input id="farmCountyCode" name="farmCountyCode" type="hidden" maxlength="20"/>
+				<br/>
+				基地详细地址
+				<input id="farmAddress" name="farmAddress" type="text" maxlength="20"/>
+				<br />
+				流转年限
+				<input id="limitYears" name="limitYears" type="text" maxlength="5"/>
+				<br />
+				冷库面积
+				<input id="farmStorageArea" name="farmStorageArea" type="text" maxlength="12"/>
+				<br />
+				基地简介
+				<input id="farmRemark" name="farmRemark" type="text" maxlength="4000"/>
+				<br />
+			</div>
+			<br />
+			<br />
+			<br />
+			<div class="forbiden">
+				<input id="submitId"  type="button" value="保存" style="color: green" onclick="saveFarmInfo()"/>
+			</div>
+			<br />
+			<br />
+			<a onclick="goLand();">地块详情</a>
+			<br/>
+			<br />
+			<br />
+			<a onclick="goCropProtection();">植保详情</a>
+			<br />
+			<br />
+		</div>
+		<script type="text/javascript" src="./farm_save.js"></script>
+	</body>
+</html>

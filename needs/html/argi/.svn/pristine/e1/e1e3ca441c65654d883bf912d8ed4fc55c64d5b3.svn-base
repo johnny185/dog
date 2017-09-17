@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>作物数据采集</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../css/mysettings.css">
+		<style>
+			.content-inner {
+				background: #ccc;
+				height:40px;
+				line-height:40px;
+				text-align:center;
+			}
+		</style>
+		<script type="text/javascript" src="../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+		<script type="text/javascript" src="../../script/getLoacat.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4 >作物数据采集</h4> </span>
+					<a href=".././farm_index.html"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+					
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="container sub-container-notop">
+				<div class="full-main">
+				
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			apiready = function() {
+			}
+			function argiData() {
+				api.openWin({
+					name : "",
+					url : "",
+					reload : true,
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

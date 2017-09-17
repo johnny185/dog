@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<body>
+<div id="wrap">
+  <div id="main">
+  	
+  </div>
+</div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript">
+
+function closeWin(){
+    api.closeWin();
+}
+
+var obj = null;       
+apiready = function(){
+	var flag = api.pageParam.extend_params==undefined;// 是否是点击导航
+	api.addEventListener({name: 'keyback'}, function(ret, err){
+   		 	api.closeWin();
+   	});
+
+	var main = $api.byId('main');
+	var mainPos = $api.offset(main);
+	obj = api.require('tabBar');
+	
+	obj.open({
+	    bgImg:'widget://image/abc_ab_bottom_solid_light_holo.9.png',
+	    selectImg:'widget://res/selecte_tabBar.png',
+	    items:[
+	           {title:'首页',img:'widget://image/ic_menu_deal_off.png',color:'#999999',selected:'widget://image/ic_menu_deal_on.png',selectedTitleColor:'#66BB6A'},
+	           {title:'种植',img:'widget://image/ic_menu_plant_off.png',color:'#999999',selected:'widget://image/ic_menu_plant_on.png',selectedTitleColor:'#66BB6A'},
+	           {title:'田间',img:'widget://image/ic_menu_apollo_off.png',color:'#999999',selected:'widget://image/ic_menu_apollo_on.png',selectedTitleColor:'#66BB6A'},
+	           {title:'采收',img:'widget://image/ic_menu_poi_off.png',color:'#999999',selected:'widget://image/ic_menu_poi_on.png',selectedTitleColor:'#66BB6A'},
+	           {title:'我的',img:'widget://image/ic_menu_user_off.png',color:'#999999',selected:'widget://image/ic_menu_user_on.png',selectedTitleColor:'#66BB6A'}
+	         ],
+	    selecteIndex:api.pageParam.extend_params==undefined?'0':JSON.parse(api.pageParam.extend_params).selecteIndex,
+	    perScreenBtn:5,
+	    h:'47'
+	},function(ret,err){
+	
+	    //var headerHtml = ""
+	    var frameName    = "";
+	    var frameUrl     = ""
+
+	    switch(ret.index){
+	        case 0:
+	    		//headerHtml = "首页";
+                frameName    = "home_index";
+                frameUrl     = "./home/home_index.html";
+	    		break;
+           case 1:
+                frameName    = "plant_index";
+                frameUrl     = "./planting/plant_index.html";
+	    		break;      
+	    	case 2:	
+	    		//headerHtml = "田间管理";
+                frameName    = "frm_field";
+                frameUrl     = "farm_index.html";
+               
+				break;
+			case 3:	
+				//headerHtml = "采收管理";
+                frameName    = "harvest_index";
+                frameUrl     = "./harvest/harvest_index.html";
+				break;
+			case 4:	
+				//headerHtml = "我的";
+                frameName    = "mysettings_index";
+                frameUrl     = "./mysetting/mysettings_index.html";
+				break;
+	    }
+	    //document.getElementById("head").innerHTML= headerHtml;
+	    
+	    var param_=null;
+	    if(!flag){
+		    param_=JSON.parse(api.pageParam.extend_params);
+		    param_.animation=null;
+	    }
+	    
+		api.openFrame($.extend({}, {
+			name : frameName,
+		   	url :  frameUrl,
+	        pageParam : api.pageParam,
+			reload : true,
+		    rect : {
+				x : 0,
+				y : 0,
+				w : 'auto',
+				h : mainPos.h-55
+			}
+		}, param_));
+		flag = true;
+	});
+}
+
+function setTabBarIndex(tabBarIndex){
+	obj.setSelect({
+	    index: tabBarIndex
+	});
+}
+
+function back(){
+     api.closeWidget({
+    	silent:false,
+	    animation: {
+        type: 'flip',
+        subType: 'from_bottom',
+        duration: 1500
+    		}
+     }); 
+ }
+</script> 
+</body>
+</html>

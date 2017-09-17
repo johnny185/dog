@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>功能介绍</title>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	    <link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+
+	    <style type="text/css">
+	    	html body{
+	    		background-color: #fff;
+	    	}
+	    </style>
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	        <!-- 顶部菜单栏 -->
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>功能介绍</h4>
+					</div>
+					<a href="../about.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+			<!-- 内容 -->
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="content-container">
+						<h4>1. 功能1</h4>
+						<p> 功能一用这句话来描述。</p>
+						<img class = "img-l col-lg-4 left" src="../../../../image/screenshot.png">
+						<img class = "img-r col-lg-4 right" src="../../../../image/screenshot.png">
+						<h4 class="clear">2. 功能2</h4>
+						<p> 功能一用这句话来描述。</p>
+						<img class = "img-l col-lg-4 left" src="../../../../image/screenshot.png">
+						<img class = "img-r col-lg-4 right" src="../../../../image/screenshot.png">						
+						<h4 class="clear">3. 功能3</h4>
+						<p> 功能一用这句话来描述。</p>
+						<img class = "img-l col-lg-4 left" src="../../../../image/screenshot.png">
+						<img class = "img-r col-lg-4 right" src="../../../../image/screenshot.png">						
+						<h4 class="clear">4. 功能4</h4>
+						<p> 功能一用这句话来描述。</p>
+						<img class = "img-l col-lg-4 left" src="../../../../image/screenshot.png">
+						<img class = "img-r col-lg-4 right" src="../../../../image/screenshot.png">						
+						<h4 class="clear">5. 功能5</h4>
+						<p> 功能一用这句话来描述。</p>
+						<img class = "img-l col-lg-4 left" src="../../../../image/screenshot.png">
+						<img class = "img-r col-lg-4 right" src="../../../../image/screenshot.png">						
+						<h4 class="clear">6. 功能6</h4>
+						<p> 功能一用这句话来描述。</p>
+						<img class = "img-l col-lg-4 left" src="../../../../image/screenshot.png">
+						<img class = "img-r col-lg-4 right" src="../../../../image/screenshot.png">					
+					</div>
+					<div class="cr-container">
+						<p>Copyright&nbsp<span><img src="../../../../image/copyright.png"></span>&nbsp2016 PDS.inc.All Rights Resereved.</> 
+					</div>
+				</div>
+			
+			<!-- 底部导航条 -->
+			<div class="nav fixed"></div>				
+	    </div>      
+	</body>
+</html>
+
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/harvest_new_style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="full-main">
+			<!-- 顶部榜单 -->
+			<div class="top-container">
+				<!-- 导航条位置 -->
+				<div class = 'banner-nocolor fixed center'>
+					<div class="banner-title center">
+						<h5>采收冠军榜</h5>
+					</div>
+				</div>
+
+
+
+	 
+				<!-- 用户头像 -->
+			<!--	<div class="center">
+	           		<div class="profile">
+	            		<!-- <img class = "profile-img" src="../../image/placeholder1.png"> -->
+	            		<!--<div class="profile-img">
+	            			<div class="name">赵玉楠</div>
+
+	            			<div class="count"> 1000</div>
+	            		</div>
+	            	</div>
+	            </div>-->
+			</div>
+			<!-- 累计使用 -->
+	        <div class="total-container">
+	        	<div class="left col-5 center total-l border-r">
+	        		<h6>累计采收数量：</h6>
+					<h5>1000</h5>
+	        	</div>
+	        	<div class="left col-5 center total-r">
+	        		<h6>累计使用人次：</h6>
+					<h5>140</h5>
+	        	</div>
+	        </div>
+	        <!-- 导航 -->
+						<div class="nav-container">
+				<div class="main">
+					<table class="nav-table">
+						<tr>
+							<td flag = "1"  class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/plan-icon.png">
+								</a>
+								<span>采收计划</span>
+							</td>
+							<td flag = "2" class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/shoplist-icon.png">
+								</a>
+								<span>采收工单</span>
+							</td>
+							<td flag = "3" class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/record-icon.png">
+								</a>
+								<span>记工单</span>
+							</td>
+						</tr>
+						<tr>
+							<td flag = "4" class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/transport-icon.png">
+								</a>
+								<span>运输单</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- 计划进度 -->
+			<div class="chart-container">
+				<div class="chart-title">
+					<HR width="25%" color=#99999 SIZE=3 class="hr-l left">
+					<h1>采收量和库房容量变化图</h1>
+					<HR width="25%" color=#99999 SIZE=3 class="hr-l right">
+				</div>
+				<div class="chart">
+					<img src="../../image/harvest_chart.png">
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src= "../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+<script type="text/javascript">
+/* 菜单点击事件  */
+$("body").off("click",".harvestMenu");
+$("body").on("click",".harvestMenu",function(){
+	var flag = $(this).attr("flag")*1;
+	var pageName = "harvest_index_frm"
+	var pagePath = "widget://html/harvest/harvest_index_frm.html"
+    $api.openWin({
+        name: pageName,
+        url:  pagePath,
+        pageParam:{"pageFlag":flag},
+        reload:true,
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+});
+//apiready=function(){
+//	var loginName =  $api.getStorage('argi_login_username');
+//	alert(loginName);
+//	pds.ajaxSubmit({
+//		url:"app/harvest/index/getNum",
+//		data:{"loginName":loginName},
+//		success:function(e){
+//			alert(JSON.stringify(e));
+//		},error:function(e){
+//			api.alert({msg: ' 服务器异常，请联系管理员!!'});
+//		}
+//	});
+//}
+</script>
+</body>
+</html>

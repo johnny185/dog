@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>资源列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+		<style>
+			.content {
+				margin-top: 52px;
+			}
+			.content-inner {
+				width: 100%;
+				height: auto;
+			}
+			.content-inner tr {
+				border: 1px solid #C9C9C9;
+			}
+			.content-inner td {
+				text-align: center;
+			}
+			.content-inner tbody td, .content-inner thead th {
+				line-height: 30px;
+				width: 20%;
+				border-right: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>资源信息</h4> </span>
+					<a href="crop_message.html"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<!-- 内容区域 -->
+				<div class="content">
+					<table class="content-inner">
+						<thead>
+							<tr>
+								<th>资源名称</th>
+								<th>亩数</th>
+								<th>数量</th>
+								<th>金额</th>
+								<th>种植品名</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="priceAll">
+								<td>金额总计</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- 保存并新增按钮 -->
+				<a href="javascript:void(0)"> <span class = "addResource" >
+					<input id ="" type='button' name='add' onclick="addResource()"  value='资源添加'>
+				</span> </a>
+				<a href="javascript:void(0)"> <span class = "editResource">
+					<input id ="" type='button' name='edit'  onclick= "editResource()"  value='资源编辑'>
+				</span> </a>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+	    var landId; 
+		apiready = function() {
+		    landId = api.pageParam.landId;
+			//获取资源信息
+			getMessage(api.pageParam.landId);
+			//求金额
+		};
+		//获取资源信息
+		function getMessage(landId) {
+			pds.ajaxSubmit({
+				url : "app/customer/CropLandResource",
+				data : {
+					id : landId
+				},
+				success : function(res) {
+					if (!res) {
+						alert('请添加资源信息');
+					}
+//					alert(landId);
+					$('.editResource').find('input').attr('data-id', landId);
+					var el = $api.byId("priceAll");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<tr class="message"><td>' + data[i].resourceName + '</td><td>' + data[i].muCount + '</td><td>' + data[i].gross + '</td><td>' + data[i].sumMoney + '</td><td>' + data[i].catName + '</td></tr>';
+						$api.before(el, str);
+					}
+					sum();
+				}
+			});
+		}
+
+		//自动求金额总计
+		function sum() {
+			var trs = $('.content-inner .message');
+			if (!trs)
+				return;
+			var allSum = 0;
+			//alert(trs.length)
+			trs.each(function(i, item) {
+				var price = $(item).find('td').eq(3).text();
+				var tPrice = Number(price);
+				//值转换
+				//alert(tPrice);
+				allSum += tPrice;
+			})
+			$('#priceAll td:eq(1)').text(allSum);
+		};
+		//进入资源添加页面
+		function addResource() {
+		
+//		alert("landId"+landId)
+			api.openWin({
+				name : 'crop_add.html',
+				url : 'crop_add.html',
+				reload : true,
+				pageParam : {
+					"landId" : landId
+				},
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+
+		//进入资源编辑页面
+		function editResource() {
+			//landId 基地id
+//			alert("landId"+landId)
+			api.openWin({
+				name : 'crop_edit.html',
+				url : 'crop_edit.html',
+				pageParam : {
+					"landId" : landId
+				},
+				reload : true,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+	</script>
+</html>

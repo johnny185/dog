@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>资源列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+		<style>
+		
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>资源信息</h4> </span>
+					<a href="javascript:void(0)"; onclick="back();"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<!-- 内容区域 -->
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<div class="argi-lists" >
+							<div class="argi-lists-in text-right argi-lists-inlast-bg"id="priceAll">
+								<span>金额总计 </span>
+								<span class="total-price"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 保存并新增按钮 -->
+				<div class="foot-btn-group">
+					<div class="argi-flex">
+						<div class="argi-flex-1"onclick="addResource()">
+							<a href="#" class="argi-btn argi-btn-big btn-full argi-btn-success">资源添加</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var landId;
+		apiready = function() {
+			landId = api.pageParam.landId;
+			//获取资源信息
+			getMessage(api.pageParam.landId);
+		};
+				//返回上一级
+		function back(){
+	  	  api.closeToWin({
+	            name: 'crop_message'
+            });
+	    }
+		//获取资源信息
+		function getMessage(landId) {
+			pds.ajaxSubmit({
+				url : "app/customer/CropLandResource",
+				data : {
+					id : landId
+				},
+				success : function(res) {
+					if (!res) {
+						
+						api.alert({msg:"请添加资源信息"});
+					}
+					var el = $api.byId("priceAll");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<div class="argi-lists-in message" onclick="editResource(' + data[i].id + ')"><div ><div class="argi-flex-img resource-img"><img src="../../../../image/farm_map.jpg" /></div><div class="argi-flex-infos2 argi-flex"><p class="argi-p flex-full"><span>资源名称：</span><span>' + data[i].brdName + '</span></p><p class="argi-p argi-flex-3 font-size-sm"><span>品名：</span><span>' + data[i].catName + '</span></p><p class="argi-p argi-flex-3 font-size-sm"><span>亩数：</span><span>' + data[i].muCount + '</span></p><p class="argi-p argi-flex-3 font-size-sm"><span>数量：</span><span>' + data[i].gross + '</span></p></div><div class="price-layer"><span  class="sumMoney">' + data[i].sumMoney + '</span></div></div></div>';
+						$api.before(el, str);
+					}
+					sum();
+				}
+			});
+		}
+
+		//自动求金额总计
+		function sum() {
+			var trs = $('.argi-lists .message');
+			//alert('trs:' + trs)
+			if (!trs)
+				return;
+			var allSum = 0;
+			//alert(trs.length)
+			trs.each(function(i, item) {
+				var price = $(item).find('.sumMoney').text();
+				var tPrice = Number(price);
+				//值转换
+				//alert(tPrice);
+				allSum += tPrice;
+			})
+			$('.total-price').text(allSum);
+		};
+		//进入资源添加页面
+		function addResource() {
+			api.openWin({
+				name : 'crop_add.html',
+				url : 'crop_add.html',
+				reload : true,
+				pageParam : {
+					"landId" : landId
+				},
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+
+		//进入资源编辑页面
+		function editResource(listId) {
+			// alert(listId);
+			api.openWin({
+				name : 'crop_edit.html',
+				url : 'crop_edit.html',
+				pageParam : {
+					"listId" : listId
+				},
+				reload : true,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+	</script>
+</html>

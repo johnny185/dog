@@ -1,0 +1,100 @@
+html body{
+	background-color: #ffffff;
+	overflow-x:hidden;
+}
+
+/*导航*/
+.banner2-list-btn{
+	position: absolute;
+	display: inline-block;
+	float: left;
+	top: 5px;
+	left: 20px;
+	width: 20px;
+	height: 20px;
+	/*border: 1px solid red;*/
+}
+.banner2-people-btn{
+	position: absolute;
+	display: inline-block;
+	float: left;
+	left: 64%;
+	top: 0px;
+	width:20px;
+	height: auto;
+	line-height: 44px;
+	padding-top: 5px;
+}
+.banner-select{
+	position: absolute;
+	display: inline-block;
+	float: left;
+	width: 35%;
+	left: 14%;
+	font-size: 12px;
+}
+.banner-text{
+	position: absolute;
+	display: inline-block;
+	float: left;
+	right: 20px;
+	text-align: left;
+	font-size: 12px;
+}
+/*subnav*/
+.sub-nav-container{
+	width: 100%;
+	bottom: 0px;
+	border-top: 2px solid #fff;
+	height: 44px; 
+	z-index: 99999;
+}
+.sub-nav-container input{
+	color: #fff;
+	font-size: 12px;
+}
+.center-btn-container{
+	width: 100%;
+
+}
+.center-btn{
+	position: absolute;
+	bottom: 0px;
+	margin-left: -28px;
+	display: inline-block;
+	color: #fff;
+	z-index: 999999;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	background-color: #A2CDA5;
+	height: 44px;
+	width: 44px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 14px;
+}
+.sub-nac-btn-l{
+	line-height: 44px;
+	background-color: rgb(254,222,151);
+
+}
+.sub-nac-btn-r{
+	line-height: 44px;
+	background-color: rgb(159,196, 234) ;
+}
+/*地图*/
+.map-container{
+	height: -webkit-calc(100% - 140px);
+	height:	   -moz-calc(100% - 140px);
+	height: 		calc(100% - 140px);
+}
+.map-img{
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+}
+.frm-map-top{
+		margin-top: -5px;
+		height: 80px;
+		background-image: url("../image/map_top.jpg");
+}

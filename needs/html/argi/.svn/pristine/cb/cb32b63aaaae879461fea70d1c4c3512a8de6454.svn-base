@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>业务推广业务员页</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+ 	<style>
+  		.content{
+  			font-size: 0.28rem;
+  		}
+  		.page_entry{
+  			width:100%;
+  			height:2.58rem;
+  			background:#fff;
+  			padding-top:0.43rem;
+  			box-sizing: border-box;
+  			text-align:center;
+  		}
+  		.p_item{
+  			display: inline-block;
+  			text-align:center;
+  			overflow:hidden;
+  		}
+  		.page_entry .image{
+  			width:1.23rem;
+  			height:1.23rem;
+  		}
+  		.text{
+  			display:block;
+  			font-size: 0.28rem;
+  			color:#00c558;
+  			margin-top:0.23rem;
+  		}
+  		.customer{
+  			margin-right:1.3rem;
+  		}
+  		.customer .image{
+  			background:url("../../../image/business_img/customer.png") no-repeat center center;
+			background-size:99% 99%;
+  		}
+  		.weekly .image{
+  			background:url("../../../image/business_img/weekly.png") no-repeat center center;
+			background-size:99% 99%;
+  		}
+  		.space{
+  			width:100%;
+  			height:0.13rem;
+  			background:#faf8f8;
+		}
+		.detail{
+			width:6.31rem;
+			height:0.48rem;
+			border:1px solid #ffbc00;
+			border-radius: 0.24rem;
+			margin:0.39rem auto 0.72rem;
+			display: -webkit-flex; 
+			display: flex;
+		}
+		.item{
+			display:inline-block;
+			line-height:0.48rem;
+			text-align:center;
+			color:#888c8a;
+			font-size: 0.28rem;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+		}
+		.item b{
+			font-weight:normal;
+		}
+		.data{
+			width:100%;
+			overflow: hidden;
+			padding:0 0.5rem;
+			box-sizing:border-box;
+			position:relative;
+		}	
+		.data img{
+			width:2.66rem;
+			height:3.18rem;
+		}
+  		.funnel_page div{
+  			width:2.66rem;
+			font-size:0.2rem;
+			color:#fff;
+			text-align:center;
+		}
+		.first,.intention,.pending,.done,.funnel_page{
+			position:absolute;
+		}
+		.funnel_page{
+			top:0;
+			z-index: 1000;
+		}
+		.first{
+			top:0.16rem;
+		}
+  		.intention{
+			top:0.94rem;
+		}
+		.pending{
+			top:1.7rem;
+		}
+		.done{
+			bottom:0.35rem;
+		}
+		.line{
+			width:4.87rem;
+			height:3.18rem;
+			margin-left:1.3rem;	
+		}
+		.line .line_text{
+			width:2.82rem;
+			margin-top:0.2rem;
+			background-color:#f6f3f3;
+			height:1px;
+			float: left;
+		}
+		.line .line_item{
+			width:4.86rem;
+		}
+		.line .right_box{
+			width:1.69rem;
+			height:0.39rem;
+			line-height:0.39rem;
+			font-size:0.26rem;
+			color:#676463;
+			position:relative;
+			border:1px solid #f6f3f3;
+			padding-left:0.3rem;
+			float:right;
+		}
+		.line .number{
+			width:0.17rem;
+			line-height:0.39rem;
+			text-align:center;
+			position:absolute;
+			top:0;
+			left:0;
+			color:#fff;
+			font-size:0.2rem;
+		}
+		.first .number{
+			background-color: #427cf6;
+		}
+		.intention .number{
+			background-color: #34e279;
+		}
+		.pending .number{
+			background-color: #ffc809;
+		}
+		.done .number{
+			background-color: #fc9235;
+		}
+		.line div span{
+			display:inline-block;
+		}
+		.table{
+			width: 100%;
+			margin-top:0.52rem;
+			overflow: hidden;
+		}	
+		.table .form{
+			width:6.93rem;
+			height:1.54rem;
+			margin:0 auto;
+			border-collapse: collapse;  
+		}
+		.form tr{
+			width: 100%;
+			height:50%;
+			border:1px solid #f6f3f3;
+		}
+  		.form td{
+  			color:#9b918e;
+			text-align:center;
+			border:1px solid #f6f3f3;
+		}
+		.form .title{
+			color:#9b918e;
+			font-size:0.24rem;
+		}
+		.form .num{
+			color:#5e5d5d;
+			font-size:0.23rem;
+		}
+		.form .all{
+			color:#29be53;
+		}
+    </style>
+</head>
+<body>
+<script id="salesShow" type="text/x-dot-template">
+	
+  		   	
+  		   	<div class="space"></div>
+            <!--签约详情-->  
+            <div class="detail">
+              	<div class="item">客户总数:
+				<!--数据-->              	
+              		<b>{{=it.customerSum}}</b>
+				</div>	
+            	<div class="item">签约客户:
+            	<!--数据-->  
+            		<b>{{=it.signedNumber}}</b>
+            	</div>
+            	<div class="item">流失:
+            	<!--数据-->  
+            		<b>{{=it.lossNumber}}</b>
+            	</div>
+            </div>		   	
+  		
+			<!--漏斗图数据-->  		    
+  			<div class="data">
+  			
+  				<!--漏斗图-->  	
+  				<div class="funnel_page">
+  					<img src="../../../image/business_img/funnel.png" alt="" />
+					<!--传入具体百分比数据-->  
+					<!--初次拜访-->					
+					<div class="first">{{=it.firstVisitPercent}}</div>	
+					<!--有意向-->					
+					<div class="intention">{{=it.intentionPercent}}</div>
+					<!--在洽谈-->					
+					<div class="pending">{{=it.talkingPercent}}</div>
+					<!--签约-->					
+					<div class="done">{{=it.signedPercent}}</div>					
+  				</div>
+  				
+  				<!--中间连接线及右侧内容区-->  			   
+  				<div class="line">
+  				 	<!--初次拜访--> 
+  				 	<div class="line_item first">
+  				 		<b class="line_text"></b>	
+	  				 	<div class="first_r right_box">
+				 			<b class="number">1</b>
+							<!--数据-->				 			
+				 			初次拜访<span>{{=it.firstVisitPercent}}</span>
+	  				 	</div>
+  				 	</div> 	
+  				 	<!--有意向--> 
+  				 	<div class="line_item intention">
+  				 		<b class="line_text"></b>	
+	  				 	<div class="first_r right_box">
+				 			<b class="number">1</b>
+							<!--数据-->		
+				 			有意向<span>{{=it.intentionPercent}}</span>
+	  				 	</div>
+  				 	</div> 	
+  				 	<!--在洽谈--> 
+  				 	<div class="line_item pending">
+  				 		<b class="line_text"></b>	
+	  				 	<div class="first_r right_box">
+				 			<b class="number">1</b>
+							<!--数据-->		
+				 			在洽谈<span>{{=it.talkingPercent}}</span>
+	  				 	</div>
+  				 	</div> 	
+  				 	<!--签约--> 
+  				 	<div class="line_item done">
+  				 		<b class="line_text"></b>	
+	  				 	<div class="first_r right_box">
+				 			<b class="number">1</b>
+							<!--数据-->		
+				 			签约<span>{{=it.signedPercent}}</span>
+	  				 	</div>
+  				 	</div> 	
+  				 
+  				</div>
+  				
+  			
+  			</div>
+  			
+  			<!--表格--> 
+  			<div class="table">
+  				<table class="form">
+  					<tr class="title">
+  						<td>周一</td>
+  						<td>周二</td>
+  						<td>周三</td>
+  						<td>周四</td>
+  						<td>周五</td>
+  						<td>周六</td>
+  						<td>周日</td>
+  						<td class="all">总计</td>
+  					</tr>
+  					<tr class="num">
+  						<td>{{=it.mondayVisitNum}}</td>
+  						<td>{{=it.tuesdayVisitNum}}</td>
+  						<td>{{=it.wednesdayVisitNum}}</td>
+  						<td>{{=it.thursdayVisitNum}}</td>
+  						<td>{{=it.fridayVisitNum}}</td>
+  						<td>{{=it.saturdayVisitNum}}</td>
+  						<td>{{=it.sundayVisitNum}}</td>
+  						<td>{{=it.weekSumVisitNum}}</td>
+  					</tr>
+  				
+  				</table>
+  			
+  			</div>
+</script>
+<!--顶部页面入口-->  		
+  		   	<div class="page_entry" >
+  		   		<div class="customer p_item">
+  		   			<a href="javascript:;">
+  		   				<span class="image"></span>
+	  		   		 	<span class="text">我的客户</span>
+  		   		 	</a>
+  		   		</div>
+  		   		<div class="weekly p_item" id="myWeekReport">
+  		   		    <a href="javascript:;">
+  		   		   		<span class="image"></span>
+	  		   		 	<span class="text">我的周报</span>
+  		   		 	</a>
+  		   		</div>
+  		   	
+  		   	</div>
+  		<div class="content" id="contentTemp">
+			
+  		</div>
+   
+   
+   
+
+<script type="text/javascript" src="../../../script/api.js" ></script>
+<script type="text/javascript" src="../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../script/remote.config.js"></script>
+
+</body>
+<script type="text/javascript">
+    var script = document.createElement('script')
+	script.src = "sales_frm.js?ver="+(Date.now() / 1000 | 0)
+	document.body.appendChild(script)
+</script>
+</html>

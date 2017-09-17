@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>种植工单</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/icons.min.css" />
+	    <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+	    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+	    <style>
+		#header{
+            height: 46px;
+    	    width:100%;
+            font-size: 18px;
+            color: #fff;
+            text-align:center;
+            background-color: #66BB6A;
+            border-bottom: 1px solid #2ba399;
+            line-height:46px;
+        }
+        .back{
+            font-size: 0px;
+            padding: 0 5px;
+        }
+        .back .title{
+            font-size: 20px;
+              vertical-align: middle;
+
+        }
+
+        .favorite,
+        .share{
+            display: inline-block;
+            line-height: 46px;
+        }
+        .flex-full{
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        /*icon*/
+        .i-logo{
+            display: inline-block;
+            padding: 23px;
+            background: url(../image/ic_action_home.png) no-repeat center center;
+            -webkit-background-size: 34px;
+            background-size: 34px;
+            vertical-align: middle;
+        }
+        .i-back{
+        	display: inline-block;
+            padding: 23px 10px;
+            background: url(../image/ic_global_title_bar_48_back.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+        .i-favorite{
+            display: inline-block;
+            padding: 20px;
+            background: url(../image/ic_action_favorite_off.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+        .i-share{
+            display: inline-block;
+            padding: 20px;
+            background: url(../image/ic_action_share.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }		
+        #list{
+          margin-top:52px;
+        }			
+	 </style>
+	 </head>
+	<body>
+	<div id="main"> 
+		<div id="wrap">
+		    <div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4 >种植工单</h4> </span>
+					<a href="javascript:void(0)"; onclick="back();"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+		    </div>
+	    </div>
+        <div class="box box-list"id="list">
+         <div class="item-list" id="list-tmp">
+            <ul  data-template="li-template" data-bind="source: dat"></ul> 
+         </div>
+        </div>
+    </div>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	
+    <script type="text/javascript" src="../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+	
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/pds.ajax.js"></script>
+	
+	<script id="li-template" type="text/x-kendo-template">
+	   <li class="listBlockBig">
+            <a href="javascript:void(0);" onclick="toworkDetail('#:id#',this)" class="rightArrow" data-transition="slide-right">
+                # if(read==0){#
+                	<i class="redRound"></i>
+            	#}#
+                <div class="headLeft"><img src="../image/cultivate.png"></div>
+                <div class="headRightInfos">
+                    <p><span>工单编号：</span><span>#:workOrderCode#</span></p>
+                    <p><span>工单名称：</span><span>#:workOrderName#</span></p>
+                    <p><span>发起人：</span><span>#:createUser#</span></p>
+                    <p><span>下达时间：</span><span>#:assignDate#</span></p>
+                </div>
+            </a>
+        </li>
+	</script>
+	
+	<script type="text/javascript">
+	
+	var pageParams = null;
+	var db = null;
+	apiready = function(){
+		pageParams = api.pageParam;
+		db = api.require('db');
+        getOrderList();
+        
+        
+        api.setRefreshHeaderInfo({
+	    visible: true,
+	    loadingImg: '../image/refreshing_image_01.png',
+	    bgColor: '#ccc',
+	    textColor: '#fff',
+	    textDown: '下拉刷新...',
+	    textUp: '松开刷新...',
+	    showTime: true
+	    }, function(ret, err){
+	      getOrderList();
+      
+         api.refreshHeaderLoadDone();
+    });
+        
+       
+        
+        
+    }
+    function getOrderList(){
+    	creatDatabase();
+        var userId = $api.getStorage("userId");
+        var data = $.extend({}, pageParams, {executorId: userId});
+        pds.ajaxSubmit({
+            url:"app/workorder/getOrderList",
+            data:data,
+            success:function(e){
+                var gloableData = e.data;
+                gloableData = haveRead(gloableData);
+//              alert("gloableData.length="+gloableData.length);
+//              alert("gloableData[0].read="+gloableData[0].read);
+                var viewModel = kendo.observable({
+                    dat: gloableData
+                });
+                kendo.bind("#list-tmp", viewModel);
+            },
+            error:function(e){
+                alert("服务器异常，请联系管理员!");
+            }
+        });
+
+    }
+    
+    function creatDatabase(){
+        var oret = db.openDatabaseSync({
+		    name: 'readData'
+		    
+		});
+		
+//		alert("openDatabase="+oret.status);
+		    if( oret.status ){
+		        //如果数据库创建成功【就会创建数据表
+	            var ret = db.executeSqlSync({
+				    name: 'readData',
+				    sql: 'CREATE TABLE read_order(Id_P int,id varchar(255), hasRead varchar(255))'    
+				});
+				           
+//					alert("creatDatabase="+ret.status);
+				
+		    }else{
+		     
+		    }
+		
+  }
+    function haveRead(list){
+    
+    	for(var i=0;i<list.length;i++){
+			var obj = list[i];
+			if(getReadSql(obj.id)>0){
+				list[i].read=1;
+				
+			}else{
+				list[i].read=0;
+			}
+		}
+		return list;
+	
+    	
+    }
+    function getReadSql(id){
+    	var ret = db.selectSqlSync({
+		    name: 'readData',
+		    sql: "SELECT * FROM read_order where id='"+id+"' and hasRead=1"
+		});
+		
+		    if (ret.status) {
+//		    alert("getReadSql="+ret.status+",data="+ret.data.length);
+		    	return ret.data.length;
+//		        alert(JSON.stringify(ret));
+		    } else {
+//		        alert(JSON.stringify(err));
+		    }
+		
+    }
+    function addReadSql(id,obj){
+    	var ret = db.executeSqlSync({
+			   name: 'readData',
+			   sql: "INSERT INTO read_order (id, hasRead) VALUES ('"+id+"', '1')"   
+		  }); 
+//		  alert("$(obj).length="+$(obj).length);
+//		  alert("$(obj).children(.redRound).length="+$(obj).children(".redRound").length);
+		  $(obj).find(".redRound").removeClass("redRound");
+		  
+//			  alert("addReadSql="+ret.status);
+
+//		  var ret = db.executeSqlSync({
+//			   name: 'readData',
+//			   sql: "delete from read_order "   
+//		  }); 
+    }
+    
+    function back(){
+		api.closeWin();
+    }
+    
+    //打开详情页面
+	function toworkDetail(id,obj) { 
+	 	var userId = $api.getStorage("userId");
+     	var data = $.extend({}, pageParams, {executorId: userId,id:id}); 
+	    var name = "";
+		var url  = "";
+	    if(data.type == "workorder"){
+    		name = "frm_orderDetail";
+			url  = "frm_orderDetail.html";
+	    }else{
+		    switch(data.workOrderStatus){
+		    	case "FEEDBACKING":
+		    		name = "win_feedback_orderDetail";
+		    		url  = "win_feedback_orderDetail.html";
+		    		break;
+		    	case "FEEDBACKED":
+		    		name = "win_acceptence_orderDetail";
+		    		url  = "win_acceptence_orderDetail.html";
+		    		break;
+		    	case "ASSESSING":
+		    		name = "win_evaluation_orderDetail";
+		    		url  = "win_evaluation_orderDetail.html";
+		    		break;
+		    	case "COMPLETED":
+		    		name = "win_complete_orderDetail";
+		    		url  = "win_complete_orderDetail.html";
+		    		break;
+		    		
+		    }
+	    }
+	    addReadSql(id,obj);
+	    $api.openWin({
+	            name:name,
+	            url:url,
+	            pageParam: data,
+	            reload:true,
+	            slidBackEnabled:false,
+	            animation:{ 
+	                type:"movein",              //动画类型（详见动画类型常量）
+	                subType:"from_right",       //动画子类型（详见动画子类型常量）
+	                duration:300                //动画过渡时间，默认300毫秒
+	      		}
+		 });
+	}
+	</script> 
+	</body>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/home.css">	
+</head>
+<body>
+	<div class="container" id="header">
+		<div class="full-main">
+			<!-- 顶部天气区域占位 -->
+			<div class="weather-container">
+				<div class = 'main banner-home fixed'>
+					<div class="left col-5">
+						<div class="w-part-l ">
+							<h4 class="location"></h4>
+						</div>
+					</div>
+					<div class="right col-5">
+						<div class="w-part-r clear">
+							<h5 class="date"></h5>
+						</div>
+					</div>
+				</div>
+
+				<!-- 天气 -->
+				<div class="weather">
+					<div class="main">
+						<div class="left col-5">
+							<div class="w-part-l ">
+								<!-- <span class="weather-pic"><img src="../../image/sun.png"></span> -->
+								<div class="weather-text" id="curTemperature"><h1>27&#186</h1></div>
+								<!-- &#8451 -->
+								<!--<div class="weather-text" id="weather"><h1>晴</h1></div>-->
+								
+								<div class="weather-pic-container">
+									<div class="left col-4">
+										<span class="weather-pic"><img src="../../image/temperature.png"></span>
+									</div>
+									<div class="right col-6">
+										<div class="high-t maxTemperature" id="maxTemperature"><h6>32&#186</h6></div>
+										<div class="low-t minTemperature" id="minTemperature"><h6>26&#186</h6></div>
+									</div>	
+									
+								</div>
+							</div>
+						</div>
+						<div class="right col-5">
+							<div class="w-part-r clear">
+								<span class="weather-d1 clear" id="winDirName">西北风4-5级</span>
+								<span class="weather-d2" id="airQuality">空气质量：优</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="full-main">		
+			<!-- 导航 -->
+			<div class="nav-container">
+				<img src="../../image/hometemp.png"  style="width: 100%"/>
+				<!--<div class="main">
+				
+					<table class="nav-table">
+						<tr>
+							<td flag="1">
+								<a href="javascript:void(0);"><img src="../../image/icon-plant.png"></a>
+								<span>种植</span>
+							</td>
+							<td flag="2">
+								<a href="javascript:void(0);"><img src="../../image/icon-farm.png"></a>
+								<span>田间</span>
+							</td>
+							<td flag="3">
+								<a href="javascript:void(0);"><img src="../../image/shoplist-icon.png"></a>
+								<span>采收</span>
+							</td>
+						</tr>
+						<tr>
+							<td  flag="4">
+								<a href="javascript:void(0);"><img src="../../image/record-icon.png"></a>
+								<span>记工</span>
+							</td>
+							<td flag="5">
+								<a href="javascript:void(0);"><img src="../../image/transport-icon.png"></a>
+								<span>运单</span>
+							</td>
+							<td flag="6">
+								<a href="javascript:void(0);"><img src="../../image/icon-sign.png"></a>
+								<span>签到</span>
+							</td>
+						</tr>
+					</table>
+				</div>-->
+			</div>
+
+			<!-- 用户公告 -->
+			<div class="notice-container">
+				<div class="left notice-l">
+					<div>
+						<span class="">用户公告</span>
+					</div>
+				</div>
+				<div class="right notice-r">
+					<div>
+						<span class="" style="padding-top: 5px;"><img src="../../image/speaker.gif"></span>
+						<span>慧种地于16年7月1号上线!</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 广告 -->
+			<div class="ad-container">
+				<img src="../../image/ad1.png">
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src= "../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+<script type="text/javascript">
+	
+	apiready=function(){				
+		var map = api.require('bMap');
+		map.getLocation({
+		    accuracy: '100m',
+		    autoStop: true,
+		    filter: 1
+		}, function(ret, err){
+		    if(ret.status){				        
+		        var lon = ret.lon;//大
+		        var lat = ret.lat;//小,
+		        map.getNameFromCoords({
+				    lon: lon,
+				    lat: lat
+				},function(ret,err){
+				    if(ret.status){						       
+				        var pc = null;
+				        if(ret.province==ret.city){
+				         	pc=ret.province;
+				        }else{
+				        	pc=ret.province+ret.city;
+				        }
+				        $(".location").html(pc);
+				        getCurDate();	//日期	
+				        //locationAjax(ret.province,ret.city);						        
+				    }
+				});
+		    }else{
+		        //api.alert({msg: err.code});
+		    }
+		});													
+	};
+	
+	function getCurDate(){
+		 var d = new Date();
+		 var week;
+		 switch (d.getDay()){
+			 case 1: week="星期一"; break;
+			 case 2: week="星期二"; break;
+			 case 3: week="星期三"; break;
+			 case 4: week="星期四"; break;
+			 case 5: week="星期五"; break;
+			 case 6: week="星期六"; break;
+			 default: week="星期天";
+		 }
+		 var years = d.getFullYear();
+		 var month = add_zero(d.getMonth()+1);
+		 var days = add_zero(d.getDate());
+		 var hours = add_zero(d.getHours());
+		 var minutes = add_zero(d.getMinutes());
+		 var seconds=add_zero(d.getSeconds());
+		 var ndate = years+"年"+month+"月"+days+"日 "+hours+":"+minutes+":"+seconds+" "+week;
+		 $(".date").html(week+","+month+"月"+days+"日 ");
+	}
+	
+	function add_zero(temp){
+		 if(temp<10) return "0"+temp;
+		 else return temp;
+	}
+	
+	//拿城市 去查询编码  返回天气等信息
+	function locationAjax(province,city){
+		pds.ajaxSubmit({
+			url:"app/weather/listWeather",
+			data:{"province":province,"city":city},
+			success:function(e){
+				$api.html(document.getElementById("curTemperature"),"<h1>"+e.data.weatherObserveData.curTemperature+"&#186</h1>");
+//				$api.html(document.getElementById("weather"),"<h1>"+e.data.weatherObserveData.weatherName+"</h1>");						
+				$api.html(document.getElementById("maxTemperature"),"<h6>"+e.data.weatherForecastData.maxTemperature+"&#186</h6>");
+				$api.html(document.getElementById("minTemperature"),"<h6>"+e.data.weatherForecastData.minTemperature+"&#186</h6>");						
+				$api.html(document.getElementById("winDirName"),e.data.weatherObserveData.winDirName+e.data.weatherObserveData.winPowerName);
+				$api.html(document.getElementById("airQuality"),"空气质量："+e.data.airQualityData.airQuality);																
+			},error:function(e){
+				api.alert({msg: ' 服务器异常，请联系管理员!!'});	
+			}
+		});
+	}
+	
+/** 跳转至相应页面   */
+//function toOtherIndex(dom){
+//		var that = $(dom);
+//		var flag = $(dom).attr("flag");
+//		var frameName = null;
+//		var frameUrl = null;
+//		var tabBarIndex = 0;
+//	    switch(flag){
+//	       case 1:
+//	            frameName    = "plant_index";
+//	            frameUrl     = "./planting/plant_index.html";
+//	            tabBarIndex = 1;
+//	    		break;
+//	    	case 2:	
+//			case 6:	
+//	    		//headerHtml = "田间管理";
+//	            frameName    = "frm_field";
+//	            frameUrl     = "../frm_field.html";
+//	            tabBarIndex = 2;
+//				break;
+//			case 3:	
+//			case 4:	
+//			case 5:	
+//				//headerHtml = "采收管理";
+//	            frameName    = "harvest_index";
+//	            frameUrl     = "./harvest/harvest_index.html";
+//	            tabBarIndex = 3;
+//				break;
+//	    }
+//	    api.closeFrame();
+//		api.openFrame({
+//			name : frameName,
+//		   	url :  frameUrl,
+//	        pageParam : api.pageParam,
+//			reload : true,
+//		    rect : {
+//				x : 0,
+//				y : 0,
+//				w : 'auto',
+//				h : "auto"
+//			}
+//		});
+//}
+</script>
+</body>
+</html>
+

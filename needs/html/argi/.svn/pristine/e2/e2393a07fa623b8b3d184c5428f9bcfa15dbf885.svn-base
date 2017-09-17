@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>修改密码</title>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	    <link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	        	<!-- 顶部菜单栏 -->
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>修改密码</h4>
+					</div>
+					<a href="javascript:void(0);" onclick="back()">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+				<br>
+				<br>
+				<!-- 内容 -->
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="center">
+	            		<form class="changepassword-form" id="changePasswordForm">
+	            			<div class="form-container-noborder">
+		            			<div class="form-input-container input-b-margin">
+		            				<img class="input-img" id = "oldpimg" src="../../../../image/lock.png">
+		            				<input type="textera" data-rule="*" data-nullmsg="密码不能为空" data-errmsg="与原始密码不一致" data-sucmsg="" id = "oldp" name="" placeholder="原始密码" value="" class="input-ta">
+		            			</div>
+		            			<div class="form-input-container input-b-margin">
+		            				<img class="input-img" id = "newpimg" src="../../../../image/lock.png">
+		            				<input type="textera" data-rule="*" data-nullmsg="密码不能为空" data-errmsg="验证失败" data-sucmsg="" id = "newp" name="newPassword" value="" placeholder="新密码" class="input-ta">
+		            			</div>
+		            			<div class="form-input-container">
+		            				<img class="input-img" id = "newp2img" src="../../../../image/lock.png">
+		            				<input type="textera" data-sync="newPassword" data-nullmsg="密码不能为空" data-errmsg="两次密码输入不一致" data-sucmsg="" id = "newp2" name="reNewPassword" placeholder="重新输入新密码" value="" class="input-ta">
+		            			</div>
+	            			</div>
+
+	            			<div class="login-btn-container">
+	            				<a class = "btn-3" href="javascript:void(0);" id="submit"><input type="button" class = "btn-1-text" name=""  value="确认修改"></a>
+	            			</div>
+	            		</form>
+	            	</div>
+
+	            </div>
+	            <!-- 底部菜单栏 -->
+	           <!--  <div class="nav fixed">
+	            	<ul>
+	            		<li>
+	            		</li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            	</ul>
+	            </div> -->
+
+			</div>
+	    </div>      
+
+	    <script type="text/javascript" src= "../../../../../script/jquery.min.js"></script>	    	    	    
+	    <script type="text/javascript" src= "./../../../../script/common/zepto.min.js"></script>
+	    <script type="text/javascript" src="./../../../../script/common/pds.ajax.js"></script>
+	    <script type="text/javascript" src="./../../../../script/common/api.js"></script>
+	    <script type="text/javascript" src="./../../../../script/common/availdate-v1.0.2.js"></script>
+	    <script type="text/javascript">
+	    	
+	    	apiready = function(){
+	    		    		
+	    		var loginName = $api.getStorage("argi_login_username");  	    		
+	    		ac.form({
+					area:"#changePasswordForm",
+					btn:"#submit",
+					endSuccess: function () {
+						var password = $api.getStorage("argi_login_password");   
+						var oldPassword = document.getElementById("oldp").value;
+			    		if(password!=oldPassword){
+			    			api.alert({msg: '原密码输入不正确'});
+			    		}else{			    		
+	                		updateSubmit(loginName);
+			    		} 						             		
+            		}			
+				});
+	    	};
+	    	//确认修改
+	    	function updateSubmit(loginName){
+	    			
+	    			var newPassword = document.getElementById("newp").value;
+    				pds.ajaxSubmit({
+						url:"app/sys/updatePassword",
+						data:{"phone":loginName,"password":newPassword},
+						success:function(e){
+							api.alert({msg: ' 密码已修改！'});							
+							
+						},
+						error:function(e){
+							api.alert({msg: '服务器异常，请联系管理员!!'});
+						}
+  					});	    		
+	    	} 	    
+			inputClick($("#oldp"));
+			inputBlur($("#oldp"));
+			inputClick($("#newp"));
+			inputBlur($("#newp"));
+			inputClick($("#newp2"));
+			inputBlur($("#newp2"));
+
+	    	function inputClick(d){
+	    		d.click( function(){
+	    			if(this.value != null){
+						this.type = 'password';
+						this.value='';
+					}
+				$("#" + d.attr('id') + "img").attr("src","../../../../image/lock-green.png");	
+	    		});
+	    	}
+	    	function inputBlur(d){
+	    		d.blur( function(){
+		    		var oldValue = $(this).val();
+				    if(oldValue == ""){
+				        $(this).val(this.defaultValue);
+				        this.type = 'textarea';
+				    }
+					else {
+						this.type = 'password';
+						this.value = this.value;
+					}
+					$("#" + d.attr('id') + "img").attr("src","../../../../image/lock.png");	
+	    		});
+	    	}
+	    	/* 回退事件  */
+function back(){
+	 api.closeWin();
+}
+	    </script>
+	</body>
+</html>
+
+

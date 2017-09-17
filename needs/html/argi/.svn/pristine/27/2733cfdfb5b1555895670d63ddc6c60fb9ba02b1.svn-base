@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>技术推广</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/iscroll-style.css"/>
+    <script type="text/javascript" src="../../../script/iscroll.js"></script>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <style>
+    	*{
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            /*height:100%;*/
+        }
+        body{
+            /*position: relative;
+            background-color: #f2f2f2;
+            padding-top: 1.28rem;*/
+        }
+        
+        #top{
+            width: 100%;
+            height: 0.46rem;
+            background: #00c558;
+            margin-bottom: 0.82rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+        header{
+            position: fixed;
+            left: 0;
+            top: 0.44rem;
+            width: 100%;
+            background: #00c558;
+            z-index: 99;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.82rem;
+            line-height: 0.82rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{
+            display: inline-block;
+            position: absolute;
+            left: 0.25rem;
+            bottom: 0.28rem;
+            width: 0.16rem;
+            height: 0.28rem;
+            background-image: url(../../../image/harvest_back.png);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat; 
+        }
+        #wrapper{
+        	/*border:solid 1px #f2f2f2;*/
+            width:100%;
+			position: absolute;
+			left: 0;
+			top: 1.3rem;
+			bottom: 0;
+			overflow: auto;
+			z-index: 1;
+			padding-bottom:1.0rem;
+			background-color: #f2f2f2;
+        }
+        #wrapper .scroller,#wrapper .scroller>ul,#wrapper .scroller>ul>li{
+            width:100%;
+        }
+        #wrapper .scroller>ul>li{
+        	/*height:1.7rem;*/
+            padding:0.25rem 0.27rem 0.25rem 0.2rem;
+            border-bottom: solid 1px #dcdcdc;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+        #wrapper .scroller>ul>li .transferContent{
+            width: 4.65rem;
+            height:1.35rem;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            /*-webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;*/
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+            -webkit-box-align: start; 
+            -webkit-align-items: flex-start; 
+            align-items: flex-start;
+        }
+        #wrapper .scroller>ul>li .transferContent p:first-of-type{
+            width: 100%;
+            line-height: 0.35rem;
+            font-size: 0.28rem;font-family: PingFangSC-Regular, sans-serif;color: #717475;
+        }
+        #wrapper .scroller>ul>li .transferContent p:last-of-type{
+            width: 100%;
+            font-size: 0.28rem;font-family: PingFangSC-Regular, sans-serif;color: #717475;
+        }
+        #wrapper .scroller>ul>li .transferImg{
+            width:1.86rem;
+            height: 1.35rem;
+        }
+        #wrapper .scroller>ul>li .transferImg img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+	<div id="top"></div>
+    <header>        
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+                                    技术推广
+        </div>
+    </header>
+
+
+    <div id="wrapper"> 
+        <div class="scroller">
+            <ul>
+                <li onclick="openTechTransferInfo(1)"> 
+                   <div class="transferContent">
+                       <p>晚熟大王柑橘秋季管理要点：做好三点，带来丰产！</p>
+                       <p>2017-08-09</p>
+                   </div>
+                   <div class="transferImg">
+                       <img src="../../../image/home_technology_transfer_03.png">
+                   </div>
+                </li>
+                <li onclick="openTechTransferInfo(2)">
+                   <div class="transferContent">
+                       <p>马铃薯种植管理收获技巧</p>
+                       <p>2017-08-09</p>
+                   </div>
+                   <div class="transferImg">
+                       <img src="../../../image/home_technology_transfer_04.png">
+                   </div>
+                </li>
+				<li onclick="openTechTransferInfo(1)"> 
+                   <div class="transferContent">
+                       <p>晚熟大王柑橘秋季管理要点：做好三点，带来丰产！</p>
+                       <p>2017-08-09</p>
+                   </div>
+                   <div class="transferImg">
+                       <img src="../../../image/home_technology_transfer_03.png">
+                   </div>
+                </li>
+                <li onclick="openTechTransferInfo(2)">
+                   <div class="transferContent">
+                       <p>马铃薯种植管理收获技巧</p>
+                       <p>2017-08-09</p>
+                   </div>
+                   <div class="transferImg">
+                       <img src="../../../image/home_technology_transfer_04.png">
+                   </div>
+                </li>
+                <li onclick="openTechTransferInfo(1)"> 
+                   <div class="transferContent">
+                       <p>晚熟大王柑橘秋季管理要点：做好三点，带来丰产！</p>
+                       <p>2017-08-09</p>
+                   </div>
+                   <div class="transferImg">
+                       <img src="../../../image/home_technology_transfer_03.png">
+                   </div>
+                </li>
+                <li onclick="openTechTransferInfo(2)">
+                   <div class="transferContent">
+                       <p>马铃薯种植管理收获技巧</p>
+                       <p>2017-08-09</p>
+                   </div>
+                   <div class="transferImg">
+                       <img src="../../../image/home_technology_transfer_04.png">
+                   </div>
+                </li>
+            </ul>
+            
+             <div class="more">
+             	<i class="pull_icon"></i>
+             	<span style="font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #747474;">上拉加载更多...</span>
+             </div> 
+            
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	    var myscroll = new iScroll("wrapper",{
+			onScrollMove:function(){
+				if (this.y<(this.maxScrollY)) {
+					$('.pull_icon').addClass('flip');
+					$('.pull_icon').removeClass('loading');
+					$('.more span').text('释放加载...');
+				}else{
+					$('.pull_icon').removeClass('flip loading');
+					$('.more span').text('上拉加载更多...')
+				}
+			},
+			onScrollEnd:function(){
+				if ($('.pull_icon').hasClass('flip')) {
+					$('.pull_icon').addClass('loading');
+					$('.more span').text('加载中...');
+					pullUpAction();
+				}
+				
+			},
+			onRefresh:function(){
+				$('.more').removeClass('flip');
+				$('.more span').text('上拉加载更多...');
+			}
+			
+		});
+//		判断临界情况***************************************
+		if ($('.scroller').height()<$('#wrapper').height()) {
+			$('.more').hide();
+			myscroll.destroy();
+		};
+		//请求数据***************************************
+		function pullUpAction(){
+			setTimeout(function(){
+				/*$.ajax({
+					url:'/json/ay.json',
+					type:'get',
+					dataType:'json',
+					success:function(data){
+						for (var i = 0; i < 5; i++) {
+							$('.scroller ul').append(data);
+						}
+						myscroll.refresh();
+					},
+					error:function(){
+						console.log('error');
+					},
+				})*/
+				var data='<li onclick="openTechTransferInfo(1)">'+ 
+		               '<div class="transferContent">'+
+		                   '<p>晚熟大王柑橘秋季管理要点：做好三点，带来丰产！</p>'+
+		                   '<p>2017-08-09</p>'+
+		               '</div>'+
+		               '<div class="transferImg">'+
+		                   '<img src="../../../image/home_technology_transfer_03.png">'+
+		               '</div>'
+		            '</li>';
+				for (var i = 0; i < 5; i++) {
+					$('.scroller ul').append(data);
+				}
+					myscroll.refresh();
+			}, 2000)
+		};
+		
+		
+	};
+
+
+
+//打开技术详情页面***************************************************
+function openTechTransferInfo(id){
+	$api.openWin({
+		name : "frm_home_tech_transfer_info",
+		url : "widget://html/home/techTransfer/win_home_tech_transfer_info"+id+".html",
+		reload : true,
+		selecteIndex : '3',
+		slidBackEnabled : false,
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+};
+
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+</script>
+</html>

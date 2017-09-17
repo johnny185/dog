@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>历史记工查看</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/reset.css"/>
+    <style>
+    	*{
+			box-sizing: border-box;
+		}
+		html,body{
+			width:100%;
+			/*height:100%;*/
+		}
+		body{
+			position: relative;
+			overflow-y: auto;
+			background-color: #f2f2f2;
+			padding-top: 1.26rem;
+		}
+		
+		#top{
+			width: 100%;
+			height: 0.46rem;
+			background: #00c558;
+			margin-bottom: 0.82rem;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 99;
+		}
+		header{
+			position: fixed;
+			left: 0;
+			top: 0.44rem;
+			width: 100%;
+			background: #00c558;
+			z-index: 99;
+		}
+		header #title{
+			position: relative;
+			width:100%;
+			height: 0.82rem;
+			line-height: 0.82rem;
+			text-align: center;
+			font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header #title .left{
+			display: inline-block;
+			position: absolute;
+			left: 0.25rem;
+			bottom: 0.28rem;
+			width: 0.16rem;
+			height: 0.28rem;
+			background-image: url(../../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat; 
+		}
+		header #title .right{
+			display: inline-block;
+			position: absolute;
+			right: 0;
+			bottom: 0.2rem;
+			width: 1.22rem;
+			height: 0.36rem;
+			line-height: 0.36rem;
+			font-size: 0.29rem;font-family: PingFangSC-Regular, sans-serif;color: #f2e9e9;
+		}
+		#content{
+			position: relative;
+			width: 100%;
+			background: url(../../../../image/history_record_check.png);
+			background-position: center top;
+			background-size: 100% 2.31rem;
+			background-repeat: no-repeat;
+			padding: 0.79rem 0.2rem 0 0.2rem;
+			padding-bottom: 1.7rem;  
+		}
+		#content .searchBtn{
+			position: relative;
+			width: 4.79rem;
+			height:0.75rem;
+			line-height: 0.75rem;
+			text-align: center;
+			margin: 0 auto;
+			border:solid 1px #f8f9fe;
+			border-radius: 0.375rem;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #f2e9e9;
+		}
+		#content .recordLists{
+			position: relative;
+			width: 100%;
+			margin-top: 0.6rem;
+		}
+		#content .recordLists ul{
+			background: #fff;
+			margin-bottom: 0.14rem;
+			border-radius: 0.1rem;
+		}
+		#content .recordLists li{
+			width: 100%;
+			padding: 0rem 0.2rem 0rem 0.34rem;
+			border-bottom: solid 1px #ebebeb;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #86888a;
+		}
+		#content .recordLists li p{
+			/*padding: 0.3rem 0;*/
+			line-height: 0.6rem;
+		}
+		#content .recordLists li p span{
+			margin-left: 0.2rem;
+		}
+		
+		#content .searchView{
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index:9;
+			width: 100%;
+			height: 2.95rem;
+			background: #fff;
+			padding: 0.32rem 0.25rem 0.2rem 0.25rem;
+			display: none;
+			
+		}
+		#content .searchView ul{
+			width: 100%;
+			height: 100%;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		#content .searchView ul li{
+			width: 100%;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		#content .searchView ul li>span{
+			padding: 0.1rem 0;
+			font-size: 0.32rem;font-family: PingFangSC-Regular, sans-serif;color: #86888a;
+		}
+		#content .searchView ul li>div{
+			box-sizing:border-box;
+			font-size: 0.27rem;font-family: PingFangSC-Regular, sans-serif;color: #ef8233;
+			border: solid 1px #ef8233;
+			padding: 0.2rem 1.35rem;
+			border-radius: 0.1rem;
+		}
+		#content .searchView ul li>div:last-of-type{
+			color: #fff;
+			background: #ef8233;
+		}
+		#content .searchView ul li input{
+			width: 5.38rem;
+			height: 0.53rem;
+			color: #b7b3af;
+			padding-left: 0.18rem;
+			border: solid 1px #b7b3af;
+			outline: none;
+			border-radius: 0.05rem;
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #86888a;
+		}
+		
+		#dateSubmit{
+			position:fixed;
+			left:0;
+			top:335px;
+			width:100%;
+			height:0.7rem;
+			background:#ecf3ed;
+			display:none;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: end;
+			-webkit-justify-content: flex-end;
+			justify-content: flex-end;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		#dateSubmit .dateSubmitClose{
+			/*position:absolute;
+			left:2.0rem;
+			top:0;*/
+			
+			height:100%;
+			line-height:0.7rem;
+			text-align:center;
+			font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #15CB4B;
+		}
+		#dateSubmit .dateSubmitOk{
+			/*position:absolute;
+			right:0.3rem;
+			top:0;*/
+			/*width:1.2rem;*/
+			padding:0 0.3rem;
+			height:100%;
+			line-height:0.7rem;
+			text-align:center;
+			font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #15CB4B;
+		}
+    </style>
+</head>
+<body>
+	<div id="top"></div>
+	<header>		
+		<div id="title">
+			<span class="left" onclick=""></span>
+			历史记工查看
+			<!-- <span class="right">保存</span> -->
+		</div>
+	</header>
+	<div id="content">
+		<div class="searchBtn" onclick="checkViewOpen()">查记工点我哦</div>
+		<div class="searchView">
+			<ul>
+				<li><span>开始时间</span><input type="text" name="start"  readonly="readonly" class="startDate"></li>
+				<li><span>截止时间</span><input type="text" name="end" readonly="readonly" class="endDate"></li>
+				<li><div class="closeView">取消</div><div class="submitBtn">确定</div></li>
+			</ul>
+		</div>
+		<div class="recordLists">
+			<ul>
+				<li>
+					<p>基地</p>
+					<p>北京海淀定慧北里1号基地</p>
+				</li>
+				<li>
+					<p>品名</p>
+					<p>西蓝花</p>
+				</li>
+				<li>
+					<p>记工日期</p>
+					<p><span>2017-06-30</span><span>10:30</span></p>	
+				</li>
+				<li>
+					<p>规格数量</p>
+					<p>16头/框</p>
+				</li>
+				<li>
+					<p>一等品</p>
+					<p>18框</p>
+				</li>
+				<li>
+					<p>二等品</p>
+					<p>18框</p>
+				</li>
+			</ul>
+			
+			<ul>
+				<li>
+					<p>基地</p>
+					<p>北京海淀定慧北里1号基地</p>
+				</li>
+				<li>
+					<p>品名</p>
+					<p>西蓝花</p>
+				</li>
+				<li>
+					<p>记工日期</p>
+					<p><span>2017-06-30</span><span>10:30</span></p>	
+				</li>
+				<li>
+					<p>规格数量</p>
+					<p>16头/框</p>
+				</li>
+				<li>
+					<p>一等品</p>
+					<p>18框</p>
+				</li>
+				<li>
+					<p></p>
+					<p></p>
+				</li>
+			</ul>
+
+			<ul>
+				<li>
+					<p>基地</p>
+					<p>北京海淀定慧北里1号基地</p>
+				</li>
+				<li>
+					<p>品名</p>
+					<p>西蓝花</p>
+				</li>
+				<li>
+					<p>记工日期</p>
+					<p><span>2017-06-30</span><span>10:30</span></p>	
+				</li>
+				<li>
+					<p>规格数量</p>
+					<p>16头/框</p>
+				</li>
+				<li>
+					<p></p>
+					<p></p>
+				</li>
+				<li>
+					<p></p>
+					<p></p>
+				</li>
+			</ul>
+			
+			<ul>
+				<li>
+					<p>记工日期</p>
+					<p><span>2017-06-30</span><span>10:30</span></p>
+					
+				</li>
+				<li>
+					<p>规格数量</p>
+					<p>16头/框</p>
+				</li>
+				<li>
+					<p>一等品</p>
+					<p>18框</p>
+				</li>
+				<li>
+					<p></p>
+					<p></p>
+				</li>
+			</ul>
+			
+			<ul>
+				<li>
+					<p>记工日期</p>
+					<p><span>2017-06-30</span><span>10:30</span></p>
+					
+				</li>
+				<li>
+					<p>规格数量</p>
+					<p>16头/框</p>
+				</li>
+				<li>
+					<p>一等品</p>
+					<p>18框</p>
+				</li>
+				<li>
+					<p></p>
+					<p></p>
+				</li>
+			</ul>
+			
+			<ul>
+				<li>
+					<p>记工日期</p>
+					<p><span>2017-06-30</span><span>10:30</span></p>
+					
+				</li>
+				<li>
+					<p>规格数量</p>
+					<p>16头/框</p>
+				</li>
+				<li>
+					<p>一等品</p>
+					<p>18框</p>
+				</li>
+				<li>
+					<p></p>
+					<p></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="dateSubmit">
+		<div class="dateSubmitClose"></div>
+		<div class="dateSubmitOk"></div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../../script/api.js"></script>
+<script type="text/javascript" src="../../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		$("#dateSubmit").hide();
+//		打开日历
+		var UICalendar = api.require('UICalendar');	
+		openDateView(UICalendar);
+//		默认日历隐藏
+		UICalendar.hide();
+//		搜索区域输入框获得焦点和失去焦点时改变样式
+		$("#content .searchView input").focus(function(){
+			$(this).css({
+				"border":"solid 1px #00c558"
+			});
+		});
+		$("#content .searchView input").blur(function(){
+			$(this).css({
+				"border":"solid 1px #b7b3af"
+			});
+		});
+	
+//		点击搜索区域弹出日期，修改lists区域背景色
+		$("#content .searchView").click(function(ev){
+			ev.stopPropagation();
+//			显示日历
+			UICalendar.show();
+//			显示年月展示栏
+			$("#dateSubmit").show();
+//			修改lists区域背景色
+//			$("#content .recordLists ul").animate({
+//				"backgroundColor":"rgba(0, 0, 0, 0.5)"
+//			},500);
+		});
+		
+//		点击搜索区域取消按钮，关闭搜索区域和日期，修改lists背景色
+		$("#content .searchView .closeView").click(function(ev){
+			ev.stopPropagation();
+			//隐藏年月展示栏
+			$("#dateSubmit").hide();
+//			隐藏日历
+			UICalendar.hide();
+//			关闭搜索区
+			checkViewClose();
+			//修改lists区域背景色
+			$("#content .recordLists ul").animate({
+				"backgroundColor":"rgba(256, 256, 256, 1)"
+			},500);
+//			修改input边框 恢复初始状态
+			$("#content .searchView input").css({
+				"border":"solid 1px #b7b3af"
+			});
+		});
+		
+//		点击确定按钮
+		$("#content .searchView .submitBtn").click(function(ev){
+			ev.stopPropagation();
+//			隐藏年月栏
+			$("#dateSubmit").hide();
+//			关闭搜索区
+			checkViewClose()
+//			隐藏日历
+			UICalendar.hide();
+//			执行下面操作
+			alert("日期字段表单验证成功，方可拿历史数据并渲染页面");
+		});
+		
+	};
+	
+//***************************************函数********************************************
+//	打开日历函数
+	function openDateView(UICalendar){
+		UICalendar.open({
+		    rect: {
+		        x: 0,
+		        y: 368,
+		        w: api.frameWidth,
+		        h: 200
+		    },
+		    styles: {
+		        bg: '#fff',
+		        week: {
+		            weekdayColor: '#3b3b3b',
+		            weekendColor: '#a8d400',
+		            size: 12
+		        },
+		        date: {
+		            color: '#3b3b3b',
+		            selectedColor: '#fff',
+		            selectedBg: '#a8d500',
+		            size: 12
+		        },
+		        today: {
+		            color: 'rgb(230,46,37)',
+		            bg: ''
+		        },
+		        specialDate: {
+		            color: '#a8d500',
+		            bg: 'widget://image/a.png'
+		        }
+		    },
+		    specialDate: [{
+		        date: '2015-06-01'
+		    }],
+		    switchMode: 'horizontal',
+		    fixedOn: api.frameName,
+		    fixed: true
+		}, function(ret, err) {
+		    if (ret) {
+//		        alert(JSON.stringify(ret));
+				$("#dateSubmit .dateSubmitClose").text( dateNumtrans(ret.year)+"年" );
+				$("#dateSubmit .dateSubmitOk").text( dateNumtrans(ret.month)+"月" );
+//				监听日历不同事件
+				if(ret.eventType=="normal"){  //************普通 日历点击事件
+//					alert("normal");
+					$("#content .searchView input").each(function(index,el){
+						if($(this).is(":focus")){
+//							alert("focus")
+							$(this).val(dateNumtrans(ret.year)+"-"+dateNumtrans(ret.month)+"-"+dateNumtrans(ret.day));
+						}
+					})		
+				}else if(ret.eventType=="switch"){  //****************切换月份事件
+//					alert("switch");
+					$("#dateSubmit .dateSubmitClose").text( dateNumtrans(ret.year)+"年" );
+					$("#dateSubmit .dateSubmitOk").text( dateNumtrans(ret.month)+"月" );
+				};
+		    } else {
+		        alert(JSON.stringify(err));
+		    }
+		});
+		
+	};
+	
+//	打开搜索区域
+	function checkViewOpen(){
+		$("#content .searchView").slideDown(300);
+		
+	};
+//	关闭搜索区域
+	function checkViewClose(){
+		$("#content .searchView").slideUp(300);
+	};
+//	处理日期格式
+	function dateNumtrans(num){
+//		var num_=parseInt(num);
+		if(num>=10){
+			return num;
+		}else{
+			return "0"+num
+		}
+	}
+</script>
+</html>

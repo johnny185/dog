@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../css/api.css">
+	<style type="text/css">
+		html,body{
+			width:100%;
+			height:100%;
+			background: #f3f4f4;
+			overflow: hidden;
+		}
+		#photo{
+			width:100%;
+			height:100%;
+			border-radius: 50%;
+		}
+		/*span{
+			display:inline-block;
+			vertical-align: middle;
+		}*/
+		header{
+			position: relative;
+			width:100%;
+			height:2.86rem;
+			padding: 0 0.22rem 0 0.52rem;
+			background-image: url(../../image/main_header_bc.png);
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+			/*display: -webkit-box;display: -webkit-flex;display:flex;	
+			-webkit-justify-content: space-between; justify-content: space-between;			
+			-webkit-align-items: center; align-items: center;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		header>div:first-of-type{
+			width:93%;
+			/*display: -webkit-box;display: -webkit-flex;display:flex;	
+			-webkit-justify-content: flex-start; justify-content: flex-start;			
+			-webkit-align-items: center; align-items: center;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+			
+			-webkit-box-pack: start;
+			-webkit-justify-content: flex-start;
+			justify-content: flex-start;
+			
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+			box-align:center;
+
+		}
+		header>div:first-of-type>div:first-of-type{
+			width: 1.12rem;
+			height:1.12rem;
+			margin-right:0.2rem;
+			background-image: url(../../image/main_username_login.png);
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+		header>div:first-of-type>div:last-of-type{
+			/*width:78.5%;*/
+			position:relative;
+			font-size: 0.32rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header>div:first-of-type>div:last-of-type>p:first-of-type{
+			padding-bottom: 0.1rem;
+		}
+		header>div:first-of-type>div:last-of-type>p:last-of-type{
+		    width:4.7rem;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow:ellipsis;
+			font-size:0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header>div:nth-of-type(2){
+			height: 0.28rem;
+			width:0.16rem;
+			background-image: url(../../image/main_header_right.png);
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+		header>div:last-of-type{
+			position:absolute;
+			left:0;
+			bottom: 0;
+			width: 100%;
+			height: 0.38rem;
+			overflow: hidden;
+		}
+		header>div:last-of-type .wrap_bc{
+			width: 400%;
+			height: 100%;
+			/*margin-left: -5rem;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+
+
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		header>div:last-of-type .wrap_bc>div{
+			/*width:50%;*/
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+
+			height:100%;
+			background-image: url(../../image/header_img_01.png);
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+		
+		#content ul li{
+			position: relative;
+			width: 100%;
+			height:2.0rem;
+			background: #fff;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+	
+		}
+		#content ul li>div{
+			position:relative;
+			height: 100%;
+			width:50%;
+			
+			/*display: -webkit-box;display: -webkit-flex;display:flex;
+			-webkit-flex-direction: column; flex-direction: column;	
+			-webkit-justify-content: center; justify-content: center;			
+			-webkit-align-items: center; align-items: center;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		#content ul li>div div{
+			/*position:absolute;left:50%;top:50%;*/
+			/*float:left;*/
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #7D7878;
+		}
+		#content ul li>div div:first-of-type{
+			margin-bottom:0.39rem;
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+		#mainBtn{
+			position: relative;
+			width: 6.69rem;
+			height: 0.76rem;
+			margin:0 auto;
+			line-height: 0.76rem;
+			text-align: center;
+			background: #ef8233;
+			font-size: 0.32rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+			margin-top: 5.3rem;
+		}
+		
+		
+		
+		
+		#screenWrap{
+			position:fixed;
+			z-index:999;
+			left:0;
+			top:0;
+			right:0;
+			bottom:0;
+			/*background:#333333;
+			opacity:0.7;*/
+			background:rgba(0,0,0,0.5);
+			display:none;
+		}
+		#screenWrap div:first-of-type{
+			position:absolute;
+			left:50%;
+			top:50%;
+			z-index:99;
+			margin-left:-1.94rem;
+			margin-top:-1.92rem;
+			width:3.88rem;
+			height:3.84rem;
+			background-color:red;
+		} 
+		 #screenWrap div:last-of-type{
+			position:absolute;
+			left:50%;
+			top:50%;
+			z-index:999;
+			margin-left:-1.94rem;
+			margin-top:-1.92rem;
+			width:3.88rem;
+			height:3.84rem;
+			
+			background-image: url(../../image/home_index_screenImg.jpg);
+			background-position:center;
+			background-size:100%;
+			background-repeat:no-repeat;
+			background-color:#fff;
+		} 
+	</style>
+</head>
+<body>
+	<div id="screenWrap">
+		<div></div>
+		<div></div>
+	</div>
+	<header>
+		<div id="myMess">
+			<div><img id="photo"></div>
+			<div>
+				<p name="user"></p>
+				<p name="office"></p>
+			</div>
+		</div>
+		<div></div>
+		<div>
+			<div class="wrap_bc">
+				<div style=""></div>
+				<div style="transform: rotateY(180deg);"></div>
+				<div style=""></div>
+				<div style="transform: rotateY(180deg);"></div>
+			</div>
+		</div>
+		
+	</header>
+	<div id="content">
+		<ul>
+			<li>
+				<!--<div  onclick="openScreenWrap()" style="border-right: solid 1px #f8f8f8;border-bottom:solid 1px #f8f8f8">
+					<div style="background-image: url(../../image/main_content_business.png);width:0.59rem;height: 0.54rem;"></div>
+					<div>业务推广管理</div>
+				</div>-->
+				<div  onclick="openChangePassword()" style="width:49.7%;border-right:solid 1px #f7f7f7;">
+					<div style="background-image: url(../../image/main_content_password.png);width:0.47rem;height:0.58rem"></div>
+					<div>修改密码</div>
+				</div>
+				<div  onclick="mypostion()" style="border-bottom:solid 1px #f8f8f8">
+					<div style="background-image: url(../../image/main_content_position.png);width:0.44rem;height:0.66rem;"></div>
+					<div>我的位置</div>
+				</div>
+			</li>
+			<!--<li>-->
+				<!--<div  onclick="openChangePassword()" style="width:49.7%">
+					<div style="background-image: url(../../image/main_content_password.png);width:0.47rem;height:0.58rem"></div>
+					<div>修改密码</div>
+				</div>-->
+				<!--<div  onclick="openScreenWrap()" style="border-left: solid 1px #f8f8f8;width:50.3%;">
+					<div style="background-image: url(../../image/main_content_setup.png);width:0.60rem;height:0.60rem"></div>
+					<div>设置</div>
+				</div>-->
+			<!--</li>-->
+		</ul>
+	</div>
+	
+	<div id="mainBtn" onclick="logout()">退出登录</div>
+</body>
+<script type="text/javascript" src="../../script/rem.js"></script>
+<script type="text/javascript" src="../../script/jquery.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+<script type="text/javascript">
+	/**
+	 *事件绑定
+	 */
+	function addMyMessDivClickListener(){
+		$("#myMess").click(function (){
+			$api.openWin({
+				name : 'my_message',
+				url : 'widget://html/mysetting/mysettings/mine/my_message.html',
+				reload : true,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		});
+	}
+	/*
+	 *  方法声明
+	 */
+	/* 退出   */
+	function logout() {
+		api.confirm({
+			//	    title: '',
+	msg : "你确定要退出吗?",
+	buttons : ['确定', '取消']
+	}, function(ret, err) {
+		if (ret) {
+			if (ret.buttonIndex * 1 == 1) {
+				//退出
+	//							$api.setStorage("userId", null);
+	//							$api.setStorage('argi_login_username', null);
+	//							$api.setStorage('argi_login_password', null);
+	api.closeToWin({
+		name : "root",
+		url : "../login/login.html",
+		slidBackEnabled : false,
+		reload : true,
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+	//							api.execScript({
+	//								name : 'root',
+	//								//frameName:'harvest_workorder_list',
+	//								script : 'cleanAccount();'
+	//							});
+				}
+			}
+		});
+	}
+	
+	function openSetting(){
+		api.alert({msg:'程序员抛家舍业，正在日夜开发中...'});
+	}
+	
+	function openChangePassword() {
+		$api.openWin({
+			name : 'change_password',
+			url : 'widget://html/mysetting/mysettings/settings/change_password.html',
+			reload : true,
+			animation : {
+				type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+	}
+
+
+	function openBusiness() {
+		$api.openWin({
+			name : 'business',
+			url : 'widget://html/mysetting/mysettings/business.html',
+			reload : true,
+			selecteIndex:'4'
+	//					animation : {
+	//						type : "movein", //动画类型（详见动画类型常量）
+	//						subType : "from_right", //动画子类型（详见动画子类型常量）
+	//						duration : 300 //动画过渡时间，默认300毫秒
+	//					}
+		});
+	}
+	function mypostion(){
+		$api.openWin({
+            name: 'mypostion',
+            url: 'widget://html/mysetting/mysettings/mypostion.html',
+            selecteIndex:'4'// 点亮第4个图标
+        });
+	}
+	// 初始化 用户名 和 角色
+	function getUserInfo(){
+			pds.ajaxSubmit({
+			url:"app/customer/getUserMsg",
+			data:{},
+			success:function(e){
+				var user = e.data.user;
+				var roles = e.data.roles;
+				var office = e.data.office;
+				var photo = e.data.photo;						
+				$("p[name=user]").text(user);
+				//$("div[name=roles]").text(roles);
+				$("p[name=office]").text(office);
+				if(photo != undefined && photo != null && photo != ""){
+					$("#photo").attr("src",pds.defaultUri+'/'+photo);
+				}
+			},
+			error:function(e){
+				api.alert({msg: '服务器异常，请联系管理员!!'});
+			}
+		});	   
+	}
+			
+	/**
+	 * 方法调用
+	 */ 
+	addMyMessDivClickListener();
+	apiready=function(){
+		var marginLeftAdd=0;
+		    var wrapWidth=$("body").width();
+		    // alert(wrapWidth);
+			var wrapTimere=setInterval(function(){
+				marginLeftAdd+=3;
+				if(marginLeftAdd>=wrapWidth*4){
+					marginLeftAdd=0
+				};
+				$("header>div:last-of-type .wrap_bc").css({
+					"marginLeft":-1*marginLeftAdd/100+"rem"
+				})
+			
+		},30);
+		
+		getUserInfo();
+		api.addEventListener({
+	        name:'viewappear'
+	    },function(ret,err){
+	    	getUserInfo();
+	    });
+	}
+	
+	
+	//打开遮罩提醒***************************************************
+function openScreenWrap(){
+	$("#screenWrap").show();
+	$("#screenWrap").on("touchmove",function(ev){
+		ev.stopPropagation();
+	});
+	setTimeout(function(){
+		$("#screenWrap").hide();
+	},1000)
+};
+</script>
+</html>

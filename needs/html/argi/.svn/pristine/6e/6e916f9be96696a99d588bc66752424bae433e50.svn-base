@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>找回密码</title>
+     <link rel="stylesheet" type="text/css" href="../../css/api.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <script type="text/javascript" src="../../script/rem.js"></script>
+    <script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+    <script type="text/javascript">
+			(function (doc, win) {
+		        var docEl = doc.documentElement,
+		            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		            recalc = function () {
+		                var clientWidth = docEl.clientWidth;
+		                if (!clientWidth) return;
+		                if(clientWidth>=750){
+		                    docEl.style.fontSize = '100px';
+		                }else{
+		                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+		                }
+		            };
+
+		        if (!doc.addEventListener) return;
+		        win.addEventListener(resizeEvt, recalc, false);
+		        doc.addEventListener('DOMContentLoaded', recalc, false);
+		    })(document, window);
+	</script>
+    <style>
+    	*{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+            overflow-y: auto;
+            background-color: #f2f2f2;
+            padding-top: 0.88rem;
+        }
+        
+        #top{
+            /*width: 100%;
+            height: 0.46rem;
+            background: #00c558;
+            margin-bottom: 0.82rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 99;*/
+        }
+        header{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height:0.88rem;
+            background: #00c558;
+            z-index: 99;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.88rem;
+            line-height: 0.88rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{
+            /*display: inline-block;
+            position: absolute;
+            left: 0.25rem;
+            bottom: 0.28rem;
+            width: 0.16rem;
+            height: 0.28rem;
+            background-image: url(../../image/harvest_back.png);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat; */
+           display: inline-block;
+			position: absolute;
+			left: 13px;
+			bottom: 13px;
+			width: 12px;
+			height: 19px;
+			background-image: url(../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+        }
+        #content{
+            width: 100%;
+        }
+        
+		#content .setInfoHead{
+			position: relative;
+			height: 0.92rem;
+			border-bottom: solid 1px #e0e0e0;
+
+			display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            /*-webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;*/
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+		}
+		#content .setInfoHead div:first-of-type{
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			height:100%;
+			line-height: 0.92rem;
+			text-align: center;
+			font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #C3AD4C;
+			background: #f7f0de;
+		}
+		#content .setInfoHead div:last-of-type{
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			height:100%;
+			line-height: 0.92rem;
+			text-align: center;
+			font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #B8B8B8;
+			background: #EEEEEE;
+		}
+		#content .setInfoHead span{
+			position: absolute;
+			left: 50%;
+			top:50%;
+			margin-left: -0.325rem;
+			margin-top: -0.325rem;
+			display: block;
+			height: 0.65rem;
+			width: 0.65rem;
+			background: #f7f0de;
+			border-top: solid 1px #e1bb80;
+			border-right: solid 1px #e1bb80;
+			transform: rotate(45deg); 
+		}
+		#content .setInfoMain, #content .setInfoMain .setInfoTel, #content .setInfoMain .setInfoPsd{
+			position: relative;
+			width: 100%;
+			/*padding: 0.58rem 0.26rem 0 0.26rem;*/
+		}
+		#content .setInfoMain .setInfoTel ul,  #content .setInfoMain .setInfoPsd ul{
+			position: absolute;
+			left: 0.24rem;
+			top: 0.58rem;
+			width: 7.02rem;
+			background: #f2f2f2;
+		}
+		#content .setInfoMain .setInfoTel li, #content .setInfoMain .setInfoPsd li{
+			position: relative;
+			width: 7.02rem;
+			height: 0.8rem;
+
+			display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+		}
+		#content .setInfoMain .setInfoTel li input::-webkit-input-placeholder{
+    		color: #e0e0e0;opacity:1;
+		}
+		#content .setInfoMain .setInfoPsd li input::-webkit-input-placeholder{
+    		color: #e0e0e0;opacity:1;
+		}
+		#content .setInfoMain .setInfoTel li input,  #content .setInfoMain .setInfoPsd li input{
+			height: 0.5rem;
+			line-height:0.5rem;
+			text-indent: 0.18rem;
+			border: none;
+			outline: none;
+			font-size: 0.34rem;font-family: PingFangSC-Regular, sans-serif;color: #000;
+			border-left: solid 1px #e0e0e0;
+		}
+		#content .setInfoMain .setInfoTel li.telInput{
+			border: solid 1px #e0e0e0;
+			border-radius: 0.1rem;
+			margin-bottom: 0.48rem;
+			background: #fff;
+		}
+		#content .setInfoMain .setInfoTel li.telInput div:first-of-type{
+			width: 0.2rem;
+			height: 0.31rem;
+			margin: 0 0.25rem;
+			background-image: url(../../image/resend_password_telIcon.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			background-position: center;
+		}
+		#content .setInfoMain .setInfoTel li.telInput div:last-of-type{
+			width: 0.26rem;
+			height: 0.26rem;
+			margin: 0 0.28rem;
+			background-image: url(../../image/resend_password_emptyIcon.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			background-position: center;
+		}
+		#content .setInfoMain .setInfoTel li.telInput input[type="text"]{
+			width: 5.45rem;
+		}
+		#content .setInfoMain .setInfoTel li.psdInput{
+			margin-bottom: 0.7rem;
+		}
+		#content .setInfoMain .setInfoTel li.psdInput>div:first-of-type{
+			height: 100%;
+			width: 4.97rem;
+			border: solid 1px #e0e0e0;
+			border-radius: 0.1rem;
+			background: #fff;
+			display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+		}
+		#content .setInfoMain .setInfoTel li.psdInput>div:first-of-type>div{
+			width: 0.29rem;
+			height: 0.24rem;
+			margin: 0 0.18rem 0 0.25rem;
+			background-image: url(../../image/resend_password_msgIcon.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			background-position: center;
+		}
+		#content .setInfoMain .setInfoTel li.psdInput>div:first-of-type>input{
+			width: 4.2rem;
+		}
+		#content .setInfoMain .setInfoTel li.psdInput>div:last-of-type{
+			height: 0.78rem;
+			width: 1.77rem;
+			line-height: 0.8rem;
+			text-align: center;
+			background: #ef8233;
+			border-radius: 0.1rem;
+			font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		#content .setInfoMain .setInfoTel .nextBtn,  #content .setInfoMain .setInfoPsd .overSubmit{
+			display: block;
+			width: 6.96rem;
+			height: 0.75rem;
+			line-height: 0.75rem;
+			text-align: center;
+			margin: 0 auto;
+			border-radius: 0.1rem;
+			font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+			background: #00c558;
+		}
+
+
+		#content .setInfoMain .setInfoPsd li{
+			border: solid 1px #e0e0e0;
+			border-radius: 0.1rem;
+			margin-bottom: 0.48rem;
+			background: #fff;
+		}
+		#content .setInfoMain .setInfoPsd input{
+			width: 5.5rem;
+		}
+		#content .setInfoMain .setInfoPsd li div:first-of-type{
+			width: 0.25rem;
+			height: 0.3rem;
+			margin: 0 0.25rem;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			background-position: center center;
+		}
+
+		#content .setInfoMain .setInfoPsd li div:last-of-type{
+			width: 0.26rem;
+			height: 0.26rem;
+			margin: 0 0.25rem;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			background-position: center center;
+		}
+    </style>
+</head>
+<body>
+	<!--<div id="top"></div>-->
+    <header>        
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+            找回密码
+        </div>
+    </header>
+
+    <div id="content">
+    	
+    	<div class="setInfoHead">
+    		<div>验证手机</div>
+    		<div>设置新密码</div>
+    		<span></span>
+    	</div>
+
+    	<div class="setInfoMain">
+
+			<div class="setInfoPsd">
+	    			<ul>
+	    				<li class="psdNumInput1">
+	    					<div style="background-image: url(../../image/resend_password_psdIcon1.png);"></div>
+	    					<input type="password" name="psdNum1" id="lock" placeholder="请输入密码">
+	    					<div class="emptyBtn" style="background-image: url(../../image/resend_password_emptyIcon.png);"></div>
+	    				</li>
+	    				<li class="psdNumInput2" style="margin-bottom: 0.7rem;">
+							<div style="background-image: url(../../image/resend_password_psdIcon2.png);"></div>
+	    					<input type="password" name="psdNum2" id="lock2" placeholder="请再次输入密码">
+	    					<div class="emptyBtn"  style="background-image: url(../../image/resend_password_emptyIcon.png);"></div>  		
+	    				</li>
+	    				<li class="overSubmit" id="overSubmit">完成</li>
+	    			</ul>
+    		</div>
+
+    		<div class="setInfoTel">
+	    		<form class="register-form" id="getVerifycode">
+	    			<ul id="validate">
+	    				<li class="telInput">
+	    					<div></div>
+		    					<input type="text" name="telNum" data-rule="m" data-nullmsg="手机号不能为空!" data-errmsg="请输入正确的手机号!" id="phone" placeholder="请输入手机号"/>
+		    					<div class="emptyBtn" ></div>
+		    				</li>
+		    				<li class="psdInput">
+		    					<div>
+		    						<div></div>
+		    						<input type="text" name="psdNum" id="verifycode" placeholder="请输入验证码"/>
+		    					</div>
+		    					<div class="ownCode" id="ownCode">获取验证码<span></span></div>
+	    				</li>
+	    				<li class="nextBtn" id="submit">下一步</li>
+	    			</ul>
+			</form>
+    		</div>
+    		
+    	</div>
+    </div>
+  
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.js"></script>
+<script type="text/javascript" src= "../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+
+<script type="text/javascript">
+			checkInputPassWord();
+	       function checkInputPassWord() {
+			  if ($("#lock").val().length > 5) {
+				$("#overSubmit").css("background", "#66BB6A");
+				// 完成
+				$("#overSubmit").off("click");
+				$("#overSubmit").on("click",function (){
+					  //校验两次密码
+					 if(!testPasswords()){
+				         return ;
+			          }
+						// 更改密码
+						var phone = document.getElementById("phone").value;
+						var newPassword = document.getElementById("lock").value;
+						var confirmPassword = document.getElementById("lock2").value;;
+						
+						pds.ajaxSubmit({
+							url:"app/sys/update",
+							data:{"phoneNumber":phone,"newPassword":newPassword,"confirmPassword":confirmPassword},
+							success:function(e){
+								api.alert({msg:'修改成功！'});
+								api.closeToWin({
+									name:"root",
+								});
+							},
+							error:function(e){
+								api.alert({msg:e.message});
+							}
+		      			});        			
+				});
+			   } else {
+				//$("#loginBtn").arrt("disabled",true);
+				$("#overSubmit").css("background", "gray");
+				$("#overSubmit").off("click");
+			   }
+		   }
+			
+			checkInputverify();
+			// 注册chanage事件
+			$("#verifycode").keyup(function() {
+				checkInputverify();
+			})
+			$("#lock").keyup(function() {
+				checkInputPassWord();
+			})
+			// 检测验证码
+           function checkInputverify() {
+			  if ($("#verifycode").val().length > 3) {
+				$("#submit").css("background", "#66BB6A");
+				$("#submit").off("click");
+				$("#submit").on("click",function (){
+					verify2();
+				});
+			   } else {
+				//$("#loginBtn").arrt("disabled",true);
+				$("#submit").css("background", "gray");
+				$("#submit").off("click");
+			   }
+		   }
+			//判断两次密码是否一致
+		   function testPasswords(){
+		    var lock = document.getElementById("lock");
+		    var lock2 = document.getElementById("lock2");
+		    if(lock.value != lock2.value){
+		        alert("两次输入密码不一致！");
+		        return false;
+		    }
+		    return true;
+		}		
+		function verify2(){
+			var code = document.getElementById("verifycode").value;
+			var phone = document.getElementById("phone").value;
+			if(phone == null || phone == "" || phone == undefined){
+				alert("手机号不允许为空!");
+				return ;
+			}
+			if(code == null || code == "" || code == undefined){
+				alert("验证码不允许为空!");
+				return ;
+			}
+			pds.ajaxSubmit({
+				url:"app/sys/validPhone",
+				data:{"phone":phone,"number":code},
+				success:function(e){
+					if(e.status == 'error'){
+						api.alert({msg: '验证码错误！'});
+					}else{
+						//验证通过，进入修改密码界面
+						$("#validate").hide();
+						$("#content .setInfoHead div:first").css({
+							"backgroundColor":"#EEEEEE",
+							"color":"#b8b8b8"
+						});
+						$("#content .setInfoHead div:last").css({
+							"backgroundColor":"#f7f0de",
+							"color":"#C3AD4C"
+						});
+						$("#content .setInfoHead span").css({
+							// "transform":"ratate(180deg)"
+							"border":"none",
+							"borderLeft":"solid 1px #e1bb80",
+							"borderBottom":"solid 1px #e1bb80"
+						});
+					}
+				},
+				error:function(e){
+					api.alert({msg: '请求失败'});
+				}
+			})
+		}
+		function sms2(){
+			var phone = document.getElementById("phone").value;
+			pds.ajaxSubmit({
+				url:"app/sys/generatNum",
+				data:{"phoneNumber":phone},
+				success:function(e){
+			        if(e.status == "error"){
+		                api.alert({msg:e.message});
+				    }else{
+				    	api.alert({msg:'发送成功！'});
+				    }
+				},
+				error:function(e){
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+		}
+		function check(sucCallBack,errorCallBack){
+    		var phone = document.getElementById("phone").value;
+    		//ajax访问后端数据
+    		pds.ajaxSubmit({
+					url:"app/sys/checkPhone",
+					data:{"phone":phone},
+					success:function(e){
+						if(sucCallBack){
+							sucCallBack.call(null,e.data);	
+						} 
+					},
+					error:function(e){
+						if(errorCallBack){
+							errorCallBack.call(null,e.data);	
+						}
+					}
+			});        			
+		}
+		//发送验证码
+		function send(){
+			check(function(e){
+				//sucCallBack
+				if(e==1){
+					sms2();
+				}else{
+					api.alert({msg:"账号没有注册过"});
+				}		
+			},function(){//errorCallBack
+				api.alert({msg: '服务器异常，请联系管理员!!'});
+			});
+		}
+	 	$("#ownCode").on('click',function (){
+		 	if(checkPhone()){
+		 		settime($(this));
+			 	send();
+		 	}
+		})
+		
+		function checkPhone(){
+			var phone = $("#phone").val();
+	  		if(!(/^1[34578]\d{9}$/.test(phone))){
+				alert("请输入正确的手机号！");
+				return false;
+			}else{
+				return true;
+			}
+		}
+		//验证码倒计时
+      var countdown=60; 
+      function settime($ownCode) { 
+		if (countdown == 0) { 
+			$("#ownCode").on('click',function (){
+			 	if(checkPhone()){
+			 		settime($(this));
+				 	send();
+			 	}
+			})
+			$ownCode.text("获取验证码"); 
+			countdown = 60; 
+	     } else { 
+         	$("#ownCode").off('click');
+          	$("#ownCode").text("重新发送(" + countdown + ")"); 
+          	countdown--; 
+          	setTimeout(function() { 
+        		settime($ownCode) 
+        	},1000)
+       	 } 
+     } 
+	apiready = function(){
+		// 点击input框样式修改*******************************
+		$("input").focus(function(){
+			$(this).parent("li, div").css({
+				"borderColor":"#00c558"
+			});
+			$(this).blur(function(){
+				$(this).parent("li, div").css({
+					"borderColor":"#e0e0e0"
+				});
+			})
+		});
+		// 点击清空按钮，清空input框*************************
+		$("#content .setInfoMain .emptyBtn").click(function(){
+			$(this).siblings("input").val("").focus();
+		});
+     api.addEventListener({
+          name: 'keyback'
+      }, function(ret, err){           		         		
+			back();
+      });  
+
+
+	};
+
+   
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+		api.execScript({
+		    name: 'root',
+		    script: "window.location.reload();"
+		});
+	}
+
+</script>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<body>
+<div id="wrap">
+  <div id="main">
+  	
+  </div>
+</div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript">
+
+function closeWin(){
+    api.closeWin();
+}
+
+var obj = null;       
+apiready = function(){
+	var flag = api.pageParam.extend_params==undefined;// 是否是点击导航
+	api.addEventListener({name: 'keyback'}, function(ret, err){
+//	 alert('按了返回键'+api.winName+","+api.frameName);
+		if(api.winName=='agriculturalData'||api.winName=='listCollect'){
+			api.execScript({
+				name : 'win_home',
+				frameName : 'farm_index',
+				script : "openMap()"
+			});
+		
+			api.execScript({
+				name : 'agriculturalData',
+				frameName : 'farm_index',
+				script : "openMap()"
+			});
+		
+			api.execScript({
+				name : 'listCollect',
+				frameName : 'farm_index',
+				script : "openMap()"
+			});
+		}
+		if(api.winName=='edit_win'){
+			api.execScript({
+					name : 'edit_win',
+					frameName : 'edit_win',
+					script : 'closeWin()'
+				});
+			
+		}else{
+			api.closeWin();
+			api.execScript({
+			    name: 'root',
+			    script: "window.location.reload();"
+			});
+		}
+		
+	 	
+   	});
+
+	var main = $api.byId('main');
+	var mainPos = $api.offset(main);
+	var iOS7StatusBarAppearance=0;
+    var strDM = api.systemType;
+    if (strDM == 'ios') {
+        var strSV = api.systemVersion;
+        var numSV = parseInt(strSV,10);
+        var fullScreen = api.fullScreen;
+        var iOS7StatusBarAppearance = api.iOS7StatusBarAppearance;
+        if (numSV >= 7 && !fullScreen && iOS7StatusBarAppearance) {
+            iOS7StatusBarAppearance = 20;
+        }
+    }
+
+	if(flag){
+		obj = api.require('tabBar');
+		
+		obj.open({
+		    bgImg:'widget://image/abc_ab_bottom_solid_light_holo.9.png',
+		    selectImg:'widget://res/selecte_tabBar.png',
+		    items:[
+		           {title:'首页',img:'widget://image/ic_menu_deal_off.png',color:'#999999',selected:'widget://image/ic_menu_deal_on.png',selectedTitleColor:'#66BB6A'},
+		           {title:'种植',img:'widget://image/ic_menu_plant_off.png',color:'#999999',selected:'widget://image/ic_menu_plant_on.png',selectedTitleColor:'#66BB6A'},
+		           {title:'田间',img:'widget://image/ic_menu_apollo_off.png',color:'#999999',selected:'widget://image/ic_menu_apollo_on.png',selectedTitleColor:'#66BB6A'},
+		           {title:'采收',img:'widget://image/ic_menu_poi_off.png',color:'#999999',selected:'widget://image/ic_menu_poi_on.png',selectedTitleColor:'#66BB6A'},
+		           {title:'我的',img:'widget://image/ic_menu_user_off.png',color:'#999999',selected:'widget://image/ic_menu_user_on.png',selectedTitleColor:'#66BB6A'}
+		         ],
+		    selecteIndex:api.pageParam.extend_params==undefined?'0':JSON.parse(api.pageParam.extend_params).selecteIndex||'0',
+		    perScreenBtn:5,
+		    h:'47'
+		},function(ret,err){
+		    //var headerHtml = ""
+		    var frameName    = "";
+		    var frameUrl     = "";
+		    switch(ret.index){
+		        case 0:
+		    		//headerHtml = "首页";
+	                frameName    = "home_index";
+	                frameUrl     = "./home/home_index(2).html";
+		    		break;
+	           case 1:
+	                frameName    = "plant_index";
+	                frameUrl     = "./planting/plant_index(2).html";
+		    		break;      
+		    	case 2:	
+		    		//headerHtml = "田间管理";
+	                frameName    = "farm_index";
+	                frameUrl     = "farm_index.html";
+	               
+					break;
+				case 3:	
+					//headerHtml = "采收管理";
+	                 frameName    = "harvest_index";
+	               // frameUrl     = "./harvest/harvest_index.html";
+	              
+	                frameUrl     = "./harvt/index_win.html";
+					break;
+				case 4:	
+					//headerHtml = "我的";
+	                frameName    = "mysettings_index";
+	                frameUrl     = "./mysetting/mysettings_index(2).html";
+					break;
+		    }
+		    //document.getElementById("head").innerHTML= headerHtml;
+		    
+		    var param_=null;
+		    if(!flag){
+			    param_=JSON.parse(api.pageParam.extend_params);
+			    param_.animation=null;
+		    }
+		    // 关闭farm_index的地图
+	//	    if(frameName!="farm_index1"){
+		    	api.execScript({
+					name : 'win_home',
+					frameName : 'farm_index',
+					script : "closeMap()"
+				});
+				api.execScript({
+					name : 'agriculturalData',
+					frameName : 'farm_index',
+					script : "closeMap()"
+				});
+				api.execScript({
+					name : 'listCollect',
+					frameName : 'farm_index',
+					script : "closeMap()"
+				});
+				api.execScript({
+					name : 'mypostion',
+					frameName : 'farm_index',
+					script : "closeMap()"
+				});
+	//	    }
+			if(frameName=="farm_index"){
+				api.execScript({
+					name : 'mypostion',
+					frameName : 'mypostion',
+					script : "closeMap()"
+				});
+			}
+		    
+	        if(api.winName!='win_home'){
+	        	api.closeToWin({
+				    name: 'win_home'
+				});
+				if(frameName=="farm_index"){
+					api.execScript({
+						name : 'win_home',
+						frameName : 'farm_index',
+						script : "openMap()"
+					});
+				}
+	        }
+			api.openFrame($.extend({}, {
+				name : frameName,
+			   	url :  frameUrl,
+		        pageParam : $.extend(api.pageParam,{iOS7StatusBarAppearance:iOS7StatusBarAppearance}),
+				reload : true,
+			    rect : {
+					x : 0,
+					y : 0+iOS7StatusBarAppearance,
+					w : 'auto',
+					h : api.winHeight-45-iOS7StatusBarAppearance
+				}
+			}, param_));
+			flag = true;
+		});
+		if(!flag && JSON.parse(api.pageParam.extend_params).own){//在当前win打开自己
+			obj.setSelect({
+			    index: JSON.parse(api.pageParam.extend_params).selecteIndex
+			});
+		}
+	}else{
+		var param_=null;
+	    param_=JSON.parse(api.pageParam.extend_params);
+	    param_.animation=null;
+		api.openFrame($.extend({}, {
+		        pageParam : $.extend(api.pageParam,{iOS7StatusBarAppearance:iOS7StatusBarAppearance}),
+				reload : true,
+			    rect : {
+					x : 0,
+					y : 0+iOS7StatusBarAppearance,
+					w : 'auto',
+					h : api.winHeight-iOS7StatusBarAppearance
+				}
+			}, param_));
+	}
+}
+
+function setTabBarIndex(tabBarIndex){
+	obj.setSelect({
+	    index: tabBarIndex
+	});
+}
+
+function back(){
+     api.closeWidget({
+    	silent:false,
+	    animation: {
+        type: 'flip',
+        subType: 'from_bottom',
+        duration: 1500
+    		}
+     }); 
+ }
+</script> 
+</body>
+</html>

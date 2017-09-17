@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>资源添加</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>资源添加</h4> </span>
+					<a href="javascript:void(0)"; onclick="back();"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<div class="container-panel">
+							<ul class="infos-list-panel argi-flex-name100">
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										资源种类选择
+									</div>
+									<div class="argi-flex-infos">
+										<select class="select-form-control" name="" id="reKinds"onchange="addElement()">
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										资源名称
+									</div>
+									<div class="argi-flex-infos">
+										<input type="text" id="reName" class="argi-input-control" />
+										<!--<select class="select-form-control" name="" id="reName"onclick="getReName()">
+										<option value="">请选择</option>
+										</select>-->
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										资源单位
+									</div>
+									<div class="argi-flex-infos">
+										<select class="select-form-control" name="" id="reUn" onchange="getEffValue(this)">
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										工序属性
+									</div>
+									<div class="argi-flex-infos">
+										<input type="text" id="proAttr" class="argi-input-control" />
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										服务哪种作物
+									</div>
+									<div class="argi-flex-infos">
+										<input type="text" id="resourceAttr" class="argi-input-control" />
+										<!--<select class="select-form-control" id="resourceAttr">
+										<option value="">请选择</option>
+										</select>-->
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										亩数
+									</div>
+									<div class="argi-flex-infos">
+										<input class="argi-input-control" id="mu"  type="number" required="required"  onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' style="width:70%" />
+										<span class="iafter">亩</span>
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										效率值
+									</div>
+									<div class="argi-flex-infos">
+										<input id="effValue" class="argi-input-control" type="number"  required value=""onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")'style="width:60%;float: left"/>
+										<select class="select-form-control" onchange="getNumber(this)"name="" id="effValueUnit" style="width:40%;float:right">
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										操作标准
+									</div>
+									<div class="argi-flex-infos">
+										<input class="argi-input-control" id="ways"type="text" name=""required  value=""/>
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										数量
+									</div>
+									<div class="argi-flex-infos">
+										<input class="argi-input-control" readonly id="total"type="number" name=""required onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' value=""/>
+									</div>
+								</li>
+								<li class="infos-panel-line argi-flex">
+									<div class="argi-flex-name">
+										总金额
+									</div>
+									<div class="argi-flex-infos">
+										<input class="argi-input-control" id="price" required type="number"onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")'style="width:70%">
+										<span class="iafter">元</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="foot-btn-group">
+							<div class="btn-h2">
+								<ul>
+									<li  class="argi-flex-1">
+										<button class="addSave argi-btn argi-btn-big btn-full argi-btn-success" onclick="addSave()">
+											保存
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var landId;
+		var unitMap = {};
+		apiready = function() {
+			//获取资源种类
+			landId = api.pageParam.landId;
+			reKinds();
+			//资源单位
+			getReUn();
+			//资源属性
+			//getResourceAttr();
+		};
+		//获取资源种类
+		function reKinds() {
+			pds.ajaxSubmit({
+				url : "app/customer/getSubResourceList",
+				success : function(res) {
+					var el = $api.byId("reKinds");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<option data-id="' + data[i].id + '" value="' + data[i].id + '">' + data[i].name + '</option>';
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		//
+		function back() {
+			api.closeWin();
+		}
+
+		//返回上一级
+		function backWin() {
+			$api.openWin({
+				name : 'crop_list',
+				url : 'widget://html/mysetting/mysettings/crop/crop_list.html',
+				reload : true,
+				selecteIndex : '4',
+				pageParam : {
+					"landId" : landId
+				}
+			});
+			//			api.closeWin({
+			//			});
+			//			// 执行win_home窗口里的exec()方法
+			//			api.execScript({
+			//				name : "crop_list", //win窗口名字
+			//				frameName : "crop_list", //win窗口名字
+			//				script : "getMessage("+landId+");"
+			//			});
+		}
+
+		//添加厂家和成分
+		function addElement() {
+			//	alert(1)
+			var reCheck = $("#reKinds").find("option:selected");
+			var eqId = reCheck.attr('data-id');
+			if (eqId == 29 || eqId == 46) {
+				$('#resourceAttr').closest('li').after('<li class="dl infos-panel-line argi-flex"><div class="argi-flex-name">成分</div><div class="argi-flex-infos"><input class="argi-input-control" id="com"type="text" name=""/></div></li><li class="dl infos-panel-line argi-flex"><div class="argi-flex-name">厂家</div><div class="argi-flex-infos"><input class="argi-input-control" id="manu"type="text" name=""/></div></li>');
+			} else {
+				$(".dl").remove();
+			}
+		}
+
+		//资源名称传参数id调用
+		//		function getReId(id) {
+		//			pds.ajaxSubmit({
+		//				url : "app/customer/getSubResourceSon",
+		//				data : {
+		//					id : id
+		//				},
+		//				success : function(res) {
+		//					var el = $api.byId("reName");
+		//					var data = res.data;
+		//					for (var i = 0; i < data.length; i++) {
+		//						var str = '<option  value="' + data[i].id + '">' + data[i].name + '</option>';
+		//						$api.append(el, str);
+		//					}
+		//				}
+		//			})
+		//		}
+		//获取资源名称
+		//		function getReName() {
+		//			var reCheck = $("#reKinds").find("option:selected");
+		//			var reCheckA = reCheck.val();
+		//			//alert('reCheckA:'+reCheckA)
+		//			if (reCheck && reCheckA != "") {
+		//				var eqId = reCheck.attr('data-id');
+		//				//alert('eqId:'+eqId)
+		//				//资源种类名称id
+		//				var len = $('#reName').find('option').length;
+		//				//资源名称设备option长度34
+		//				//设备id=15
+		//				if (eqId == 15 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//				//种苗id=24
+		//				if (eqId == 24 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//				//农药id=29
+		//				if (eqId == 29 && len == 1) {
+		//					getReId(eqId);
+		//				}
+		//				//灌溉id=34
+		//				if (eqId == 34 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//				//工具id=36
+		//				if (eqId == 36 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//				//肥料id=46
+		//				if (eqId == 46 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//				//其他id=52
+		//				if (eqId == 52 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//				//人工id=1832
+		//				if (eqId == 1832 && len == 1) {
+		//					getReId(eqId)
+		//				}
+		//			}
+		//		}
+		//资源单位获取
+		function getReUn() {
+			pds.ajaxSubmit({
+				url : "common/getResUnitList",
+				success : function(res) {
+					var el = $api.byId("reUn");
+					var data = res.data;
+					$.each(data, function(index, val) {
+						$("#reUn").append("<option value='" + val.id + "'>" + val.name + "</option>");
+					});
+				}
+			})
+		}
+
+		//资源属性的获取
+		//		function getResourceAttr() {
+		//			pds.ajaxSubmit({
+		//				url : "app/customer/getSubType",
+		//				success : function(res) {
+		//					var el = $api.byId("resourceAttr");
+		//					var data = res.data;
+		//					for (var i = 0; i < data.length; i++) {
+		//						var str = '<option data-type="' + data[i].ruleType + '" value="' + data[i].id + '">' + data[i].catName + '</option>';
+		//						$api.append(el, str);
+		//					}
+		//				}
+		//			})
+		//		}
+		//获取效率值单位
+		function getEffValue(obj) {
+			$("#effValueUnit").html('<option value="">请选择</option>');
+			var $reUnVal = $(obj).val();
+			if ($reUnVal != '') {
+				pds.ajaxSubmit({
+					url : "common/getEffUnitByPar",
+					data : {
+						parentId : $reUnVal
+					},
+					success : function(res) {
+						var data = res.data;
+						 unitMap = {};
+						$.each(data, function(index, val) {
+							unitMap[val.id] = val.ruleType;
+							$("#effValueUnit").append("<option value='" + val.id + "'>" + val.name + "</option>");
+						});
+					}
+				})
+			}
+		}
+
+		//数量赋值运算
+		function getNumber(obj) {
+			var numberId = obj.value;
+			var type = unitMap[numberId];
+			var $mu = $("#mu").val();
+			if ($mu == "") {
+				$("#effValueUnit").val("");
+				return;
+			}
+			var $effValue = $("#effValue").val();
+			if ($effValue == "") {
+				$("#effValueUnit").val("");
+				return;
+			}
+			//亩 单位
+			if (type == 1) {
+				var total = $mu / $effValue
+				$("#total").val(total);
+			}
+			if (type == 2) {
+				var total = $mu * $effValue
+				$("#total").val(total);
+			}
+		}
+
+		//保存并新增
+		function addSave() {
+			var $reKinds = $("#reKinds").val();
+			var $reName = $("#reName").val();
+			var $reUn = $("#reUn").val();
+			var $proAttr = $('#proAttr').val();
+			var $resourceAttr = $('#resourceAttr').val();
+			var $mu = $('#mu').val();
+			var $effValue = $('#effValue').val();
+			var $effValueUnit = $('#effValueUnit').val();
+			var $ways = $('#ways').val();
+			var $effValueUnitVal = $('#effValueUnit').attr('data-type');
+			var $total = $('#total').val();
+			var $price = $('#price').val();
+			var $com = $('#com');
+			var $manu = $('#manu');
+			if ($reKinds == "" && $reName == "" && $reUn == "" && $proAttr == "" && $resourceAttr == "" && $mu == "" && $effValue == "" && $effValueUnit == "" && $ways == "" && $total == "" && $price == "") {
+				if ($com.length > 0 && $manu.length > 0) {
+					if ($com.val() == "" && $manu.val() == "") {
+						api.alert({
+							msg : "必须填写一项有效信息"
+						});
+						return;
+					}
+				} else {
+					api.alert({
+						msg : "必须填写一项有效信息"
+					});
+					return;
+				}
+			}
+			if ($com && $manu) {
+				var $comVal = $com.val();
+				var $manuVal = $manu.val();
+			}
+			//			if ($reKinds && $reKinds == '请选择') {
+			//
+			//				api.alert({msg:"资源种类选择不能为空"});
+			//				return false;
+			//			}
+			//			if ($reName && $reName == '请选择') {
+			//
+			//				api.alert({msg:"资源名称不能为空"});
+			//				return false;
+			//			}
+			//			if ($reUn && $reUn == '请选择') {
+			//
+			//				api.alert({msg:"资源单位不能为空"});
+			//				return false;
+			//			}
+			//			if ($proAttr == "") {
+			//
+			//				api.alert({msg:"工序属性不能为空"});
+			//				return false;
+			//			}
+			//			if ($resourceAttr && $resourceAttr == '请选择') {
+			//
+			//				api.alert({msg:"资源属性不能为空"});
+			//				return false;
+			//			}
+			//			if ($mu == "") {
+			//
+			//				api.alert({msg:"亩数不能为空"});
+			//				return false;
+			//			}
+			//			if ($effValue == "") {
+			//
+			//				api.alert({msg:"效率值不能为空"});
+			//				return false;
+			//			}
+			//			if ($ways == "") {
+			//
+			//				api.alert({msg:"使用方式不能为空"});
+			//				return false;
+			//			}
+			//			if ($total == "") {
+			//
+			//				api.alert({msg:"总量不能为空"});
+			//				return false;
+			//			}
+			//			if ($price == "") {
+			//
+			//				api.alert({msg:"金额不能为空"});
+			//				return false;
+			//			}
+			//			if ($com && $manu) {
+			//				var $comVal = $com.val();
+			//				if ($comVal == "") {
+			//
+			//					api.alert({msg:"成分不能为空"});
+			//					return false;
+			//				}
+			//				var $manuVal = $manu.val();
+			//				if ($manuVal == "") {
+			//
+			//					api.alert({msg:"厂家不能为空"});
+			//					return false;
+			//				}
+			//			}
+			var data = {};
+			data.landId = landId;
+			data.resourceType = $reKinds;
+			data.resourceName = $reName;
+			data.resourceUnit = $reUn;
+			data.processAttribute = $proAttr;
+			data.resourceAttribute = $resourceAttr;
+			data.muCount = $mu;
+			data.dosage = $effValue;
+			data.dosageId = $effValueUnit;
+			data.usePattern = $ways;
+			data.element = $comVal;
+			data.company = $manuVal;
+			data.sumMoney = $price;
+			data.gross = $total;
+			//alert(JSON.stringify(data));
+			$('.addSave').attr('disabled', 'disabled');
+			pds.ajaxSubmit({
+				url : "app/customer/saveResourceList",
+				data : {
+					"data" : JSON.stringify(data)
+				},
+				success : function(e) {
+					api.alert({
+						msg : "保存成功!"
+					});
+					backWin();
+				}
+			});
+		}
+	</script>
+</html>

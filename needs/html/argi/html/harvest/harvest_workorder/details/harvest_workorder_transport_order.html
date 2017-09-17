@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>运输单-详情</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale = 1, maximum-scale = 1,  width = device-width" >
+	<meta name = "format-detection" content = "telephone=no">
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+
+<body>
+	<style>
+ 		.btn{ position: absolute; top: 0; right: -80px; text-align: center; background: #ffcb20; color: #fff; width: 80px}
+	</style>
+	<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4>详情</h4>
+				</div>
+				<a  href="javascript:void(0);" onclick="back();">
+					<span class = "banner-btn banner-back-btn"><input id='return-btn' type='button' name='return' value=''></span>
+				</a>
+			</div>
+	</div>
+	<div class="container">
+		<div class="full-main">
+			<div class="sub-container sub-container-notop">
+				<form name="d2-0" id="transportForm">
+					<div class="sub-title sub-title2">
+						<h4>基本信息</h4>
+					</div>
+					<div class="center">
+						<table class="table-detail-1 " id="transportOrderBasicInfo">
+							
+						</table>
+					</div>
+					<div class="sub-title sub-title2">
+						<h4>车辆信息</h4>
+					</div>
+					<div class="center">
+						<table class="table-detail-1"> 
+							<tr>
+								<th>车牌号码:</th>
+								<td><input id="input-carNo" name="wagonNumber" type="text" class="select-block select-1" value=""/></td>
+							</tr>
+							<tr>
+								<th>司机姓名:</th>
+								<td><input id="input-drivername" name="driverName" type="text" class="select-block select-1" value=""/></td>
+							</tr> 
+							<tr>
+								<th>联系方式:</th>
+								<td><input id="input-contactInfo" name="contactWay" type="text" class="select-block select-1" value=""/></td>
+							</tr>
+						</table>
+					</div>
+					<div class="sub-title sub-title2">
+						<h4 class="col-lg-8">装车清单</h4>
+						<div class="smallbtncontainer right col-sm-1">
+							<input class = "smalladdbtn" type="button" id = "add_btn_car" onclick="addTransportRow();">
+						</div>
+					</div>
+
+					<div class="full-main">
+						<div class="main">
+							<div class="scroll-banner2 clear">
+								<label class="harvest-col-sm-2" id="">等级</label>
+								<!--<label class="col-2" id="">头数</label>-->
+								<label class="harvest-col-md-2" id="">规格<span style="font-size: 10px;">(头/筐)</span></label>
+								<label class="harvest-col-lg-2" id="">筐数</label>
+								<label class="col-xs-1" id=""></label>
+							</div>
+
+							<section class="clear">
+							     <ul class="list-ul" id="listContainer" >
+	
+							     </ul>
+							 </section>
+						</div>
+					</div>
+				</div>
+			</form>		
+		</div>
+
+		<div class="short-container">
+			<div class="main">
+				<div class="center">
+					<input id="submitBtn" class="btn-style2 clear" type="button" name="save" value="发运">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.touchWipe.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../../../script/common/form2js.js"></script>
+<script type="text/javascript" src="../../../../script/common/availdate-v1.0.2.js"></script>
+<script id="transportOrderTmp" type="text/x-dot-template">
+	<tr><th>采收工单号:</th><td> {{=it.harvestWorkOrderCode}}</td></tr>						
+	<tr><th>记工单号:</th><td>{{=it.recordOrderCode}}</td></tr>
+	<tr><th>品名:</th><td>{{=it.catalogName}}</td></tr>
+	<tr><th>品种:</th><td>{{=it.categoryName}}</td></tr> 
+	<tr><th>装车负责人:</th><td>{{=it.directorName}}</td></tr>
+</script>
+<script id="transportListTmp" type="text/x-dot-template">
+     <li id="li" class="list-li clear">
+         <div class="">
+           	<span class="no harvest-col-sm-2 select-menu2">
+				<select name="grade" class="select-menu2 transportFormEle" value="">
+					<option value="1">一级品</option>
+					<option value="2">二级品</option>
+				</select>
+           	</span>
+			<!--<span class="col-2">
+				<input data-rule="n0-10" data-nullmsg="采收总量不能为空" data-errmsg="采收总量只能输入0-10位正整数" data-sucmsg="" name="quantity" class="tableinputcount transportFormEle"  type="number" placeholder = "采收总量">
+			</span>-->
+			<span class="harvest-col-md-2">
+				<input data-rule="n0-3" data-nullmsg="规格不能为空" data-errmsg="规格只能输入0-3位正整数" data-sucmsg="" name="specifications"  class="tableinputsize transportFormEle"  type="number" placeholder = "规格">
+			</span>
+			<span class="harvest-col-lg-2">
+				<input data-rule="n0-6" data-nullmsg="筐数不能为空" data-errmsg="筐数只能输入0-6位正整数" data-sucmsg="" name="baskets"  class="tableinputbasket transportFormEle"  type="number" placeholder = "筐数">
+			</span>
+         </div>
+         <div class="delete-btn delBtn" onclick="delTransportRow(this);">删除</div>
+     </li>
+</script>
+<script type="text/javascript">
+
+var userId  = null;
+var orderId = null;//工单id
+var orderStatus = null;//工单状态
+var transportDataFormIndex = 0;
+apiready = function(){
+	userId = $api.getStorage("userId");
+	orderId = api.pageParam.orderId;
+	orderStatus = api.pageParam.orderStatus;
+	
+	transportDataFormIndex = 0;
+	/* 获取采收运输单基本信息  */
+	getHarvestTransportOrderDetails(orderId,userId);
+	
+	/*默认添加一行*/
+	$("#listContainer").html("");
+	addTransportRow();
+	pds.touchWipe({container:".list-li",itemDelete: '.delete-btn'});
+	
+	/* 表单校验,保存记工单数据   */
+	ac.form({
+        area: "#transportForm",
+        btn: "#submitBtn",
+        startCheck:function(){
+        	$("#submitBtn").attr("disabled","true");
+        },
+        singleError: function (e, msg) {
+        	$("#submitBtn").removeAttr("disabled");
+     	},
+        endSuccess: function () {
+        	var length = $("#listContainer").find("li").length;
+        	if(length==0){
+        		$("#submitBtn").removeAttr("disabled");
+        		api.alert({msg:"没有运输信息，请录入后再提交!"});
+        		return;
+        	}
+			var params = form2js($("#transportForm")[0]);
+			params.workOrderId = orderId;
+			params.userId = userId;
+			pds.ajaxSubmit({
+				url:"app/harvestworkorder/saveHarvestTransportOrder",
+				data:{"data":JSON.stringify(params)},
+				success:function(e){
+					back();
+				},
+				error:function(e){
+					$("#submitBtn").removeAttr("disabled");
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+        }
+    });
+}
+
+/* 删除行   */
+function delTransportRow(dom){
+	$(dom).closest("li").remove();
+}
+
+/* 运输单添加一行  */
+function addTransportRow(){
+	var transportListTemplate = doT.template($("#transportListTmp").text());
+	var $transportRow = $(transportListTemplate(null));
+	var prefix = "detailsList["+transportDataFormIndex+"].";
+	$transportRow.find(".transportFormEle[name]").each(function(){
+		var name = $(this).attr("name");
+		$(this).attr("name",prefix+name);
+	});
+	$("#listContainer").append($transportRow);
+	transportDataFormIndex ++;
+}
+
+/* 获取采收运输单基本信息  */
+function getHarvestTransportOrderDetails(orderId,loginId){
+	var params = {"workOrderId":orderId,"userId":loginId};
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/getHarvestTransportOrderDetails",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var data = e.data;
+			var basicTemplate = doT.template($("#transportOrderTmp").text());
+			$("#transportOrderBasicInfo").html(basicTemplate(data));
+		},
+		error:function(e){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+/* 回退事件  */
+function back(){
+	api.closeWin();
+  	//刷新数据
+  	api.execScript({
+  	 	name:'harvest_workorder_detail',
+      	script:'getHarvestWorkOrderDetails('+userId+","+orderId+');'
+  	});
+}
+
+			
+</script>
+</body>
+</html>

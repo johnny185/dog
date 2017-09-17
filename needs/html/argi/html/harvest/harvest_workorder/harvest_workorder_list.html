@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收工单-列表</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/harvest-style.css">
+</head>
+
+<body>
+	<div class="container" style="margin-top:0px;">
+		<div class="full-main">
+			<div class="fixed-banner2">	
+				<div id = "sub-banner-id" class='sub-banner'>
+					<ul>
+						<label class="col-4">
+							<span tapmode="" id = 'sub-banner-1' class='selected border-right harvestWorkOrderStatusClass' flag="CONFIRMING">待确认</span>
+						</label>
+
+						<label class="col-4">
+							<span tapmode="" id = 'sub-banner-2' class='border-right harvestWorkOrderStatusClass' flag='CONFIRMED' >已确认</span>
+						</label>
+
+						<label class="col-4">
+							<span tapmode="" id = 'sub-banner-3' class='harvestWorkOrderStatusClass' value="已完成" flag="COMPLETED">已完成</span>
+						</label>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="full-main">
+			<div class="sub-sub-container2">
+				<!-- 下拉刷新 -->
+				<div id="wrapper">
+					<div id="scroller">
+						<!--<div id="pullDown">
+							 <span class="pullDownIcon"></span> 
+							<div class="pullDownLabel">下拉刷新...</div>
+						</div>-->
+						<ul id="harvestWorkOrderContainer">
+						</ul>
+						<!--<div id="pullUp">
+							 <span class="pullUpIcon"></span> 
+							<div class="pullUpLabel">上拉加载更多...</div>
+						</div>-->
+						<span id="noDataTips" style="display:none">没有数据了...</span> 
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+<script type="text/javascript" src="../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../../script/common/doT.min.js"></script>
+<!--<script type="text/javascript" src="../../../script/scroll/build/iscroll-loading.js"></script>
+<script type="text/javascript" src="../../../script/common/pds.iscroll.min.js"></script>-->
+<script id="harvestWorkOrderTmp" type="text/x-dot-template">
+{{~it :value:index }}
+<li>
+	<table class="tablestyle0">
+		<tr class="tablestyle0-tr" tapmode="" onclick="toHarvestOrderDetails({{= value.id }})">
+			<td class="col-sm-2">
+				<div><img class = "table-md-image" src="../../../image/harvest_work_order.png"></div>
+<!--				<div><img class = "table-md-image" src="../../../image/img1.png"></div>-->
+			</td>
+			<td class="col-7">
+				<a href="javascript:void(0);">
+					<table class='tablestyle0-workorder'>
+						<tr><th>单据编号: </th><td>{{= value.code }}</td></tr>
+						<tr><th>地块名称: </th><td>{{= value.landName }}</td></tr>
+						<tr><th>发起人: </th><td>{{= value.createUser }}</td></tr>
+						<tr><th>下达时间: </th><td>{{= value.createDateStr }}</td></tr>
+					</table>
+				</a>
+			</td>
+			<td class="col-1">
+				{{? value.orderStatus == "CONFIRMING"}}
+				<div class=""><img class = "table-xs-image" src="../../../image/notification.png"></div>
+				{{?}}
+				<div><img class = "table-sm-image" src="../../../image/next-button.png"></div>
+			</td>
+		</tr>
+	</table>
+</li>
+{{~}}
+</script>
+<script type="text/javascript">	
+var userId = null;
+var pageNum = 1;
+var pageSize = 20;
+var status = null;
+var total = null;
+
+var workOrderStatus = null;
+apiready = function(){
+	workOrderStatus = {};
+	workOrderStatus["CONFIRMING"] = "CONFIRMING";/*待确认*/
+	workOrderStatus["CONFIRMED"]  = "CONFIRMED";/*已确认*/
+	workOrderStatus["COMPLETED"]  = "COMPLETED";/*已完成*/
+
+	userId = $api.getStorage("userId");
+    status = workOrderStatus["CONFIRMING"];
+    
+    getDataList(userId,status,1);
+    /* 滑动至底部加载更多  */        
+    api.addEventListener({name: 'scrolltobottom'}, function(ret, err){
+    	getDataList(userId,status,0);      
+    });       
+	/* 添加下拉刷新  */
+	api.setRefreshHeaderInfo({
+	    visible: true,
+	    loadingImg: '../../../image/refreshing_image_01.png',
+	    bgColor: '#ccc',
+	    textColor: '#fff',
+	    showTime: true
+	}, function(ret, err){
+	    getDataList(userId,status,1);
+	    api.refreshHeaderLoadDone();
+    });
+    
+//  pds.initIscroll({
+//		userId    : userId,
+//		statusObj :{"orderStatus":workOrderStatus["CONFIRMING"]},
+//		listUrl   : "app/harvestworkorder/getHarvestWorkOrderList",
+//		container :"#harvestWorkOrderContainer",
+//		rowTemplete : "#harvestWorkOrderTmp"
+//	});
+	
+	//document.addEventListener('touchmove', function (e) { e.preventDefault();}, false);
+	//document.addEventListener('DOMContentLoaded', pds.loaded(), false); 
+}
+
+/* 加载列表   */
+function getDataList(loginId,status,flag){
+	if(flag*1 == 1){
+		pageNum = 1;
+		$("#harvestWorkOrderContainer").html("");
+	}
+	var params = {"userId":userId,"orderStatus":status,"pageNum":pageNum,"pageSize":pageSize};
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/getHarvestWorkOrderList",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var dataInter = e.data;
+			total = e.total;
+			if(dataInter && dataInter.length>0){
+				pageNum++;
+				var interText = doT.template($("#harvestWorkOrderTmp").text());
+				if(flag*1 == 1){
+					$("#harvestWorkOrderContainer").html(interText(dataInter));
+				}else{
+					$("#harvestWorkOrderContainer").append(interText(dataInter));
+				}
+				$("#noDataTips").hide();
+			}else{
+				$("#noDataTips").show();
+			}
+		},
+		error:function(e){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+/* 加载采收工单详情  */
+function toHarvestOrderDetails(harvestWorkOrderId){
+	$api.openWin({
+        name: "harvest_workorder_detail",
+        url:  "widget://html/harvest/harvest_workorder/details/harvest_workorder_detail.html",
+        pageParam: {"orderId":harvestWorkOrderId,"orderStatus":status},
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+}
+
+/* 菜单点击事件  */
+$(".harvestWorkOrderStatusClass").off("click");
+$(".harvestWorkOrderStatusClass").on("click",function(){
+	var that = $(this);
+	$(".harvestWorkOrderStatusClass").removeClass("selected");
+	that.addClass("selected");
+	status = that.attr("flag");
+	getDataList(userId,status,1);
+});
+</script>
+</body>
+</html>

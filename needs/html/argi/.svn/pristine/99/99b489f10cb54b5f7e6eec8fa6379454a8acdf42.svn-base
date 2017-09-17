@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>采收汇总</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../../../css/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/aui.css"/> -->
+    <style>
+    	*{
+			box-sizing: border-box;
+		}
+		html,body{
+			width:100%;
+			height:100%;
+		}
+		body{
+			position: relative;
+			overflow-y: auto;
+			background-color: #f2f2f2;
+			padding-top: 1.28rem;
+		}
+		
+		#top{
+			width: 100%;
+			height: 0.46rem;
+			background: #00c558;
+			margin-bottom: 0.82rem;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 99;
+		}
+		header{
+			position: fixed;
+			left: 0;
+			top: 0.44rem;
+			width: 100%;
+			background: #00c558;
+			z-index: 99;
+		}
+		header #title{
+			position: relative;
+			width:100%;
+			height: 0.82rem;
+			line-height: 0.82rem;
+			text-align: center;
+			font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header #title span{
+			display: inline-block;
+			position: absolute;
+			left: 0.25rem;
+			bottom: 0.28rem;
+			width: 0.16rem;
+			height: 0.28rem;
+			background-image: url(../../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat; 
+		}
+
+		#content{
+			position: relative;
+			width: 100%;
+			padding: 0.33rem 0.28rem 0 0;
+		}
+		#content>ul>li {
+			width: 100%;
+			height: 3.48rem;
+			margin-bottom: 0.42rem;
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+
+		}
+		#content>ul>li>div{
+			position: relative;
+			height: 100%;
+			width: 8.8%;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		#content>ul>li>div>input[type="checkbox"]{
+			display: block;
+			width: 0.32rem;
+			height: 0.32rem;
+			border-radius: 50%;
+			opacity: 0;
+		}
+		#content>ul>li>div>span{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -0.16rem;
+			margin-top: -0.16rem;
+			display: block;
+			width: 0.32rem;
+			height: 0.32rem;
+			border-radius: 50%;
+			border: solid 1px #d6dadc; 
+		}
+		
+
+
+
+		#content>ul>li>ul{
+			height: 100%;
+			width: 91.2%;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+
+
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		
+		#content>ul>li>ul>li{
+			width:100%;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #86888a;
+			background: #fff;
+			padding: 0 0.15rem 0 0.1rem;
+			border-bottom:solid 1px #d5dadc;
+
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;
+		}
+		#content>ul>li:nth-child(odd) ul li:first-of-type{
+			background: #ff8c13;
+		}
+		
+		#content>ul>li:nth-child(even) ul li:first-of-type{
+			background: #80d018;
+		}
+
+		#content>ul>li ul li>div{     
+			width: 1.7rem;
+		}
+		#content>ul>li ul li>div:first-of-type{
+			margin-left: 0.35rem;
+		}
+		#content>ul>li ul li:first-of-type div:first-of-type{
+			width: 4.2rem;
+			overflow-x: auto;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #FFF;
+		}
+		#content>ul>li ul li:first-of-type div:last-of-type{
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #FFF;
+		}
+
+
+		#content>ul>li>ul>li input[type="text"]{
+			position: relative;
+			width: 1.7rem;
+			height: 0.4rem;
+			border: none;
+			outline: none;
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #f09138;
+		}
+		input::-webkit-input-placeholder{
+    		font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #f09138;
+		}
+		
+		.checkAllBtns{
+			position: fixed;
+			left: 0;
+			bottom: 0.98rem;
+			width: 100%;
+			height: 0.84rem;
+			background: #fff;
+			/*border: solid 1px red;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+		}
+		.checkAllBtns>div{
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			height: 0.84rem;
+			width: 50%;
+			line-height: 0.84rem;
+			
+			font-size: 0.32rem;font-family: PingFangSC-Regular, sans-serif;color: #6f7579;
+		}
+		.checkAllBtns>div:first-of-type{
+			position: relative;
+			border-top:solid 1px #ee8635;
+			color: #ee8635;
+			padding-left: 0.18rem;
+		}
+		.checkAllBtns>div:last-of-type{
+			color: #fff;
+			text-align: center;
+
+			background: #ee8635;
+		}
+		.checkAllBtns span.checkBoxBtn{
+			display: inline-block;
+			position: absolute;
+			left: 0.18rem;
+			top: 0.25rem;
+			width: 0.32rem;
+			height: 0.32rem;
+			border-radius: 50%;
+			border: solid 1px #d6dadc; 
+			
+		}
+		.checkAllBtns span.checkBoxText{
+			position: relative;
+			left: 0.1rem;
+			/*top: -0.03rem;*/
+		}
+		/*公共样式*/
+		.checkBoxChecked{
+			background-image: url(../../../../image/harvest_caishou_checkbox_checked.png);
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+			border:solid 1px #f09138;
+		}
+		/*.checkBtn{
+			background-image: url(../image/harvest_record_content_radio_bc.png);
+			background-size: 100% 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}*/
+    </style>
+</head>
+<body>
+	<div id="top"></div>
+	<header>		
+		<div id="title">
+			<span onclick=""></span>
+			采收汇总
+		</div>
+	</header>
+	<div id="content">
+		<ul>
+			<li>
+				<div><input type="checkbox" name="check" checked="" id="a"><span class="checkBtn"></span></div>
+				<ul>
+					<li>
+						<div>北京海淀定慧北里1号基地</div>
+						<div>2017—06-30</div>
+					</li>
+					<li>
+						<div>地块名称</div>
+						<div>地块一</div>
+					</li>
+					<li>
+						<div>采收面积</div>
+						<div><input type="text" name="" placeholder="请填写采收面积"></div>
+					</li>
+					<li>
+						<div>品名</div>
+						<div>西蓝花</div>
+					</li>
+					<li>
+						<div>品种</div>
+						<div>耐寒</div>
+					</li>
+					<li>
+						<div>采收合计</div>
+						<div>33头</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div><input type="checkbox" name="check" checked="" id="b"><span class="checkBtn"></span></div>
+				<ul>
+					<li>
+						<div>北京海淀定慧北里1号基地</div>
+						<div>2017—06-30</div>
+					</li>
+					<li>
+						<div>地块名称</div>
+						<div>地块一</div>
+					</li>
+					<li>
+						<div>采收面积</div>
+						<div><input type="text" name="" placeholder="请填写采收面积"></div>
+					</li>
+					<li>
+						<div>品名</div>
+						<div>西蓝花</div>
+					</li>
+					<li>
+						<div>品种</div>
+						<div>耐寒</div>
+					</li>
+					<li>
+						<div>采收合计</div>
+						<div>33头</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<div class="checkAllBtns">
+		<div>
+			<label for="checkbox" style=";display:block;">
+				<input type="checkbox" name="check" id="checkbox"  style="opacity: 0"/>
+				<span class="checkBoxText" style="display:inline-block;width: 3.0rem;position: relative;">全选</span>
+				<span class="checkBoxBtn" style=""></span>
+			</label>
+		</div>
+		<div>报工</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../../script/api.js"></script>
+<script type="text/javascript" src="../../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../../script/jquery.js"></script>
+<script type="text/javascript">
+	 apiready = function(){
+	
+
+			// 单个按钮点击操作
+			$('#content .checkBtn').click(function(){
+				$(this).toggleClass("checkBoxChecked")
+//				alert($(this).prev("input").is(':checked'));
+			});
+		
+		
+		
+			var flag=false;
+			$(".checkAllBtns .checkBoxText, .checkAllBtns .checkBoxBtn").click(function(ev){
+				flag=!flag;
+				if (flag) {
+					$(".checkBoxBtn").toggleClass("checkBoxChecked");
+					$(".checkBoxText").text("全不选");
+					$("input[type='checkbox']").prop("checked",true);
+					setTimeout(function(){
+//						alert($("input[type='checkbox']").is(':checked'));
+						alert(flag);
+					},1000)
+				}else{
+					$(".checkBoxBtn").toggleClass("checkBoxChecked");
+					$(".checkBoxText").text("全选");
+					$("input[type='checkbox']").prop("checked",false);
+					setTimeout(function(){
+//						alert($("input[type='checkbox']").is(':checked'));
+						alert(flag);
+					},1000)
+				}
+			});
+		}
+</script>
+</html>

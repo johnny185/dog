@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>资源编辑</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+		<script type="text/javascript" src="../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<!-- <script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+		<script type="text/javascript" src="../../script/common/doT.min.js"></script> -->
+		<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+		<!-- <script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+		<script type="text/javascript" src="../../script/common/zepto.touchWipe.js"></script>
+		<script type="text/javascript" src="../../script/common/form2js.js"></script> -->
+		<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+		<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+		<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+		<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+		<script type="text/javascript" src="../../script/getLoacat.js"></script>
+	</head>
+	<style>
+		.btn-submit {
+			width: 40%;
+			height: auto;
+			line-height: 32px;
+			text-align: center;
+			background-color: #66BB6A;
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			border-radius: 4px;
+			margin: 0px auto 50px;
+			padding-top: 6px;
+			padding-bottom: 6px;
+			margin-top: 10px
+		}
+	</style>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4 >资源编辑</h4> </span>
+					<a href="javascript:void(0)"  onclick="back()"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="container sub-container-notop">
+				<div class="full-main">
+					<div class="argi-body sub-container">
+						<input type="hidden" id="provinceCode" value=""/>
+						<input type="hidden" id="cityCode" value=""/>
+						<input type="hidden" id="countyCode" value=""/>
+						<div class="container-panel">
+							<form name="addCustomerInfoForm" id="customerform">
+								<ul class="infos-list-panel argi-flex-name100">
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											资源种类
+										</div>
+										<div class="argi-flex-infos">
+											<select class="select-form-control" id="grade" name="grade" required="required" placeholder="请选择" onchange="getName(this)">
+												<option value="0">请选择</option>
+											</select>
+										</div>
+									</li>
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											资源名称
+										</div>
+										<div class="argi-flex-infos">
+											<select class="select-form-control" id="sourceName" name="grade" required="required" onchange="getSourceNameId(this)">
+												<option value="0">请选择</option>
+											</select>
+										</div>
+									</li>
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											资源单位
+										</div>
+										<div class="argi-flex-infos">
+											<select class="select-form-control" id="sourceUnit" name="grade" required="required" onchange="getDanWei(this)" >
+												<option value="0">请选择</option>
+											</select>
+										</div>
+									</li>
+									<!-- <li class="infos-panel-line">
+									<div class="argi-flex-name">服务于哪种作物</div>
+									<div class="argi-flex-infos">
+									<select id="sourceNature" class="select-form-control" name="grade" required="required" onchange="getCrop(this)">
+									<option value="">请选择</option>
+									</select>
+									</div>
+									</li> -->
+									<!-- <li class="infos-panel-line">
+									<div class="argi-flex-name">工序属性</div>
+									<div class="argi-flex-infos">
+									<select id="useredModel" class="select-form-control" name="grade" required="required" onchange="getCropB(this)">
+									<option value="0">请选择</option>
+									</select>
+									</div>
+									</li> -->
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											亩数
+										</div>
+										<div class="argi-flex-infos">
+											<input class="argi-input-control" id="acresCounty" disabledflag="1" name="provinceCityCounty" type="number" required="required" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")'oninput="getCountNumber(this)" style="width:70%" />
+											<span class="iafter">亩</span>
+										</div>
+									</li>
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											效率值
+										</div>
+										<div class="argi-flex-infos argi-flex">
+											<input class="argi-input-control" id="efficiency" disabledflag="1" style="width:48%" name="address"type="number"  required="required" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' oninput="getCountNumber(this)">
+											<select id="DanweiName" class="select-form-control" disabledflag="2" style="width:48%" name="grade" required="required" onchange="getNumber(this)">
+												<option value="0">请选择</option>
+											</select>
+										</div>
+									</li>
+									<!-- <li class="infos-panel-line">
+									<div class="argi-flex-name">操作标准</div>
+									<div class="argi-flex-infos">
+									<input class="argi-input-control" id="cropbiaozhun" name="master"  disabled="disabled">
+									</div>
+									</li> -->
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											单价
+										</div>
+										<div class="argi-flex-infos">
+											<select id="priceName" class="select-form-control" name="grade" required="required" onchange="getMoney()"></select>
+										</div>
+									</li>
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											数量
+										</div>
+										<div class="argi-flex-infos">
+											<input class="argi-input-control" id="countNuber" style="width:48%" name="phone"type="number" disabled="disabled" required="required" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")'/>
+											<input class="argi-input-control" id="NumberId" style="width:48%" name="phone" disabled="disabled" required="required" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")'/>
+										</div>
+									</li>
+									<li class="infos-panel-line">
+										<div class="argi-flex-name">
+											金额
+										</div>
+										<div class="argi-flex-infos">
+											<input class="argi-input-control" id="money" name="master" type="number" disabled="disabled" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")'style="width:70%">
+											<span class="iafter">元</span>
+										</div>
+									</li>
+								</ul>
+								<input id="status" type="hidden" value="0"/>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="foot-btn-group">
+				<div class="btn-h2">
+					<ul>
+						<li class="argi-flex-2">
+							<button id="save" tapmode="" disabledflag="1" marked="0" onclick="saveCustomerInfo(this)" class="argi-btn argi-btn-big btn-full argi-btn-success">
+								保存
+							</button>
+						</li>
+						<li class="argi-flex-2">
+							<button id="submit" tapmode="" disabledflag="1" marked="1" onclick="updateCustomerInfo(this)" class="argi-btn argi-btn-big btn-full argi-btn-success">
+								提交
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="line-fontstyle-1 text-right">
+				<a href="javascript:void(0)" onclick="openNewWin()" style="font-size:14px;"><span style="color:#666">无法找到资源名称？点此</span><span style="color:#5eb95e">新增</span>
+				<div class="next-block">
+					<span class = "nextBtn" id="next-button"> </span>
+				</div> </a>
+			</div>
+			<!--<div class="btn-submit"  id="save" tapmode="" disabledflag="1" marked="0" onclick="saveCustomerInfo(this)">保存</div>
+			<div class="btn-submit"  id="submit" tapmode="" disabledflag="1" marked="1" onclick="updateCustomerInfo(this)">提交</div>		-->
+		</div>
+		<script type="text/javascript">
+			var unitMap = {};
+			var farmDateId = null;
+			var AppFarmingDataResourceData = {};
+			var ResouceVo = {};
+			var ResouceVo2 = {};
+			var id = null;
+			var resourceId = "";
+			var BasFarmId = null;
+			var type = null;
+			var muCount = null;
+			var numberId = null;
+			var resourceEffVal = null;
+			//获取客户等级字典数据
+			function getSourceType() {
+				pds.ajaxSubmit({
+					url : "resource/dic/getSourceType",
+					success : function(e) {
+						$.each(e.data, function(index, val) {
+							$("#grade").append("<option value='" + val.id + "' >" + val.name + "</option>");
+						});
+						if (resourceId != "") {
+							findOneResourceInfo(resourceId);
+						}
+					}
+				});
+			}
+
+			//获取单位
+			function findSourceUnit() {
+				//清楚资源单位
+				$("#sourceUnit").empty();
+				$("#sourceUnit").append("<option value=0>请选择</option>");
+				//清空数量单位
+				$("#NumberId").empty();
+				$("#NumberId").append("<option value= 0>请选择</option>");
+				pds.ajaxSubmit({
+					url : "common/findSourceUnit",
+					data : {
+						"data" : JSON.stringify(ResouceVo2)
+					},
+					success : function(e) {
+						$.each(e.data, function(index, val) {
+							$("#sourceUnit").append("<option value='" + val.id + "'>" + val.name + "</option>");
+							$("#NumberId").append("<option value='" + val.id + "'>" + val.name + "</option>");
+						});
+					}
+				});
+			}
+
+			//根据资源种类获取对应的名字
+			function getName(obj) {
+				//将资源名称清空
+				$("#sourceName").empty();
+				$("#sourceName").append("<option value=0>请选择</option>");
+				//将资源单位清空
+				$("#sourceUnit").empty();
+				$("#sourceUnit").append("<option value=0>请选择</option>");
+				var id = obj.value;
+				ResouceVo.resPriId = id;
+				ResouceVo2.resPriId = id;
+				pds.ajaxSubmit({
+					url : "resource/dic/getName",
+					data : {
+						"id" : id
+					},
+					success : function(e) {
+						$.each(e.data, function(index, val) {
+							$("#sourceName").append("<option value='" + val.id + "'>" + val.name + "</option>");
+						});
+					}
+				});
+			}
+
+			//获取资源种类名称Id
+			function getSourceNameId(obj) {
+				var nameId = obj.value;
+				ResouceVo.resSubId = nameId;
+				ResouceVo2.resSubId = nameId;
+				findSourceUnit();
+				getPrice(obj);
+			}
+
+			//获得资源单位
+			// function getSourceNature(obj){
+			//	getDanWei(obj);
+			//	var unitId = obj.value;
+			//	ResouceVo.resUnit=unitId;
+			//清空服务于哪种作物
+			//	$("#sourceNature").empty();
+			//	$("#sourceNature").append( "<option value=''>请选择</option>");
+			//	pds.ajaxSubmit({
+			//				 url:"resource/find",
+			//				 data:{"data":JSON.stringify(ResouceVo)},
+			//				 success:function(e){
+			//				   $.each(e.data,function(index,val){
+			//					 	 $("#sourceNature").append( "<option value='"+val.id+"'>"+val.catName+"</option>");
+			//					 });
+			//				}
+			//			});
+			//}
+			//根据基地查询作物名称
+			//function getSourceNature(id){
+			//	var farmIds = id;
+			//	alert(farmIds);
+			//	$("#sourceNature").empty();
+			//	$("#sourceNature").append( "<option value=''>请选择</option>");
+			//	pds.ajaxSubmit({
+			//				 url:"crop/coprList",
+			//				 data:{"farmId":farmIds},
+			//				 success:function(e){
+			//			   $.each(e.data,function(index,val){
+			//					 	 $("#sourceNature").append( "<option value='"+val.id+"'>"+val.catName+"</option>");
+			//					 });
+			//			}
+			//			});
+			//}
+			//获取单位
+			function getDanWei(obj) {
+				var danweiId = obj.value;
+				$("#DanweiName").empty();
+				$("#DanweiName").append("<option value='" + 0 + "'>请选择</option>")
+				$("#countNuber").val("");
+				$("#money").val("");
+				pds.ajaxSubmit({
+					url : "common/getEffUnitByPar",
+					data : {
+						"parentId" : danweiId
+					},
+					success : function(e) {
+						unitMap = {};
+						$.each(e.data, function(index, val) {
+							unitMap[val.id] = val.ruleType;
+							$("#DanweiName").append("<option  value='" + val.id + "'>" + val.name + "</option>");
+						});
+					}
+				});
+			}
+
+			//获取数量
+			function getDanWei1(obj) {
+				var danweiId = obj;
+				pds.ajaxSubmit({
+					url : "common/getEffUnitByPar",
+					data : {
+						"parentId" : danweiId
+					},
+					success : function(e) {
+						unitMap = {};
+						$.each(e.data, function(index, val) {
+							unitMap[val.id] = val.ruleType;
+						});
+					}
+				});
+			}
+
+			//获得单价
+			function getPrice(obj) {
+				var PriceId = obj.value;
+				$("#priceName").empty();
+				$("#priceName").append("<option value='" + 0 + "'>请选择</option>");
+				pds.ajaxSubmit({
+					url : "resource/getPrice",
+					data : {
+						"id" : PriceId
+					},
+					success : function(e) {
+						$.each(e.data, function(index, val) {
+							$("#priceName").append("<option  value='" + val.id + "'>" + val.resCostVal + "</option>");
+						});
+					}
+				});
+			}
+
+			//获得数量
+			function getNumber(obj) {
+				$("#priceName").val(0);
+				$("#countNuber").val("");
+				//NumberId
+				//$("#NumberId").val(0);
+				//money
+				$("#money").val("");
+				muCount = $("#acresCounty").val();
+				numberId = obj.value;
+				type = unitMap[numberId];
+				if (muCount == "") {
+					//$("#DanweiName").val(0);
+					return;
+				}
+				resourceEffVal = $("#efficiency").val();
+				if (resourceEffVal == "") {
+					//$("#DanweiName").val(0);
+					return;
+				}
+				getCountNumber(obj);
+			}
+
+			function getCountNumber(obj) {
+				var submitFlag = obj.getAttribute("disabledflag");
+				if (submitFlag == 1) {
+					$("#DanweiName").val(0);
+				}
+				//亩 单位
+				if (type == 1) {
+					var totalNumber = muCount / resourceEffVal
+					totalNumber = totalNumber.toFixed(2)
+					$("#countNuber").val(totalNumber);
+				}
+				if (type == 2) {
+					var totalNumber = muCount * resourceEffVal
+					totalNumber = totalNumber.toFixed(2)
+					$("#countNuber").val(totalNumber);
+				}
+			}
+
+			//获得总是金额
+			function getMoney() {
+				var danPrice = $("#priceName").find('option:selected').text();
+				var resourceNumber = $("#countNuber").val();
+				if (resourceNumber == "") {
+					api.alert({
+						msg : "总量不能为空!"
+					});
+					return;
+				}
+				var moneyTotal = danPrice * resourceNumber;
+				$("#money").val(moneyTotal);
+			}
+
+			//跳转页面
+			function openNewWin() {
+				$api.openWin({
+					name : 'addRes.html',
+					url : 'widget://html/resource/addRes.html',
+					reload : true,
+					selecteIndex : '2'
+				});
+			}
+
+			//根据作物查询对应的工序
+			function getCrop(obj) {
+				var cropId = obj.value;
+				if (cropId == "") {
+					return;
+				}
+				$("#useredModel").empty();
+				$("#useredModel").append("<option value='" + 0 + "'>请选择</option>");
+				pds.ajaxSubmit({
+					url : "process/find",
+					data : {
+						"id" : cropId
+					},
+					success : function(e) {
+						$.each(e.data, function(index, val) {
+							$("#useredModel").append("<option  value='" + val.id + "'>" + val.proName + "</option>");
+						});
+					}
+				});
+			}
+
+			function getCropB(obj) {
+				var CropBId = obj.value
+				if (CropBId == 0) {
+					return;
+				}
+				pds.ajaxSubmit({
+					url : "plan/getProcessById",
+					data : {
+						"id" : CropBId
+					},
+					success : function(e) {
+						$("#cropbiaozhun").val(e.data.standards);
+					}
+				});
+			}
+
+			//获得地址坐标
+			apiready = function() {
+				resourceId = api.pageParam.resourceId;
+				farmDateId = api.pageParam.farmingDataId;
+				BasFarmId = api.pageParam.farmId;
+				getSourceType();
+				//初始化下拉框的值
+				//根据基地id 查询 下面的作物
+				//getSourceNature(BasFarmId);
+			}
+			//保存
+			function saveCustomerInfo(obj) {
+				var userId = $api.getStorage("userId");
+				var marked = obj.getAttribute("marked");
+				var submitFlag = obj.getAttribute("disabledflag");
+				if (submitFlag != 1) {
+					alert("请勿重复提交");
+					return true;
+				}
+				var resourceType = $("#grade").val();
+				if (resourceType == 0) {
+					api.alert({
+						msg : "资源种类不能为空!"
+					});
+					return;
+				}
+				var resourceName = $("#sourceName").val();
+				if (resourceName == 0) {
+					api.alert({
+						msg : "资源名称不能为空!"
+					});
+					return;
+				}
+				var resourceUnit = $("#sourceUnit").val();
+				if (resourceUnit == 0) {
+					api.alert({
+						msg : "资源单位不能为空!"
+					});
+					return;
+				}
+				var resourceAttribute = $("#sourceNature").val();
+				if (resourceAttribute == "") {
+					api.alert({
+						msg : "服务于哪种作物不能为空!"
+					});
+					return;
+				}
+				var resourceAttribute = $("#sourceNature").val();
+				if (resourceAttribute == "") {
+					api.alert({
+						msg : "服务于哪种作物不能为空!"
+					});
+					return;
+				}
+				var usePattern = $("#useredModel").val();
+				if (usePattern == 0) {
+					api.alert({
+						msg : "工序属性不能为空!"
+					});
+					return;
+				}
+				var muCount = $("#acresCounty").val();
+				if (muCount == "") {
+					api.alert({
+						msg : "亩数不能为空!"
+					});
+					return;
+				}
+				var resourceEffVal = $("#efficiency").val();
+				if (resourceEffVal == "") {
+					api.alert({
+						msg : "效率值不能为空!"
+					});
+					return;
+				}
+				var DanweiName = $("#DanweiName").val();
+				if (DanweiName == 0) {
+					api.alert({
+						msg : "效率值单位不能为空!"
+					});
+					return;
+				}
+				var cropbiaozhun = $("#cropbiaozhun").val();
+				var resourceNumber = $("#countNuber").val();
+				var numberId = $("#NumberId").val();
+				var priceName = $("#priceName").val();
+				if (priceName == "0") {
+					api.alert({
+						msg : "单价不能为空!"
+					});
+					return;
+				}
+				var money = $("#money").val();
+				if (money == "") {
+					api.alert({
+						msg : "金额不能为空!"
+					});
+					return;
+				}
+				AppFarmingDataResourceData.id = resourceId;
+				AppFarmingDataResourceData.money = money;
+				AppFarmingDataResourceData.resourceNumber = resourceNumber;
+				AppFarmingDataResourceData.usePattern = usePattern;
+				AppFarmingDataResourceData.resourceEffVal = resourceEffVal;
+				AppFarmingDataResourceData.muCount = muCount;
+				AppFarmingDataResourceData.resourceAttribute = resourceAttribute;
+				AppFarmingDataResourceData.resourceUnit = resourceUnit;
+				AppFarmingDataResourceData.resourceName = resourceName;
+				AppFarmingDataResourceData.resourceType = resourceType;
+				AppFarmingDataResourceData.DanweiName = DanweiName;
+				AppFarmingDataResourceData.priceName = priceName;
+				AppFarmingDataResourceData.numberId = numberId;
+				if (marked == 0) {
+					AppFarmingDataResourceData.status = $("#status").val();
+				}
+				if (marked == 1) {
+					AppFarmingDataResourceData.status = 1;
+				}
+				AppFarmingDataResourceData.farmingDataId = farmDateId;
+				$(obj).attr("disabledFlag", 0);
+				pds.ajaxSubmit({
+					url : "app/farmingdataresource/saveResourceList",
+					data : {
+						"data" : JSON.stringify(AppFarmingDataResourceData)
+					},
+					success : function(e) {
+						id = e.data.id;
+						if (marked == 0) {
+							api.alert({
+								msg : "保存成功!"
+							});
+							back();
+						}
+						if (marked == 1) {
+							api.alert({
+								msg : "提交成功!"
+							});
+							back();
+						}
+						$(obj).attr("disabledFlag", 1);
+					},
+					error : function(e) {
+						api.alert({
+							msg : "服务器错误，请联系管理员!"
+						});
+						$(obj).attr("disabledFlag", 1);
+					}
+				});
+			}
+
+			function updateCustomerInfo(obj) {
+				if (id != null) {
+					AppFarmingDataResourceData.id = id;
+					AppFarmingDataResourceData.status = 1;
+					pds.ajaxSubmit({
+						url : "app/farmingdataresource/saveResourceList",
+						data : {
+							"data" : JSON.stringify(AppFarmingDataResourceData)
+						},
+						success : function(e) {
+							api.alert({
+								msg : "提交成功!"
+							});
+							back();
+						},
+						error : function(e) {
+							api.alert({
+								msg : "服务器错误，请联系管理员!"
+							});
+						}
+					});
+				} else {
+					saveCustomerInfo(obj);
+				}
+			}
+
+			//获取一条资源数据
+			function findOneResourceInfo(id) {
+				var ResouceVo1 = {};
+				var farmingDataResource = {};
+				farmingDataResource.id = id;
+				pds.ajaxSubmit({
+					url : "app/farmingdataresource/findoneresource",
+					data : {
+						"data" : JSON.stringify(farmingDataResource)
+					},
+					success : function(e) {
+						var resourceInfo = e.data;
+						if (resourceInfo != null) {
+							$("#grade").val(resourceInfo.resourceType);
+							var id = resourceInfo.resourceType;
+							ResouceVo1.resPriId = id;
+							pds.ajaxSubmit({
+								url : "resource/dic/getName",
+								data : {
+									"id" : id
+								},
+								success : function(e) {
+									$("#sourceName").append("<option value=0>请选择</option>");
+									$.each(e.data, function(index, val) {
+										$("#sourceName").append("<option value='" + val.id + "'>" + val.name + "</option>");
+									});
+									$("#sourceName").val(resourceInfo.resourceName);
+									ResouceVo1.resSubId = resourceInfo.resourceName;
+									pds.ajaxSubmit({
+										url : "common/findSourceUnit",
+										data : {
+											"data" : JSON.stringify(ResouceVo1)
+										},
+										success : function(e) {
+											$.each(e.data, function(index, val) {
+												$("#sourceUnit").append("<option value='" + val.id + "'>" + val.name + "</option>");
+												// $("#NumberId").append( "<option value='"+val.id+"'>"+val.name+"</option>");
+											});
+											getDanWei1(resourceInfo.resourceUnit);
+											$("#sourceUnit").val(resourceInfo.resourceUnit);
+											// $("#NumberId").val(resourceInfo.numberId);
+											var unitId = resourceInfo.resourceUnit;
+											ResouceVo1.resUnit = unitId;
+											/*pds.ajaxSubmit({
+											 url:"resource/find",
+											 data:{"data":JSON.stringify(ResouceVo1)},
+											 success:function(e){
+											 $.each(e.data,function(index,val){
+											 $("#sourceNature").append( "<option value='"+val.id+"'>"+val.catName+"</option>");
+											 });
+											 $("#sourceNature").val(resourceInfo.resourceAttribute);
+											 */
+											/* pds.ajaxSubmit({
+											 url:"process/find",
+											 data:{"id": $("#sourceNature").val()},
+											 success:function(e){
+											 $.each(e.data,function(index,val){
+											 $("#useredModel").append( "<option  value='"+val.id+"'>"+val.proName+"</option>");
+											 });
+											 $("#useredModel").val(resourceInfo.usePattern);
+											 */
+											/*pds.ajaxSubmit({
+											 url:"plan/getProcessById",
+											 data:{"id": $("#useredModel").val()},
+											 success:function(e){
+											 $("#cropbiaozhun").val( e.data.standards);	*/
+											pds.ajaxSubmit({
+												url : "common/getEffUnitByPar",
+												data : {
+													"parentId" : resourceInfo.resourceUnit
+												},
+												success : function(e) {
+													$.each(e.data, function(index, val) {
+														$("#DanweiName").append("<option  value='" + val.id + "'>" + val.name + "</option>");
+													});
+													$("#DanweiName").val(resourceInfo.danweiName);
+													pds.ajaxSubmit({
+														url : "resource/getPrice",
+														data : {
+															"id" : resourceInfo.resourceName
+														},
+														success : function(e) {
+															$.each(e.data, function(index, val) {
+																$("#priceName").append("<option  value='" + val.id + "'>" + val.resCostVal + "</option>");
+															});
+															$("#priceName").val(resourceInfo.priceName);
+															$("#NumberId").val(resourceInfo.numberId);
+															//NumberId
+															$("#acresCounty").val(resourceInfo.muCount);
+															$("#efficiency").val(resourceInfo.resourceEffVal);
+															$("#countNuber").val(resourceInfo.resourceNumber);
+															$("#money").val(resourceInfo.money);
+														}
+													});
+												}
+											});
+											//}
+											//});
+											//}
+											//});
+											//如果数据状态是已提交，则
+											if (resourceInfo.status == '1') {
+												$("#save").attr({
+													"disabled" : "disabled"
+												});
+												$("#submit").attr({
+													"disabled" : "disabled"
+												});
+											}
+											//}
+											//});
+										}
+									});
+								}
+							});
+						}
+					},
+					error : function(e) {
+						api.alert({
+							msg : "服务器错误，请联系管理员!"
+						});
+					}
+				});
+			}
+
+			//返回
+			function back() {
+				api.closeWin({
+				});
+				// 执行win_home窗口里的exec()方法
+				//if(api.pageParam.sourceName=='farming_data'){
+				api.execScript({
+					name : api.pageParam.sourceName, //win窗口名字
+					frameName : api.pageParam.sourceName,
+					script : "getResources();"
+				});
+				//}
+			}
+		</script>
+	</body>
+</html>

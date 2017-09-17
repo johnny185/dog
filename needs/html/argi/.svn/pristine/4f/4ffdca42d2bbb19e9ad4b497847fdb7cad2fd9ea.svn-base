@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>运输单-详情</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale = 1, maximum-scale = 1,  width = device-width" >
+	<meta name ="format-detection" content = "telephone=no">
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+<body>
+	<div class='full-main'> 
+		<div class = 'banner fixed'>
+			<div class="banner-title">
+				<h4>详情</h4>
+			</div>
+			<a href="javascript:void(0);" onclick="back();">
+				<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='submit' name='return' value=''></span>
+			</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="full-main">
+			<div class="sub-container sub-container-notop">
+				<form name="d2-0" id="transportOrderForm">
+					<div id="transportOrderContainer">
+
+					</div>
+					<div class="sub-title sub-title2">
+						<h4 class="col-lg-8">抽检结果</h4>
+						<div class="smallbtncontainer right col-sm-1 addCheckRowBtn">
+							<input class = "smalladdbtn" type="button" onclick="addCheckRow();">
+						</div>
+					</div>
+					<div class="full-main" id="completeContainer">
+						<div class="main">
+							<div class="scroll-banner2 clear">
+								<!-- <label class="col-sm-2">等级</label>
+								<label class="col-2">头数</label>
+								<label class="col-md-2">规格<span style="font-size: 10px;">(头/筐)</span></label>
+								<label class="col-lg-2">筐数</label>
+								<label class="col-xs-1"></label> -->
+								<label class="harvest-col-sm-2" id="">等级</label>
+								<!--<label class="col-sm-2" id="">头数</label>-->
+								<label class="harvest-col-md-2" id="">规格<span style="font-size: 10px;">(头/筐)</span></label>
+								<label class="harvest-col-lg-2" id="">筐数</label>
+								<label class="col-xs-1" id=""></label>
+							</div>
+							<section class="clear">
+							     <ul class="list-ul"  id="listContainer">
+							     	<!-- 第1组 -->
+							     </ul>
+							 </section>
+						</div>
+					</div>
+				</form>		
+			</div>
+			<div class="short-container addCheckRowBtn">
+				<div class="main">
+					<div class="center">
+						<input id ="submitBtn" class="btn-style2 clear" type="button" name="save" value="提交">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../../../script/common/availdate-v1.0.2.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.touchWipe.js"></script>
+<script type="text/javascript" src="../../../../script/common/form2js.js"></script>
+<script  id="transportListTmp" type="text/x-dot-template">
+	<li id="li" class="list-li clear">
+	     <div class="">
+	       	<span class="no harvest-col-sm-2 select-menu2">
+				<select class="select-menu2 transportFormEle" name="grade">
+					<option value="1">一级品</option>
+					<option value="2">二级品</option>
+				</select>
+	       	</span>
+			<!--<span class="col-sm-2">
+				<input data-rule="n0-10" data-nullmsg="采收总量不能为空" data-errmsg="采收总量只能输入0-10位正整数" data-sucmsg="" class="tableinputcount transportFormEle"  type="number" placeholder="采收总量" name="quantity">
+			</span>-->
+			<span class="harvest-col-md-2">
+				<input data-rule="n0-3" data-nullmsg="规格不能为空" data-errmsg="规格只能输入0-3位正整数" data-sucmsg="" class="tableinputsize transportFormEle"  type="number"  placeholder="规格" name="specifications">
+			</span>
+			<span class="harvest-col-lg-2">
+				<input data-rule="n0-6" data-nullmsg="筐数不能为空" data-errmsg="筐数只能输入0-6位正整数" data-sucmsg="" class="tableinputbasket transportFormEle"  type="number" placeholder="筐数"  name="baskets">
+			</span>
+	     </div>
+	     <div class="delete-btn" onclick="delTransportRow(this);">删除</div>
+	 </li>
+</script>
+<script  id="completeTransportOrderTmp" type="text/x-dot-template">
+	<div class="main">
+		<table class="tablestyle2" id="">
+			<col style="width: 30%" />
+			<col style="width: 30%" />
+			<col style="width: 30%" />
+			<tbody>
+				<tr>
+					<th>等级</th><th>规格<span style="font-size: 10px;">(头/筐)</span></th><th>筐数</th>
+				</tr>
+				{{~it:value:index }}
+					<tr >
+						{{? value.grade == 1}}
+							<td>一等品</td> 
+						{{?? value.grade == 2}}
+							<td>二等品</td> 
+						{{?? value.grade == 3}}
+							<td>三等品</td> 
+						{{?}}
+						<td>{{=value.quantity}}</td>
+						<td>{{=value.specifications}}</td>
+						<td>{{=value.baskets}}</td>
+					</tr>
+				{{~}}
+			</tbody>
+		</table>
+	</div>
+</script>
+<script  id="transportOrderBasicTmp" type="text/x-dot-template">
+	<div class="sub-title sub-title2">
+		<h4>基本信息</h4>
+	</div>
+	<div class="center">
+			<table class="table-detail-1">
+				<tr><th>运输单号:</th><td>{{=it.code}}</td></tr>
+				<tr><th>采收工单号:</th><td>{{=it.harvestWorkOrderCode}}</td></tr>						
+				<tr><th>记工单号:</th><td>{{=it.recordOrderCode}}</td></tr>
+				<tr><th>品名:</th><td>{{=it.catalogName}}</td></tr>
+				<tr><th>品种:</th><td>{{=it.categoryName}}</td></tr> 
+				<tr><th>装车负责人:</th><td>{{=it.directorName}}</td></tr>  
+			</table>
+	</div>
+	<div class="sub-title sub-title2">
+		<h4>车辆信息</h4>
+	</div>
+	<div class="center">
+		<table class="table-detail-1"> 
+			<tr>
+				<th>车牌号码:</th>
+				<td><span>{{=it.wagonNumber}}</span></td>
+			</tr>
+			<tr>
+				<th>司机姓名:</th>
+				<td><span>{{=it.driverName}}</span></td>
+			</tr> 
+			<tr>
+				<th>联系方式:</th>
+				<td><span>{{=it.contactWay}}</span></td>
+			</tr> 
+		</table>
+	</div>
+	<div class="sub-title sub-title2">
+		<h4 class="col-lg-8">装车清单</h4>
+	</div>
+	<div class="full-main">
+		<div class="main">
+			<table class="tablestyle2" id="">
+				<col style="width: 30%" />
+				<col style="width: 30%" />
+				<col style="width: 30%" />
+				<tbody>
+					<tr>
+						<th>等级</th><th>规格<span style="font-size: 10px;">(头/筐)</span></th><th>筐数</th>
+					</tr>
+					{{~it.detailsList :value:index }}
+						<tr >
+							{{? value.grade == 1}}
+								<td>一等品</td> 
+							{{?? value.grade == 2}}
+								<td>二等品</td> 
+							{{?? value.grade == 3}}
+								<td>三等品</td> 
+							{{?}}
+							<td>{{=value.specifications}}</td>
+							<td>{{=value.baskets}}</td>
+						</tr>
+					{{~}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>
+<script type="text/javascript">
+var userId  = null;
+var transportOrderId = null;//工单id
+var status = null;
+var transportDataFormIndex = 0;
+apiready = function(){
+	userId = $api.getStorage("userId");
+	status = api.pageParam.status;
+	transportOrderId = api.pageParam.transportOrderId;
+	transportDataFormIndex = 0;
+	/* 加载运输单详情  */
+	getHarvestTransportOrderDetails(userId,transportOrderId);
+	
+	/* 采收工单提交表单校验   */
+	ac.form({
+        area: "#transportOrderForm",
+        btn: "#submitBtn",
+        startCheck: function () {   
+        	$("#submitBtn").attr("disabled","true");
+     	},
+     	singleError: function (e, msg) { 
+        	$("#submitBtn").removeAttr("disabled");
+     	},
+        endSuccess: function (e) {
+        	var length = $("#listContainer").find("li").length;
+        	if(length==0){
+        		$("#submitBtn").removeAttr("disabled");
+        		api.alert({msg:"没有抽检信息，请录入后再提交!"});
+        		return;
+        	}
+			saveHarvestTransportOrder();
+        }
+    });	
+}
+
+/* 删除行   */
+function delTransportRow(dom){
+	$(dom).closest("li").remove();
+}
+
+/* 提交运输单   */
+function saveHarvestTransportOrder(){
+	var params = form2js($("#transportOrderForm")[0]);
+	params.id = transportOrderId;
+	params.userId = userId;
+	pds.ajaxSubmit({
+		url:"app/harvesttransportorder/saveHarvestTransportOrder",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			if(e.status == "error"){
+				api.alert({msg:e.message},function(){
+					back();
+				});
+			}else{
+				back();
+			}
+		},
+		error:function(e){
+			$("#submitBtn").removeAttr("disabled");
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+
+/* 加载运输单详情   */
+function getHarvestTransportOrderDetails(loginId,transportOrderId){
+	$("#transportOrderContainer").html("");
+	
+	var params = {"userId":loginId,"id":transportOrderId};
+	pds.ajaxSubmit({
+		url:"app/harvesttransportorder/getHarvestTransportOrderDetails",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var model = e.data;
+			var basticTemple = doT.template($("#transportOrderBasicTmp").text());
+			$("#transportOrderContainer").html(basticTemple(model));
+	
+			var samplingList = model.samplingList;
+			if(model.orderStatus == "SAMPLING"){
+				if(samplingList && samplingList.length>0){
+					for(var i =0;i<samplingList.length;i++){
+						addCheckRow(samplingList[i]);
+					}
+				}else{
+					addCheckRow();
+				}
+			}else{
+				$(".addCheckRowBtn").hide();
+				if(samplingList && samplingList.length>0){
+					var completeTransportOrderTmp = doT.template($("#completeTransportOrderTmp").text());
+					$("#completeContainer").html(completeTransportOrderTmp(samplingList));
+				}
+			}
+			
+		},
+		error:function(e){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+/* 运输单添加一行  */
+function addCheckRow(data){
+	var transportListTemplate = doT.template($("#transportListTmp").text());
+	var $transportRow = $(transportListTemplate(null));
+	var prefix = "samplingList["+transportDataFormIndex+"].";
+	if(data){
+		$transportRow.find(".transportFormEle[name]").each(function(){
+			var name = $(this).attr("name");
+			$(this).val(data[name]);
+			$(this).attr("name",prefix+name);
+		});
+	}else{
+		$transportRow.find(".transportFormEle[name]").each(function(){
+			var name = $(this).attr("name");
+			$(this).attr("name",prefix+name);
+		});
+	}
+	$("#listContainer").append($transportRow);
+	transportDataFormIndex ++;
+	pds.touchWipe({container:".list-li",itemDelete: '.delete-btn'});
+}
+
+/* 回退事件  */
+function back(){
+	 api.closeWin();
+	  //刷新数据
+	  api.execScript({
+	  	  name:'harvest_index_frm',
+	      frameName:'harvest_transport_list',
+	      script: 'getDataList('+userId+',"'+status+'",1);'
+	  });
+}
+
+</script>
+</body>
+</html>

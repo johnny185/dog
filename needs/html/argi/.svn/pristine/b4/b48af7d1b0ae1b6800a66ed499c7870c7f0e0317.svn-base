@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>市</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>地区选择</h4> </span>
+					<a href="javascript:void(0)"; onclick="back();"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				
+				<!-- 内容区域 -->
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<p class="layer-title">
+							<span>全部</span>
+						</p>
+						<ul id="provinceAll"></ul>
+						<div class="container-panel">
+							<ul class="infos-list-panel"id="provinceAll"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../../../script/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var provinceName;
+		var provinceCode;
+		var cityName;
+		var cityCode;
+		var cityId;
+		var name;
+		var fun;
+		var frameName;
+		apiready = function() {
+			provinceCode = api.pageParam.provinceCode;
+			provinceName = api.pageParam.provinceName;
+			name = api.pageParam.name;
+			frameName = api.pageParam.frameName;
+			fun = api.pageParam.fun;
+			if (!name || !frameName || !fun) {
+				alert("系统出错，请联系管理员！");
+			}
+			getCity(api.pageParam.provinceId, api.pageParam.provinceCode, api.pageParam.provinceName)
+		};
+		//返回上一级
+		function back() {
+			api.closeWin();
+		}
+
+		function getCity(provinceId, provinceCode, provinceName) {
+			pds.ajaxSubmit({
+				url : "app/customer/findCityList",
+				data : {
+					id : provinceId
+				},
+				success : function(res) {
+					var el = $api.byId("provinceAll");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<li class="infos-panel-line argi-flex-addr"  onclick="county(this)" data-id="' + data[i].id + '"data-code="' + data[i].code + '"><p>' + data[i].name + '</p><span class="arrow-a"><img class="sm-button" src="../../../../image/next-button.png"></span></li>'
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		//跳转至县页面
+		function county(obj) {
+			var $text = $(obj).find('p').text();
+			cityName = $text;
+			var $code = $(obj).attr("data-code");
+			cityCode = $code;
+			cityId = $(obj).attr("data-id");
+			cityCounty(cityId, cityName, cityCode, provinceCode, provinceName)
+		}
+		function cityCounty(cityId, cityName, cityCode, provinceCode, provinceName) {
+		    
+//			if (cityName.slice(0, 2) == provinceName) {
+//				provinceName = "";
+//			}
+
+			//连跳返回
+			api.closeToWin({
+				name : name
+			});
+			//刷新数据
+			api.execScript({
+				name : name,
+				frameName : frameName,
+				script : fun + "('" + provinceName + cityName  + "','" + provinceCode + "','" + cityCode  + "');"
+			});
+		}
+	</script>
+</html>

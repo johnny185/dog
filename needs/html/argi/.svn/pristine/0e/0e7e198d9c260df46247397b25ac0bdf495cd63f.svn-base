@@ -1,0 +1,18 @@
+*{
+	font-family:PingFang SC Regular;
+}
+.aui-bar-nav{
+	background-color:#60bc56;
+	line-height:40px;
+	font-size: 18px;
+	color:#fffefe;
+}
+.aui-btn{
+	font-size:10px;
+}
+.aui-bar-nav .aui-btn.aui-btn-outlined{
+	border:none;
+}
+.aui-bar-nav .aui-pull-right{
+	font-size:16px;
+}

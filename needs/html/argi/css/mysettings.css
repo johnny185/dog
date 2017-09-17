@@ -1,0 +1,315 @@
+/*.banner-title{
+	background-color: #9AD19A;
+	border: 1px solid white;
+}*/
+/*--------profile----------*/
+.profile-container{
+	padding-top : 20px;
+	height: 105px;
+	background-color: #FFFFFF;
+	padding-right : 20px;
+}
+.profile{
+	margin-top: 0px;
+	width: 100px;
+	height: 100px;
+	float : left;
+}
+.profile div{
+	text-align : left;
+	padding-top : 3px;
+	width:300px;
+}
+
+.profile-img{
+	border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+/*--------logo----------*/
+.logo-container{
+	height: 176px;
+	background-color: none;
+}
+.logo{
+	margin: 22px auto;
+	width: 100px;
+	height: 100px;
+}
+.logo-img{
+	margin-top: 22px; 
+	/*border-radius: 50%;*/
+	/*border: 1px solid #fff;*/
+}
+.logo-container h5{
+	font-size: 12px;
+	font-weight: lighter;
+}
+/*--------form----------*/
+.form-container-noborder{
+	width: 100%;
+	height: auto;
+}
+.changepassword-form,.chanageusername-form,.chanageuseremail-form{
+	width: 80%;
+	margin: 0px auto;
+}
+.form-input-container{
+	width: 100%;
+	height: 44px;
+	margin: 0px auto;
+	background-color: none;
+	border-bottom: 1px solid #f2f2f2;
+}
+.input-img{
+	padding-top: 5px; 
+	display: inline-block;
+	width: 30px;
+	height: auto;
+}
+.input-ta{
+	clear: both;
+	display: inline-block;
+	float: right;
+	width: 85%;
+	height: 100%;
+	padding: 0px 12px; 
+	color: #666;
+}
+
+.register-form{
+	width: 80%;
+	margin: 80px auto;
+}
+.register-form-2{
+	width: 100%;
+	margin: 44px auto;
+}
+/*--------image----------*/
+.img-size-1{
+	width: 25%;
+	height: auto;
+}
+.img-size-2{
+	width: 32px;
+	height: 32px;
+}
+/*--------DOM----------*/
+.login-img-container{
+	padding:5% 0px 8%;
+}
+
+.register-input-container{
+	width: 100%;
+	height: auto;
+}
+.register-input-container-2{
+	width: 100%;
+	height: auto;
+	background-color: none;
+}
+.register-input-sub-container-2{
+	width: 80%;
+	height: auto;
+	margin: 0px auto;
+	
+}
+.menu1st{
+	background-color: #fff;
+}
+.nextBtn .sm-button{
+	width: 24px;
+	height: auto;
+}
+.logoutmenu{
+	
+
+}
+.logoutmenu ul{
+background-color: #bfbfbf;
+	list-style: none;
+	margin: 0px 20px; 
+    margin-bottom: 3px;
+     /*-webkit-box-shadow: 0px 2px 4px #dddcdc;
+       -moz-box-shadow: 0px 2px 4px #dddcdc;
+    		box-shadow: 0px 2px 4px #dddcdc;*/
+}
+.logoutmenu ul li{
+
+	width: calc(100% - 20px);
+	-webkit-width: calc(100% - 20px);
+    height: 44px;
+  
+}
+.logoutmenu ul li a{
+	width: 100%;
+}
+.logoutmenu ul li div a{
+	margin: 0px auto;
+	text-align: center;
+}
+.logoutmenu ul li div .logouttext{
+	display: inline-block;
+	font-size: 16px;
+	font-weight: normal;
+	color: #fff;
+	line-height: 44px;
+}
+.logoutmenu ul li div .logouticon{
+	display: inline-block;
+	margin-top: 15px;
+	width: 24px;
+	height: auto;
+}
+
+.register-input-ta-container{
+	width: 100%;
+	height: 44px;
+	margin: 0px auto;
+	background-color: #fff;
+	border: 1px solid #afafaf;
+}
+.register-input-ta-container-2{
+	width: 60%;
+	height: 44px;
+	margin: 0px auto;
+	background-color: #fff;
+	border: 1px solid #afafaf;
+	float: left;
+}
+.register-input-ta-container3{
+	width: 100%;
+	height: 56px;
+	margin: 0px auto;
+	/*background-color: #fff;*/
+}
+.bottom-btn-2{
+	width: 80%;
+	padding-bottom: 20px;
+	position: absolute;
+	height: auto;
+	bottom:0;
+}
+.input-b-border{
+	border-bottom: 1px solid #afafaf;
+}
+.input-b-border2{
+	border-bottom: 1px solid #afafaf;
+
+}
+.input-b-margin{
+	margin-bottom: 20px;
+}
+.input-b-margin2{
+	margin-bottom: 10px;
+}
+.login-input-container{
+	width: 100%;
+	height: auto;
+	border: 1px solid #afafaf;
+}
+
+.login-input-ta-2{
+	clear: both;
+	display: inline-block;
+	float: right;
+	width: 85%;
+	height: 100%;
+	padding: 0px 12px; 
+	color: #aaa;
+}
+.register-input-ta{
+	clear: both;
+	display: inline-block;
+	float: right;
+	width: 75%;
+	height: 100%;
+	padding: 0px 12px; 
+	color: #666;
+}
+
+.register-input-img3{
+	padding-top: 12px; 
+	display: inline-block;
+	width: 30px;
+	height: auto;
+}
+.login-input-cb{
+	margin-top: 10px;
+	width: 100%;
+}
+.login-input-cb-l{
+	display: inline-block;
+	float: left;
+	margin-left: 0px;
+}
+.register-input-file{
+
+}
+.login-input-cb-r{
+	display: inline-block;
+	float: right;
+	margin-right: 0px;
+}
+.register-input-cb{
+	height: 80px;
+	margin-top: 10px;
+	width: 100%;
+}
+.register-input-cb-r{
+	display: inline-block;
+	float: right;
+	margin-right: 0px;
+	margin-top: 12px;
+}
+.login-cb-1{
+	width: 0px;
+	visibility: hidden;
+}
+.login-lable-1{
+	color: rgb(18,139,3);
+}
+.login-btn-container{
+	width: 100%;
+	height: auto;
+}
+
+/*文字部分*/
+.content-container{
+	margin: 5px 20px;
+}
+.content-container h4{
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+.content-container p{
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+.content-container img{
+	margin-bottom: 5px;
+}
+.crlogo{
+	text-align: center;
+	font-size: 8px;
+	font-weight: lighter;
+	color: #999;
+}
+
+/*copyright*/
+.cr-container{
+	color: #aaa;
+	text-align: center;
+	margin: 0px 30px;
+}
+.cr-container img{
+	width: 12px;
+	height: auto;
+}
+.cr-container span{
+	display: inline-block;
+}
+.cr-container p{
+	font-size: 12px;
+}

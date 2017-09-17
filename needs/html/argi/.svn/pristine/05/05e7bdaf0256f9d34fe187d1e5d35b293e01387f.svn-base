@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>采收工单</title>
+		<link rel="stylesheet" type="text/css" href="../../../res/css/aui.2.0.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/themes/aui-theme-style1.css"/>
+	</head>
+	<body class="body-bg-white">
+		<header class="aui-bar aui-bar-nav aui-bar-gray" id="aui-header">
+			<a class="aui-pull-left aui-btn" tapmode onclick="closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title"id="header-title">
+				采收工单
+			</div>
+		</header>
+		<!--<div class="aui-content" style="margin-bottom:68px;">
+		<div id="list"></div>
+		</div>-->
+		<footer class="aui-bar aui-bar-tab"id="footer">
+			<div class="aui-card-list-footer aui-border-t" style="padding-left:0">
+				<div class="footer-options-label">
+					<label class="aui-list-options-label">
+						<input class="aui-radio" type="checkbox" name="radio">
+						全选</label>
+				</div>
+				<div>
+					<div class="aui-btn aui-btn-green aui-margin-r-10" id="btnJob">
+						记工单
+					</div>
+					<div class="aui-btn aui-btn-warning" id="btnTransport">
+						生成运输单
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../../res/script/api.js"></script>
+	<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+	<script type="text/javascript">
+	apiready = function() {
+		harvestlistWin.configMoule();
+		harvestlistWin.initModule();
+	};
+	var harvestlistWin = (function() {
+		//记录页面需要操作的dom
+		domMap = {}, setDomMap, onBtnJob, onBtnTransport, configMoule, initModule;
+		onBtnJob = function(e) {
+			$api.openWin({
+				name : "jobsheet_list_win",
+				url : "widget://html/harvt/jobsheet/list_win.html",
+				reload : true,
+				selecteIndex : '3',
+				slidBackEnabled : false,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+		onBtnTransport = function(e) {
+			$api.openWin({
+				name : "transport_index_win",
+				url : "widget://html/harvt/transport/list_win.html",
+				reload : true,
+				selecteIndex : '3',
+				slidBackEnabled : false,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+		//-------end 工具方法-----
+		//-------begin 操作dom方法-----
+		//模块内部操作dom的所有方法写在这
+		setDomMap = function() {
+			domMap = {
+				$btnJob : $api.byId('btnJob'),
+				$btnTransport : $api.byId('btnTransport')
+			}
+			$api.addEvt(domMap.$btnJob, 'click', onBtnJob);
+			$api.addEvt(domMap.$btnTransport, 'click', onBtnTransport);
+		}
+		//-------end 操作方法-----
+		//-------begin 公开方法-----
+		//模块的所有公开方法写到这里
+		configMoule = function() {//可以有参数
+		}
+		initModule = function() {//可以有参数
+			setDomMap();
+		  alert(1111)
+		}
+		//-------end 操作方法-----
+		//return 公用函数
+		return {
+			configMoule : configMoule,
+			initModule : initModule
+		}
+	})(); 
+</script>
+</body>
+</html> 

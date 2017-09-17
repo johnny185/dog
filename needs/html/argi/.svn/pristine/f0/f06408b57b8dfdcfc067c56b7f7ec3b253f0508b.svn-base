@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/harvest_new_style.css">	
+</head>
+<body>
+	<div class="container">
+		<div class="full-main">
+			<!-- 顶部榜单 -->
+			<div class="top-container">
+				<!-- 导航条位置 -->
+				<div class = 'banner-nocolor fixed center'>
+					<div class="banner-title center">
+						<h5>采收冠军榜</h5>
+					</div>
+				</div>
+
+				<!-- 用户头像 -->
+			<!--	<div class="center">
+	           		<div class="profile">
+	            		<!-- <img class = "profile-img" src="../../image/placeholder1.png"> -->
+	            		<!--<div class="profile-img">
+	            			<div class="name">赵玉楠</div>
+
+	            			<div class="count"> 1000</div>
+	            		</div>
+	            	</div>
+	            </div>-->
+			</div>
+			<!-- 累计使用 -->
+	        <div class="total-container">
+	        	<div class="left col-5 center total-l border-r">
+	        		<h6>累计采收数量：</h6>
+					<h5>1000</h5>
+	        	</div>
+	        	<div class="left col-5 center total-r">
+	        		<h6>累计使用人次：</h6>
+					<h5>140</h5>
+	        	</div>	        	
+	        </div>
+	        <!-- 导航 -->
+						<div class="nav-container">
+				<div class="main">
+					<table class="nav-table">
+						<tr>
+							<!--<td flag = "1"  class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/plan-icon.png">
+								</a>
+								<span>采收计划</span>
+							</td>-->
+							<!--<td flag = "2" class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/shoplist-icon.png">
+								</a>
+								<span>采收工单</span>
+							</td>-->
+							<td flag = "3" class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/record-icon.png">
+								</a>
+								<span>记工单</span>
+							</td>
+						</tr>
+						<tr>
+							<td flag = "4" class= "harvestMenu">
+								<a href="javascript:void(0);">
+									<img src="../../image/transport-icon.png">
+								</a>
+								<span>运输单</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="main" style="width: 800px;height: 600px;">
+				
+				
+				</div>
+				
+			</div>
+			<!-- 计划进度 -->
+			<div class="chart-container">
+				<div class="chart-title">
+					<HR width="25%" color=#99999 SIZE=3 class="hr-l left">
+					<h1>采收量变化图</h1>
+					<HR width="25%" color=#99999 SIZE=3 class="hr-l right">
+				</div>
+				
+				<div id="main" style="height:500px;width: 100%; margin-left: 0px;float: left;"></div>
+
+				<!--<div class="chart">
+					<img src="../../image/harvest_chart.png">
+				</div>-->
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src= "../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+<script type="text/javascript" src="../../script/common/echarts.simple.min.js"></script>
+<script type="text/javascript" src="../../script/common/echarts.common.min.js"></script>
+
+<script type="text/javascript">
+/* 菜单点击事件  */
+$("body").off("click",".harvestMenu");
+$("body").on("click",".harvestMenu",function(){
+	var flag = $(this).attr("flag")*1;
+	var pageName = "harvest_index_frm"
+	var pagePath = "./harvest_index_frm.html"
+    api.openWin({
+        name: pageName,
+        url:  pagePath,
+        pageParam:{"pageFlag":flag},
+        reload:true,
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+});
+apiready=function(){
+
+var Arr=new Array();
+
+
+		alert("er")
+	var loginName =  $api.getStorage('argi_login_username');
+	//alert(loginName);
+	pds.ajaxSubmit({
+		url:"app/harvest/index/getNum",
+		data:{"loginName":loginName},
+		success:function(e){
+		//	alert(JSON.stringify(e));
+		},error:function(e){
+			api.alert({msg: ' 服务器异常，请联系管理员!!'});	
+		}
+	});
+
+ 	// var   option=document.getElementById("main");
+ 	
+ 	//pds.ajaxSubmit({
+ 	
+
+pds.ajaxSubmit({
+				url : "app/farmland/getFarmOperStatus",
+				
+				success : function(res) {
+		
+		for(var i =0;i<7;i++){
+		Arr[i]=i
+		}
+		
+					var myChart = echarts.init(document.getElementById('main'));
+var option = {
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+       // data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎','百度','谷歌','必应','其他']
+       data:Arr
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+          //  data : ['周一','周二','周三','周四','周五','周六','周日']
+          data:Arr
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'直接访问',
+            type:'bar',
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'邮件营销',
+            type:'bar',
+            stack: '广告',
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'联盟广告',
+            type:'bar',
+            stack: '广告',
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'视频广告',
+            type:'bar',
+            stack: '广告',
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'搜索引擎',
+            type:'bar',
+            data:[862, 1018, 964, 1026, 1679, 1600, 1570],
+            markLine : {
+                lineStyle: {
+                    normal: {
+                        type: 'dashed'
+                    }
+                },
+                data : [
+                    [{type : 'min'}, {type : 'max'}]
+                ]
+            }
+        },
+        {
+            name:'百度',
+            type:'bar',
+            barWidth : 5,
+            stack: '搜索引擎',
+            data:[620, 732, 701, 734, 1090, 1130, 1120]
+        },
+        {
+            name:'谷歌',
+            type:'bar',
+            stack: '搜索引擎',
+            data:[120, 132, 101, 134, 290, 230, 220]
+        },
+        {
+            name:'必应',
+            type:'bar',
+            stack: '搜索引擎',
+            data:[60, 72, 71, 74, 190, 130, 110]
+        },
+        {
+            name:'其他',
+            type:'bar',
+            stack: '搜索引擎',
+            data:[62, 82, 91, 84, 109, 110, 120]
+        }
+    ]
+};
+
+myChart.setOption(option);
+
+					}
+				
+			})
+		}
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
+

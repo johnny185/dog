@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../.././res/css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../.././res/themes/aui-theme-style1.css"/>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav aui-bar-green" id="aui-header">
+        <a class="aui-pull-left aui-btn" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">采收</div>
+    </header>
+    <footer class="aui-bar aui-bar-tab aui-border-t" id="footer">
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-bar-img aui-bar-img-home"></i>
+            <div class="aui-bar-tab-label">首页</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-bar-img aui-bar-img-plant"></i>
+            <div class="aui-bar-tab-label">种植</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-bar-img aui-bar-img-apollo"></i>
+            <div class="aui-bar-tab-label">田间</div>
+        </div>
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <i class="aui-bar-img aui-bar-img-poi"></i>
+            <div class="aui-bar-tab-label">采收</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <i class="aui-bar-img aui-bar-img-user"></i>
+            <div class="aui-bar-tab-label">我的</div>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" src="../../.././res/script/api.js"></script>
+<script type="text/javascript" src="../../.././res/script/aui-tab.js" ></script>
+<script type="text/javascript">
+	apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        var footer_h = $api.offset($api.dom('footer')).h;
+        api.openFrame({
+            name: 'harvest_default_frm',
+            url: 'harvest_default_frm.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: api.winHeight-headerPos.h-footer_h
+            }
+        })
+
+
+    };
+    var tab = new auiTab({
+        element:document.getElementById("footer")
+    },function(ret){
+        console.log(ret);
+        if(ret){
+            //document.getElementById("demo").textContent = ret.index;
+        }
+    });
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+</script>
+</html>

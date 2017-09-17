@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>地块新增</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+    <style>
+    
+    </style>
+</head>
+<body>
+<div class="container">
+ <div class="full-main">
+ 	<!-- 顶部菜单栏 -->
+    <div class = 'banner fixed center'>
+		<span class="banner-title center">
+			<h4>地块新增</h4>
+		</span>
+		<a href="customers_look.html">
+			<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+		</a>
+	</div>
+	<!-- 内容区域 -->
+	<div class="sub-container-notop">
+		<div class="argi-body">
+			<div class="container-panel">
+			<ul class="infos-list-panel">
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">地块属性</div>
+					<div class="argi-flex-infos">
+						<select class="select-form-control" name="landType">
+		  					<option>请选择</option>
+		  				</select>
+						<!--<select class="select-form-control" name="" id="">
+							<option value="">请选择</option>
+							<option value="">大田</option>
+							<option value="">设施</option>
+						</select>-->
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">地块名称</div>
+					<div class="argi-flex-infos">
+						<input type="text" name="landName" id="landName" value=""  placeholder="" class="argi-input-control"  />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">种植品名</div>
+					<div class="argi-flex-infos">
+						<!--<input type="text" placeholder="品名" class="argi-input-control" />-->
+						<select class="select-form-control" name="catNameId" id="" onchange="dictionaryList()">
+					  		<option value="">请选择</option>
+					  	</select>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">种植品种</div>
+					<div class="argi-flex-infos">
+						 <input class="argi-input-control" id="speciesName" onKeyup="getContent(this);"/>
+						 <div id="append"></div>  
+						<!--<input type="text" placeholder="品种" class="argi-input-control" />-->
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">面积</div>
+					<div class="argi-flex-infos">
+						<input type="text" name='areaBox' placeholder="" class="argi-input-control" style="width:70%" />
+						<span>亩</span>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">生长周期</div>
+					<div class="argi-flex-infos">
+						<input type="text" name='growthCycle' placeholder="" class="argi-input-control" style="width:70%" />
+						<span>天</span>
+					</div>
+				</li>
+				<!--<li class="infos-panel-line argi-flex">
+					<div>流转年限</div>
+					<div class="argi-flex-2">
+						<input type="text" placeholder="" class="argi-input-control" style="width:70%" />
+						<span>年</span>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>冷库面积</div>
+					<div class="argi-flex-2">
+						<input type="text" placeholder="" class="argi-input-control" style="width:70%" />
+						<span>平方米</span>
+					</div>
+				</li>-->
+			</ul>
+			</div>
+			
+			<div class="foot-btn-group">
+				<div class="btn-h3">
+					<ul>
+					<li><button onclick="save()" class="argi-btn argi-btn-big argi-btn-success">保存</button></li>
+					<li><button onclick="deleteLand()" class="dele argi-btn argi-btn-big argi-btn-success">删除</button></li>
+					<li><button onclick="stopLand()" class="stopList argi-btn argi-btn-big argi-btn-success">停用</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+ </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/getLoacat.js"></script>
+<script>
+	var landfarmId =null;
+	var id = null;
+	apiready = function(){
+		landfarmId = api.pageParam.landfarmId;
+		id = api.pageParam.id;
+		//选择框地块属性
+		pds.ajaxSubmit({
+            url:"app/land/initDic",
+            success : function(result) {
+            	if(result.status=='ok'){                  
+              		for(var i=0;i<result.data.landType.length;i++){
+             			var  str="<option value='"+result.data.landType[i].value+"'>"+result.data.landType[i].name+"</option>"
+                 		$("[name='landType']").append(str);
+              		} 
+				}	
+			init();	
+		   }
+		});
+		//種植品名
+        pds.ajaxSubmit({
+            url:"app/land/findCatNameMsg",
+            success : function(result) {
+	          if(result.status=='ok'){   
+		           for(var i=0;i<result.data.length;i++){
+	             	   var  str="<option value="+result.data[i].id+">"+result.data[i].catName+"</option>"
+                   	   $("[name='catNameId']").append(str)
+	               
+	               }
+              
+				}
+			}
+		});
+	}	
+	var dictionaryData ;
+	function dictionaryList(){
+		var basCategory = {};
+		basCategory.parentId = $("[name='catNameId']").val();
+		basCategory.catName = $("#speciesName").val();
+		pds.ajaxSubmit({
+                    url:"app/land/findLikeCatNameList",
+                    data:{"data":JSON.stringify(basCategory)},
+                    success:function(result) {
+               	 		if(result.status=='ok'){
+                   	 		if(result.data!=null){
+                   	 			dictionaryData = result.data;
+                   	 			
+                   	 		}
+               	 		}
+                    }
+                });
+	}
+	//检索框根据品名检索品种
+	function getContent(obj){
+	
+        var kw = jQuery.trim($(obj).val());
+        if(kw == ""){
+            $("#append").hide().html("");
+            return false;
+        }
+        
+        var html = "";
+        for (var i = 0; i < dictionaryData.length; i++) {
+            if (dictionaryData[i].catName.indexOf(kw) > -1) {
+                html = html + "<div class='item' onClick='getCon(this);'>" + dictionaryData[i].catName + "</div>"
+            }
+        }
+        
+        if(html != ""){
+            $("#append").show().html(html);
+        }else{
+            $("#append").hide().html("");
+        }
+    }
+    
+    function getCon(obj){
+        var value = $(obj).text();
+        $("#speciesName").val(value);
+        $("#append").hide().html("");
+    }
+	
+	
+	function back(){
+	  	api.closeWin();
+	  }
+	  
+   //保存按钮
+	function save(){
+		isLandName();
+	}
+	//校验地块
+	function isLandName(){
+		var basLand = {};
+		
+		basLand.landFarmId = landfarmId;
+		basLand.id = id;
+		basLand.landName = $("[name='landName']").val();
+	
+		pds.ajaxSubmit({
+            url:"app/land/findLandIsTrue",
+            data : {"data":JSON.stringify(basLand)}, 
+            success:function(result) {
+                if(result.status=='ok'&&result.data>0){
+       				alert("地块名称已重复！");
+            	}else{
+            		isSptrue();
+            	}
+        	}
+        });
+	}
+	//品种是否重复
+	function isSptrue(){
+		var basCategory = {};
+		basCategory.parentId = $("[name='catNameId']").val();
+		basCategory.catName = $("#speciesName").val();
+		pds.ajaxSubmit({
+            url:"app/land/findIsTrue",
+            data : {"data":JSON.stringify(basCategory)}, 
+            success:function(result) {
+                if(result.status=='ok'){
+                	if(result.data==false){
+                		alert("品种已重复!"); 
+                	}else{
+                		submitLand();
+                	}
+                }
+       			
+            }
+        });
+	}
+	//提交数据
+	function submitLand(){
+		var landDto = {};
+		landDto.id = id;
+		landDto.landFarmId = landfarmId;
+		landDto.landName = $("[name='landName']").val();
+		landDto.landType = $("[name='landType']").val();
+		landDto.catId = $("[name='catNameId']").val();
+		landDto.landAreas = $("[name='areaBox']").val();
+		landDto.growthCycle = $("[name='growthCycle']").val();
+		landDto.speciesName = $("#speciesName").val();
+		landDto.delFlag = 2;
+		landDto.useable = 1;
+	
+		pds.ajaxSubmit({
+            url:"app/land/saveOrUpdate",
+            data : {"data":JSON.stringify(landDto)}, 
+            success :function(result) {
+                if(result.status=='ok'){
+                	api.openWin({
+			          name: 'parcel_information',
+			          url: '../../html/land/parcel_information.html',
+			          reload:true,
+			          pageParam:{
+			          "farmId":landfarmId
+		        	 } 
+	        		});
+                }
+       			
+            }
+        });
+	}
+	//初始化方法
+	function init(){
+	  	if(id){
+	        $('.stopList').css('display','inline-block');
+	        $('.dele').css('display','inline-block');
+	            pds.ajaxSubmit({
+	                url:"app/land/findLandMsgByid?landId="+id,
+	                success : function(result) {
+	                    if(result.status=='ok'){   
+	                  
+	                    	$("[name='landType']").val(result.data.landType);
+	                    	$("[name='catNameId']").val(result.data.catId);
+	                    	$("#landName").val(result.data.landName);
+	                    	$("[name='areaBox']").val(result.data.landAreas);
+	                    	$("[name='growthCycle']").val(result.data.growthCycle);	
+	                    	dictionaryList();
+	                   	 	$("#speciesName").val(result.data.speciesName);
+	                   	 	
+	                    }
+	           			
+	                }
+	            });
+	              
+	            }else{
+	            $('.stopList').css('display','none');
+	       		 $('.dele').css('display','none');
+			    //初始化
+				  data={
+				      landFarmId:landfarmId,
+				      landCode:'',
+				      landName:'',
+				      landType:'',
+				      landEwLength:'',
+				      landNsLength:'',
+				      landRidgeNum:'',
+				      landAreas:'',
+				      speciesId:'',
+				      catId:'',
+				      useable:'',
+				      remarks:'',
+				      createBy:'',
+				      createDate:'',
+				      updateBy:'',
+				      updateDate:'',
+				      delFlag:'',
+				      speciesName:'',
+				      catName:'',
+				      growthCycle:''  
+				  }
+				  
+				  
+			  }
+		  
+	}
+		//删除
+		function deleteLand(){
+		  	var landDto = {};
+			landDto.id = id;
+			landDto.delFlag = 100;
+			pds.ajaxSubmit({
+                url:"app/land/saveOrUpdate",
+                data : {"data":JSON.stringify(landDto)}, 
+                success :function(result) {
+                    if(result.status=='ok'){
+                    	api.openWin({
+				          name: 'parcel_information',
+				          url: '../../html/land/parcel_information.html',
+				          reload:true,
+				          pageParam:{
+				          "farmId":landfarmId
+			        	 } 
+		        		});
+                    }
+           			
+                }
+            });
+		}
+		//停用
+		function stopLand(){
+		    var landDto = {};
+	      	landDto.id = id;
+			landDto.useable = 100;
+			pds.ajaxSubmit({
+                url:"app/land/saveOrUpdate",
+                data : {"data":JSON.stringify(landDto)}, 
+                success :function(result) {
+                    if(result.status=='ok'){
+                    	api.openWin({
+				          name: 'parcel_information',
+				          url: '../../html/land/parcel_information.html',
+				          reload:true,
+				          pageParam:{
+				          "farmId":landfarmId
+			        	 } 
+		        		});
+                    }
+           			
+                }
+            });
+		}
+</script>
+</html>

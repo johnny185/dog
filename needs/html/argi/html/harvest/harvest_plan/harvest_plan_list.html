@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收计划</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/mystyle.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="full-main">
+			<div class="fixed-banner2">	
+				<div id = "sub-banner-id" class='sub-banner'>
+					<ul>
+						<label class="col-5">
+							<span id = 'sub-banner-1' class=' btn-confirm selected border-right harvestPlanStatusClass' flag="CONFIRMING">待确认</span>
+						</label>
+						<label class="col-5">
+							<span id = 'sub-banner-2' class='harvestPlanStatusClass' flag="CONFIRMED">已确认</span>
+						</label>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="full-main">
+			<div class="sub-sub-container2">
+				<!-- 下拉刷新 -->
+				<div id="wrapper">
+					<div id="scroller">
+						<!--<div id="pullDown">
+							 <span class="pullDownIcon"></span> 
+							<div class="pullDownLabel">下拉刷新...</div>
+						</div>-->
+						<ul id="harvestPlanContainer">
+						</ul>
+						<!--<div id="pullUp">
+							 <span class="pullUpIcon"></span> 
+							<div class="pullUpLabel">上拉加载更多...</div>
+						</div>-->
+						<span id="noDataTips" style="display:none">没有数据了...</span> 
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../script/common/availdate-v1.0.2.js"></script>
+<script type="text/javascript" src="../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../script/common/pds.ajax.js"></script>
+<!--<script type="text/javascript" src="../../../script/scroll/build/iscroll-loading.js"></script>
+<script type="text/javascript" src="../../../script/common/pds.iscroll.min.js"></script>-->
+<script id="harvestPlanTmp" type="text/x-dot-template">
+{{~it :value:index }}
+<li>
+	<table class="tablestyle0">
+		<tr class="tablestyle0-tr" tapmode="" onclick="toHarvestPlanDetails({{= value.id }})"> 
+			<td class="col-2">
+				<!--<div><img class = "table-image" src="../../../image/img1.png"></div>-->
+				<div><img class = "table-image" src="../../../image/harvest_plan.png"></div>
+			</td>
+			<td class="col-6">
+				<a href="javascript:void(0);">
+					<table class='tablestyle0-plan'>
+						<tr><th>单据编号: </th><td>{{= value.code }}</td></tr>
+						<tr><th>地块: </th><td>{{= value.landName }}</td></tr>
+						<tr><th>开始日期: </th><td>{{= value.planStartDateStr }}</td></tr>
+					</table>
+				</a>
+			</td>
+			<td class="col-1">
+				{{? value.planStatus == "CONFIRMING" }}
+					<div class=""><img class = "table-xs-image" src="../../../image/notification.png"></div>
+				{{?}}
+				<div><img class = "table-sm-image" src="../../../image/next-button.png"></div>
+			</td>
+		</tr>
+	</table>
+</li>
+{{~}}
+</script>
+<script type="text/javascript">	
+var userId = null;
+var pageNum = 1;
+var pageSize = 20;
+var status = null;
+var total = null;
+
+apiready = function(){
+	userId = $api.getStorage("userId");
+    status = "CONFIRMING";
+
+//	pds.initIscroll({
+//		userId    : userId,
+//		statusObj :{"planStatus":status},
+//		listUrl   : "app/harvestplan/getHarvestPlanList",
+//		container :"#harvestPlanContainer",
+//		rowTemplete : "#harvestPlanTmp"
+//	});
+	getDataList(userId,status,1);
+    /* 滑动至底部加载更多  */        
+    api.addEventListener({name: 'scrolltobottom'}, function(ret, err){
+    	getDataList(userId,status,0);      
+    });       
+	/* 添加下拉刷新  */
+	api.setRefreshHeaderInfo({
+	    visible: true,
+	    loadingImg: '../../../image/refreshing_image_01.png',
+	    bgColor: '#ccc',
+	    textColor: '#fff',
+	    showTime: true
+	}, function(ret, err){
+	    getDataList(userId,status,1);
+	    api.refreshHeaderLoadDone();
+    });
+    
+}
+
+/* 加载列表   */
+function getDataList(loginId,status,flag){
+	if(flag*1 == 1){
+		pageNum = 1;
+		$("#harvestPlanContainer").html("");
+	}
+	var params = {"userId":userId,"planStatus":status,"pageNum":pageNum,"pageSize":pageSize};
+	pds.ajaxSubmit({
+		url:"app/harvestplan/getHarvestPlanList",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var dataInter = e.data;
+			total = e.total;
+			if(dataInter && dataInter.length>0){
+				pageNum++;
+				var interText = doT.template($("#harvestPlanTmp").text());
+				if(flag*1 == 1){
+					$("#harvestPlanContainer").html(interText(dataInter));
+				}else{
+					$("#harvestPlanContainer").append(interText(dataInter));
+				}
+				$("#noDataTips").hide();
+			}else{
+				$("#noDataTips").show();
+			}
+		},
+		error:function(e){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+	
+/* 加载采收计划详情  */
+function toHarvestPlanDetails(harvestPlanId){
+	api.openWin({
+        name: "harvest_plan_detail",
+        url:  "./details/harvest_plan_detail.html",
+        pageParam: {"planId":harvestPlanId,"harvestPlanStatus":status},
+        //reload:true,
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+}
+
+/*  回退事件 */
+function back(){
+	 api.closeWin();
+}
+
+/* 菜单点击事件  */
+$(".harvestPlanStatusClass").off("click");
+$(".harvestPlanStatusClass").on("click",function(){
+	var that = $(this);
+	$(".harvestPlanStatusClass").removeClass("selected");
+	that.addClass("selected");
+	status = that.attr("flag");
+	 getDataList(userId,status,1);
+});
+
+</script>
+</body>
+</html>

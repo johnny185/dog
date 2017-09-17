@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>审阅周报详情</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+ 	<style>
+	 	span{
+	 		display: inline-block;
+	 	}
+ 		.thisweek{
+ 			width:100%;
+ 			overflow: hidden;			
+ 		}
+  		.top_text{
+			width:100%;
+			height:1.11rem;
+			line-height:1.11rem;
+		}
+		.top_text .left{
+			float: left;
+			padding-left: 0.22rem;
+			padding-top: 0.19rem;
+			box-sizing: border-box;
+			font-size: 0.3rem;
+			color:#949996;
+		}
+		.top_text .left span{
+			display:inline-block;
+			width:0.05rem;
+			height:0.28rem;
+			background-color:#00c558;
+		}
+		.top_text .right{
+			float: right;
+			padding: 0.19rem 0.23rem 0 0;
+			box-sizing: border-box;
+			position:relative;
+			color:#00c558;
+			font-size: 0.28rem;
+		}
+		.top_text .right .up{
+			background:url("../../../image/business_img/d_s.png") no-repeat left center;
+			background-size:0.24rem 0.24rem;
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+		}
+		.top_text .right .show{
+			background:url("../../../image/business_img/d_show.png") no-repeat left center;
+			background-size:0.24rem 0.24rem;
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+		}
+		.day{
+			width: 100%;
+			overflow: hidden;
+			padding:0 0.2rem;
+			box-sizing:border-box;
+			font-size: 0.24rem;
+		}
+		.top{
+			width:100%;
+			height:0.47rem;
+		}
+		.top .week{
+			width:1.04rem;
+			height:0.47rem;
+			text-align:center;
+			font-size:0.28rem;
+			color:#fff;
+			line-height:0.47rem;
+			background-color:#6ed567;
+			border-top-right-radius:0.25rem;
+			border-bottom-right-radius:0.25rem;
+			border-bottom-left-radius:0.25rem;
+			margin-right:0.17rem;
+		}
+		.top .date{
+			font-size:0.26rem;
+			color:#808683;
+		}
+		.bottom{
+			width:100%;
+			overflow: hidden;
+			border-left:1px solid #6ed567;
+			margin-left:0.45rem;
+			padding:0.3rem 0 0.2rem 0.79rem;
+			box-sizing:border-box;
+			color:#91948e;
+		}
+		.bottom .text_d{
+			width:5.54rem;
+			overflow:hidden;
+			padding-bottom:0.3rem;
+			box-sizing:border-box;
+			border:1px solid #cfd2d0;
+			margin-bottom:0.35rem;
+		}
+		.monday .text_d{
+			margin-bottom:0;
+		}
+		.text_d div{
+			line-height:0.5rem;
+			padding:0 0.25rem;
+			box-sizing:border-box;
+		}
+		.text_d .item{
+			background:url("../../../image/business_img/thisw_b.png");
+			color:#785c38;
+		}
+	  	.text_d div span{
+	  		width:3.8rem;
+	  		line-height: 0.5rem;
+	  		float: right;
+	  	}
+	  	.thisweek div:nth-last-of-type(1) .bottom{
+			border:none;
+			padding-bottom: 0;
+		}
+		.thisweek div:nth-last-of-type(1) .bottom .text{
+			margin-bottom:0;
+		}
+		.nextweek div:nth-last-of-type(1) .bottom{
+			border:none;
+			padding-bottom: 0;
+		}
+		.nextweek div:nth-last-of-type(1) .bottom .text{
+			margin-bottom:0;
+		}
+		.text{
+			display:block;
+			width:5.56rem;
+			height:1.27rem;
+			border:1px solid #cfd2d0;
+			font-size: 0.26rem;
+			color:#949996;
+			padding:0.2rem;
+			box-sizing: border-box;
+			margin-bottom:0.2rem;
+		}
+		.btn{
+			width:100%;
+			height:0.84rem;
+			border-top:1px solid #ef8233;
+			margin-top:3.1rem;
+		}
+		.agree,.refuse{
+			float:left;
+			width: 50%;
+			height:0.84rem;
+			line-height:0.84rem;
+			text-align:center;
+			font-size:0.34rem;
+		}
+		.agree{
+			background-color:#fff;
+			color:#FF7A00;
+		}
+		.refuse{
+			color:#fff;
+			background:#ef8233;
+		}
+		
+		.bottom_t{
+			display:block;
+			width:6.62rem;
+			height:2rem;
+			border:1px solid #cfd2d0;
+			font-size: 0.26rem;
+			color:#949996;
+			padding:0.2rem;
+			box-sizing: border-box;
+			margin:0 auto;
+		}
+		/*textarea提示信息字颜色*/		
+		.text::-webkit-input-placeholder {
+		  color: #91948e;
+		}
+		.text:-moz-placeholder {
+		   color: #91948e;
+		}
+		.text:-ms-input-placeholder {
+		   color: #91948e;
+		}
+    </style>
+</head>
+<body>
+
+</script>
+  		<div class="content" id="context">
+  			<!--本周情况-->
+  			<div class="thisweek">
+  				<!--顶部-->
+  				<div class="top_text">
+  		   			<!--左边文字-->
+  		   			<div class="left">
+  		   				<span></span>
+  		   				本周情况
+  		   			</div>
+  		   			<div class="right">
+  		   				<!--收缩-->
+  		   				<div class="up r_item">收缩</div>
+  		   				<!--展开-->
+  		   				<div class="show r_item"  style="display: none">展开</div>
+  		   			</div>
+  		   		</div> 
+  		   		
+  		   		<div class="day">
+					<div class="top">
+						<span class="week">周一</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<div class="text_d">
+							<div class="item">客户一</div>
+							<div>地址<span class="address">北京</span></div>
+							<div>负责人<span class="name">张三</span></div>
+							<div>联系电话<span class="phone">12345678909</span></div>
+							<div>面积/作物<span class="area">123/水稻</span></div>
+							<div>成果<span class="ments">介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并</span></div>
+						</div>	
+						<div class="text_d">
+							<div class="item">客户一</div>
+							<div>地址<span class="address">北京</span></div>
+							<div>负责人<span class="name">张三</span></div>
+							<div>联系电话<span class="phone">12345678909</span></div>
+							<div>面积/作物<span class="area">123/水稻</span></div>
+							<div>成果<span class="ments">介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并</span></div>
+						</div>											
+					</div>
+					
+				</div>	
+				
+				<div class="day">
+					<div class="top">
+						<span class="week">周二</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<div class="text_d">
+							<div class="item">客户一</div>
+							<div>地址<span class="address">北京</span></div>
+							<div>负责人<span class="name">张三</span></div>
+							<div>联系电话<span class="phone">12345678909</span></div>
+							<div>面积/作物<span class="area">123/水稻</span></div>
+							<div>成果<span class="ments">介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并</span></div>
+						</div>											
+					</div>
+				</div>	 
+				<div class="day">
+					<div class="top">
+						<span class="week">周三</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<div class="text_d">
+							<div class="item">客户一</div>
+							<div>地址<span class="address">北京</span></div>
+							<div>负责人<span class="name">张三</span></div>
+							<div>联系电话<span class="phone">12345678909</span></div>
+							<div>面积/作物<span class="area">123/水稻</span></div>
+							<div>成果<span class="ments">介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并</span></div>
+						</div>											
+					</div>
+				</div>	 
+				<div class="day">
+					<div class="top">
+						<span class="week">周四</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<div class="text_d">
+							<div class="item">客户一</div>
+							<div>地址<span class="address">北京</span></div>
+							<div>负责人<span class="name">张三</span></div>
+							<div>联系电话<span class="phone">12345678909</span></div>
+							<div>面积/作物<span class="area">123/水稻</span></div>
+							<div>成果<span class="ments">介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并介绍公司情况并</span></div>
+						</div>											
+					</div>
+				</div>	 
+				<div class="day">
+					<div class="top">
+						<span class="week">周五</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<textarea class="text" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>						
+					</div>
+				</div>	  		 		   		
+	   		</div>
+	   		<!--下周安排-->
+	   		<div class="nextweek">
+	   			<!--顶部-->
+  				<div class="top_text">
+  		   			<!--左边文字-->
+  		   			<div class="left">
+  		   				<span></span>
+  		   				下周安排
+  		   			</div>
+  		   			<div class="right">
+  		   				<!--收缩-->
+  		   				<div class="up r_item">收缩</div>
+  		   				<!--展开-->
+  		   				<div class="show r_item"  style="display: none">展开</div>
+  		   			</div>
+  		   		</div> 
+  		   		
+  		   		<div class="day">
+					<div class="top">
+						<span class="week">周一</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<textarea class="text" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>									
+					</div>
+					
+				</div>	
+				
+				<div class="day">
+					<div class="top">
+						<span class="week">周二</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<textarea class="text" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>										
+					</div>
+				</div>	 
+				<div class="day">
+					<div class="top">
+						<span class="week">周三</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<textarea class="text" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>											
+					</div>
+				</div>	 
+				<div class="day">
+					<div class="top">
+						<span class="week">周四</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<textarea class="text" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>										
+					</div>
+				</div>	 
+				<div class="day">
+					<div class="top">
+						<span class="week">周五</span>
+						<span class="date">2017年8月23日</span>
+					</div>
+					<div class="bottom">
+						<textarea class="text" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>						
+					</div>
+				</div>	  		 		   		
+	   		
+	   		
+	   		
+	   		</div>
+	   		<!--支援事项-->
+	   		<div class="support">
+	   			<div class="top_text">
+  		   			<!--左边文字-->
+  		   			<div class="left">
+  		   				<span></span>
+  		   				支援事项
+  		   			</div>
+  		   			<div class="right">
+  		   				<!--收缩-->
+  		   				<div class="up r_item">收缩</div>
+  		   				<!--展开-->
+  		   				<div class="show r_item"  style="display: none">展开</div>
+  		   			</div>
+  		   		</div> 
+  		   		
+  		   		<textarea class="bottom_t" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>	
+	   		</div>
+	   		<!--市场信息-->
+	   		<div class="market">
+	   			<div class="top_text">
+  		   			<!--左边文字-->
+  		   			<div class="left">
+  		   				<span></span>
+  		   				市场信息
+  		   			</div>
+  		   			<div class="right">
+  		   				<!--收缩-->
+  		   				<div class="up r_item">收缩</div>
+  		   				<!--展开-->
+  		   				<div class="show r_item"  style="display: none">展开</div>
+  		   			</div>
+  		   		</div> 
+  		   		
+  		   		<textarea class="bottom_t" name="text" id="" readonly="readonly" placeholder="今日请假"></textarea>	
+	   		</div>
+	   		
+   			<div class="btn">
+	   			<button class="agree">同意</button>
+	   			<button class="refuse">拒绝</button>
+	   		</div>
+	   		
+  		</div>
+
+
+
+</body>
+
+<script type="text/javascript">
+	apiready = function(){
+	
+	
+	};
+</script>
+</html>

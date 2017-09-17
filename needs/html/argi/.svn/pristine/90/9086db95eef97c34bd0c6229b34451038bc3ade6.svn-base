@@ -1,0 +1,33 @@
+*{
+	font-family:PingFang SC Regular;
+}
+input,button,select,textarea{
+	-webkit-appearance:none;
+    border-radius:0;
+    outline:none;
+    display:inline-block;
+}
+li{
+	list-style:none;
+}
+a,img,span{
+	display:block;
+	text-decoration:none;
+}
+a:active, a:hover {
+  outline: 0;
+}
+a, a:visited{
+	text-decoration:none;
+}
+html,body{
+	margin:0;
+	height:100%;
+	background:#fdfcfc;
+}
+.content{
+	width:100%;
+	overflow: hidden;
+	background:#fff;
+}
+  		

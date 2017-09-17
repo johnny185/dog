@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>tianjian首页</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../css/farm.css">	
+
+</head>
+<body>
+	<!-- 导航栏 -->
+	<div class='full-main'> 
+		<div class = 'banner2 fixed'>
+			<div class="banner2-list-btn"><img src="../image/list.png"></div>
+			<div class="banner-select" id="location-select">
+				<select id="farmlistId" onchange="onChangeFarm(this)" style="width: 180px">
+					
+				</select>
+			</div>
+			<div class="banner2-people-btn"><img src="../image/people.png"></div>
+			<div class="banner-text">当前在线：<span id="currentPersonNum">0人</span></div>	
+		</div>
+	</div>
+
+	<!-- 内容 -->
+	<div class="sub-container-notop sub-container-nobottom">
+		<!--地图顶部-->
+		<div class="frm-map-top">
+			
+		</div>
+		<!--地图-->	
+		<!-- <div class="map-container">	</div>  -->
+		<!-- sub-nav -->
+		<div class="sub-nav-container fixed" style="z-index:9999;">
+			<div class="col-5 left center sub-nac-btn-l" onclick="farm()">
+				<input type="button" name="" value="待处理" class="tobe-process-btn">
+			</div>
+			<div class="center-btn-container">
+			 <div class="center-btn" id="sign">
+			 <a tapmode=""  class="lists"><button class="mybutton"  onclick="punchCard(this)" type="button" id ="punchCard"></button></a></div>
+				
+			</div>
+			<div class="col-5 right center sub-nac-btn-r" onclick="processedIn()">
+				<input type="button" name="" value="已处理" class="processed-btn">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/kendo.core.min.js"></script>
+<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+<script type="text/javascript" src="../script/pds.ajax.js"></script>
+<script type="text/javascript" src="../script/getLoacat.js"></script>
+<script type="text/javascript">
+	
+	   
+       var userId =null;
+       var map = null; 
+       var bMap = null;
+       var ajaxtimer = null;
+       var coordinate = null;
+       var cardType = null;
+       var db = null;
+       var latitude=null;
+       var longitude=null;
+    apiready = function() {
+    				
+	    			       			        			 
+ 					
+					db = pds.getDb();
+					userId = $api.getStorage("userId");
+					map=pds.getMap();
+					map.close();
+					findPushType(userId);	
+					openMap();
+					//初始化地图
+//  				initMap();
+    											
+						
+						//获取基地列表信息
+						getFarmByUserCompany(); 
+				
+												
+				};
+	function farm() {
+				var farmId =$("#farmlistId").val();
+				closeMap();
+				$api.openWin({
+					name : 'agriculturalData',
+					url : 'widget://html/farmData/agriculturalData.html',
+					reload : true,
+					pageParam : {
+						"farmId" : farmId
+					},
+					selecteIndex:'2',
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+    function closeMap(){
+//  	alert("closeMap");
+    	map.close();
+    }
+    function openMap(){
+//  	alert("openMap");
+    	var st =  document.body.clientHeight;
+		 map.open({
+			    rect: {//模块的位置及尺寸
+			        x: 0,
+			        y: 127,
+			        h: st-169
+		        },
+		        zoomLevel: 18,//设置百度地图缩放等级，取值范围：3-18级
+			    showUserLocation: true,//是否在地图上显示用户位置
+			    fixed: true          //模块是否随所属 Window 或 Frame 滚动
+		    },		    
+		   function(ret){ //ret为JSON类型
+		        if(ret.status){		       		
+		        }
+		   });
+    }
+     function punchCard(dom){
+    
+            var cardText = document.getElementById("punchCard").innerHTML;//打卡内容
+             //创建本地数据库的方法
+             creatDatabase();  
+             push(dom,cardText);
+     }
+ 
+  function creatDatabase(){
+        db.openDatabase({
+		    name: 'pointData',
+		    path:'fs://pointData.db'
+		}, function(ret, err){        
+		    if( ret.status ){
+		        //如果数据库创建成功【就会创建数据表
+	            db.executeSql({
+				    name: 'pointData',
+				    sql: 'CREATE TABLE Point(Id_P int, userId varchar(255), logTime varchar(255), longitude varchar(255), latitude varchar(255),type varchar(255))'    
+				}, function(ret, err){               
+
+				});
+		    }else{
+		     
+		    }
+		});
+  }
+  
+  function push(dom,cardText){
+  
+      if (cardText=="签到"){
+	        api.setPrefs({ key:'datakey',value:[]});
+	        cardType = "1"; 
+	        pds.getLocat();
+	        //定时器器
+	        ajaxtimer = pds.setInterval();
+	        api.alert({msg:"签到成功,您的位置将会被记录"});
+	  }else if(cardText=="签退"){
+	         cardType = "2"; 
+	         map.stopLocation();
+	         window.clearInterval(ajaxtimer);
+	         api.alert({msg:"签退成功"});
+	  }
+					 
+	  var myDate = new Date();                    
+	  var myDatestring = myDate.getFullYear()+"-"+(myDate.getMonth()*1+1)+"-"+myDate.getDate()+" "+myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds(); 
+      var userId = $api.getStorage("userId");
+      var pushdata = {'userId':userId,
+      				   'time':myDatestring,
+      				   'type':cardType,
+      				   'SignDetailsData':{'signinType':cardType,
+      				                      'longitude':longitude,//ret.lon,
+      				                      'latitude':latitude,//ret.lat,
+      				                      'signDate':myDatestring
+      				                     }
+      			     };
+       var data = kendo.stringify(pushdata);
+	   pds.ajaxSubmit({
+			 url:"app/farmland/recordtime",
+			 data:{'data':data},
+			 success:function(e){
+			    //dom.setAttribute("flag","1");
+			   if(e){
+			      findPushType(userId);
+			   }
+			},
+			error:function(e){
+			    dom.setAttribute("flag","1");
+				
+				  api.alert({msg:"服务器异常，请联系管理员!!!!"});
+			}
+		});
+	}
+          
+         var findPushType = function(userId){
+             
+              pds.ajaxSubmit({
+				 url:"app/farmland/find/pushtype",
+				 data:{'userId':userId},
+				 success:function(e){
+				   if(e){
+				      if(e.data==1){
+				          document.getElementById("punchCard").innerHTML="签退";
+				          	$('#sign').css('background', 'red');
+				    
+				      }else{
+				          document.getElementById("punchCard").innerHTML="签到";
+				         	$('#sign').css('background', '#ccc');
+				      }				   
+				   } 
+				},
+				error:function(e){
+					 api.alert({msg:"服务器异常，请联系管理员!!!!"});
+				}
+			});
+         }
+	
+	
+		//var signbtn = document.getElementById("sign");
+		//var signflag = false;
+		//signbtn.onclick = function(){
+//			if (!signflag) {
+//				signbtn.innerHTML = '签退';
+//				signbtn.style.backgroundColor = "#999";
+//				signflag = true;
+//			}
+//			else if(signflag){
+//				signbtn.innerHTML = '签到';
+//				signbtn.style.backgroundColor = "#A2CDA5";
+//				signflag =false;
+//			}
+		//}
+		
+		
+		
+		function initMap(){
+			var st =  document.body.clientHeight;
+//		    map = api.require('bMap');
+		    map.getLocation({
+						accuracy : '100m',
+						autoStop : true,
+						filter : 1
+					}, function(ret, err) {
+						if (ret.status) {
+							var lon = ret.lon;
+							//大
+							longitude = lon;														
+							var lat = ret.lat;
+							//小,
+							latitude = lat;
+							 map.open({
+								    rect: {//模块的位置及尺寸
+								        x: 0,
+								        y: 127,
+								        h: st-169
+							        },
+							        zoomLevel: 18,//设置百度地图缩放等级，取值范围：3-18级
+								    showUserLocation: true,//是否在地图上显示用户位置
+								    fixed: true,
+								    center:{
+							                lon: longitude,       //数字类型；打开地图时设置的中心点经度
+							                lat: latitude         //数字类型；打开地图时设置的中心点纬度
+							               }            //模块是否随所属 Window 或 Frame 滚动
+							    },		    
+							   function(ret){ //ret为JSON类型
+							        if(ret.status){		       		
+							        }
+							   });							
+						} else {
+							//api.alert({msg: err.code});
+						}
+						//获取基地列表信息
+						getFarmByUserCompany(); 
+					});			
+									
+		   
+		 }  
+	    
+		function processedIn() {
+				var farmId = $("#farmlistId").val();
+				$api.openWin({
+					name : 'listCollect',
+					url : 'widget://html/farmData/listCollect.html',
+					reload : true,
+					pageParam : {
+						"farmId" : farmId
+					},
+					selecteIndex:'2',
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+		
+	//获取当前用户所在公司下的所有基地
+	function getFarmByUserCompany(){
+		 pds.ajaxSubmit({
+				 url:"app/farmingdataresource/list",											
+				 success:function(e){
+				 	var farmVoList=e.data;					 	
+				 	var farmid="";
+				 	var selectedFlag="0";
+				 	var farmCoordinate=[];	
+				 	if(farmVoList==null){
+				 		return;
+				 	}
+				    $.each(farmVoList,function(index,val){				    					    					    					    			    					    					    							
+							 $("#farmlistId").append("<option value='"+val.id+"'>"+val.farmName+"</option>");
+							  if(index==0 && val.basFarmCoordinateList.length>0){//基地坐标默认初始化为第一个基地的坐标							  	
+							  	farmid=val.id;						  		
+							  	farmCoordinate.push({"longitude":val.basFarmCoordinateList[0].longitude,"latitude":val.basFarmCoordinateList[0].latitude});
+							  	farmCoordinate.push({"longitude":val.basFarmCoordinateList[1].longitude,"latitude":val.basFarmCoordinateList[1].latitude});
+							  	farmCoordinate.push({"longitude":val.basFarmCoordinateList[2].longitude,"latitude":val.basFarmCoordinateList[2].latitude});
+							  	farmCoordinate.push({"longitude":val.basFarmCoordinateList[3].longitude,"latitude":val.basFarmCoordinateList[3].latitude});							  	
+							  }				    		
+				    		 	//判断已知点是否在指定的多边形区域内
+				    		 	if(val.basFarmCoordinateList.length>0){
+						    		map.isPolygonContantsPoint({
+										    point: {
+										        lon: longitude,//106.038500,
+										        lat: latitude//38.883000
+										    },
+										    points: [{
+												        lon: val.basFarmCoordinateList[0].longitude,
+												        lat: val.basFarmCoordinateList[0].latitude
+												    },{
+												        lon: val.basFarmCoordinateList[1].longitude,
+												        lat:val.basFarmCoordinateList[1].latitude
+												    },{
+												        lon: val.basFarmCoordinateList[2].longitude,
+												        lat: val.basFarmCoordinateList[2].latitude
+												    }, {
+												        lon: val.basFarmCoordinateList[3].longitude,
+												        lat: val.basFarmCoordinateList[3].latitude
+												    }]
+										}, function(ret) {
+																			    
+										    if(ret.status){										    											    											    	 											    												    	 								    		     			    						    										    			 			    			 
+								    			 farmCoordinate.splice(0,farmCoordinate.length);								    			
+								    			 farmCoordinate.push({"longitude":val.basFarmCoordinateList[0].longitude,"latitude":val.basFarmCoordinateList[0].latitude});
+											  	 farmCoordinate.push({"longitude":val.basFarmCoordinateList[1].longitude,"latitude":val.basFarmCoordinateList[1].latitude});
+											  	 farmCoordinate.push({"longitude":val.basFarmCoordinateList[2].longitude,"latitude":val.basFarmCoordinateList[2].latitude});
+											  	 farmCoordinate.push({"longitude":val.basFarmCoordinateList[3].longitude,"latitude":val.basFarmCoordinateList[3].latitude});													    			 
+								    			 getPersonCount(val.id,farmCoordinate);
+								    			 selectedFlag="1";
+										    }
+										    
+										    if(selectedFlag == "0" && (farmVoList.length-1) == index){										    	
+										    	getPersonCount(farmid,farmCoordinate);										    	
+										    }
+										    									   
+										});				    	
+				    			}				    								    							 												 						 	
+					 });
+												
+				},
+				error:function(e){				
+					 api.alert({msg:"服务器异常，请联系管理员!!!!"});
+				}
+			});		
+	}	
+		
+function getPersonCount(farmid,farmCoordinate){
+					 $("#farmlistId").val(farmid);					 
+						  pds.ajaxSubmit({
+								 url:"app/farmingdataresource/getOnlinePersonInfo",											
+								 success:function(e){
+								 	var signUser=e.data;
+								 	var count=0;								 								 
+									 if(signUser !=null){
+									 	 $.each(signUser,function(index,obj){
+									 			//判断已知点是否在指定的多边形区域内									 			
+									 			var jsonObj=$.parseJSON(obj.signDetails);//用户签到的坐标信息
+									 			var len=jsonObj.length;									 												 			
+								    		map.isPolygonContantsPoint({
+												    point: {
+												        lon: jsonObj[len-1].longitude,
+												        lat: jsonObj[len-1].latitude
+												    },
+												    points: [{//当前基地的坐标
+														        lon: farmCoordinate[0].longitude,
+														        lat: farmCoordinate[0].latitude
+														    },{
+														        lon: farmCoordinate[1].longitude,
+														        lat: farmCoordinate[1].latitude
+														    },{
+														        lon: farmCoordinate[2].longitude,
+														        lat: farmCoordinate[2].latitude
+														    }, {
+														        lon: farmCoordinate[3].longitude,
+														        lat: farmCoordinate[3].latitude
+														    }]
+												}, function(ret) {									    
+												    if(ret.status){
+												    	count++;
+												    	$("#currentPersonNum").html(count+"人");													    	
+												    }									   
+												});				    										 		
+									 	});									 
+									 }								 								 	
+								 },
+						 		error:function(e){				
+						 			api.alert({msg:"服务器异常，请联系管理员!!!!"});
+								}
+						});				
+
+}	
+	
+function onChangeFarm(obj){
+	$("#currentPersonNum").html("0人");	
+	var farmId=obj.value;	
+	var farmVo={};
+		farmVo.id=farmId;
+	  pds.ajaxSubmit({
+					 url:"app/farmingdataresource/getOneFarmInfo",
+					 data:{"data":JSON.stringify(farmVo)},											
+					 success:function(e){
+					 	var farmCoordinate=e.data;						 				 									 				 						 	
+					 	pds.ajaxSubmit({
+								 url:"app/farmingdataresource/getOnlinePersonInfo",											
+								 success:function(e){
+								 	var signUser=e.data;
+								 	var count=0;								 								 
+									 if(signUser !=null){
+									 	 $.each(signUser,function(index,obj){
+									 			//判断已知点是否在指定的多边形区域内
+									 			var jsonObj=$.parseJSON(obj.signDetails);//用户签到的坐标信息
+									 			var len=jsonObj.length;									 												 			
+									    		map.isPolygonContantsPoint({
+													    point: {
+													        lon: jsonObj[len-1].longitude,
+													        lat: jsonObj[len-1].latitude
+													    },
+													    points: [{//当前基地的坐标
+															        lon: farmCoordinate != ''? farmCoordinate[0].longitude : 0.000000,
+															        lat: farmCoordinate != ''?farmCoordinate[0].latitude:0.000000
+															    },{
+															        lon: farmCoordinate != ''?farmCoordinate[1].longitude: 0.000000,
+															        lat: farmCoordinate != ''?farmCoordinate[1].latitude: 0.000000
+															    },{
+															        lon: farmCoordinate != ''?farmCoordinate[2].longitude: 0.000000,
+															        lat: farmCoordinate != ''?farmCoordinate[2].latitude: 0.000000
+															    }, {
+															        lon: farmCoordinate != ''?farmCoordinate[3].longitude: 0.000000,
+															        lat: farmCoordinate != ''?farmCoordinate[3].latitude: 0.000000
+															    }]
+													}, function(ret) {									    
+													    if(ret.status){
+													    	count++;
+													    	$("#currentPersonNum").html(count+"人");	
+													    }									   
+													});				    										 		
+									 	});									 
+									 }
+								 								 	
+								 },
+						 		error:function(e){				
+						 			api.alert({msg:"服务器异常，请联系管理员!!!!"});
+								}
+						});				
+					 },
+					error:function(e){				
+					 api.alert({msg:"服务器异常，请联系管理员!!!!"});
+				}
+			});		
+
+}
+	</script>
+</body>
+</html>
+

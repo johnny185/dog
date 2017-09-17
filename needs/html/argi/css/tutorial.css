@@ -1,0 +1,53 @@
+html body{
+	
+	overflow-x:hidden;
+}
+
+.pic-container{
+	position: absolute;
+	top: 18%;
+	width: 100%;
+}
+
+.text-container{
+	position: absolute;
+	top: 72%;
+	width: 100%;
+	text-align: center;
+	
+}
+.text-container h4{
+	color: #fff;
+	font-weight: lighter;
+	font-size: 14px;
+}
+
+.btn-container{
+	position: absolute;
+	top: 44px;
+	height: 44px;
+	width: 100%;
+	opacity: 0.5;
+}
+.btn2-container{
+	position: absolute;
+	bottom: 24px;
+	height: 44px;
+	width: 100%;
+}
+.btn{
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid #fff;
+}
+.btn-bgcolor{
+	background-color: rgb(245, 184,183);
+}
+.margin-right{
+	margin-right: 20px;
+}
+.btn a{
+	color: #fff;
+	font-size: 12px;
+}

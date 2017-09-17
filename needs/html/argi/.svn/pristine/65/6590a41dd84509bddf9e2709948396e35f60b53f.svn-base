@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增客户</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<!-- <script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/common/doT.min.js"></script> -->
+	<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+	<!-- <script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+	<script type="text/javascript" src="../../script/common/zepto.touchWipe.js"></script>
+	<script type="text/javascript" src="../../script/common/form2js.js"></script> -->
+	<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+	<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+	<script type="text/javascript" src="../../script/getLoacat.js"></script>
+
+	<style>
+		/*照片上传框*/
+			.photos label {
+				height: 32px;
+				padding-left:10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				 align-items: center;
+			
+			}
+			/*照片1*/
+			.positive input {
+				background-size: 35px;
+			}
+			/*照片2*/
+			.reverse input {
+				background-size: 35px;
+			}
+			/*照片3*/
+			.growing input {
+				background-size: 35px;
+			}
+			
+			.attention input {
+				height: 60px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*--------------------------------------------------------------------*/
+			.btn {
+				margin: 3px 10px;
+			}
+			.btn {
+				background: #00F5FF;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				font-size: 20px;
+				margin-top: 20px;
+				border-radius: 5px;
+			}
+			.btn button {
+				color: #FFFFFF;
+			}
+			
+			    #gallery {
+			background-color: #FFFFFF;
+			padding: 10px;
+			width: 100%;
+			}
+			#gallery ul { list-style: none; }
+			#gallery ul li { display: inline; }
+			#gallery ul img {
+				border: 5px solid #3e3e3e;
+				border-width: 5px 5px 20px;
+			}
+			#gallery ul a:hover img {
+				border: 5px solid #fff;
+				border-width: 5px 5px 20px;
+				color: #fff;
+			}
+			#gallery ul a:hover { color: #fff; }
+			.areas {padding-left:10px; padding-right:10px;}
+			.areas > div {
+				margin-top:10px;
+				margin-bottom:10px;
+			}
+			input,textarea {
+				border:1px solid #E5E5E5;
+			}
+			input {
+				height:30px;
+			}
+			textarea {
+				width:100%;
+				min-height:80px;
+				margin-top:8px;
+				box-sizing: border-box;
+			}
+			.areas > div label {
+				color:#c4c4c4;
+				width:70px;
+				text-align:right;
+			}
+			.btn-submit {
+				width:40%;
+				height:auto;
+				line-height:32px;
+				text-align:center;
+				background-color:#66BB6A;
+				color:#fff;
+				font-size:16px;
+				font-weight:bold;
+				border-radius:4px;
+				margin: 0px auto 50px;
+				padding-top: 6px;
+				padding-bottom: 6px; 
+				margin-top:10px 
+			}
+			.icon-plus {
+				position:relative;
+				display:inline-block;
+				width:14px;
+				height:2px;
+				background-color:#00B841;
+				top:-10px;
+			}
+			.icon-plus:after {
+				display:inline-block;
+				position:absolute;
+				left: 50%;
+				top: -6px;
+				margin-left: -1px;
+				content: "";
+				height:14px;
+				width:2px;
+				background-color:#00B841;
+			}
+			.imgbox {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				background-color: #fbfbfb;
+				border: 1px solid #ddd;
+				/* Firefox */
+				/*display:-moz-box;
+				-moz-box-pack:center;
+				-moz-box-align:center;*/
+				
+				/* Safari, Chrome, and Opera */
+				/*display:-webkit-box;
+				-webkit-box-pack:center;
+				-webkit-box-align:center;*/
+				
+				/* W3C */
+				/*display:box;
+				box-pack:center;
+				box-align:center;*/	
+			}
+			.imgbox2 {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				border: 1px solid #ddd;
+			}
+			.imgIcon-del {
+				position:absolute;
+				right:5px;
+				top:5px;
+				display:inline-block;
+				padding-left:10px;
+				padding-right:10px;
+				line-height:30px;
+				color:#fff;
+				background-color:rgba(0,0,0,.7);
+				font-style:normal;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+			}
+			.imgbox p {
+				font-size:14px;
+				color:#ddd;
+				height:20px;
+				line-height:20px;
+				clear:both;
+			}
+			.imgbox img,
+			.imgbox2 img {
+				width:100%;
+				height:100%;
+				display:block;
+			}
+			.img-name {
+				font-size:14px;
+				font-weight:normal;
+				line-height:32px;
+				color:#c4c4c4;
+			}
+			.img-list {
+				margin-left:-3px;
+				margin-right:-3px;
+			}
+			.img-list li {
+				position:relative;
+				display:inline-block;
+				padding-left:3px;
+				padding-right:3px;
+				margin-bottom:10px;
+				overflow:hidden;
+				float:left;
+			}
+			.addr-group{
+				position:absolute;
+				bottom:8px;
+				width:100%;
+				padding:5px;
+				font-size:12px;
+				line-height:16px;
+				color:#fff;
+			}
+			.addr-group > div{padding:0;margin:0;}
+			.img-area {
+				margin-top:10px;
+				margin-bottom:10px;
+				position:relative;
+			}
+			
+			
+			#farmdiv{
+				margin-top:0px;
+				
+			}
+			#farm
+			  {
+			  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+			  width:100%;
+			  border-collapse:collapse;
+			   margin-top:0px;
+			  margin-bottom:20px;
+			  }
+
+			#farm td, #farm th 
+			  {
+			  font-size:1em;
+			  border:1px solid #98bf21;
+			  padding:3px 7px 2px 7px;
+			  }
+			
+			#farm th 
+			  {
+			  font-size:1.1em;
+			  text-align:left;
+			  padding-top:5px;
+			  padding-bottom:4px;
+			  background-color:#A7C942;
+			  color:#ffffff;
+			  }
+			
+			#farm tr.alt td 
+			  {
+			  color:#000000;
+			  background-color:#EAF2D3;
+			  }
+			  
+			  #farmlandsubmit{
+			  	margin-top:50px;
+			  }
+	
+	</style>
+</head>
+<body>
+
+  <div class="container">
+	     <div class="full-main">
+	        	<!-- 顶部菜单栏 -->
+	            <div class = 'banner fixed center'>
+					<span class="banner-title center">
+						<h4 >新增客户</h4>
+					</span>
+					<a href="../mysetting/mysettings_index.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+			</div>
+				<!--内容区域-->
+				<div class="container sub-container-notop">
+					<div class="full-main">
+						<div class="sub-container">
+							<form name="addCustomerInfoForm" id="customerform">				
+								公司名称：<input id="name" name="name" type="text" placeholder="请输入公司名称" required="required"><br />
+								公司地址：<input  id="provinceCityCounty" name="provinceCityCounty" type="text" placeholder="请选择" required="required"><a href="javascript:getAdress()">请选择地址</a><br />
+								详细地址：<input id="address" name="address"type="text" placeholder="请输入" required="required"><br />
+								公司联系人：<input id="contactPerson" name="contactPerson" type="text" placeholder="请输入" required="required"><br />
+								公司联系方式：<input id="phone" name="phone"type="text" placeholder="请输入" required="required"><br />
+								公司法人：<input id="master" name="master" type="text"   ><br />
+								组织机构代码：<input id="organizationCode" name="organizationCode" type="text"  ><br />
+								客户等级：<select id="grade" name="grade" required="required">
+											<option value="0">请选择</option>											
+											</select>
+								  <br />
+								客户状态：<select id="officeStatus" name="officeStatus" required="required">
+											<option value="0">请选择</option>																	
+											</select><br />
+								
+							</form>
+						</div>
+					</div>
+	 		 </div>
+	 		 
+	 		 
+	 		 <div>
+	 		<!--照片上传框-->
+			<div class="photos">
+				<div class="update ">
+					<label><b>上传照片</b></label>
+				</div>
+			</div>
+			<div class="areas">
+				<!--照片-->  
+				<span class="img-area">
+					<h3 class="img-name">照片1</h3>
+					<ul class="img-list">
+						<li flag="18" bledflag="1" onclick="imageUpload(this)">
+							<div class="imgbox">
+								<i class="icon-plus"></i>
+								<p>图片上传</p>
+							</div>
+						</li>
+					</ul>
+					<div class="addr-group">
+						<div class="location"></div>
+						<div class="longitude"></div>
+						<div class="latitude"></div>
+					</div>
+				</span>
+				<span class="img-area">
+					<h3 class="img-name">照片2</h3>
+				<ul class="img-list">
+						<li flag="19" bledflag="1" onclick="imageUpload(this)">
+							<div class="imgbox">
+								<i class="icon-plus"></i>
+								<p>图片上传</p>
+							</div>
+						</li>
+				</ul>
+				<div class="addr-group">
+						<div class="location"></div>
+						<div class="longitude"></div>
+						<div class="latitude"></div>
+					</div>	
+				</span>
+				<span class="img-area">
+					<h3 class="img-name">照片3</h3>
+				   <ul class="img-list">
+						<li flag="20" bledflag="1" onclick="imageUpload(this)">
+							<div class="imgbox">
+								<i class="icon-plus"></i>
+								<p>图片上传</p>
+							</div>
+							
+						</li>
+					</ul>	
+					<div class="addr-group">
+						<div class="location"></div>
+						<div class="longitude"></div>
+						<div class="latitude"></div>
+					</div>
+				</span>
+				<div class="location" id="location" style="overflow: hidden"></div>
+				<div class="longitude"  id="longitude" style="overflow: hidden"></div>
+				<div class="latitude"  id="latitude" style="overflow: hidden"></div>
+			</div>
+			<div>
+			<div class="btn-submit"  id="submit" tapmode="" disabledflag="1"  onclick="saveCustomerInfo()">保存</div>				
+			<!-- -->
+		</div>
+	 		 </div>
+	 		<div id="farmdiv" align="center">
+	 		 <table id="farm">
+	 		 <thead>
+	 		 <th>基地名称</th>
+	 		 <th>基地面积（亩）</th>
+	 		 <th>基地负责人</th>
+	 		 <th>联系方式</th>
+	 		</thead>
+	 		 <tbody>	 		 	
+	 		 </tbody>
+	 		 </table>	
+	 		
+	 		<div class="btn-submit"  id="farmlandsubmit" tapmode="" disabledflag="1" onclick="addNewFarmLand()">新增基地</div>	 		
+	 		</div>
+	</div>
+	
+<script type="text/javascript">
+	
+	var userId = null;
+	var TaskId = null;
+	var office= {};
+	 office.appFarmlandPic=[];
+	var AppFarmlandDetailData = null;
+	var picUpload = false;
+	var map = null;
+	var imageMap = {};
+	var companyId="";
+	//获取客户等级字典数据
+	function getCusterGradeDict(){
+		pds.ajaxSubmit({
+					 url:"app/customer/findCusterGradeDict",					 
+					 success:function(e){
+						 $.each(e.data,function(index,val){						
+						 	 $("#grade").append( "<option value='"+val.value+"'>"+val.label+"</option>");						 	
+						 });				     
+						   
+					}					
+				});
+			}
+			
+	//获取客户状态字典数据
+	function findCusterStatusDict(){
+		pds.ajaxSubmit({
+					 url:"app/customer/findCusterStatusDict",					
+					 success:function(e){					     
+					   $.each(e.data,function(index,val){						
+						 	 $("#officeStatus").append( "<option value='"+val.value+"'>"+val.label+"</option>");						 	
+						 });				     						   
+					}
+					
+				});
+			}		
+			
+	
+	
+	//获得地址坐标
+	apiready=function(){		
+			getCusterGradeDict();//初始化下拉框的值
+			findCusterStatusDict();//初始化下拉框的值	
+				
+		var map = api.require('bMap');
+		map.getLocation({
+		    accuracy: '100m',
+		    autoStop: true,
+		    filter: 1
+		}, function(ret, err){
+		    if(ret.status){				        
+		        var lon = ret.lon;//大
+		        var lat = ret.lat;//小,
+		         $(".longitude").html(lon);
+		          $(".latitude").html(lat);
+		        map.getNameFromCoords({
+				    lon: lon,
+				    lat: lat
+				},function(ret,err){
+				    if(ret.status){						       
+				        var pc = null;
+				        if(ret.province==ret.city){
+				         	pc=ret.province;
+				        }else{
+				        	pc=ret.province+ret.city+ret.district;
+				        }
+				        $(".location").html(pc);
+//				        getCurDate();	//日期	
+				        //locationAjax(ret.province,ret.city);						        
+				    }
+				});
+		    }else{
+		        //api.alert({msg: err.code});
+		    }
+		});													
+	};
+
+	/*返回*/
+
+	function closeWin() {
+		api.closeWin();
+	}
+
+	$('#psubmit').click(function(){
+		pds.foward("${ctx }/html/frm_field_taskListMap");
+
+	})
+
+	  function getlocation(){
+          pds.ajaxSubmit({
+				 url:"app/farmland/find/pushtype",
+				 data:{'userId':userId},
+				 success:function(e){
+				      if(e.data==1){
+				        pds.getLocat();
+				      }
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!!!");
+				}
+			});
+     }
+	
+	
+	//点击上传照片的方法
+	function imageUpload(dom){
+	
+	    var Flag = dom.getAttribute("flag");
+	    
+		api.getPicture({
+		    sourceType: 'camera',//从照相机获取
+		    encodingType: 'jpg',//格式
+		    mediaValue: 'pic',//视频格式
+		    destinationType: 'url',//
+		    allowEdit: true,
+		    quality: 10,
+		    saveToPhotoAlbum: false
+		}, function(re, err){ 
+		
+		   
+		  if(re && re.data!=""){
+		     var $ul = $(dom).closest("ul");
+		  	 $(dom).html("上传中...");
+		   pds.ajaxSubmit({
+				url:"attach/upload",
+				fileData: {file: re.data},
+				success:function(e){
+				  if (e) {
+		        	var data = e.data;
+		        	data.fileBizType = Flag;
+			        data.fileBizPk = TaskId;
+			        imageMap[Flag] = data;
+			        $(dom).remove();
+			        $ul.append('<li onclick="imageUpload(this)" class="farmImag"><div class="imgbox2"><img src="'+re.data+'"></div><li>');
+			        if($("img").length>=3){
+			        	$("#submit").show();
+			        }else{
+			       		$("#submit").hide();
+			        }  
+			        } else {
+			        $(dom).html("上传失败...");
+
+			         //$ul.append('<li flag="15" bledflag="1" onclick="imageUpload(this)"><div class="imgbox"><i class="icon-plus"></i><p>图片上传</p></div></li>'); 
+			        }
+				    
+				    
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	
+	////////////////////////////////////////////
+	         }else{
+		        
+		    }
+		});
+ }
+   
+//保存
+		
+function saveCustomerInfo(){
+	var userId = $api.getStorage("userId");
+	var companeyId = null;
+	var saveFlag = 2;
+	office.name=$("#name").val();
+	office.provinceCityCounty=$("#provinceCityCounty").val();
+	office.address=$("#address").val();
+	office.contactPerson=$("#contactPerson").val();
+	office.phone=$("#phone").val();
+	office.master=$("#master").val();
+	office.organizationCode=$("#organizationCode").val();
+	office.grade=$("#grade").val();
+	office.officeStatus=$("#officeStatus").val();
+	office.saveFlag=saveFlag;
+	office.createBy=userId;
+	   
+	     if(imageMap){
+		  	for(var flag in imageMap){
+		  		office.appFarmlandPic.push(imageMap[flag]);
+		  	}
+		  }
+	pds.ajaxSubmit({
+				url:"app/customer/saveCustomer",
+				data:{"data":JSON.stringify(office)},
+				success:function(e){
+				companyId=e.data;
+				api.alert("保存成功!");
+				},
+				error:function(e){
+					
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+}
+
+//跳转到新增基地信息页面
+function addNewFarmLand(){
+		 api.openWin({
+		    name: "farm_save",
+		    url: "../farm/farm_save.html",
+		    reload:true,
+		    pageParam:{
+		    	"farmOfficeId":companyId
+		    },
+		    animation:{ 
+		      type:"movein",              //动画类型（详见动画类型常量）
+		      subType:"from_right",       //动画子类型（详见动画子类型常量）
+		      duration:300                //动画过渡时间，默认300毫秒
+		    }
+	    });
+}
+
+//加载已添加的基地信息
+function exec(){
+	//删除所有的行
+	if($("#farm tbody tr").length>0){
+	$('#farm').find(tbody).remove(tr)
+	}	
+    var companyId1="1872";	 	
+	pds.ajaxSubmit({
+				url:"app/customer/findFarmLandList",
+				data:{"companyId":companyId1},
+				success:function(e){
+				  $.each(e.data,function(index,farmland){				  
+				  	var $tr = $("<tr onclick='toFarmLandEdit("+farmland.id+")'  class='alt'><td>"+farmland.farmName+"</td><td>"+farmland.farmArea+"</td> <td>"+farmland.farmUserName+"</td> <td>"+farmland.farmMobile+"</td></tr>");
+					$("#farm tbody").append($tr);								  				  	
+				  });									
+				},
+				error:function(e){
+					
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+}
+
+//跳转到基地编辑页面
+function toFarmLandEdit(farmId){
+	api.openWin({
+		    name: "farm_detail",
+		    url: "../farm/farm_detail.html",
+		    reload:true,
+		    pageParam:{
+		    	"farmId":farmId,
+		    	"sourceName":"customer_add"
+		    },
+		    animation:{ 
+		      type:"movein",              //动画类型（详见动画类型常量）
+		      subType:"from_right",       //动画子类型（详见动画子类型常量）
+		      duration:300                //动画过渡时间，默认300毫秒
+		    }
+	    });
+	
+	
+	
+
+}
+
+function getAdress() {
+	api.openWin({
+		name : 'adress_province.html',
+		url : '../mysetting/mysettings/address/address_province.html',
+		reload : true,
+		pageParam : {
+			"name" : 'customer_add.html',
+			"fun" : 'setAddress'
+		},
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+}
+function setAddress(adressFullName, pcode, ccode, cocode) {
+	alert("sdfsdfsddsfdfs"+adressFullName + ',' + pcode + ',' + ccode + ',' + cocode);
+	$('#provinceCityCounty').val(adressFullName)
+	
+}
+</script>	
+</body>
+</html>

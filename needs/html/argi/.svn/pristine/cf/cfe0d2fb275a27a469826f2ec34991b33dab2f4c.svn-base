@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>完善资料</title>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/login-style.css">
+	    <link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>完善资料</h4>
+					</div>
+					<a href="./../login/login.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+				<br>
+				<div class="sub-container-notop">
+					<div class="center">
+	            		<form class="register-form-2" id="registerDetail">
+	            			<div class="register-input-container-2">
+	            				<div class="register-input-sub-container-2">
+		            				<div class="register-input-ta-container3 input-b-border">
+			            				<img class="register-input-img3" id = "contact-imgcontact" src="../../image/contact.png">
+			            				<input type="textera" data-rule="*" data-nullmsg="姓名不能为空" data-errmsg="验证失败" data-sucmsg="" id = "contact" name="" placeholder="联系人姓名" value="" class="login-input-ta">
+			            			</div>
+			            			<div class="register-input-ta-container3 input-b-border">
+			            				<img class="register-input-img3" id = "pw-img" src="../../image/department.png">
+			            				<input type="textera" data-rule="*" data-nullmsg="企业名称不能为空" data-errmsg="验证失败" data-sucmsg="" id = "company" name="" placeholder="企业名称" value="" class="login-input-ta">
+			            			</div>
+			            			<div class="register-input-ta-container3 input-b-border">
+			            				<img class="register-input-img3" id = "card-img" src="../../image/card.png">
+			            				<input type="textera" data-rule="*" data-nullmsg="企业法人不能为空" data-errmsg="验证失败" data-sucmsg="" id = "card" name="" placeholder="企业法人" value="" class="login-input-ta">
+			            			</div>
+			            			<div class="register-input-ta-container3  ">
+			            				<img class="register-input-img3" id = "geo-img" src="../../image/geo.png">
+			            				<input type="textera" data-rule="*" data-nullmsg="所属地区不能为空" data-errmsg="验证失败" data-sucmsg="" id = "geo" name="" placeholder="所属地区" value="" class="login-input-ta input-b-border">
+			            			</div>
+			            			<div class="register-input-ta-container3 input-b-border">
+			            				<input type="textera" data-rule="*" data-nullmsg="详细地址不能为空" data-errmsg="验证失败" data-sucmsg="" id = "moregeo" placeholder="详细地址" name="" value="" class="login-input-ta-2">
+			            			</div>
+			            		</div>
+	            			</div>
+
+	            			<div class="register-input-sub-container-2">
+	            				<span class="register-input-cb">
+		            				<div class="login-input-cb-l ">
+		            					<label class = "upload-img-text">营业执照: </label>
+		            				</div>
+		            				<div class="login-input-cb-r imageContainer">		            		
+		            					<div class="file">
+		            						<input flag="1" data-rule="*" data-nullmsg="请上传营业执照！" data-errmsg="验证失败" data-sucmsg="" onclick="image(this)"  class = "upload-img" id = "yyzz" type="file" name="" value="" />点击上传文件
+		            					</div>
+		            				</div>
+		            			</span>
+		            			<span class="register-input-cb">
+		            				<div class="login-input-cb-l">
+		            					<label class = "upload-img-text">法人证件: </label>
+		            				</div>
+		            				<div class="login-input-cb-r imageContainer">
+		            					<div class="file">
+		            						<input flag="2" data-rule="*" data-nullmsg="请上传法人证件！" data-errmsg="验证失败" data-sucmsg="" onclick="image(this)"  class = "upload-img" id = "yyzz" type="file" name="" value="" />点击上传文件
+		            					</div>
+		            				</div>
+		            			</span>
+			            		
+		            			<!--<div class="login-btn-container">
+		            				<a class = "btn-login2" href="home.html"><input type="submit" class = "btn-login-text2" name=""  value="保存"></a>
+		            			</div>-->
+		            			<div class="login-btn-container">
+		            				<a class = "btn-login" href="javascript:void(0);" id="submit"><input type="button" class = "btn-login-text" name=""  value="提交"></a>
+		            			</div>
+	            			</div>
+	 
+	            		</form>
+	            	</div>
+	            </div>
+	            </div>
+				</div>
+	        </div>      
+	    </div>
+
+	    <script type="text/javascript" src= "../../script/jquery.min.js"></script>
+	    <script src="../../script/city/Popt.js"></script>
+		<script src="../../script/city/cityJson.js"></script>
+		<script src="../../script/city/citySet.js"></script>
+	  
+	    <script src="../../script/swiper.min.js"></script>
+	    <script type="text/javascript" src="../../script/common/api.js"></script>
+		<script type="text/javascript" src= "../../script/common/zepto.min.js"></script>
+		<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+		<!--<script type="text/javascript" src="../../script/pds.ajax.js"></script>-->
+		<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+		<!-- click input effect -->
+	    <script type="text/javascript">
+
+			$("#geo").click(function (e) {
+				SelCity(this,e);
+			});
+			$("#city2").click(function (e) {
+				SelCity(this,e);
+			});
+
+			$("#contact").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#contact-img").attr("src","../../image/contact_green.png");
+			});
+			$("#contact").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#contact-img").attr("src","../../image/contact.png");
+			});
+			
+			$("#company").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#pw-img").attr("src","../../image/department_green.png");
+			});
+			$("#company").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#pw-img").attr("src","../../image/department.png");
+			});
+
+			$("#card").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#card-img").attr("src","../../image/card_green.png");
+			});
+			$("#card").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#card-img").attr("src","../../image/card.png");
+			});
+
+			$("#geo").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#geo-img").attr("src","../../image/geo_green.png");
+			});
+			$("#geo").blur(function(){
+//				var oldValue = $(this).val();
+//			    if(oldValue == ""){
+//			            $(this).val(this.defaultValue);
+//			    }
+				$("#geo-img").attr("src","../../image/geo.png");
+			});
+
+			$("#moregeo").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#geo-img").attr("src","../../image/geo_green.png");
+			});
+			$("#moregeo").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#geo-img").attr("src","../../image/geo.png");
+			});
+			
+	    </script>
+	    <script type="text/javascript">
+	    
+			 var pageParams = null;
+			 var phone = null;
+			 var password = null;
+			 var imageMap = {};
+			 var registertTotalData = {};
+    	 	 var imageMap = {};
+			 registertTotalData.appPic=[];
+			 registertTotalData.imgId=[];
+	         apiready = function() {
+                	//从注册页面  传递过来的注册账号和密码
+		    		pageParams = api.pageParam;
+		    		phone=pageParams.phone;
+		    		password = pageParams.password;	    						
+					ac.form({
+						area:"#registerDetail",
+						btn:"#submit",
+						endSuccess: function () {				           
+							save();        			
+						}
+					});		    		
+	         }
+	         //上传图片
+		     function image(dom){
+		     	var Flag = dom.getAttribute("flag");
+		     	api.getPicture({
+				    sourceType: 'camera',
+				    encodingType: 'jpg',
+				    mediaValue: 'pic',
+				    destinationType: 'url',
+				    allowEdit: true,
+				    quality: 50,
+				    targetWidth: 100,
+				    targetHeight: 100,
+				    saveToPhotoAlbum: false
+				}, function(ret, err){
+					 
+				    if(ret&& ret.data!=""){
+				    	 var $div = $(dom).closest(".imageContainer");				    			  	 			
+		        		pds.ajaxSubmit({
+								url:"attach/upload",
+								fileData:{file:ret.data},
+								success:function(e){
+									if(e){
+										var data = e.data;
+										
+										$api.setStorage("imgId", data.id);
+										data.fileBizType = Flag;  //业务类型
+										imageMap[Flag] = data;
+										registertTotalData.imgId.push(data.id);										
+										$div.find(".file").remove();
+//										$div.html("上传中...");
+			        					$div.html('<div class="file"><img flag="'+Flag+'" onclick="image(this)" src="'+ret.data+'"/></div>');
+									}else{
+										$(dom).html("上传失败...");
+										$div.find(".file").remove();
+										$div.html('<div class="file"><input flag="'+Flag+'"  onclick="image(this)"  class = "upload-img" id = "yyzz" type="file" name="" value="" />点击上传文件</div>');
+									}
+								},
+								error:function(e){
+									api.alert({msg:"服务器异常，请联系管理员!"});
+								}
+		      			}); 
+				    }else{				         
+				         return;
+				    }
+				});
+		     }
+
+             function save(){
+             	var provinceCode = null;
+             	var cityCode = null;
+             	var countyCode = null;
+    			var company = document.getElementById("company").value;		//企业名称
+        		//ajax访问后端数据
+        		pds.ajaxSubmit({
+						url:"app/sys/register/checkCompany",
+						data:{"companyName":company},
+						success:function(e){							
+							if(e.data==0){								
+				        		mySubmit();				    			
+							}else{
+								api.alert({msg:"企业名称不能重复"});
+							}
+						},
+						error:function(e){
+							api.alert({msg:"服务器异常，请联系管理员!"});
+						}
+      			}); 	
+             }      
+             function mySubmit(){
+             	var contact = document.getElementById("contact").value; //姓名
+				var company = document.getElementById("company").value;   			
+    			var card = document.getElementById("card").value;		//企业法人
+    			var geo = document.getElementById("geo").value;		//所属地区
+    			var s = geo.split("-");
+             	provinceCode = s[0];
+             	cityCode = s[1];
+             	countyCode = s[2];    			
+    			var moregeo = document.getElementById("moregeo").value;	//详细地址   			
+    			registertTotalData.account = phone;
+    			registertTotalData.password = password;
+    			registertTotalData.linkMan = contact;
+    			registertTotalData.companyName = company;
+    			registertTotalData.legalPerson = card;
+    			registertTotalData.provinceCode = provinceCode;
+    			registertTotalData.cityCode = cityCode;
+    			registertTotalData.countyCode = countyCode;
+    			registertTotalData.address = moregeo;
+    			   			
+    			//将图片放入Data 中
+    			if(imageMap){
+				  	for(var flag in imageMap){
+				  		registertTotalData.appPic.push(imageMap[flag]);							  	
+				  	}			  	
+		  		}
+		  		//将所有值提交到服务器
+		  		pds.ajaxSubmit({
+						url:"app/sys/register/save",
+						data:{"SysRegistertTotalData":registertTotalData},
+						success:function(e){												
+							if(e.status){		
+								api.alert({msg:"账号已注册成功！请登录"});						
+						        api.openWin({				    	
+						             name: 'login',
+						             url: './../login/login.html',
+							        reload:true,
+							        animation:{
+							            type:"movein",                //动画类型（详见动画类型常量）
+							            subType:"from_right",       //动画子类型（详见动画子类型常量）
+							            duration:300                //动画过渡时间，默认300毫秒
+							        }		             
+			            		});				    			
+							}
+						},
+						error:function(e){
+							api.alert({msg:"服务器异常，请联系管理员!"});
+						}
+      			});
+             	
+             }    
+	    </script>
+	</body>
+</html>
+
+
+

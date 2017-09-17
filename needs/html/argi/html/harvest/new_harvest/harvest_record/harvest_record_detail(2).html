@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收工单</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="../../../../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+		}
+		html,body{
+			width:100%;
+			height:100%;
+		}
+		body{
+			position: relative;
+			overflow-y: auto;
+			background-color: #f2f2f2;
+			padding-top: 1.27rem;
+		}
+		
+		#top{
+			width: 100%;
+			height: 0.46rem;
+			background: #00c558;
+			margin-bottom: 0.82rem;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 99;
+		}
+		header{
+			position: fixed;
+			left: 0;
+			top: 0.45rem;
+			width: 100%;
+			background: #00c558;
+			z-index: 99;
+		}
+		header #title{
+			position: relative;
+			width:100%;
+			height: 0.82rem;
+			line-height: 0.82rem;
+			text-align: center;
+			font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header #title span{
+			display: inline-block;
+			position: absolute;
+			left: 0.25rem;
+			bottom: 0.28rem;
+			width: 0.16rem;
+			height: 0.28rem;
+			background-image: url(../../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat; 
+		}
+		#content{
+			position: relative;
+			width: 100%;
+			background: url(../../../../image/harvest_record_content_bc.png);
+			background-position: center top;
+			background-size: 100% 2.31rem;
+			background-repeat: no-repeat;
+			padding: 1.66rem 0.2rem 0 0.2rem;
+			padding-bottom: 3.13rem;  
+		}
+		#content .recordLists{
+			
+			width: 100%;
+			background: #fff;
+			border-radius: 3px;
+			padding-top: 0.56rem;
+			padding-bottom: 0.74rem;
+		}
+		#content .recordLists .workerInfo{
+			/*border: solid 1px red;*/
+		}
+		#content .recordLists .workerInfo .workerInfoHeader{
+			width: 1.36rem;
+			height: 0.4rem;
+			line-height: 0.4rem;
+			text-align: center;
+			color: #fff;
+			background: #00c558;
+			font-size: 0.13rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+			border-radius: 0 0.2rem 0.2rem 0;
+			margin-bottom: 0.48rem;
+		}
+		#content .recordLists .workerInfo .workerInfoContent{
+			width: 100%;
+			height: 1.9rem;
+			padding: 0 0.44rem 0 0.12rem;
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:justify; 
+			justify-content:space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: center;
+			
+			-webkit-align-items: center; 
+			-webkit-box-align: center;
+			align-items: center;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentLeft{
+			width: 1.35rem;
+			height: 100%;
+			border: solid 1px #00c558;
+			padding: 0.06rem;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentLeft img{
+			height: 100%;
+			width:100%;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight{
+			position:relative;
+			top:-0.6rem;
+			height: 100%;
+			width: 4.6rem;
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;*/
+
+			/*-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+
+			box-pack:center; 
+			justify-content:center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;	
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;*/
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight p{
+			/*-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;*/
+			width: 100%;
+			height:0.633333rem;
+			border-bottom: solid 2px #f2f2f2;
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:start; 
+			justify-content:flex-start;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-pack: start;
+			-webkit-justify-content: flex-start;
+			justify-content: flex-start;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight p span,#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight p label{
+			font-size: 0.27rem;font-family: PingFangSC-Regular, sans-serif;color: #706969;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight p input[type="text"]{
+			width: 1.43rem;
+			height: 0.43rem;
+			border: none;
+			outline: none;
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #C3B8B8;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight p input[type="radio"]{
+			width: 0.24rem;
+			height: 0.24rem;
+		}
+		#content .recordLists .workerInfo .workerInfoContent .workerInfoContentRight p select{
+			width: 1.43rem;
+			height: 0.43rem;
+			border: none;
+			outline: none;
+			border: solid 1px #bfc4bc;
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoHeader{
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:justify; 
+			justify-content:space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+			padding-right:0.36rem; 
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoHeader>div:first-of-type{
+			width: 1.36rem;
+			height: 0.43rem;
+			line-height: 0.4rem;
+			text-align: center;
+			color: #fff;
+			background: #00c558;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+			border-radius: 0 0.2rem 0.2rem 0;
+			margin-bottom: 0.38rem;
+			margin-top: 0.54rem;
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoHeader>div:last-of-type{
+			width:1.43rem;
+			height: 0.43rem;
+			line-height: 0.43rem;
+			text-align: center;
+			border-radius: 0.2rem;
+			background: #ebfbea;
+			padding: 0 0.15rem;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #20C714;
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoHeader>div:last-of-type>span{
+			display: inline-block;
+			width: 0.18rem;
+			height: 0.1rem;
+			vertical-align: middle;
+			margin-right: 0.05rem;
+			margin-top: -0.05rem;
+			background-image: url(../../../../image/harvest_record_content_down_up_icon.png);
+			background-position: center center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoContent{
+			position: relative;
+			width: 100%;
+			padding-right: 0.35rem;
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoContent p{
+			display: block;
+			width: 100%;
+			height: 0.56rem;
+			margin-bottom: 0.23rem;
+			/*border:solid 1px red;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoContent p>span:first-of-type{
+			height: 100%;
+			line-height: 0.56rem;
+			width: 16%;
+			text-align: center;
+			font-size: 0.27rem;font-family: PingFangSC-Regular, sans-serif;color: #706969;
+		}
+		#content .recordLists .workerBaseInfo .workerBaseInfoContent p>select{
+			height: 100%;
+			line-height: 0.56rem;
+			width: 82%;
+			outline: none;
+			padding-left: 0.3rem;
+			border: solid 1px #bac0b7;
+			font-size: 0.27rem;font-family: PingFangSC-Regular, sans-serif;color: #D1CDCD;
+		}
+		#content .recordLists .recordsInfo .recordsInfoHeader{
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:justify; 
+			justify-content:space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+			padding-right:0.36rem; 
+			/*border: solid 1px red;*/
+		}
+		#content .recordLists .recordsInfo .recordsInfoHeader>div:first-of-type{
+			width: 1.36rem;
+			height: 0.43rem;
+			line-height: 0.4rem;
+			text-align: center;
+			color: #fff;
+			background: #00c558;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+			border-radius: 0 0.2rem 0.2rem 0;
+			margin-bottom: 0.38rem;
+			margin-top: 0.54rem;
+		}
+		#content .recordLists .recordsInfo .recordsInfoHeader>div:last-of-type{
+			height: 100%;
+			line-height: 0.43rem;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #FF7600;
+		}
+		#content .recordLists .recordsInfo .recordsInfoBtns{
+			width: 100%;
+			height: 0.44rem;
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:end; 
+			justify-content:flex-end;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-pack: end;
+			-webkit-justify-content: flex-end;
+			justify-content: flex-end;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+			
+			margin-bottom: 0.24rem;
+		}
+		#content .recordLists .recordsInfo .recordsInfoBtns>div{
+			height: 100%;
+			line-height: 0.44rem;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #20C714;
+			padding: 0 0.15rem;
+			background: #ebfbea;
+			border-radius: 0.2rem;
+			margin: 0 0.05rem;
+		}
+		#content .recordLists .recordsInfo .recordsInfoBtns>div span{
+			position: relative;
+			top: -0.05rem;
+			display: inline-block;
+			vertical-align: center;
+			width: 0.18rem;
+			height: 0.1rem;
+
+			margin-right: 0.05rem;
+			background-position: center center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			
+			background-position: center center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent{
+			width: 100%;
+			padding: 0 0.11rem;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul{
+			width: 100%;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul li{
+			border: solid 1px #37e32b; 
+			width: 100%;
+			height: 2.74rem;
+			margin-bottom: 0.74rem;
+			padding: 0.31rem 0.1rem;
+
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+
+			box-pack:justify; 
+			justify-content:space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;	
+			
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul li p{
+			width: 100%;
+			height: 0.57rem;
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:start; 
+			justify-content:flex-start;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-pack: start;
+			-webkit-justify-content: flex-start;
+			justify-content: flex-start;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul li p .listAddBtn{
+			background-image: url(../../../../image/harvest_record_content_listBtn_icon.png);
+			background-position: center center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul li p span{
+			display: block;
+			height: 0.57rem;
+			line-height: 0.57rem;
+			text-align: center;
+			font-size: 0.27rem;font-family: PingFangSC-Regular, sans-serif;color: #706969;
+			
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul li p input{
+			padding-left: 0.2rem;
+		}
+		#content .recordLists .recordsInfo .recordsInfoContent ul li p input,#content .recordLists .recordsInfo .recordsInfoContent ul li p select{
+			height: 100%;
+			border: solid 1px #bac0b7; 
+			outline: none;
+			font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #706969;
+		}
+
+
+/*页面特殊通用样式*/
+		label{
+			position: relative;
+		}
+		label>input{
+			opacity: 0;
+		}
+		label>span{
+			position: absolute;
+			left: 0;
+			top: 0.07rem;
+			width: 0.24rem;
+			height: 0.24rem;
+		}
+		.radioChecked{
+			background-image: url(../../../../image/harvest_record_content_radio_check.png);
+			background-position: center center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		.radioNoChecked{
+			background-image: url(../../../../image/harvest_record_content_radio_bc.png);
+			background-position: center center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+
+		.downAndUpBtn>span{
+			/*transform: rotate(180deg);*/
+		}
+		.downAndUp{
+			transform: rotate(180deg);
+		}
+	</style>
+</head>
+<body>
+	<div id="top"></div>
+	<header>		
+		<div id="title">
+			<span onclick=""></span>
+			记工单
+		</div>
+	</header>
+	<div id="content">
+		<div class="recordLists">
+			<div class="workerInfo">
+				<div class="workerInfoHeader">工人信息</div>
+				<div class="workerInfoContent">
+					<div class="workerInfoContentLeft">
+						<img src="../../../../image/harvest_transport_headerImg.jpg">
+					</div>
+					<div class="workerInfoContentRight">
+						<p>
+							<span>姓名</span>
+							<input type="text" name="name" placeholder="请输入姓名"/>
+							<span>性别</span>
+  							
+  							<label for="man">
+  								<input type="radio" name="sex" id="man" checked="checked" style="width:0.24rem;height: 0.24rem;"/>男
+  								<span class="radioChecked"></span>
+  							</label>
+  							
+  							<label for="woman">
+  								<input type="radio" name="sex" id="woman" style="width:0.24rem;height: 0.24rem;"/>女
+  								<span class="radioNoChecked"></span>
+  							</label>
+						</p>
+						<p>
+							<span style="">人工</span>
+  							
+  							<label for="allwork" style="">
+  								<input type="radio" name="work" id="allwork" checked="checked"  style="width:0.24rem;height: 0.24rem;"/>包工
+  								<span class="radioChecked"></span>
+  							</label>
+  							
+  							<label for="daywork" style="">
+  								<input type="radio" name="work" id="daywork"  style="width:0.24rem;height: 0.24rem;"/>日工
+  								<span class="radioNoChecked"></span>
+  							</label>
+  							<span style="">费用</span>
+  							<select>
+								<option value ="volvo">Volvo</option>
+								<option value ="saab">Saab</option>
+								<option value="opel">Opel</option>
+								<option value="audi">Audi</option>
+							</select>
+						</p>
+						<p>
+							<span style="">手机号</span>
+							<input type="text" name="name" placeholder="请输入手机号" style="width: 3.0rem;">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="workerBaseInfo">
+				<div class="workerBaseInfoHeader">
+					<div>基础信息</div>
+					<div  class="downAndUpBtn"><span></span>点我收起</div>
+				</div>
+				<div class="workerBaseInfoContent">
+					<p>
+						<span>基地</span>
+						<select>
+							<option value ="volvo">请选择基地名称</option>
+							<option value ="saab">Saab</option>
+							<option value="opel">Opel</option>
+							<option value="audi">Audi</option>
+						</select>
+					</p>
+					<p>
+						<span>地块</span>
+						<select>
+							<option value ="volvo">请选择地块名称</option>
+							<option value ="saab">Saab</option>
+							<option value="opel">Opel</option>
+							<option value="audi">Audi</option>
+						</select>
+					</p>
+					<p>
+						<span>品名</span>
+						<select>
+							<option value ="volvo">请选择作物品名</option>
+							<option value ="saab">Saab</option>
+							<option value="opel">Opel</option>
+							<option value="audi">Audi</option>
+						</select>
+					</p>
+					<p>
+						<span>品种</span>
+						<select>
+							<option value ="volvo">请选择作物品种</option>
+							<option value ="saab">Saab</option>
+							<option value="opel">Opel</option>
+							<option value="audi">Audi</option>
+						</select>
+					</p>
+				</div>
+			</div>
+			<div class="recordsInfo">
+				<div class="recordsInfoHeader">
+					<div>记工信息</div>
+					<div>作物等级划分查看</div>
+				</div>
+				<div class="recordsInfoBtns">
+					<div><span style="background-image:url(../../../../image/harvest_record_content_add_icon.png);height: 0.18rem;top: 0;"></span>新增记工</div>
+					<div><span style="background-image:url(../../../../image/harvest_record_content_delete_icon.png);height: 0.18rem;top: 0"></span>清空</div>
+					<div class="downAndUpBtn"><span style="background-image:url(../../../../image/harvest_record_content_down_up_icon.png);"></span>点我收起</div>
+				</div>
+				<div class="recordsInfoContent">
+					<ul>
+						<li>
+							<p>
+								<span style="margin-right: 0.3rem">记工日期</span>
+								<input type="text" name="" placeholder="日期" style="width:4.9rem;">
+							</p>
+							<p>
+								<span style="margin-right: 0.3rem">规格数量</span>
+								<input type="text" name="" style="width:2.13rem;"/>
+								<select style="margin: 0 0.12rem;width: 1.25rem;">
+									<option value ="volvo">头</option>
+									<option value ="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+								<select style="width: 1.25rem;">
+									<option value ="volvo">框</option>
+									<option value ="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+							</p>
+							<p>
+								<select style="margin-right: 0.3rem;width: 1.1rem;">
+									<option value ="volvo">一等</option>
+									<option value ="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+								<input type="text" name="" style="width:3.75rem;">
+								<span style="margin:0 0.2rem;">框</span>
+								<span class="listAddBtn" style="width: 0.28rem;height: 0.28rem;"></span>
+							</p>
+						</li>
+						
+
+						<li>
+							<p>
+								<span style="margin-right: 0.3rem">记工日期</span>
+								<input type="text" name="" placeholder="日期" style="width:4.9rem;">
+							</p>
+							<p>
+								<span style="margin-right: 0.3rem">规格数量</span>
+								<input type="text" name="" style="width:2.13rem;"/>
+								<select style="margin: 0 0.12rem;width: 1.25rem;">
+									<option value ="volvo">头</option>
+									<option value ="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+								<select style="width: 1.25rem;">
+									<option value ="volvo">框</option>
+									<option value ="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+							</p>
+							<p>
+								<select style="margin-right: 0.3rem;width: 1.1rem;">
+									<option value ="volvo">一等</option>
+									<option value ="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+								<input type="text" name="" style="width:3.75rem;">
+								<span style="margin:0 0.2rem;">框</span>
+								<span class="listAddBtn" style="width: 0.28rem;height: 0.28rem;"></span>
+							</p>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../../script/jquery.js"></script>
+<script type="text/javascript" src="../../../.././res/script/api.js"></script>
+<script type="text/javascript">
+	apiready=function(){
+	
+		// 点击label变换效果
+		$("label").click(function(){
+			$(this).children("span").attr("class","radioChecked");
+			$(this).siblings("label").children("span").attr("class","radioNoChecked");
+		});
+	
+		// 点击“下拉收起”按钮效果
+		$(".downAndUpBtn").click(function(){
+			$(this).find("span").toggleClass("downAndUp");
+		});
+		
+		
+	}
+
+</script>
+</html>

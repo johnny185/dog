@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />	
+	<title>完善资料</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/login-style.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+<script type="text/javascript" src="../../script/scroll/build/iscroll-probe.js"></script>
+
+<script type="text/javascript">
+
+var myScroll;
+var position;
+
+function updatePosition () {
+	position.innerHTML = this.y>>0;
+}
+
+function loaded () {
+	position = document.getElementById('position');
+	myScroll = new IScroll('#wrapper1', { probeType: 3, mouseWheel: true });
+	// myScroll.on('scroll', updatePosition);
+	// myScroll.on('scrollEnd', updatePosition);
+	myScroll2 = new IScroll('#wrapper2', { probeType: 3, mouseWheel: true });
+	// myScroll2.on('scroll', updatePosition);
+	// myScroll2.on('scrollEnd', updatePosition);
+}
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+</script>
+
+<style type="text/css">
+ html body {
+ 	background-color: #fff;
+ }
+</style>
+</head>
+<body onload="loaded()">
+
+<div class="container">
+	<div class="full-main">
+		<!-- banner -->
+		<div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>选择种类</h4>
+					</div>
+					<a href="register_detail.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+
+		</div>
+
+		<!-- 内容 -->
+		<div class="sub-container-notop">
+			<!-- 显示框 -->
+			<div class="sub-banner">
+				<div  id="show"></div>
+			</div>
+
+			<!-- 滚动菜单 -->
+			<div id="wrapper1" class="wrapper wrapper-l">
+				<div id="scroller1" class="scroller scroller-l">
+					<ul id="category">
+						<li class="list1">list1</li>
+						<li class="list2">list2</li>
+						<li class="list3">list3</li>
+						<li class="list4">list4</li>
+						<li class="list5">list5</li>
+						<li class="list6">list6</li>
+						<li class="list7">list7</li>
+						<li class="list8">list8</li>
+						<li class="list9">list9</li>
+						<li class="list10">list10</li>
+						<li class="list8">list11</li>
+						<li class="list9">list12</li>
+						<li class="list10">list13</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="wrapper2" class="wrapper wrapper-r">
+				<div id="scroller2" class="scroller scroller-r">
+					<ul id="list1" style="display: none;">
+						<li>迷你小西红柿</li>
+						<li>以色列西红柿</li>
+						<li>金冠西红柿</li>
+						<li>普罗旺斯西红柿</li>
+						<li>格罗地亚西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+						<li>安宁庄西红柿</li>
+						<li>铁岭西红柿</li>
+					</ul>
+					<ul id="list2" style="display: none;">
+						<li>category1category1category1category1</li>
+						<li>category2category1category1category1</li>
+						<li>category3category3category3category3category3</li>
+						<li>category4category4category4category4category4category4</li>
+						<li>category5category5category5category5category5category5</li>
+						<li>category6category6category6category6category6category6</li>
+						<li>category7category7category7category7category7category7</li>
+						<li>category8</li>
+						<li>category9</li>
+						<li>category10</li>
+						<li>category11</li>
+						<li>category12</li>
+						<li>category13</li>
+						<li>category14</li>
+						<li>category15</li>
+						<li>category16</li>
+						<li>category17</li>
+						<li>category18</li>
+						<li>category19</li>
+						<li>category20</li>
+					</ul>
+					<ul id="list3" style="display: none;">
+						<li>category21</li>
+						<li>category22</li>
+						<li>category23</li>
+						<li>category24</li>
+						<li>category25</li>
+						<li>category26</li>
+						<li>category27</li>
+						<li>category28</li>
+						<li>category29</li>
+						<li>category30</li>
+						<li>category31</li>
+						<li>category32</li>
+						<li>category33</li>
+						<li>category34</li>
+						<li>category35</li>
+						<li>category36</li>
+						<li>category37</li>
+						<li>category38</li>
+						<li>category39</li>
+					</ul>
+					<ul id="list4" style="display: none;">
+						<li>4category20</li>
+						<li>4category21</li>
+						<li>4category22</li>
+						<li>4category4</li>
+						<li>4category5</li>
+						<li>4category6</li>
+						<li>4category7</li>
+						<li>4category8</li>
+						<li>4category9</li>
+						<li>4category10</li>
+						<li>4category11</li>
+						<li>4category12</li>
+						<li>4category13</li>
+						<li>4category14</li>
+						<li>4category15</li>
+						<li>4category16</li>
+						<li>4category17</li>
+						<li>4category18</li>
+						<li>4category19</li>
+					</ul>
+					<ul id="list5" style="display: none;">
+						<li>51</li>
+						<li>52</li>
+						<li>53</li>
+						<li>54</li>
+						<li>55</li>
+						<li>56</li>
+						<li>57</li>
+						<li>58</li>
+						<li>59</li>
+						<li>50</li>
+					</ul>
+					<ul id="list6" style="display: none;">
+						<li>61</li>
+						<li>62</li>
+						<li>63</li>
+						<li>64</li>
+						<li>65</li>
+						<li>66</li>
+						<li>67</li>
+						<li>68</li>
+						<li>69</li>
+						<li>60</li>
+						<li>61</li>
+						<li>62</li>
+						<li>63</li>
+						<li>64</li>
+						<li>65</li>
+						<li>66</li>
+						<li>67</li>
+						<li>68</li>
+						<li>69</li>
+					</ul>
+					<ul id="list7" style="display: none;">
+						<li>71</li>
+						<li>72</li>
+						<li>73</li>
+						<li>74</li>
+						<li>75</li>
+						<li>76</li>
+						<li>77</li>
+						<li>78</li>
+						<li>79</li>
+						<li>70</li>
+						<li>71</li>
+						<li>72</li>
+						<li>73</li>
+						<li>74</li>
+						<li>75</li>
+						<li>76</li>
+						<li>77</li>
+						<li>78</li>
+						<li>79</li>
+					</ul>
+					<ul id="list8" style="display: none;">
+						<li>8</li>
+						<li>88</li>
+						<li>888</li>
+						<li>8888</li>
+						<li>88888</li>
+						<li>888888</li>
+						<li>8888888</li>
+						<li>88888888</li>
+						<li>8888888</li>
+						<li>888888</li>
+						<li>88888</li>
+						<li>8888</li>
+						<li>888</li>
+						<li>88</li>
+						<li>8</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src= "../../script/jquery.min.js"></script>
+<script type="text/javascript">
+
+ 	select1();
+
+ 	var showContent = document.getElementById("show");
+ 	var lidArray = [];
+ 	var subbaner = document.getElementsByClassName("sub-banner");
+	var hsubbanner = $(".sub-banner").height();//subbaner.offsetHeight
+
+	function select1(){
+		var ulid;
+		$("#category li").click( function(){
+			ulid = this.innerHTML;;
+			var disAttr = $("#" + ulid).css("display");
+			var ulLen = document.getElementById("category").getElementsByTagName("li").length;
+
+			$("." + ulid).css("background-color", "f0f0f0");
+			if (disAttr == "none") {
+				for (var i = 0; i <= ulLen; i++) {
+					var tempId = "list" + i;
+					if (ulid == tempId) {
+						$("#" + tempId).css("display","block");
+					}
+					else if (ulid != tempId){
+						$("#" + tempId).css("display","none");
+					}
+				}
+			}
+			else if (disAttr == "block") {
+				$("#" + ulid).css("display","none");
+			}
+			select2(ulid);
+		});
+		// return ulid;
+	}
+
+	function select2(d){
+		var lid;
+		$("#" + d + " li").click(function(){
+			lid = this.innerHTML;
+			var lidblock = "<span  class='selectblock'>" + lid + "</span>";
+			var f = 0; 
+			for (var i = 0; i < lidArray.length; i++) {
+				if (lidblock == lidArray[i]) {
+					f = 1; 
+				}
+			}
+			if (f == 1) {
+				lidArray.remove(lidblock);
+			}
+
+			else {
+				lidArray.push(lidblock);
+			}
+ 			showContent.innerHTML = lidArray;
+ 			resettop();
+		});
+		
+		return lid;
+	}
+
+	Array.prototype.indexOf = function(val) {
+		for (var i = 0; i < this.length; i++) {
+		if (this[i] == val) return i;
+		}
+		return -1;
+	};
+	Array.prototype.remove = function(val) {
+		var index = this.indexOf(val);
+		if (index > -1) {
+			this.splice(index, 1);
+		}
+	};
+
+	function resettop(){
+		var newtop = 46 + hsubbanner;
+		$(".wrapper").css("top", newtop + "px");
+	}
+	
+	
+</script>
+
+</body>
+</html>

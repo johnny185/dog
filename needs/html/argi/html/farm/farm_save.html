@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>基地查看</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>新增基地</h4> </span>
+					<a href="#" onclick="back();"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<!-- 内容区域 -->
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<div class="container-panel">
+							<ul class="infos-list-panel">
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										基地名称
+									</div>
+									<div class="argi-flex-infos">
+										<input id="farmName" name="farmName" type="text" maxlength="20" class="argi-input-control"/>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										基地面积
+									</div>
+									<div class="argi-flex-infos">
+										<input id="farmArea" style="width: 70%;" name="farmArea" type="number" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' maxlength="12" class="argi-input-control"/>
+										<span class="iafter">亩</span>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										负责人
+									</div>
+									<div class="argi-flex-infos">
+										<input id="farmUserName" name="farmUserName" type="text" maxlength="20" class="argi-input-control"/>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										手机号
+									</div>
+									<div class="argi-flex-infos">
+										<input  class="argi-input-control" id="farmMobile" name="farmMobile" type="number" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' maxlength="12"/>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										基地地址
+									</div>
+									<div class="argi-flex-infos">
+										<input id="address" name="address" class="argi-input-control" type="text" style="width: 70%" maxlength="20" disabled="true" />
+										<span class="iafter"><a href="#"  class="alink-default" onclick="selectAddress();">选择</a></span>
+									</div>
+									<input id="farmProvinceCode" name="farmProvinceCode"  type="hidden" maxlength="20"/>
+									<input id="farmCityCode" name="farmCityCode" type="hidden" maxlength="20"/>
+									<input id="farmCountyCode" name="farmCountyCode" type="hidden" maxlength="20"/>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										详细地址
+									</div>
+									<div class="argi-flex-infos">
+										<input class="argi-input-control" id="farmAddress" name="farmAddress" type="text" maxlength="20"/>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										基地简介
+									</div>
+									<div class="argi-flex-infos">
+										<input id="farmRemark" name="farmRemark" type="text" maxlength="4000" class="argi-input-control"/>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										流转年限
+									</div>
+									<div class="argi-flex-infos">
+										<input id="limitYears" name="limitYears" type="number" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' maxlength="5" class="argi-input-control" style="width: 70%"/>
+										<span class="iafter">年</span>
+									</div>
+								</li>
+								<li class="infos-panel-line">
+									<div class="argi-flex-name">
+										冷库面积
+									</div>
+									<div class="argi-flex-infos">
+										<input id="farmStorageArea" name="farmStorageArea" type="number" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' maxlength="12" class="argi-input-control" style="width: 70%"/>
+										<span class="iafter">平方米</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="foot-btn-group">
+							<div class="argi-flex">
+								<div class="argi-flex-1">
+									<input id="submitId"  value="保存" type="button" class="argi-btn argi-btn-big btn-full argi-btn-success" onclick="saveFarmInfo()">
+								</div>
+							</div>
+						</div>
+						<div>
+							<a href="#" class="alink-default" onclick="goLand();">地块详情</a>
+							<a href="#" class="alink-default" onclick="goCropProtection();">植保详情</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="./farm_save.js"></script>
+</html>

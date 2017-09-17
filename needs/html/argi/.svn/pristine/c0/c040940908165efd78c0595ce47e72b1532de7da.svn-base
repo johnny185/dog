@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../../.././res/css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../.././res/themes/aui-theme-style1.css"/>
+</head>
+<body>
+    <section class="aui-content" style="margin-bottom:3.2rem;">
+    	<div class="top-slogan">
+            <img src="../../../.././res/image/banner-img.png" alt="" />
+        </div>
+	    
+	    <section class="aui-content-padded aui-content-margin5" style="margin-top: -2rem">
+        <div class="aui-list aui-collapse aui-content-radius" style="padding-top:1.5rem;padding-bottom: 0.5rem">
+        	<!--基础信息-->
+            <div class="aui-collapse-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><span class="item-title-inner">基础信息</span></div>
+                    <div class="aui-list-item-right aui-collapse-header aui-active">
+                    	<span class="aui-btn aui-btn-green-gray aui-active">
+                        	<i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i>
+                    		点我收起
+                    	</span>
+                    </div>
+                </div>
+                <div class="aui-collapse-content aui-padded-10 aui-show">
+                	
+                	<ul class="aui-list-item-wrap">
+                		<li>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label width-auto">基地</div>
+		                    <div class="aui-list-item-input">
+		                    	<div class="select-add-arrow">
+		                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+			                    	<select>
+			                    		<option>请选择基地名称</option>
+			                            <option>基地一</option>
+			                            <option>基地二</option>
+			                        </select>
+		                        </div>
+		                    </div>
+		                </div>
+		            </li>
+		            <li>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label width-auto">地块</div>
+		                    <div class="aui-list-item-input">
+		                    	<div class="select-add-arrow">
+		                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+			                    	<select>
+			                    		<option>请选择地块名称</option>
+			                            <option>地块一</option>
+			                            <option>地块二</option>
+			                        </select>
+		                        </div>
+		                    </div>
+		                </div>
+		            </li>
+		            <li>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label width-auto">品名</div>
+		                    <div class="aui-list-item-input">
+		                    	<div class="select-add-arrow">
+		                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+			                    	<select>
+			                    		<option>请选择作物品名</option>
+			                            <option>西兰花</option>
+			                            <option>基地二</option>
+			                        </select>
+		                        </div>
+		                    </div>
+		                </div>
+		            </li>
+		            <li>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label width-auto">品种</div>
+		                    <div class="aui-list-item-input">
+		                    	<div class="select-add-arrow">
+		                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+			                    	<select>
+			                    		<option>请选择作物品种</option>
+			                            <option>西兰花</option>
+			                            <option>基地二</option>
+			                        </select>
+		                        </div>
+		                    </div>
+		                </div>
+		            </li>
+                	</ul>
+                	
+                    
+                	
+                </div>
+            </div>
+            <!--工人信息-->
+            <div class="aui-collapse-item">
+        		
+            	<div class="aui-list-item-inner" style="">
+                    <div class="aui-list-item-title"><span class="item-title-inner">工人信息</span></div>
+                </div>
+                <div class="aui-list-content-ctp">
+                <ul class="aui-list-item-wrap">
+                <li class="" style="display: block;">
+                    <div class="aui-media-list-item-inner">
+                    	<!--工人图片-->
+                        <div class="aui-list-item-media">
+                            <img src="../../../.././image/pic1.png">
+                        </div>
+                        <!--工人信息表单S-->
+                        <div class="aui-list-item-inner aui-padded-t-10 aui-padded-b-10" style="display: block;">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-inner">
+				                    <div class="aui-list-item-label width-auto">姓名</div>
+				                    <div class="aui-list-item-input">
+				                    	<input type="text" class="aui-input-sm" placeholder="请输入姓名">
+				                    </div>
+				                    <div class="aui-list-item-label width-auto">性别</div>
+				                    <div class="aui-list-item-input">
+				                    	<label><input class="aui-radio aui-radio-sm" type="radio" name="demo1" checked> 男</label>
+                    					<label><input class="aui-radio aui-radio-sm" type="radio" name="demo1"> 女</label>
+				                    </div>
+				                </div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-inner">
+				                    <div class="aui-list-item-label width-auto">人工</div>
+				                    <div class="aui-list-item-input">
+				                    	<label><input class="aui-radio aui-radio-sm" type="radio" name="demo1" checked> 包月</label>
+                    					<label><input class="aui-radio aui-radio-sm" type="radio" name="demo1"> 日工</label>
+				                    </div>
+				                    <div class="aui-list-item-label width-auto">费用</div>
+				                    <div class="aui-list-item-input aui-list-item-input-sm">
+				                    	<div class="select-add-arrow">
+				                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+					                    	<select>
+					                    		<option></option>
+					                        </select>
+				                        </div>
+				                    </div>
+				                </div>
+                            </div>
+                            
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-inner">
+				                    <div class="aui-list-item-label width-auto">手机号</div>
+				                    <div class="aui-list-item-input">
+				                    	<input type="text" placeholder="请输入手机号">
+				                    </div>
+				                   
+				                </div>
+                            </div>
+                            
+                        </div><!--工人信息表单E-->
+                        
+                    </div>
+                </li>
+                </ul>
+                </div>
+            </div>
+            <!--记工信息-->
+            <div class="aui-collapse-item">
+                <div class="aui-list-item-inner aui-active">
+                    <div class="aui-list-item-title"><span class="item-title-inner">记工信息</span></div>
+                    <div class="aui-list-item-right"><span class="aui-text-warning">作物等级划分查看</span></div>
+                </div>
+                <div class="aui-active text-right aui-btns-group">
+                	<span class="aui-btn aui-btn-green-gray">新增记工</span>
+                	<span class="aui-btn aui-btn-green-gray">我都说了啥</span>
+                	<span class="aui-btn aui-btn-green-gray aui-collapse-header aui-active"><i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i>点我收起</span>
+                </div>
+                <div class="aui-collapse-content aui-padded-10 aui-show">
+                	<!--提示-->
+                	<div class="bright-tips"><i class="bright-tips-icon"></i><span class="bright-tips-info">小贴士：多记工怎么办？可新增记工明细录入负数来解决哦~</span> </div>
+                	<div class="aui-infos-item">
+	                	<div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label">记工日期</div>
+		                    <div class="aui-list-item-input">2017-06-31</div>
+		                </div>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label">规格数量</div>
+		                    <div class="aui-list-item-input">15头／筐</div>
+		                </div>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label">一等</div>
+		                    <div class="aui-list-item-input">15筐</div>
+		                </div>
+		                <div class="aui-list-item-inner">
+		                    <div class="aui-list-item-label">二等</div>
+		                    <div class="aui-list-item-input">15筐</div>
+		                </div>
+	                </div>
+                	<div class="aui-infos-item-form">
+                		<div class="aui-infos-item-form-left aui-padded-l-10">
+                			<div class="aui-list-item-inner">
+			                    <div class="aui-list-item-label">记工日期</div>
+			                    <div class="aui-list-item-input">
+			                    	<input type="text" class="aui-control-input" placeholder="2017-06-31" />
+			                    </div>
+			                </div>
+			                <div class="aui-list-item-inner">
+			                    <div class="aui-list-item-label">规格数量</div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<input type="text" class="aui-control-input" />
+			                    	
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<div class="select-add-arrow">
+			                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+				                    	<select class="aui-control-select">
+				                    		<option></option>
+				                        </select>
+			                        </div>
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:4%">/</div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<div class="select-add-arrow">
+			                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+				                    	<select class="aui-control-select">
+				                    		<option></option>
+				                        </select>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="aui-list-item-inner">
+			                    <div class="aui-list-item-input" style="width:50%">
+			                    	<div class="select-add-arrow">
+			                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+				                    	<select class="aui-control-select">
+				                    		<option>一等</option>
+				                        </select>
+			                        </div>
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<input type="text" class="aui-control-input" />
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:10%">筐</div>
+			                    <div class="aui-list-item-input" style="width:8%">
+			                    	<span class="round-icon-wrap"><i class="aui-iconfont aui-icon-plus"></i></span>
+			                    </div>
+			                </div>
+			                <div class="aui-list-item-inner">
+			                    <div class="aui-list-item-input" style="width:50%">
+			                    	<div class="select-add-arrow">
+			                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+				                    	<select class="aui-control-select">
+				                    		<option>一等</option>
+				                        </select>
+			                        </div>
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<input type="text" class="aui-control-input" />
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:10%">筐</div>
+			                    <div class="aui-list-item-input" style="width:8%">
+			                    	<span class="round-icon-wrap"><i class="aui-iconfont aui-icon-plus"></i></span>
+			                    </div>
+			                </div>
+			                <div class="aui-list-item-inner">
+			                    <div class="aui-list-item-input" style="width:50%">
+			                    	<div class="select-add-arrow">
+			                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+				                    	<select class="aui-control-select">
+				                    		<option>一等</option>
+				                        </select>
+			                        </div>
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<input type="text" class="aui-control-input" />
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:10%">筐</div>
+			                    <div class="aui-list-item-input" style="width:8%">
+			                    	<span class="round-icon-wrap"><i class="aui-iconfont aui-icon-plus"></i></span>
+			                    </div>
+			                </div>
+			                <div class="aui-list-item-inner">
+			                    <div class="aui-list-item-input" style="width:50%">
+			                    	<div class="select-add-arrow">
+			                    		<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+				                    	<select class="aui-control-select">
+				                    		<option>一等</option>
+				                        </select>
+			                        </div>
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:32%">
+			                    	<input type="text" class="aui-control-input" />
+			                    </div>
+			                    <div class="aui-list-item-input" style="width:10%">筐</div>
+			                    <div class="aui-list-item-input" style="width:8%">
+			                    	<span class="round-icon-wrap"><i class="aui-iconfont aui-icon-plus"></i></span>
+			                    </div>
+			                </div>
+                		</div>
+                		<div class="aui-infos-item-form-right aui-padded-5">
+                			<span class="aui-btn aui-btn-outlined aui-btn-sm-green-gray">我记错了</span>
+                		</div>
+                	</div>
+                </div>
+            </div>
+            
+        </div>
+    	
+    	
+    	</section>
+	    
+	    
+    	
+    	
+    	
+    	
+    
+    	
+    </section>
+    
+</body>
+<script type="text/javascript" src="../../../.././res/script/api.js"></script>
+<script type="text/javascript" src="../../../.././res/script/aui-collapse.js" ></script>
+<script type="text/javascript">
+	 apiready = function () {
+        api.parseTapmode();
+    }
+    var collapse = new auiCollapse({
+        autoHide:false //是否自动隐藏已经展开的容器
+    });
+    
+</script>
+</html>

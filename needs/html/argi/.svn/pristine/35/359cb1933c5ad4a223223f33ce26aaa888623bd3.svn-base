@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+		<link rel="stylesheet" type="text/css" href="../../.././res/css/api.css"/>
+		<style type="text/css">
+		*{
+			box-sizing: border-box;
+		}
+		header{
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height:0.88rem;
+			background: #00c558;
+	
+		}
+		/*header #top{
+			width: 100%;
+			height: 0.46rem;
+			background: #00c558;
+		}*/
+		header #title{
+			position: relative;
+			width:100%;
+			height: 0.88rem;
+			line-height: 0.88rem;
+			text-align: center;
+			font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header #title span{
+			display: inline-block;
+			position: absolute;
+			left: 13px;
+			bottom: 14px;
+			width: 12px;
+			height: 19px;
+			background-image: url(../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+		}
+		#content{
+			position: fixed;
+			left: 0;
+			top: 1.28rem;
+			right: 0;
+			bottom: 0.98rem;
+			z-index:9;
+			overflow-y: auto;
+			background: #f2f2f2;
+		}
+		#content .search{
+			position: relative;
+			width: 100%;
+			height: 1.03rem;
+			text-align: center;
+			/*padding-bottom:*/
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:center; 
+			justify-content:center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			
+			-webkit-box-align: start;
+			-webkit-align-items: flex-start; 
+			align-items: flex-start;*/
+
+		}
+		#content .search input{
+			position: absolute;
+			top:0.18rem;
+			left:50%;
+			width: 6.84rem;
+			height: 0.67rem;
+			margin-left:-3.42rem;
+			border: none;
+			border: solid 1px #a7d533;
+			text-align:center;
+			border-radius:0.335rem;
+			/*margin:0 auto;*/
+			outline: none;
+			background: #f2f2f2;
+			padding:0 0.85rem;
+			/*text-indent:0.7rem;*/
+			font-size: 0.29rem;font-family: PingFangSC-Regular, sans-serif;color: #86DC15;
+			background: url(../../../image/harvest_lists_search_icon.png) no-repeat 10px center;
+			background-size: 0.32rem 0.31rem;
+		}
+		#content .search input.bac{
+		 background: url();
+		}
+		input::-webkit-input-placeholder{
+    		font-size: 0.29rem;font-family: PingFangSC-Regular, sans-serif;color: #86DC15;
+		}
+			#content .contentLists {
+				position: relative;
+				width: 100%;
+				padding: 0 0.2rem;
+			}
+			#content .contentLists ul {
+				width: 100%;
+			}
+			#content .contentLists ul li {
+				position: relative;
+				width: 100%;
+				height: 2.15rem;
+				background: #fff;
+				padding: 0 0.1rem 0 0.2rem;
+				margin-bottom: 0.32rem;
+			}
+			#content .contentLists ul li .listHeader {
+				border-bottom: dashed 1px #cecdcd;
+				position: relative;
+				height: 0.56rem;
+				width: 100%;
+				line-height: 0.56rem;
+				font-size: 0.26rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+			}
+			#content .contentLists ul li .listHeader span:first-of-type {
+				position: relative;
+				top: -0.03rem;
+				display: inline-block;
+				width: 0.23rem;
+				height: 0.23rem;
+				vertical-align: middle;
+				margin: 0 0.15rem;
+				background-position: center;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+			}
+			#content .contentLists ul li:nth-child(odd) .listHeader span:first-of-type {
+				background-image: url(../../../image/harvest_lists_username_icon_odd.png);
+			}
+			#content .contentLists ul li:nth-child(even) .listHeader span:first-of-type {
+				background-image: url(../../../image/harvest_lists_username_icon_even.png);
+			}
+			#content .contentLists ul li .listContent {
+				position: relative;
+				height: 1.57rem;
+				width: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-flow: row;
+				flex-flow: row;
+				-webkit-box-pack: justify;
+				-webkit-justify-content: space-between;
+				justify-content: space-between;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+				align-items: center;
+			}
+			#content .contentLists ul li .listContent > span {
+				width: 0.2rem;
+				height: 0.2rem;
+				background: #f2f2f2;
+			}
+			#content .contentLists ul li .listContent > span.contentLists_round_left {
+				position: absolute;
+				left: -0.3rem;
+				top: -0.1rem;
+				border-radius: 50%;
+			}
+			#content .contentLists ul li .listContent > span.contentLists_round_left_cover {
+				position: absolute;
+				left: -0.4rem;
+				top: -0.1rem;
+				z-index: 99;
+			}
+			#content .contentLists ul li .listContent > span.contentLists_round_right {
+				position: absolute;
+				right: -0.2rem;
+				top: -0.1rem;
+				border-radius: 50%;
+			}
+			#content .contentLists ul li .listContent > span.contentLists_round_right_cover {
+				position: absolute;
+				right: -0.3rem;
+				top: -0.1rem;
+				z-index: 99;
+			}
+			#content .contentLists ul li .listContent .listContent_left {
+				position: relative;
+				width: 1.1rem;
+				height: 1.1rem;
+				border: solid 1px #f2f2f2;
+				border-radius: 50%;
+				/*margin-left: 0.2rem;*/
+				background-image: url(../../../../image/harvest_transport_headerImgBc.jpg);
+				background-position: center center;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+			}
+			#content .contentLists ul li .listContent .listContent_left > img {
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+			#content .contentLists ul li .listContent .listContent_right {
+				position: relative;
+				height: 100%;
+				/*margin-right: 0.4rem;*/
+				font-size: 0.14rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				-webkit-align-items: center;
+				box-align: center;
+				align-items: center;
+			}
+			#content .contentLists ul li .listContent .listContent_right p {
+				position: relative;
+				width: 100%;
+				height: 0.37rem;
+				line-height:0.37rem;
+				margin: 0.1rem 0;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-flow: row;
+				flex-flow: row;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+				align-items: center;
+			}
+			#content .contentLists ul li:nth-child(odd) .listContent .listContent_right p:first-of-type span {
+				display: inline-block;
+				/*width: 90px;*/
+				padding:0.05rem 0.1rem;
+				height: 0.36rem;
+				line-height: 0.3rem;
+
+				text-align: center;
+				border: solid 1px #addd30;
+				border-radius: 0.18rem;
+				margin: 0 0.13rem;
+				font-size: 0.26rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+			}
+			#content .contentLists ul li:nth-child(even) .listContent .listContent_right p:first-of-type span {
+				display: inline-block;
+				/*width: 90px;*/
+				padding:0.05rem 0.1rem;
+				height: 0.36rem;
+				line-height: 0.33rem;
+				text-align: center;
+				/*border: solid 1px #addd30;*/
+				border: solid 1px #ee8635;
+				border-radius: 0.18rem;
+				margin: 0 0.13rem;
+				font-size: 0.26rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+			}
+			
+			#content .contentLists ul li:nth-child(odd) .listContent .listContent_right p:last-of-type span {
+				display: inline-block;
+				width: 0.8rem;
+				height: 0.36rem;
+				line-height: 0.36rem;
+				text-align: center;
+				border: solid 1px #addd30;
+				border-radius: 0.18rem;
+				margin: 0 0.1rem;
+				font-size: 0.26rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+			}
+			#content .contentLists ul li:nth-child(even) .listContent .listContent_right p:last-of-type span {
+				display: inline-block;
+				width: 0.8rem;
+				height: 0.36rem;
+				line-height: 0.36rem;
+				text-align: center;
+				/*border: solid 1px #addd30;*/
+				border: solid 1px #ee8635;
+				border-radius: 0.18rem;
+				margin: 0 0.1rem;
+				font-size: 0.26rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+			}
+			#content .contentLists ul li .listContent .listContent_right p:last-of-type span:last-of-type{
+				width:2.0rem;
+				padding:0 0.05rem;
+			}
+			footer.contentBtns {
+				position: fixed;
+				bottom: 0;
+				z-index: 99;
+				width: 100%;
+				height: 42px;
+				background: #fff;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+			}
+			footer.contentBtns > div {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				display: block;
+				height: 42px;
+				line-height: 42px;
+				text-align: center;
+				font-size: 0.32rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6f7579;
+			}
+			footer.contentBtns > div:first-of-type {
+				border-top: solid 1px #ee8635;
+				color: #ee8635;
+			}
+			footer.contentBtns > div:last-of-type {
+				color: #fff;
+				background: #ee8635;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<!--<div id="top"></div>-->
+			<div id="title">
+				<span onclick="back()"></span>
+				采收记工列表
+			</div>
+		</header>
+		<div id="content">
+			<div class="search">
+				<input type="text" name="search" id="searchInput" placeholder="搜索">
+			</div>
+			<div class="contentLists">
+				<ul id="list"></ul>
+			</div>
+		
+		</div>
+			<footer class="contentBtns">
+				<div id="checkList">
+					收了多少
+				</div>
+				<div id="new">
+					点我记工
+				</div>
+			</footer>
+	</body>
+	<script type="text/javascript" src="../../../script/rem.js"></script>
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.parseTapmode();
+			harvtJobListFrm.initModule();
+		};
+		
+		var harvtJobListFrm = (function() {
+			//模块内部操作dom的所有方法写在这
+			setDomMap = function() {
+				domMap = {
+				    $searchInput:$api.byId('searchInput'),
+					$list : $api.byId('list'),
+					$checkList : $api.byId('checkList'),
+					$new : $api.byId('new'),
+				}
+				//dom操作
+				$api.addEvt(domMap.$checkList, 'click', checkList);
+				$api.addEvt(domMap.$new, 'click', newList);
+				$api.addEvt(domMap.$searchInput, 'focus', inputFocus);
+				$api.addEvt(domMap.$searchInput, 'blur', inputBlur);
+				$api.addEvt(domMap.$searchInput, 'change', fetchList);	
+			}
+			back=function(e) {
+			   api.closeWin({
+			   });
+		    }
+			//已用人员列表
+			fetchList = function(e) {
+			    //alert(11)
+				$api.html(domMap.$list, '');
+				var value = $api.val(domMap.$searchInput);
+				//alert(value)
+				pds.ajaxSubmit({
+					url:"app/recordworkorder/query_worker_list",
+					data:{
+					  'name':value
+					},
+					success:function(res) {
+					  //alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+						   var data = res.data;
+						   if(value){
+						     if(!data||data.length==0){
+						       api.alert({
+						        msg:'没有搜索到结果'
+						       });
+						       return false;
+						   	}
+						   }else{
+						      if(!data||data.length==0){
+						      
+						       return false;
+						   }
+						   }
+						   var url=null; 
+						   var baseUrl = pds.defaultUri;
+	  		               url = baseUrl.substring(0,baseUrl.length-1);	
+	  		               
+							for (var i = 0; i < data.length; i++) {	
+								var sex;
+								if(data[i].sex=='1'){
+								   sex='男';
+								}else{
+								  sex='女';
+								}
+								var workerType;
+								if(data[i].workerType=='1'){
+								   workerType='包工';
+								}else{
+								 workerType='日工';
+								}
+								var cost='';
+								if(data[i].cost!=null){
+								  cost=data[i].cost;
+								}
+								var date = data[i].workDate;
+                                date = date.substring(0,date.indexOf(" "));
+                                
+                                var str = '';
+								str += '<li  onclick="detail('+data[i].id+')"><div class="listHeader"><span></span>';
+								str += '<span>'+data[i].name+'</span>';
+								str += '</div><div class="listContent">';
+								str += '<span class="contentLists_round_left contentLists_round"></span>';
+								str += '<span class="contentLists_round_left_cover"></span>';
+								str += '<span class="contentLists_round_right contentLists_round"></span>';
+								str += '<span class="contentLists_round_right_cover"></span>';
+								str += '<div class="listContent_left">';
+								str += '<img class="pic_'+i+'" src="../../../image/default.png"/>';
+								str += '</div>';
+								str += '<div class="listContent_right">';
+								str += '<p><span>'+data[i].phone+'</span><span>'+date+'</span></p>';
+								str += '<p><span>'+sex+'</span><span>'+workerType+'</span><span>'+cost+'</span></p>';
+								str += '</div></div></li>';
+								$api.append(domMap.$list, str);
+								//alert(data[i].basFile)
+								if(data[i].basFile!=null){
+								   $(".pic_"+i).attr('src',url+"/attach/view/"+data[i].basFile.id);
+								}
+								
+							}
+						}
+					}
+				})
+			}
+			inputFocus = function(e){
+			   $api.addCls(domMap.$searchInput, 'bac');
+			   $('#searchInput').attr('placeholder','');
+			}
+			inputBlur = function(e){
+			   $api.removeCls(domMap.$searchInput, 'bac');
+			   $('#searchInput').attr('placeholder','搜索');
+			}
+			//人员查看详情
+			detail = function(id) {
+			  //提示上一个才首日未上报信息
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_work_order_status",
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							if (data != '0') {
+								api.alert({
+									msg : "您上一个采收日的采收工单未按时上报,请先上报后再进行记工!"
+								});
+								return false;
+							} else {
+								//提示此人占用状态
+							pds.ajaxSubmit({
+									url : "app/recordworkorder/query_worker_useable",
+									data : {
+										'workerId' : id
+									},
+									success : function(res) {
+										//alert(JSON.stringify(res))
+										if (res.status == 'ok') {
+											var data = res.data;
+											var arr=data.split('_')
+											if (arr[0] == '1') {
+											     api.alert({
+													msg : "该工人正在被"+arr[1]+"记工，不可重复记工！"
+												});
+												return false;
+											} else {
+												$api.openWin({
+													name : "edit_win",
+													url : "widget://html/harvt/jobsheet/edit_win.html",
+													reload : true,
+													selecteIndex : '3',
+													pageParam : {
+														'id' : id
+													},
+													slidBackEnabled : false,
+													animation : {
+														type : "movein", //动画类型（详见动画类型常量）
+														subType : "from_right", //动画子类型（详见动画子类型常量）
+														duration : 300 //动画过渡时间，默认300毫秒
+													}
+												});
+											}
+										}
+									}
+								})
+							}
+						}
+					}
+				})
+			}
+			//查看采收汇总
+			checkList = function(e) {
+			  $api.openWin({
+				name : "xb_summary_home",
+				url : "widget://html/harvest/xb_summary_home.html",
+				reload : true,
+				selecteIndex : '3',
+				slidBackEnabled : false,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+			}
+			//跳转新建
+			newList = function(e) {
+			  //提示上一个才首日未上报信息
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_work_order_status",
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							if (data != '0') {
+								api.alert({
+									msg : "您上一个采收日的采收工单未按时上报,请先上报后再进行记工!"
+								});
+								return false;
+							} else {
+							 $api.openWin({
+				name : "edit_win",
+				url : "widget://html/harvt/jobsheet/edit_win.html",
+				reload : true,
+				selecteIndex : '3',
+				slidBackEnabled : false,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			  });
+							}}}})
+			 
+			   
+			   
+			}
+			initModule = function() {//可以有参数
+				setDomMap();
+				fetchList();
+			}
+			//-------end 操作方法-----
+			//return 公用函数
+			return {
+				initModule : initModule
+			}
+		})();
+	</script>
+</html>

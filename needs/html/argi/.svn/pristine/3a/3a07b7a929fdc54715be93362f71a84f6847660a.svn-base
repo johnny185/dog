@@ -1,0 +1,483 @@
+// 基地ID
+var farmId = 0;
+// 农事数据ID
+var farmingDataId = 0;
+//
+var map = null;
+apiready = function() {
+	farmingDataId = api.pageParam.id;
+	getFarmingData(farmingDataId);
+	//	// 根据传来的基地ID获取下级所有地块
+	//	getLandsByFarmId(farmId);
+	//	// 获得品名列表
+	//	getCategoryListByFarmId(farmId);
+	// 获得资源列表
+	getResources();
+};
+/*返回*/
+function closeWin() {
+	//
+	api.closeToWin({
+		name : 'listCollect'
+	});
+}
+
+// 跳转到作物数据采集页面
+//function goFieldData() {alert(90);
+//	api.openWin({
+//		name : 'fieldData',
+//		url : '../farmData/fieldData.html',
+//		pageParam : {
+//			"farmId" : farmId
+//		}
+//	});
+//}
+
+//var farmingData = null;
+//根据农事数据ID查询基本信息
+function getFarmingData(farmingDataId) {
+	if (farmingDataId <= 0) {
+		api.alert({
+			msg : "参数错误：农事数据ID不能为空"
+		});
+		return;
+	}
+	// 查询农事数据
+	pds.ajaxSubmit({
+		url : "app/farmingdataresource/getFarmingData?id=" + farmingDataId,
+		success : function(e) {
+			if (e.status == 'ok') {
+				f = e.data;
+				$("#date").val(f.date);
+				$("#address").val(f.address);
+				$("#lon").val(f.lon);
+				$("#lat").val(f.lat);
+				//$("#farmLandId").val(f.farmLandId);
+				//$("#catalogId").val(f.catalogId);
+				//$("#categoryId").val(f.categoryId);
+				//$("#processId").val(f.processId);
+				$("#proStandard").val(f.proStandard);
+				$("#remark").val(f.remark);
+				farmId = f.farmId;
+				//farmingData = e.data;
+				// 得到地块下拉列表并回显之前的数据
+				getLandsByFarmId(f.farmId, f.farmLandId);
+				// 得到品名下拉列表并回显之前的数据
+				getCategoryListByFarmId(f.farmId, f.catalogId);
+				// 得到品种下拉列表并回显之前的数据
+				changeCatlog(f.catalogId, f.categoryId);
+				// 得到工序下拉列表并回显之前的数据
+				changeCategory(f.categoryId, f.processId);
+			} else {
+				api.alert({
+					msg : e.message
+				});
+			}
+		},
+		error : function(e) {
+			//alert(JSON.stringify(e));
+			api.alert({
+				msg : "服务器错误，请联系管理员!"
+			});
+		}
+	});
+
+}
+
+// 根据基地ID获取下级所有地块
+function getLandsByFarmId(farmId, farmLandId) {
+	if (farmId <= 0) {
+		alert("参数错误：基地ID不能为空");
+		return;
+	}
+	pds.ajaxSubmit({
+		url : "app/land/list?landfarmId=" + farmId,
+		success : function(e) {
+			if (e.status == 'error') {
+				api.alert({
+					msg : e.message
+				});
+			} else {
+				// alert(JSON.stringify(e.data));
+				$.each(e.data, function(index, item) {
+					if (farmLandId == item.id) {
+						$("#farmLandId").val(item.landName);
+						return;
+					}
+				});
+			}
+		},
+		error : function(e) {
+			api.alert({
+				msg : "服务器错误，请联系管理员!"
+			});
+		}
+	});
+}
+
+// 根据基地ID获得品名下拉列表
+function getCategoryListByFarmId(farmId, catalogId) {
+	if (farmId <= 0) {
+		alert("参数错误：基地ID不能为空");
+		return;
+	}
+	if (catalogId <= 0) {
+		alert("参数错误：品名ID不能为空");
+		return;
+	}
+	pds.ajaxSubmit({
+		url : "crop/coprList?farmId=" + farmId,
+		success : function(e) {
+			if (e.status == 'error') {
+				api.alert({
+					msg : e.message
+				});
+			} else {
+				// alert(JSON.stringify(e.data));
+				// 追加之前先清空所有数据
+				$.each(e.data, function(index, item) {
+					if (item.catalogId == catalogId) {
+						$("#catalogId").val(item.catName);
+						return;
+					}
+				});
+			}
+		},
+		error : function(e) {
+			api.alert({
+				msg : "服务器错误，请联系管理员!"
+			});
+		}
+	});
+}
+
+// 根据品名ID获取品种列表
+function changeCatlog(catalogId, categoryId) {
+	if (catalogId <= 0) {
+		alert("参数错误：品名ID不能为空");
+		return;
+	}
+	pds.ajaxSubmit({
+		url : "common/getSubCatList",
+		success : function(e) {
+			//alert(JSON.stringify(e.data));
+			if (e.status == 'error') {
+				api.alert({
+					msg : e.message
+				});
+			} else {
+				$.each(e.data, function(index, item) {
+					//alert(JSON.stringify(item));
+					if (catalogId == item.parentId) {
+						if (item.id == categoryId) {
+							$("#categoryId").val(item.catName);
+							return;
+						}
+					}
+				});
+			}
+		},
+		error : function(e) {
+			alert("服务器错误，请联系管理员!");
+		}
+	});
+}
+
+// 根据品种ID获取工序列表
+function changeCategory(categoryIdParam, oldProcessId) {
+	if (categoryIdParam <= 0) {
+		alert("参数错误：品种ID不能为空");
+		return;
+	}
+	//categoryId = categoryIdParam;
+	pds.ajaxSubmit({
+		url : "process/cateList?cateId=" + categoryIdParam,
+		success : function(e) {
+			//alert(JSON.stringify(e.data));
+			if (e.status == 'error') {
+				api.alert({
+					msg : e.message
+				});
+			} else {
+				$.each(e.data, function(index, item) {
+					if (item.id == oldProcessId) {
+						$("#processId").val(item.proName);
+						return;
+
+					}
+				});
+			}
+		},
+		error : function(e) {
+			alert("服务器错误，请联系管理员!");
+		}
+	});
+}
+
+//加载农事资源列表
+function getResources() {
+	//删除所有的行
+	if ($("#farmResources tbody tr").length > 0) {
+		$('#farmResources').find("tbody").empty();
+	}
+	pds.ajaxSubmit({
+		url : "app/farmingdataresource/getResourceList",
+		data : {
+			"data" : JSON.stringify({
+				"farmingDataId" : farmingDataId
+			})
+		},
+		success : function(e) {
+			if (e.status == 'error') {
+				api.alert({
+					msg : e.message
+				});
+			} else {
+				// 总金额
+				var sumMoney = 0.0000;
+				$.each(e.data, function(index, item) {
+					var statusText = null;
+					if (item.status == 0) {
+						statusText = "未提交";
+					} else {
+						statusText = "已提交";
+					}
+					var $tr = $("<tr  id='wipe+" + index + "'  onclick='editFarmingDataResource(" + item.id + ")'  class='alt'><td>" + item.resourceNameLabel + "</td><td>" + item.muCount + "</td><td>" +
+					 item.resourceNumber + item.resourceUnitLabel+"</td> <td>" + item.money.toFixed(2)+ "</td> <td>" + statusText + "</td><span data-id=" + item.id + ">删除</span></tr>");
+					$("#farmResources tbody").append($tr);
+					sumMoney += item.money;
+
+				});
+
+				if (e.data.length > 0) {
+					var tr = "<tr    class='alt'><td colspan='2'>" + "金额总计" + "</td><td colspan='3'>" + sumMoney.toFixed(2) + "</td></tr>";
+					$("#farmResources tbody").append(tr);
+				};
+				
+				
+//*********************左滑刪除效果**************************
+				//禁止body滑動
+				document.body.addEventListener('touchmove', function(event) {
+					event.preventDefault();
+				}, true);
+//				定义变量
+				var touchstartPageX, //觸摸開始位置
+					touchmovePageX, //觸摸移動實時位置
+					touchendPageX, //觸摸結束位置
+					changePageX, //觸摸位移距離
+					marginLeft, //tr-marginLeft屬性值
+					trHeight, //tr高度
+					tbodyPositionTop, //tbody文檔坐標Y
+					theadWidth;//thead
+				
+				
+				//獲取tbody相對於文檔的坐標位置，獲取相對於文檔頂部的距離
+				tbodyPositionTop = $("#farmResources tbody").offset().top;
+				//獲取thead寬度
+				theadWidth = $("#farmResources thead").width()+2;
+				//获取thead高度
+				trHeight = $("#farmResources thead").height();
+				$("#farmResources thead").click(function(ev){
+					ev.preventDefault();
+				});
+				var $ths = $("#farmResources thead th");
+				
+				//	预设按鈕寬度，最小滑動距離
+				var deleteBtnWidth = 60;
+				var minChangeX = 20;
+				
+				//设置tr样式
+				$("#farmResources tbody tr").each(function(index, el) {
+					$(this).css({
+						"display" : "block",
+						"position" : "absolute",
+						"left" : "0",
+						"top" : index * trHeight + tbodyPositionTop + "px",
+						"width" : theadWidth,
+						"height" : trHeight-5 + "px",
+//						"marginBottom" : "5px",
+						"borderBottom":"solid 1px blue"
+					});
+					$(this).find("td").css({
+						"textAlign" : "center",
+						"color" : "green",
+						"height" : trHeight + "px"
+					})
+				});
+				
+//				最后一行样式
+				$("#farmResources tbody tr:last td:first").width($($ths[0]).width()+5).height(trHeight);
+				$("#farmResources tbody tr:last td:last").width(theadWidth - $($ths[0]).width()+5).height(trHeight);
+				$("#farmResources tbody tr:last").css({"display":"block","color":"green"}).height(trHeight).click(function(ev){
+					ev.preventDefault();
+				});
+				
+				// 遍历所有tr，设置tr绝对定位（实现可滑动，最后一行除外）
+				( $("#farmResources tbody tr:last").siblings("tr") ).each(function(index, el) {
+					//	遍歷tr下td 動態添加寬度————于theadTh一致
+					$(this).find("td").each(function(index2) {
+						$(this).width($($ths[index2]).width()+2)
+					});
+					//	刪除按鈕樣式設置 及點擊事件 冒泡阻止
+					$("<span></span>").text("删除").css({
+						"display":"inline-block",
+						"position" : "absolute",
+						"right" : -deleteBtnWidth+"px",
+						"top" : "0",
+						"width" : deleteBtnWidth +"px",
+						"height" : trHeight + "px",
+						"lineHeight" : trHeight + "px",
+						"color" : "white",
+						"textAlign" : "center",
+						"background" : "red",
+					}).appendTo($(this))
+					  .click(function(ev) {
+						//刪除按鈕添加點擊事件 阻止冒泡
+						ev.stopPropagation();
+						// 判断数字据状态  删除页面展示数据
+						var dataStatus = $(this).prev("td").text();
+						if (dataStatus == "已提交") {
+							api.alert({
+								msg : "已提交不可删除"
+							});
+						} else if (dataStatus == "未提交") {
+							// 控制兄弟tr同步上浮
+							(  $(this).parent().nextAll("tr") ).each(function() {
+								var trChangeTop = $(this).offset().top;
+								$(this).css({
+									"top" : (trChangeTop - trHeight) + "px"
+								})
+							});
+//							 删除后台数据
+							removeResource($(this).attr("data-id"));
+							// 处理总金额的变化
+							var totalMoney = $("#farmResources tr:last td:last").text();
+							var currentMoney = $(this).prev().prev().text();
+							$("#farmResources tr:last td:last").text((totalMoney - currentMoney).toFixed(4));
+							//	删除该行
+							$(this).parent().remove();
+							// 如果数据列表全被删除，则删除总金额行
+							if ($("#farmResources tbody").children().length == 1) {
+								$("#farmResources tbody").empty();
+							}
+						};
+						
+					});
+				})
+				// 给tr绑定触摸开始事件，记录触摸开始位置
+				.on('touchstart', function(event) {
+
+					event.preventDefault();
+					marginLeft = $(this).css("marginLeft");
+					// 触摸事件开始，修改——当前事件对象的 同级兄弟tr元素left 样式；
+					$(this).siblings('tr').animate({
+						marginLeft : "0px"
+					}, 300);
+					// touchstartPageX记录触摸开始位置
+					touchstartPageX = event.originalEvent.targetTouches[0].pageX;
+				})
+				//给tr绑定触摸移动事件，实时修改tr marginLeft属性，实现拖拽效果
+				.on('touchmove', function(event) {
+					event.preventDefault();
+					touchmovePageX = event.originalEvent.targetTouches[0].pageX;
+					changePageX = touchstartPageX - touchmovePageX;
+					if (marginLeft == "0px") {
+						if (changePageX > 0 && changePageX < deleteBtnWidth) {
+							$(this).css('marginLeft', changePageX * -1);
+						} else if (changePageX >= deleteBtnWidth) {
+							$(this).css('marginLeft', -deleteBtnWidth);
+						}
+					} else if (marginLeft == -deleteBtnWidth + "px") {
+						if (changePageX < 0 && changePageX > -deleteBtnWidth) {
+							$(this).css('marginLeft', -deleteBtnWidth + changePageX * -1);
+						} else if (changePageX <= -deleteBtnWidth) {
+							$(this).css('marginLeft', 0);
+						} else {
+							$(this).css('marginLeft', -deleteBtnWidth);
+						}
+
+					}
+				})
+				//	给tr绑定触摸结束事件，触摸结束时修改tr left属性
+				.on('touchend', function(event) {
+					event.preventDefault();
+					touchendPageX = event.originalEvent.changedTouches[0].pageX;
+					changePageX = touchstartPageX - touchendPageX;
+					if (marginLeft == "0px") {
+						if (changePageX > 0 && changePageX < minChangeX) {
+							$(this).animate({
+								marginLeft : 0
+							}, 500);
+						} else if (changePageX >= minChangeX && changePageX < deleteBtnWidth) {
+							$(this).animate({
+								marginLeft : -deleteBtnWidth
+							}, 500);
+						}
+					} else if (marginLeft == -deleteBtnWidth + "px") {
+						if (changePageX < 0 && changePageX > -minChangeX) {
+							$(this).animate({
+								marginLeft : -deleteBtnWidth
+							}, 500);
+						} else if (changePageX <= -minChangeX && changePageX > -deleteBtnWidth) {
+							$(this).animate({
+								marginLeft : 0
+							}, 500);
+						}
+					}
+				});
+				
+
+			}
+
+		},
+		error : function(e) {
+			//alert(JSON.stringify(e));
+			api.alert({
+				msg : "服务器错误，请联系管理员!"
+			});
+		}
+	});
+}
+
+//跳转到基地编辑页面
+function editFarmingDataResource(resourceId) {
+	$api.openWin({
+		name : "edit_farming_source",
+		url : "widget://html/newtask/edit_farming_source.html",
+		reload : true,
+		selecteIndex : '2', //点亮导航栏第2个按键
+		pageParam : {
+			"resourceId" : resourceId,
+			"sourceName" : "farming_detail"
+		},
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+}
+
+//删除一行资源信息
+function removeResource(id) {
+	var farmingDataResource = {};
+	farmingDataResource.id = id;
+	pds.ajaxSubmit({
+		url : "app/farmingdataresource/delete",
+		data : {
+			"data" : JSON.stringify(farmingDataResource)
+		},
+		success : function(e) {
+			api.alert({
+				msg : "删除成功!"
+			});
+			//$(_this).parent().remove();
+		},
+		error : function(e) {
+			api.alert({
+				msg : "服务器错误，请联系管理员!"
+			});
+		}
+	});
+}
+

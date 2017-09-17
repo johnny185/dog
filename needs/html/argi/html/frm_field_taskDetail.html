@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>云API</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+	    <script type="text/javascript" src="../script/kendo.core.min.js"></script>
+	    <script type="text/javascript" src="../script/kendo.data.min.js"></script>
+	    <script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+	    <script type="text/javascript" src="../script/pds.ajax.js"></script>
+		
+		
+		<style>
+			html {
+			    font-family: "Microsoft YaHei";
+			}
+			/*基本信息框*/
+			.information label {
+				height: 32px;
+				padding-left:10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			/*设置背景颜色的div*/
+			#module {
+				background-color: #E5E5E5;
+				height: 250%;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				line-height: 50px;
+			}
+			/*地块编号*/
+			.code label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			/*天气情况*/
+			.wether label {
+				font-size: 14px;
+				color: #000000;
+			}
+			.wether input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*气温*/
+			.temperature label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.temperature input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*土壤湿度*/
+			.moisture label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.moisture input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*----------------------------------------------------------------*/
+			/*作物情况框*/
+			.situation label {
+				height: 32px;
+				padding-left:10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			/*株高*/
+			.height label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.height input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*叶片数量*/
+			.numleaf label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.numleaf input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*叶片直径*/
+			.blade label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.blade input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*叶片茎粗*/
+			.thick label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.thick input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*病害的文本框*/
+			.disease label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			#div1 {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*虫害*/
+			.pests label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			#div2 {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*草害*/
+			.weeds label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			#div3 {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*其他说明*/
+			.instructions label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.instructions input {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*---------------------------------------------------------------------------*/
+			/*照片上传框*/
+			.photos label {
+				height: 32px;
+				padding-left:10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			/*叶片正面照*/
+			.positive input {
+				background-size: 35px;
+			}
+			/*叶片反面照*/
+			.reverse input {
+				background-size: 35px;
+			}
+			/*生长点照*/
+			.growing input {
+				background-size: 35px;
+			}
+			/*作物全景照*/
+			.panorama input {
+				background-size: 35px;
+			}
+			/*区域全景照*/
+			.regional input {
+				background-size: 35px;
+			}
+			/*注意事项*/
+			.attention label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.attention input {
+				height: 60px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*--------------------------------------------------------------------*/
+			.btn {
+				margin: 3px 10px;
+			}
+			.btn {
+				background: #00F5FF;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				font-size: 20px;
+				margin-top: 20px;
+				border-radius: 5px;
+			}
+			.btn button {
+				color: #FFFFFF;
+			}
+			
+			    #gallery {
+			background-color: #FFFFFF;
+			padding: 10px;
+			width: 100%;
+			}
+			#gallery ul { list-style: none; }
+			#gallery ul li { display: inline; }
+			#gallery ul img {
+				border: 5px solid #3e3e3e;
+				border-width: 5px 5px 20px;
+			}
+			#gallery ul a:hover img {
+				border: 5px solid #fff;
+				border-width: 5px 5px 20px;
+				color: #fff;
+			}
+			#gallery ul a:hover { color: #fff; }
+			.areas {padding-left:10px; padding-right:10px;}
+			.areas > div {
+				margin-top:10px;
+				margin-bottom:10px;
+			}
+			input,textarea {
+				border:1px solid #E5E5E5;
+			}
+			input {
+				height:30px;
+			}
+			textarea {
+				width:100%;
+				min-height:80px;
+				margin-top:8px;
+				box-sizing: border-box;
+			}
+			.areas > div label {
+				color:#c4c4c4;
+				width:70px;
+				text-align:right;
+			}
+		</style>
+	</head>
+	<body>
+	 
+		<!--基本信息框-->
+		<div class="information">
+			<div class="basic">
+				<label><b>基本信息</b></label>
+			</div>
+		</div>
+		<!--设置背景颜色的div-->
+		<div id="bigdiv">
+			<div class="areas">
+				<!--地块编号-->
+				<div class="code">
+					<label>地块名称:</label>
+					<input id="landname"  disabled= "true"/>
+				</div>
+				<div class="wether">
+					<label>天气情况:</label>
+					<input data-bind="value: weather" disabled= "true"/>
+				</div>
+				
+				<div class="temperature">
+					<label>气温:</label>
+					<input data-bind="value: temperature" disabled= "true"/> ℃
+				</div>
+				<!--土壤湿度-->
+				<div  class="moisture">
+					<label>土壤湿度:</label>
+					<input id ='moisture' disabled= "true"/> %
+				</div>
+				<div class="moisture">
+					<label>土壤温度:</label>
+					<input id = "soiltemp" disabled= "true"/> ℃
+				</div>
+			</div>
+			<!------------------------------------------------------------->
+			<!--作物情况框-->
+			<div class="situation">
+				<div class="crops ">
+					<label><b>作物情况</b></label> 
+				</div>
+			</div>
+			<div class="areas">
+				<!--株高-->
+				<div class="height">
+					<label>株高：</label>
+					<input data-bind="value: cropHeight" disabled= "true"/> 厘米
+				</div>
+				<!--叶片数量-->
+				<div class="numleaf">
+					<label>叶片数量:</label>
+					<input data-bind="value: leaveNum" disabled= "true"/> 片
+				</div>
+				<!--叶片直径-->
+				<div class="blade">
+					<label>茎粗:</label>
+					<input data-bind="value: leaveDiameter" disabled= "true"/> 厘米
+				</div>
+				
+				<!--病害-->
+				<div class="disease">
+					<form id="form" name="form" method="post" action=""> 
+					<label>病害:</label>
+					<input data-bind="value: diseasesFlag" disabled= "true"/>
+				</div>
+				<!--虫害-->
+				<div class="pests">
+					<label>虫害:</label>
+					<input data-bind="value: pestsFlag" disabled= "true"/>
+				</div>
+				<!--草害-->
+				<div class="weeds">
+					<label>草害:</label>
+					<input data-bind="value: weedsFlag" disabled= "true"/>
+				</div>
+				<!--其他说明-->
+				<div class="instructions">
+					<label>其它说明:</label>
+					<textarea disabled= "true" data-bind="value:remarks"></textarea>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------->
+			<!--照片上传框-->
+			<div class="photos">
+				<div class="update ">
+					<label><b>照片详情</b></label>
+				</div>
+			</div>
+			<div class="areas">
+				<!--照片-->
+			    <ul ><!-- data-template="li-template" data-bind="source:imagedata" -->
+				   <li  class="gallery">
+						<div class="reverse">
+					         <label>页面正面照:</label> 
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </div>
+				     </li>
+				     <li  class="gallery">
+						<div class="reverse">
+					         <label>叶片反面照:</label> 
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </div>
+				     </li>
+				      <li  class="gallery">
+						<div class="reverse">
+					         <label style="margin-left: 13px;">生长点照:</label> 
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </div>
+				     </li>
+				      <li  class="gallery">
+						<div class="reverse">
+					         <label>作物全景照:</label> 
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </div>
+				     </li>
+				      <li  class="gallery">
+						<div class="reverse">
+					         <label>区域全景照:</label> 
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </div>
+				     </li>
+				</ul> 
+			
+			   <!--注意事项-->
+				<div class="attention">
+					<label>注意事项 :</label>
+					<textarea data-bind="value:cropRemarks" disabled= "true"></textarea>
+				</div>
+			</div>
+		</div>
+		
+	<!--照片li模板-->	
+	<!--<script id="li-template" type="text/x-kendo-template">
+		    <li  class="gallery">
+				<div class="reverse">
+			
+					<label>#:name#</label> 
+					 
+	                  <img id="gallery01" src='#:filePath#' width="80px" alt="" border="2px" onclick="preview(this)">
+	             
+				</div>
+			</li>
+	</script>-->
+	<script type="text/javascript">
+	   
+	   //定义全局变量
+	   var gloableData = null;
+	   var viewModel = null;
+	    var url = null;
+	    //数据交换
+     function getTaskDetail(data){
+	 
+		var data =$.extend({},data);
+		 pds.ajaxSubmit({
+				url:"app/farmland/tast_detail",
+				data:data,
+				success:function(e){
+				    gloableData = e.data;
+				 
+				    if(gloableData.soilTemp!=null&&gloableData.moisture!=null){
+				      document.getElementById("soiltemp").value =gloableData.soilTemp;
+				      document.getElementById("moisture").value =gloableData.moisture;
+				     }                          
+				  
+				    
+				     viewModel = kendo.observable({
+			            
+			          //  soiltemp: gloableData.soilTemp,
+			            weather : gloableData.weather,
+			       		  code  : gloableData.code,
+			       	temperature : gloableData.temperature,
+			       	   leaveNum : gloableData.leaveNum,
+			       	 cropHeight : gloableData.cropHeight,
+			       diseasesFlag : gloableData.diseasesFlag,
+			          pestsFlag : gloableData.pestsFlag,
+			       	   //moisture : gloableData.moisture,
+			       	  weedsFlag : gloableData.weedsFlag,
+			        cropRemarks : gloableData.cropRemarks,	
+			       leaveDiameter: gloableData.leaveDiameter,
+			          imagedata : gloableData.appFarmlandPic,
+			        cropRemarks : gloableData.cropRemarks,
+			            remarks : gloableData.cropRemarks
+			        });
+			        kendo.bind("#bigdiv", viewModel);
+			     
+			       
+			     var images = document.getElementsByName("image");
+			        for(var i =0;i<images.length;i++){
+			            if(viewModel.imagedata[i]!=null && viewModel.imagedata[i]!='undefined' && viewModel.imagedata[i]!=undefined){
+			               if(viewModel.imagedata[i].filePath !=null &&viewModel.imagedata[i].filePath!='undefined'&& viewModel.imagedata[i].filePath!=undefined){
+			                 images[i].setAttribute('src',url+"/attach/view/"+viewModel.imagedata[i].id);
+			                }
+			            }
+			        }
+			        
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+		}
+		
+		function preview(dom){
+		       imagUrls = [];
+		       var images = document.getElementsByName("image");
+		       for(var i =0;i<images.length;i++){
+		           imagUrls.push(images[i].getAttribute("src"));
+		       }
+		
+		   var imageBrowser = api.require('imageBrowser');
+				imageBrowser.openImages({
+				    imageUrls: imagUrls
+				});			  
+		}
+	apiready = function() {
+	   var data = api.pageParam;
+	   document.getElementById("landname").value =data.landname
+	   getTaskDetail(data);
+	   baseUrl = pds.defaultUri;
+	  url = baseUrl.substring(0,baseUrl.length-1);
+    }
+	
+		</script>
+	</body>
+</html>

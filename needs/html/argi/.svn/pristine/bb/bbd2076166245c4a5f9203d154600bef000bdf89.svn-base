@@ -1,0 +1,42 @@
+*{
+	font-family:PingFang SC Regular;
+}
+input,button,select,textarea{
+	-webkit-appearance:none;
+    border-radius:0;
+    outline:none;
+    display:inline-block;
+    resize:none;
+    border:none;
+     -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background:none;
+   
+}
+a,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+li{
+	list-style:none;
+}
+a,img,span{
+	display:block;
+	text-decoration:none;
+	-webkit-tap-highlight-color:rgba(255,255,255,0);
+}
+a:active, a:hover {
+  outline: 0;
+}
+a, a:visited{
+	text-decoration:none;
+}
+html,body{
+	margin:0;
+	height:100%;
+	background:#fdfcfc;
+}
+.content{
+	width:100%;
+	overflow: hidden;
+	background:#fff;
+}
+  		

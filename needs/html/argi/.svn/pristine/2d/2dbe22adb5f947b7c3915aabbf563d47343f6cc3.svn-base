@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../script/pds.ajax.js"></script>
+    <style>
+        body {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            background:#FFFFFF;
+        }
+        .content{
+            -webkit-box-flex:1;
+            margin-top:25px;
+            background: #FFFFFF;
+            position:relative;
+            
+        }
+        i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+        .user {
+            background-image: url("../image/login_username_icon@2x.png");
+        }
+
+        .password {
+            background-image: url("../image/login_password_icon@2x.png");
+        }
+
+        .input-wrap {
+            padding: 0px;
+            display: -webkit-box;
+            border: 1px solid ;
+            border-radius: 30px;
+            height:35px;
+            width: 150px;
+            margin-top:30px;
+            border-color: #BBBBBB;
+        }
+
+
+        .form {
+            background-color: #FBFBFB;
+            margin: 2px 26px ;
+            
+            border-radius: 18px;
+            padding: 0 10px;
+            line-height: 30px;
+            height:180px;
+            
+        }
+
+        .input-wrap input {
+            display: block;
+            -webkit-box-flex: 1;
+            background-color: rgba(255, 255, 255, 0);
+            outline: none;
+            margin-left:-15px;
+            margin-right:20px;
+            height: 30px;
+            background:#FBFBFB;
+        }
+
+        .btn_login {
+            display: block;
+            color: #000000;
+            
+            margin-left:70px;
+            text-align: center;
+            border-radius: 18px;
+            height: 40px;
+            width:80px;
+            line-height: 40px;
+            border:1px solid #EEEEEE;
+            background-color: #2BAF2B;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        
+        .btn_quit {
+            display: block;
+            color: #000000;
+            margin: 0 40px;
+            text-align: center;
+            border-radius: 18px;
+            height: 40px;
+            width:80px;
+            line-height: 40px;
+            border:1px solid #CECECE;
+            background-color: #738FFE;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        input{
+            padding-left: 10px;
+            font-size: 18px;
+        }
+        .other-login-wrap,.other-login{
+            margin-top: 20px;
+        }
+        .other-login-lable{
+            padding:10px 20px;
+            border-bottom: 1px solid #E7E7E7;
+        }
+        .other-login{
+            text-align: center;
+        }
+        .other-login div{
+            display: inline-block;
+            position: relative;
+            width: 49.4%;
+            height:60px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center center;
+            background-size: 60px;
+        }
+        .sina{
+            background-image: url("../image/share_platform_sina@2x.png");
+        }
+        .qq{
+            background-image: url("../image/share_platform_qqfriends@2x.png");
+        }
+        .other-login div span{
+            margin-top:70px ;
+        }
+        footer{
+            position:relative;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+        .fast-reg{
+            line-height: 20px;
+            position: absolute;
+            border-radius: 10px;
+            border: 1px solid #E7E7E7;
+            bottom:14px;
+            right: 20px;
+            width: 70px;
+        }
+        .username{
+            dispaly:inline;
+            margin-top:33px;
+            margin-left:20px;
+        }
+        .password{
+            margin-top:35px;
+            margin-left:20px;
+        }
+        .fl{float:left;}
+        .clear{clear:both;}
+        .checktype{
+        margin-left:85px;
+        }
+        .btn_zu{margin-top:15px;margin-left:10px;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <!--表单内容-->
+    <div class="form">
+    <div class="username fl">用户名：</div>
+        <div class="input-wrap fl">
+            <i class="user"></i>
+             <input type="text"   id="username"> 
+            <!--<input type="text"   id="username" value="lh">-->
+        </div>
+        <div class="clear"></div>
+    <div class="password fl">密　码：</div>
+        <div class="input-wrap fl">
+            <i class="password"></i>
+             <input type="password"   id="password"> 
+            <!--<input type="password"   id="password" value="123456">-->
+        </div>
+    </div>
+   <!-- <div class="other-password-nav">
+        <div class="other-password-left" >
+            <input type="checkbox" name="d" id="d">  <label for="d">记住密码</label>
+        </div>
+   </div>-->
+    <div class="btn_zu">
+    <div class="btn_login fl" id="login" tapmode="active" onclick="login()">登录</div>
+    <div class="btn_quit fl" id="quit" tapmode="active"   onclick="quit()">退出</div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+
+      // var screenLock = null;
+       apiready=function(){
+           $api.fixIos7Bar($(".content"));
+          // screenLock = api.require('screenLock');
+       }
+    function login(){
+    
+    	var username = $api.byId('username').value;
+    	var password = $api.byId('password').value;
+    	
+    	
+//  	if($("input[type='checkbox']").is(':checked')==true){
+//  	    api.writeFile({
+//				    path: 'login/admin',
+//				    data:{username:username,password:password}
+//				}, function(ret, err){
+//				    if(ret.status){
+//				       // api.alert({msg:'写入文件成功'});
+//				    } else{
+//				        api.alert({msg:err.msg});
+//				    }
+//				});
+//			}
+    	
+    	
+  if ($api.trim(username)==''){
+	alert('请输入用户名');
+		return;
+	}
+	if ($api.trim(password)==''){
+	alert('请输入密码');
+		return;
+ } 
+
+    
+    	
+	    
+	    
+	   //ajax访问后端数据
+	   pds.ajaxSubmit({
+					url:"app/sys/enter",
+					data:{"username":username,"password":password},
+					success:function(e){
+				        if(e.message!=null){
+				    		alert(e.message);
+					    	return ;
+					    }
+					    
+					   var sType = api.systemType;
+					 //  alert("请设置图案");
+//					   if(sType=="android"){
+//						  
+//						screenLock.set({
+//							   color : '#f0f'
+//						   }, function(ret, err){        
+//							    if( ret ){
+//							         alert( JSON.stringify( ret ) );
+//						       }else{
+//							        alert( JSON.stringify( err ) );
+//							    }
+//						   });
+//                     }
+                       
+                       
+                       
+			        	if(e.data!=null){
+					    	$api.setStorage("userId",e.data.getId());
+						}
+			        	$api.setStorage("user", e.data);
+					    api.openWin({		
+		            		name:'win_home',
+		            		url:'win_home.html',
+		            		reload:true
+				    	});
+					},
+					error:function(e){
+						alert("服务器异常，请联系管理员!");
+					}
+    	});
+
+   }
+ 
+  function quit(){
+    api.closeWidget({
+    	silent:false,
+	     animation: {
+        type: 'flip',
+        subType: 'from_bottom',
+        duration: 1500
+    		}
+    	});
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+body.body-bg-white{background-color:#fff;}
+/*导航栏*/
+.aui-bar-gray {
+	color: #666666;
+	background-color: #f0f0f0;
+	border-bottom: 1px solid #d3d3d3;
+}
+.aui-bar-nav.aui-bar-gray .aui-iconfont{color: #666666;}
+
+.aui-btn-green {
+	color: #ffffff;
+	background-color: #47b84c;
+}
+.aui-btn-green.aui-active, .aui-btn-green:active {
+	color: #fff;
+	background-color: #00897b;
+}
+
+.aui-btn-warning {
+	color: #ffffff !important;
+	background-color: #ff7a00 !important;
+}
+.aui-btn-warning.aui-active, .aui-btn-warning:active {
+	color: #ffffff !important;
+	background-color: #ffb300 !important;
+}
+
+/*采收工单列表*/
+.aui-list-block{
+	margin:
+}
+
+/*列表
+ *
+ * aui-list  列表扩展*/
+
+.aui-list.aui-list-options{background-color:transparent}
+.aui-list-options-label{
+	position:absolute;
+	left:12px;
+	top:50%;
+	margin-top:-10px;
+}
+.footer-options-label .aui-list-options-label{text-align:left;font-size:0.8rem;min-width:80px;}
+.footer-options-label .aui-list-options-label > input{margin-right:5px;}
+.aui-list .aui-list-block .aui-list-item-title,
+.aui-list .aui-list-block .aui-list-item-right{
+	color:#999999;
+}
+.aui-list .aui-list-block .aui-list-item-right{
+	font-size: 0.8rem;
+}
+.aui-list-block{
+	margin:20px 20px 20px 50px;
+	box-shadow:0 0 16px 0 rgba(204,227,207,.7);
+}
+
+
+
+/*单选、多选、开关*/
+.aui-radio,
+.aui-checkbox {
+	border: solid 1px #d1d0d0;
+}
+.aui-radio:checked, .aui-radio.aui-checked, .aui-checkbox:checked, .aui-checkbox.aui-checked{
+	background-color: #47b84c;
+    border: solid 1px #47b84c;
+}
+
+
+.aui-bar-nav .aui-btn,
+.aui-bar-nav .aui-title{
+	margin-top:-24px;
+}

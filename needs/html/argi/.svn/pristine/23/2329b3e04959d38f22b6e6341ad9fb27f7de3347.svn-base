@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="../../../../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../../.././res/css/api.css"/>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+		}
+		header{
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			background: #00c558;
+	
+		}
+		header #top{
+			width: 100%;
+			height: 0.46rem;
+			background: #00c558;
+		}
+		header #title{
+			position: relative;
+			width:100%;
+			height: 0.82rem;
+			line-height: 0.82rem;
+			text-align: center;
+			font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+		}
+		header #title span{
+			display: inline-block;
+			position: absolute;
+			left: 0.25rem;
+			bottom: 0.28rem;
+			width: 0.16rem;
+			height: 0.28rem;
+			background-image: url(../../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat; 
+		}
+		#content{
+			position: fixed;
+			left: 0;
+			top: 1.28rem;
+			right: 0;
+			bottom: 0.98rem;
+			z-index:9;
+			overflow-y: auto;
+			background: #f2f2f2;
+		}
+		#content .search{
+			position: relative;
+			width: 100%;
+			height: 1.03rem;
+			text-align: center;
+			/*padding-bottom:*/
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:center; 
+			justify-content:center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			
+			-webkit-box-align: start;
+			-webkit-align-items: flex-start; 
+			align-items: flex-start;*/
+
+		}
+		#content .search input{
+			position: absolute;
+			top:0.18rem;
+			left:0.36rem;
+			width: 6.84rem;
+			height: 0.67rem;
+			border: none;
+			border: solid 1px #a7d533;
+			border-radius: 0.335rem;
+			margin:0 auto;
+			outline: none;
+			background: #f2f2f2;
+			padding-left: 0.6rem;
+			font-size: 0.29rem;font-family: PingFangSC-Regular, sans-serif;color: #86DC15;
+			background: url(../../../../image/harvest_lists_search_icon.png) no-repeat 0.2rem center;
+			background-size: 0.32rem 0.31rem;
+		}
+		input::-webkit-input-placeholder{
+    		font-size: 0.29rem;font-family: PingFangSC-Regular, sans-serif;color: #86DC15;
+		}
+		#content .contentLists{
+			position: relative;
+			width: 100%;
+			padding: 0 0.2rem; 
+		}
+		
+		#content .contentLists ul{
+			width: 100%;
+
+		}
+		#content .contentLists ul li{
+			position: relative;
+			width: 100%;
+			height: 2.15rem;
+			background: #fff;
+			padding: 0 0.2rem;
+			margin-bottom: 0.32rem;
+			
+		}
+		#content .contentLists ul li .listHeader{
+			border-bottom: dashed 1px #cecdcd;
+			position: relative;
+			height: 0.56rem;
+			width: 100%;
+			line-height: 0.56rem;
+			font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #6f7579;
+		}
+		#content .contentLists ul li .listHeader span:first-of-type{
+			position: relative;
+			top: -0.03rem;
+			display: inline-block;
+			width: 0.23rem;
+			height: 0.23rem;
+			vertical-align: middle;
+			margin:0 0.15rem;
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat; 
+		}
+		#content .contentLists ul li:nth-child(odd) .listHeader span:first-of-type{
+			background-image: url(../../../../image/harvest_lists_username_icon_odd.png);
+		}
+		#content .contentLists ul li:nth-child(even) .listHeader span:first-of-type{
+			background-image: url(../../../../image/harvest_lists_username_icon_even.png);
+		}
+		#content .contentLists ul li .listContent{
+			position: relative;
+			height: 1.57rem;
+			width: 100%;
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:justify; 
+			justify-content:space-between;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+			
+			-webkit-align-items: center; 
+			-webkit-box-align: center;
+			align-items: center;
+		}
+		#content .contentLists ul li .listContent>span{
+			width: 0.2rem;
+			height: 0.2rem;
+			background: #f2f2f2;
+			
+		}
+		#content .contentLists ul li .listContent>span.contentLists_round_left{
+			position: absolute;
+			left: -0.3rem;
+			top: -0.1rem;
+			border-radius: 50%;
+		}
+		#content .contentLists ul li .listContent>span.contentLists_round_left_cover{
+			position: absolute;
+			left: -0.4rem;
+			top: -0.1rem;
+			z-index: 99;
+
+		}
+		#content .contentLists ul li .listContent>span.contentLists_round_right{
+			position: absolute;
+			right: -0.255rem;
+			top: -0.1rem;
+			border-radius: 50%;
+		}
+		#content .contentLists ul li .listContent>span.contentLists_round_right_cover{
+			position: absolute;
+			right: -0.355rem;
+			top: -0.1rem;
+			z-index: 99;
+
+		}
+		#content .contentLists ul li .listContent .listContent_left{
+			position: relative;
+			width: 1.3rem;
+			height: 1.3rem;
+			border: solid 1px #f2f2f2;
+			border-radius: 50%;
+			margin-left: 0.2rem;
+			background-image:url(../../../../image/harvest_transport_headerImgBc.jpg);
+			background-position:center center;
+			background-size:100% 100%;
+			background-repeat:no-repeat;
+		}
+		#content .contentLists ul li .listContent .listContent_left>img{
+			width:100%;
+			height:100%;
+			border-radius: 50%;
+		}
+		#content .contentLists ul li .listContent .listContent_right{
+			position: relative;
+			height: 100%;
+			margin-right: 0.4rem;
+			font-size: 0.14rem;font-family: PingFangSC-Regular, sans-serif;color: #6f7579; 
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+
+			box-pack:center; 
+			justify-content:center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;	
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			
+			-webkit-align-items: center; 
+			box-align: center;
+			align-items: center;
+		}
+		#content .contentLists ul li .listContent .listContent_right p{
+			position: relative;
+			width: 100%;
+			height: 0.37rem;
+			margin:0.1rem 0;
+
+			/*display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			box-pack:center; 
+			justify-content:center;
+
+			-webkit-box-align: center; 
+			-webkit-align-items: center; 
+			align-items: center;*/
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+			
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			
+			-webkit-align-items: center; 
+			-webkit-box-align: center;
+			align-items: center;
+		}
+		#content .contentLists ul li .listContent .listContent_right p:first-of-type span{
+			display:inline-block;
+			width: 70px;
+			/*width: 1.38rem;*/
+			height: 0.36rem;
+			line-height: 0.36rem;
+			text-align: center;
+			border: solid 1px #addd30;
+			border-radius: 0.18rem;
+			margin:0 0.13rem;
+		}
+		#content .contentLists ul li .listContent .listContent_right p:last-of-type span{
+			display:inline-block;
+			width: 59px;
+			height: 18px;
+			line-height: 18px;
+			text-align: center;
+			border: solid 1px #addd30;
+			border-radius: 0.18rem;
+			margin:0 0.1rem;
+		}
+
+		#content>.contentBtns{
+			position: fixed;
+			left: 0;
+			bottom: 0.98rem;
+			z-index:99;
+			width: 100%;
+			height: 42px;
+			background: #fff;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+		}
+		#content>.contentBtns>div{
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			display:block;
+			height: 42px;
+			line-height: 42px;
+			text-align: center;
+			font-size: 0.32rem;font-family: PingFangSC-Regular, sans-serif;color: #6f7579;
+		}
+		#content>.contentBtns>div:first-of-type{
+			border-top:solid 1px #ee8635;
+			color: #ee8635;
+		}
+		#content>.contentBtns>div:last-of-type{
+			color: #fff;
+			background: #ee8635;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div id="top"></div>
+		<div id="title">
+			<span onclick="back()"></span>
+			采收记工列表
+		</div>
+	</header>
+	<div id="content">
+		<div class="search">
+			<input type="text" name="search" placeholder="搜索">
+		</div>
+		<div class="contentLists">
+			<ul>
+				<li>
+					<div class="listHeader">
+						<span></span><span>张玉茹</span>
+					</div>
+					<div class="listContent">
+						<span class="contentLists_round_left contentLists_round"></span>
+						<span class="contentLists_round_left_cover"></span>
+						<span class="contentLists_round_right contentLists_round"></span>
+						<span class="contentLists_round_right_cover"></span>
+						<div class="listContent_left">
+							<img src="../../../../image/harvest_transport_headerImg.jpg"/>
+						</div>
+						<div class="listContent_right">
+							<p><span>15115621234</span><span>2017-06-30</span></p>
+							<p><span>男</span><span>包工</span><span>80人/天</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="listHeader">
+						<span></span><span>张玉茹</span>
+					</div>
+					<div class="listContent">
+						<span class="contentLists_round_left contentLists_round"></span>
+						<span class="contentLists_round_left_cover"></span>
+						<span class="contentLists_round_right contentLists_round"></span>
+						<span class="contentLists_round_right_cover"></span>
+						<div class="listContent_left">
+							<img src=""/>
+						</div>
+						<div class="listContent_right">
+							<p><span>15115621234</span><span>2017-06-30</span></p>
+							<p><span>男</span><span>包工</span><span>80人/天</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="listHeader">
+						<span></span><span>张玉茹</span>
+					</div>
+					<div class="listContent">
+						<span class="contentLists_round_left contentLists_round"></span>
+						<span class="contentLists_round_left_cover"></span>
+						<span class="contentLists_round_right contentLists_round"></span>
+						<span class="contentLists_round_right_cover"></span>
+						<div class="listContent_left">
+							<img src="../../../../image/harvest_transport_headerImg.jpg"/>
+						</div>
+						<div class="listContent_right">
+							<p><span>15115621234</span><span>2017-06-30</span></p>
+							<p><span>男</span><span>包工</span><span>80人/天</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="listHeader">
+						<span></span><span>张玉茹</span>
+					</div>
+					<div class="listContent">
+						<span class="contentLists_round_left contentLists_round"></span>
+						<span class="contentLists_round_left_cover"></span>
+						<span class="contentLists_round_right contentLists_round"></span>
+						<span class="contentLists_round_right_cover"></span>
+						<div class="listContent_left">
+							<img src=""/>
+						</div>
+						<div class="listContent_right">
+							<p><span>15115621234</span><span>2017-06-30</span></p>
+							<p><span>男</span><span>包工</span><span>80人/天</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="listHeader">
+						<span></span><span>张玉茹</span>
+					</div>
+					<div class="listContent">
+						<span class="contentLists_round_left contentLists_round"></span>
+						<span class="contentLists_round_left_cover"></span>
+						<span class="contentLists_round_right contentLists_round"></span>
+						<span class="contentLists_round_right_cover"></span>
+						<div class="listContent_left">
+							<img src=""/>
+						</div>
+						<div class="listContent_right">
+							<p><span>15115621234</span><span>2017-06-30</span></p>
+							<p><span>男</span><span>包工</span><span>80人/天</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="listHeader">
+						<span></span><span>张玉茹</span>
+					</div>
+					<div class="listContent">
+						<span class="contentLists_round_left contentLists_round"></span>
+						<span class="contentLists_round_left_cover"></span>
+						<span class="contentLists_round_right contentLists_round"></span>
+						<span class="contentLists_round_right_cover"></span>
+						<div class="listContent_left">
+							<img src=""/>
+						</div>
+						<div class="listContent_right">
+							<p><span>15115621234</span><span>2017-06-30</span></p>
+							<p><span>男</span><span>包工</span><span>80人/天</span></p>
+						</div>
+					</div>
+				</li>
+				
+			</ul>
+		</div>
+		<div class="contentBtns">
+			<div>收了多少</div>
+			<div>点我记工</div>
+		</div>
+	</div>	
+</body>
+<script type="text/javascript" src="../../../../script/rem.js"></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../../../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../script/api.js"></script>
+<script type="text/javascript" src="../../../../script/pds.ajax.js"></script>
+<script type="text/javascript">
+	// $("#content .contentLists li").on("touchstart",function(){
+	// 	$(this).css({
+	// 		"border":"solid 1px #8de519",
+	// 	});
+	// 	$(this).children(".listContent").children(".contentLists_round").css({
+	// 		"border":"solid 1px #8de519"
+	// 	});
+	// 	$(this).sublings("li").
+	// })
+	apiready=function(){
+	
+		$("#content .contentLists li").each(function(index,el){
+				$(this).on("touchstart",function(){
+					$(this).css({
+						"border":"solid 1px #8de519",
+					});
+					$(this).children(".listContent").children(".contentLists_round").css({
+						"border":"solid 1px #8de519"
+					});
+					$(this).children(".listContent").children(".listContent_right").find("span").css({
+						"border":"solid 1px #f6c391"
+					})
+				})
+				.on("touchend",function(){
+					$(this).css({
+						"border":"none",
+					});
+					$(this).children(".listContent").children(".contentLists_round").css({
+						"border":"none"
+					});
+					$(this).children(".listContent").children(".listContent_right").find("span").css({
+						"border":"solid 1px #addd30"
+					})
+				})
+		})
+	
+	};
+	
+	//返回上一级
+	function back() {
+		api.closeFrame();
+	}
+	
+</script>
+</html>

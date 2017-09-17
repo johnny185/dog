@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户详情</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+ 	<style>
+	 	html,body{
+	 		background-color:#fff;
+	 	}
+	 	.top{
+  			width:6.46rem;
+  			height:0.6rem;
+  			line-height:0.6rem;
+  			border:1px solid #f7be37;
+  			border-radius:0.27rem;
+  			margin:0.35rem auto 0.33rem;
+  			font-size:0.3rem;
+  			color:#898c8a;
+  			padding:0 0.63rem;
+  			box-sizing:border-box;
+  		}
+  		.top div,span{
+  			display: inline-block;
+		}
+		.top .right{
+			float:right;
+		}	
+	 	.page_entry{
+  			width:100%;
+  			height:2.2rem;
+  			background:#fff;
+  			text-align:center;
+  			display: -webkit-flex;
+		    display: flex;
+  		}
+  		.p_item{
+  			display: inline-block;
+  			text-align:center;
+  			overflow:hidden;
+  			-webkit-flex: 1;
+		    flex: 1;
+  		}
+  		.page_entry .image{
+  			display:inline-block;
+  			width:1.23rem;
+  			height:1.23rem;
+  		}
+  		.text{
+  			display:block;
+  			font-size: 0.28rem;
+  			color:#00c558;
+  		}
+  		.space{
+  			width:100%;
+  			height:0.13rem;
+  			background:#faf8f8;
+		}
+		.take_pic{
+			width:100%;
+			overflow: hidden;
+		}
+		.take_pic .text{
+			width:100%;
+			height:0.72rem;
+			border-bottom: 1px solid #f6f3f3;
+		}
+		.take_pic .text .left{
+			float: left;
+			padding-left: 0.12rem;
+			padding-top: 0.19rem;
+			box-sizing: border-box;
+			font-size: 0.3rem;
+			color:#837e7e;s
+		}
+		.take_pic .text .left span{
+			width:0.05rem;
+			height:0.28rem;
+			background-color:#00c558;
+		}
+		.take_pic .text .right{
+			float: right;
+			padding: 0.19rem 0.23rem 0 0;
+			box-sizing: border-box;
+			position:relative;
+		}
+		.text .right .up{
+			background:url("../../../image/business_img/d_s.png") no-repeat left center;
+			background-size:0.24rem 0.24rem;
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+		}
+		.text .right .show{
+			background:url("../../../image/business_img/d_show.png") no-repeat left center;
+			background-size:0.24rem 0.24rem;
+			padding-left: 0.3rem;
+			box-sizing: border-box;
+		}
+		.take_pic .pic{
+			width:100%;
+			overflow:hidden;
+			padding:0 0.25rem;
+			box-sizing: border-box;
+		}
+		.take_pic .pic .btn{
+			width:100%;
+			height:1.11rem;
+			padding:0.21rem 0;
+			box-sizing: border-box;
+		}
+		.btn a{
+			width:0.7rem;
+			height:0.7rem;
+			border:1px dashed #00c558;
+			border-radius: 0.1rem;
+			background:url("../../../image/business_img/d_pic.png") no-repeat center center;
+			background-size:0.4rem 0.43rem;
+		}
+		.take_pic .pic_list{
+			width:100%;
+			overflow: hidden;
+		}
+		.take_pic .pic_list img{
+			width:1.94rem;
+			height:1.54rem;
+			margin-bottom:0.37rem;
+			float:left;
+		}
+		.pic_list img:nth-child(2){
+			margin:0 0.4rem;
+		}
+		.pic_list img:nth-child(5){
+			margin:0 0.4rem;
+		}
+    </style>
+</head>
+<body>
+
+  		<div class="content">
+  		
+  			<!--顶部内容-->		
+			<div class="top">
+				<div class="left">客户编号:<span class="number">10001</span></div>
+				<div class="right">客户名称:<span class="name">客户一</span></div>
+			</div>
+  			
+			<!--顶部页面入口-->
+			<div class="page_entry" >
+	  		   		<div class="basic p_item">
+	  		   			<a href="javascript:;">
+	  		   				<img class="image" src="../../../image/business_img/d_in.png" alt="" />
+		  		   		 	<span class="text">基本信息</span>
+	  		   		 	</a>
+	  		   		</div>
+	  		   		<div class="other p_item">
+	  		   		    <a href="javascript:;">
+	  		   		   		<img class="image" src="../../../image/business_img/d_other.png" alt="" />
+		  		   		 	<span class="text">其他信息</span>
+	  		   		 	</a>
+  		   			</div>
+  		   			<div class="record p_item">
+	  		   		    <a href="javascript:;">
+	  		   		   		<img class="image" src="../../../image/business_img/d_record.png" alt="" />
+		  		   		 	<span class="text">拜访记录</span>
+	  		   		 	</a>
+  		   			</div>
+  		   	</div>
+  		   	<div class="space"></div>
+  		   	
+  		   	<!--底部拍照-->
+  		   	<div class="take_pic">
+  		   		<!--上面文字部分-->
+  		   		<div class="text">
+  		   			<!--左边文字-->
+  		   			<div class="left">
+  		   				<span></span>
+  		   				照片
+  		   			</div>
+  		   			<div class="right">
+  		   				<!--收缩-->
+  		   				<div class="up r_item">收缩</div>
+  		   				<!--展开-->
+  		   				<div class="show r_item"  style="display: none">展开</div>
+  		   			</div>
+  		   		</div>
+  		   		
+  		   		<div class="pic">
+  		   			<!--拍照按钮-->
+  		   			<div class="btn">
+  		   				<a href="javascript:;">
+  		   		
+  		   				</a>
+  		   			</div>
+  		   			<!--图片位置-->
+  		   			<div class="pic_list">
+  		   				<img src="../../../image/business_img/clock1.png" alt="" />
+  		   			</div>
+  		   		
+  		   		</div>
+  		   	
+  		   	
+  		   	
+  		   	
+  		   	
+  		   	</div>
+		
+  		</div>
+   
+   
+   
+
+<script type="text/javascript" src="../../../script/api.js" ></script>
+<script type="text/javascript" src="../../../script/rem.js"></script>
+
+
+</body>
+<script type="text/javascript">
+  		apiready = function(){
+	 }
+	
+	
+</script>
+</html>

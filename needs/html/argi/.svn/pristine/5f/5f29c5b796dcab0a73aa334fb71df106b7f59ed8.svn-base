@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>版权信息</title>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	    <link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+
+	    <style type="text/css">
+	    	html body{
+	    		background-color: #fff;
+	    	}
+	    </style>
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	        <!-- 顶部菜单栏 -->
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>版权信息</h4>
+					</div>
+					<a href="../about.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+			<!-- 内容 -->
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="content-container">
+						<h4>1. 小标题</h4>
+						<p>如因应用开发者提交的应用存在权利瑕疵或侵犯了第三方的合法权益（包括但不限于专利权、商标权、著作权及著作邻接权、肖像权、隐私权、名誉权等），由应用开发及提交者承担所有责任。因此给百度或任何第三方造成损失的，应用开发及提交者应承担任何可能需要支付给第三方的赔偿款等款项。</p>
+						<h4>2. 小标题</h4>
+						<p>如因应用开发者提交的应用存在权利瑕疵或侵犯了第三方的合法权益（包括但不限于专利权、商标权、著作权及著作邻接权、肖像权、隐私权、名誉权等），由应用开发及提交者承担所有责任。因此给百度或任何第三方造成损失的，应用开发及提交者应承担任何可能需要支付给第三方的赔偿款等款项。</p>
+						<h4>3. 小标题</h4>
+						<p>如因应用开发者提交的应用存在权利瑕疵或侵犯了第三方的合法权益（包括但不限于专利权、商标权、著作权及著作邻接权、肖像权、隐私权、名誉权等），由应用开发及提交者承担所有责任。因此给百度或任何第三方造成损失的，应用开发及提交者应承担任何可能需要支付给第三方的赔偿款等款项。</p>
+						<h4>4. 小标题</h4>
+						<p>如因应用开发者提交的应用存在权利瑕疵或侵犯了第三方的合法权益（包括但不限于专利权、商标权、著作权及著作邻接权、肖像权、隐私权、名誉权等），由应用开发及提交者承担所有责任。因此给百度或任何第三方造成损失的，应用开发及提交者应承担任何可能需要支付给第三方的赔偿款等款项。</p>
+						<h4>5. 小标题</h4>
+						<p>如因应用开发者提交的应用存在权利瑕疵或侵犯了第三方的合法权益（包括但不限于专利权、商标权、著作权及著作邻接权、肖像权、隐私权、名誉权等），由应用开发及提交者承担所有责任。因此给百度或任何第三方造成损失的，应用开发及提交者应承担任何可能需要支付给第三方的赔偿款等款项。</p>
+						<h4>6. 小标题</h4>
+						<p>如因应用开发者提交的应用存在权利瑕疵或侵犯了第三方的合法权益（包括但不限于专利权、商标权、著作权及著作邻接权、肖像权、隐私权、名誉权等），由应用开发及提交者承担所有责任。因此给百度或任何第三方造成损失的，应用开发及提交者应承担任何可能需要支付给第三方的赔偿款等款项。</p>						
+					</div>
+					<div class="cr-container">
+						<p>Copyright&nbsp<span><img src="../../../../image/copyright.png"></span>&nbsp2016 PDS.inc.All Rights Resereved.</> 
+					</div>
+				</div>
+
+				
+			<!-- 底部导航条 -->
+			<div class="nav fixed"></div>
+			</div>
+	    </div>      
+	</body>
+</html>
+
+

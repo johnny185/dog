@@ -1,0 +1,80 @@
+var pds = (typeof this.pds === 'undefined') ? {} : this.pds;
+(function ($) {
+
+	var uriConfig = {
+
+		dev:"http://172.16.33.222/",
+		uat:"http://apps.pds-inc.com.cn:8081/",
+		release:"http://apps.pds-inc.com.cn:8080/"
+	}
+	/**
+	 * 获取服务器端uri 
+	 */
+	var remoteUri = function(env){
+		var uri = "";
+		switch(env){
+			case "dev":
+				uri = uriConfig.dev;
+				break;
+			case "uat":
+				uri = uriConfig.uat;
+				break;
+			case "release":
+				uri = uriConfig.release;
+				break;
+			default:
+				uri = uriConfig.dev;
+		}
+		return uri;
+	}
+	
+	var defaultUri = remoteUri("release");
+	/**
+	 * ajax提交
+	 * @param {Object} option
+	 * @param {Object} env
+     */
+	var ajaxSubmit = function(option,callback) {
+		// 默认配置项
+		var _default = {
+			// ajax设置
+			url : "",
+			type : "POST",
+			dataType:"json",
+			data : null,//传输数据，
+			fileData:null,
+			//timeout : 3,
+			success : null,
+			error : null
+		};
+		
+		// 客户化配置
+		var _custom = $.extend({}, _default, option);
+	
+		
+		var paramData = {};
+		if(_custom.fileData){
+			paramData["files"] = _custom.fileData;
+		}
+		if(_custom.data){
+			paramData["values"] = _custom.data;
+		}
+		api.ajax({
+		    url: defaultUri + _custom.url,
+		    method: _custom.type,
+		    data: paramData,
+            timeout:60
+		},function(ret, err){
+		    if (ret) {
+		    	  _custom.success(ret);
+		    } else {
+		          _custom.error(err);
+		    }
+		});
+	};
+ 
+	$.extend(pds,{
+    	"ajaxSubmit":ajaxSubmit,
+    	"defaultUri":defaultUri
+	});
+})(Zepto)

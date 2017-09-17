@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../../res/css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/themes/aui-theme-style1.css"/>
+	</head>
+	<body class="body-bg-white">
+		<header class="aui-bar aui-bar-nav aui-bar-gray" id="aui-header">
+			<a class="aui-pull-left aui-btn" tapmode onclick="closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title">
+				记工单
+			</div>
+		</header>
+		<section class="aui-content" style="margin-bottom:68px;">
+			<div class="aui-card-list-footer">
+				<div></div>
+				<div>
+					<div class="aui-btn aui-btn-green aui-btn-outlined"id="clear">
+						<i class="aui-iconfont aui-iconfont-sm aui-icon-trash"></i>清空
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-block">
+						<ul>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										日期
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:70%;float:left">
+											<input type="date" placeholder=""id="date">
+											<span class="img-icon img-icon-time position"></span>
+										</div>
+										<div class="select-add-arrow" style="width:30%;float:left">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option>上午</option>
+												<option>下午</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										基地
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="farm" onclick="onBtnfarm()">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										地块
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="land">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+									<!-- <div class="aui-list-item-input">
+									<input type="text" placeholder="地块一">
+									</div> -->
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										品名
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="catName">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										品种
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="categoryName">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-item aui-card-header">
+						<div class="aui-list-item-label-icon">
+							<span class="img-icon img-icon-work position"></span>
+						</div>
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								采收记工
+							</div>
+						</div>
+					</div>
+					<div class="aui-card-list-footer">
+						<div></div>
+						<div>
+							<div class="aui-btn aui-btn-green aui-btn-outlined">
+								<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>新增
+							</div>
+						</div>
+					</div>
+					<div class="aui-list-block">
+						<ul>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										添加照片
+									</div>
+									<div class="aui-list-item-input">
+										<div class="square-plus">
+											<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										姓名
+									</div>
+									<div class="aui-list-item-input">
+										<input type="text" placeholder="">
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										性别
+									</div>
+									<div class="aui-list-item-input">
+										<label>
+											<input class="aui-radio" type="radio" name="demo1" checked>
+											男</label>
+										<label>
+											<input class="aui-radio" type="radio" name="demo1">
+											女</label>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										手机
+									</div>
+									<div class="aui-list-item-input">
+										<input type="text" placeholder="">
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										规格数量
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:55%;float:left">
+											<input type="text" placeholder="16">
+										</div>
+										<div class="select-add-arrow" style="width:15%;float:left">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option>头</option>
+											</select>
+										</div>
+										<div class="select-add-arrow" style="width:15%;text-align:center;float:left;color:#666;padding:0.45rem 0 0 0.8rem;">
+											/
+										</div>
+										<div class="select-add-arrow" style="width:15%;float:left">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option>筐</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										采收量
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:90%;float:left">
+											<input type="text" placeholder="">
+										</div>
+										<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">
+											<input disabled type="text" placeholder="筐" style="text-align:right;">
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-item aui-card-header card-border-t">
+						<div class="aui-list-item-label-icon">
+							<span class="img-icon img-icon-materials position"></span>
+						</div>
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								采收用料
+							</div>
+						</div>
+					</div>
+					<div class="aui-card-list-footer">
+						<div></div>
+						<div>
+							<div class="aui-btn aui-btn-green aui-btn-outlined">
+								<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>新增
+							</div>
+						</div>
+					</div>
+					<div class="aui-list-block">
+						<ul>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										设备物料
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option></option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										数量
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:90%;float:left">
+											<input type="text" placeholder="">
+										</div>
+										<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">
+											<input disabled type="text" placeholder="袋" style="text-align:right;">
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-item aui-card-header card-border-t">
+						<div class="aui-list-item-label-icon">
+							<span class="img-icon img-icon-summary position"></span>
+						</div>
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								采收汇总
+							</div>
+						</div>
+					</div>
+					<div class="aui-card-list-footer">
+						<div></div>
+						<div>
+							<div class="aui-btn aui-btn-green aui-btn-outlined">
+								<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>新增
+							</div>
+						</div>
+					</div>
+					<div class="aui-list-block">
+						<ul>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										等级
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option></option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										等级标准
+									</div>
+									<div class="aui-list-item-input">
+										<input type="text" placeholder="">
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										规格数量
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:55%;float:left">
+											<input type="text" placeholder="16">
+										</div>
+										<div class="select-add-arrow" style="width:15%;float:left">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option>头</option>
+											</select>
+										</div>
+										<div class="select-add-arrow" style="width:15%;text-align:center;float:left;color:#666;padding:0.45rem 0 0 0.8rem;">
+											/
+										</div>
+										<div class="select-add-arrow" style="width:15%;float:left">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select>
+												<option>筐</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label">
+										采数量
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:90%;float:left">
+											<input type="text" placeholder="">
+										</div>
+										<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">
+											<input disabled type="text" placeholder="筐" style="text-align:right;">
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer class="aui-bar aui-bar-tab">
+			<div class="aui-card-list-footer aui-border-t footer-btns-center">
+				<div class="fixed-width-btn">
+					<div class="aui-btn aui-btn-green aui-margin-r-10" onclick="openWin('harvest_record_detail')">
+						保存
+					</div>
+					<div class="aui-btn aui-btn-warning">
+						提交
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../../res/script/api.js"></script>
+	<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.parseTapmode();
+			harvesteditlistFrm.configMoule();
+			harvesteditlistFrm.initModule();
+		};
+		function closeWin() {
+			api.closeWin({
+			});
+		}
+
+		var harvesteditlistFrm = (function() {
+			//记录页面需要操作的dom
+			domMap = {}, onBtnfarm, onBtnland, onBtncatName, onBtncatName, onBtncategoryName, setDomMap, configMoule, initModule;
+			//模块内部操作dom的所有方法写在这
+			setDomMap = function() {
+				domMap = {
+					$farm : $api.byId('farm'),
+					$land : $api.byId('land'),
+					$catName : $api.byId('catName'),
+					$clear : $api.byId('clear'),
+					$date : $api.byId('date')
+				}
+				$api.addEvt(domMap.$farm, 'change', onBtnland);
+				$api.addEvt(domMap.$farm, 'change', onBtncatName);
+				$api.addEvt(domMap.$catName, 'change', onBtncategoryName); categoryName
+			}
+			//基地下拉
+			onBtnfarm = function(e) {
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryFarmlist",
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '">' + data[i].farmName + '</option>';
+								$api.append(domMap.$farm, str);
+							}
+						}
+					}
+				})
+			}
+			//地块下拉
+			onBtnland = function(e) {
+				$api.html($api.byId('land'), '<option value="">请选择</option>');
+				var farmId = $api.val($api.byId('farm'));
+				if (farmId == '') {
+					api.alert({
+						msg : "请选择基地"
+					});
+					return;
+				}
+				pds.ajaxSubmit({
+					url : "app/land/list",
+					data : {
+						'landfarmId' : farmId
+					},
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '">' + data[i].landName + '</option>';
+								$api.append(domMap.$land, str);
+							}
+						}
+					}
+				})
+			}
+			//品名下拉
+			onBtncatName = function(e) {
+				$api.html($api.byId('catName'), '<option value="">请选择</option>');
+				var farmId = $api.val($api.byId('farm'));
+				if (farmId == '') {
+					api.alert({
+						msg : "请选择基地"
+					});
+					return;
+				}
+				alert(888888888)
+				alert('farmId=' + farmId)
+				pds.ajaxSubmit({
+					url : "app/farmingdataresource/coprList",
+					data : {
+						'farmId' : farmId
+					},
+					success : function(res) {
+						alert(JSON.stingify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							alert(data.length)
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '">' + data[i].landName + '</option>';
+								$api.append(domMap.catName, str);
+							}
+						}
+					}
+				})
+			}
+			//品种下拉
+			//			onBtncategoryName = function(e) {
+			//			$api.html($api.byId('categoryName'), '<option value="">请选择</option>');
+			//				var catId = $api.val($api.byId('catName'));
+			//				if (catId == '') {
+			//					api.alert({
+			//						msg : "请选择品名"
+			//					});
+			//					return;
+			//				}
+			//				pds.ajaxSubmit({
+			//					url : " app/recordworkorder/getSubCatList",
+			//					data : {
+			//						'catId' : catId
+			//					},
+			//					success : function(res) {
+			//					alert(JSON.stingify(res.data))
+			//						if (res.status == 'ok') {
+			//							var data = res.data;
+			//							for (var i = 0; i < data.length; i++) {
+			//								var str = '<option value="' + data[i].id + '">' + data[i].landName + '</option>';
+			//								$api.append(domMap.$land, str);
+			//							}
+			//						}
+			//					}
+			//				})
+			//			}
+			//-------end 操作方法-----
+			//-------begin 公开方法-----
+			//模块的所有公开方法写到这里
+			configMoule = function() {//可以有参数
+			}
+			initModule = function() {//可以有参数
+				setDomMap();
+				onBtnfarm();
+				alert(domMap.$date.val())
+			//-------end 操作方法-----
+			//return 公用函数
+			return {
+				configMoule : configMoule,
+				initModule : initModule
+			}
+		})();
+	</script>
+</html>

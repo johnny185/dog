@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>马铃薯收获技巧</title>
+     <link rel="stylesheet" type="text/css" href="../../../css/api.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <style>
+    	*{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+            overflow-y: auto;
+            /*background-color: #f2f2f2;*/
+            padding-top: 1.28rem;
+        }
+        
+        #top{
+            width: 100%;
+            height: 0.46rem;
+            background: #00c558;
+            margin-bottom: 0.82rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+        header{
+            position: fixed;
+            left: 0;
+            top: 0.44rem;
+            width: 100%;
+            background: #00c558;
+            z-index: 99;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.82rem;
+            line-height: 0.82rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{
+            display: inline-block;
+            position: absolute;
+            left: 0.25rem;
+            bottom: 0.28rem;
+            width: 0.16rem;
+            height: 0.28rem;
+            background-image: url(../../../image/harvest_back.png);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat; 
+        }
+        #content{
+
+            width: 100%;
+            background: #fff;
+            padding-bottom:1.0rem;
+            background-color: #f2f2f2;
+        }
+        #content .mainInfo{
+            /*border: solid 1px red;*/
+            width: 100%;
+            /*margin-bottom: 0.16rem;*/
+            background: #fff;
+            padding:0  0.25rem;
+            padding-bottom: 0.2rem;
+        }
+        #content .mainInfo .mainInfoTitle{
+            width:100%;
+            padding: 0.15rem 0.25rem 0.1rem 0.4rem;
+            border-bottom:solid 1px #e3e3e3;
+        }
+        #content .mainInfo .mainInfoTitle p:first-of-type{
+            width: 100%;
+            padding:0.2rem 0;
+            text-align: center;
+            font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        #content .mainInfo .mainInfoTitle p:last-of-type{
+            width: 100%;
+            padding: 0.1rem 0.22rem;
+            text-align: right;
+            font-size: 0.18rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        #content .mainInfo .mainInfoTitle p:last-of-type span{
+            margin-left: 0.12rem;
+        }
+
+        #content .mainInfo .mainInfoContent{
+            padding-top: 0.15rem;
+            width: 100%;
+        }
+        #content .mainInfo .mainInfoContent p:first-of-type{
+            width:100%;
+            line-height: 0.4rem;
+            text-indent: 2em;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        #content .mainInfo .mainInfoContent div{
+            margin-top: 0.18rem;
+            width:100%;
+            height: 3.95rem;
+        }
+        #content .mainInfo .mainInfoContent img{
+            width: 100%;
+            height:100%;
+        }
+        #content .mainInfo .mainInfoContent>p:last-of-type{
+            position:relative;
+            width:100%;
+            height:0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+        #content .mainInfo .mainInfoContent>p:last-of-type>span{
+            margin-left: 0.1rem;
+            font-size: 0.2rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+
+
+        .varietyInfo{
+            width:100%;
+            /*padding: 0 0.25rem;*/
+            background: #f2f2f2;
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.16rem;
+        }
+        .varietyInfo .InfoTitle{
+            width: 1.8rem;
+            height: 0.41rem;
+            line-height: 0.41rem;
+            text-align: center;
+            background: #00c558;
+            margin: 0 auto;
+            margin-bottom: 0.3rem;
+            border-radius: 0 0 0.08rem 0.08rem;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #ffffff;
+        }
+        .varietyInfo ul{
+        	
+            width: 100%;
+            border-left: dashed 1px #00c558; 
+        }
+        .varietyInfo ul li{
+        	background: #fff;
+            width: 100%;
+            padding:0 0.25rem;
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.16rem;
+        }
+        .varietyInfo ul li>div{
+            position: relative;
+            height: 0.6rem;
+            line-height: 0.6rem;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        .varietyInfo ul li>div span:first-of-type{
+            position: absolute;
+            left: -0.43rem;
+            top: 0.15rem;
+            display: inline-block;
+            width: 0.31rem;
+            height: 0.31rem;
+            line-height: 0.34rem;
+            text-align: center;
+            background: #00c558;
+            border-radius: 50%;
+            font-size: 0.22rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+
+        }
+        .varietyInfo ul li>p{
+            text-indent: 2em;
+            line-height: 0.4rem;
+            margin-bottom: 0.3rem;
+            font-size: 0.22rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        .varietyInfo ul li>img{
+            width: 100%;
+            /*margin-top: 0.15rem;*/
+        }
+        .varietyInfo ul li>p.varietyImgInfo{
+            position: relative;
+            top: -0.15rem;
+            width: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+	<div id="top"></div>
+    <header>        
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+            	技术详情
+        </div>
+    </header>
+    <div id="content">
+        <div class="mainInfo">
+            <div class="mainInfoTitle">
+                <p>马铃薯种植管理收获技巧</p>
+                <p><span>慧种地</span><span>08-09</span><span>10:00</span></p>
+            </div>
+            <!--<div class="mainInfoContent">
+                <p>选择土层深厚、土壤疏松肥沃的沙质壤土，翻犁碎土，平整后进行栽培。马铃薯在生长前期和中期需肥量较大，为保证正常生长发育，必须重施底肥，一般亩施农家肥2500～3000公斤，磷肥50公斤，钾肥15公斤(或草木灰100～200公斤)，充分混合后，移栽时进行窝施或沟施。</p>
+                <!--<div><img src="http://mmbiz.qpic.cn/mmbiz_jpg/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtQuq06I3dSSJYDPjX4CfnFpkSEhqK3iaIXgfpTcpicJZS4g4oNghcoibew/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1"></div>-->
+                <!--<div><img src="../../../image/win_home_tech_transfer_info_img1.png"/></div>-->
+                <!--<p><span>图1沃柑</span><span>来源：网络</span></p>-->
+            <!--</div>-->
+        </div>
+
+        <div class="varietyInfo">
+            
+            <ul>
+                <li>
+                	<div class="InfoTitle">（一）选地施肥</div>
+                    <!--<div><span>01</span><span>选地施肥</span></div>-->
+                    <p>选择土层深厚、土壤疏松肥沃的沙质壤土，翻犁碎土，平整后进行栽培。马铃薯在生长前期和中期需肥量较大，为保证正常生长发育，必须重施底肥，一般亩施农家肥2500～3000公斤，磷肥50公斤，钾肥15公斤(或草木灰100～200公斤)，充分混合后，移栽时进行窝施或沟施。</p>
+                    <img src="../../../image/win_home_tech_transfer_info_img7.png"/>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_png/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtHyD0eEYaqdW40VZ7KXkeibBgYLa5meBaWJUQLVR3t3WQpkzjwzLyVBA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">-->
+                    <p class="varietyImgInfo"><span>图1沃柑枝条上的刺</span><span>来源：广西柑橘行业协会</span></p>
+                    <!--<p>沃柑不仅旺盛，而且带刺，如果偏施氮肥，刺容易长得很长，比如使用硝态氮过高的肥料就会猛长刺，增加磷、钾的使用长刺现象会减轻。</p>-->
+                </li>
+                <li>
+               		<div class="InfoTitle">（二）播种</div>
+                    <!--<div><span>02</span><span>溃疡严重</span></div>-->
+                    <p>1、选用良种：宜选用高产、优质、抗病性强、适宜当地种植的品种，特别要首选脱毒马铃薯。</p>
+                    <p>2、适时播种：春季种植，一般在晚霜前一个月左右，外界温度稳定在5℃以上即可播种。以种植商品薯为目的地方，以不受晚霜为害为原则，争取适时早播，提早上市，具体播种时间应根据当地小气候条件具体确定。</p>
+                    <img src="../../../image/win_home_tech_transfer_info_img8.png"/>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_jpg/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtIic6GlTuJyROkTkS8Zvu9ibwRek89bzrBkBDuIbrkeRIgcL8rEplvSog/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">-->
+                    <p class="varietyImgInfo"><span>图2沃柑溃疡病</span><span>来源：网络</span></p>
+                    <p>3、种薯处理：为防止种薯带菌传染，在播前最好用0.3～0.5%的福尔马林浸泡20～30分钟，取出后用塑料袋或密闭容器密封6小时左右，或用0.5%的硫酸铜溶液浸泡2小时进行消毒。播种时为防止因种薯休眠期未过而推迟出苗，可用2～3ppm的赤霉素溶液浸泡5～10分钟，或用0.5%的石灰水浸泡1～2小时打破休眠。</p>
+               		<p>4、播种密度和深度：马铃薯多数是与玉米进行二套二分带种植，一般以亩播3000～3200株为宜，行距1～1.2尺，窝距7～8寸。最好选用20～25克的小整薯播种，若种薯过大应切块种植，切块大小掌握在20～25克，并做好切口消毒，保持播种量在60～80公斤。纯作时，亩种植密度保持在3600～4200株，播种量100公斤左右。播种深度以10～15厘米为宜，适宜的播种深度，可防止冻伤或晒伤薯块，增加结薯层次，有利于提高产量和品质。</p>
+                </li>
+                 <li>
+                	 <div class="InfoTitle">（三）田间管理</div>
+                    <!--<div><span>03</span><span>商品果多产量高 </span></div>-->
+                    <p>1、中耕培土：在去除田间杂草的同时，可加厚土层，提高土壤温度，增加块茎生长的土壤范围，地下根茎增多，对提高产量有着重要作用。一般应在4月中下旬、5月至6月上旬各进行一次中耕培土。在马铃薯生长前期进行中耕培土，可提高土温，促进发芽生长；中后期中耕培土可增强土壤通透性，利于块茎膨大。</p>
+                    <p>2、合理追肥：马铃薯生长速度较快，除了施足底肥外，还要注意追肥，促进健壮生长。一般追肥2次，结合中耕培土进行。第一次以氮肥为主，亩施尿素10公斤，也可亩用25担左右人粪尿，每担对尿素100克浇施。第二次以磷、钾肥为主，亩施磷肥20～25公斤，钾肥5～10公斤(或草木灰100公斤)。</p>
+                   	<img src="../../../image/win_home_tech_transfer_info_img9.png"/>
+                   	<p class="varietyImgInfo"><span>图3沃柑溃疡病</span><span>来源：网络</span></p>
+                    <p>3、打花及疏枝：马铃薯的分枝性较强，若栽植过密或氮肥过多，生长过旺和密度过大，会影响地下部分发育，应及时进行疏枝，去除病枝、弱枝，增强通风透光，减少病害。在花蕾形成期，及时摘除花蕾，避免养分消耗，促进养分集中供应块茎，增强产量。</p>
+                	<p>4、防治病虫害：为害马铃薯较重的病虫害主要有晚疫病、病毒病、块茎蛾和蚜虫，要采取预防为主的方针，积极进行综合防治，如选用抗病品种、合理用药防治等。移栽后20天左右，亩用尿素15～20公斤对清粪水淋施；在蕾苔期，亩施尿素10～15公斤，氯化钾5～10公斤，用移栽器打孔穴施；在初花期和盛花期，每亩各用0.5～1公斤尿素、0.15～0.2公斤磷酸二氢钾、0.15～0.2公斤硼砂对水45～60公斤进行叶面喷施。</p>
+                </li>
+                 <li>
+                	 <div class="InfoTitle">（四）适时收获</div>
+                    <!--<div><span>03</span><span>商品果多产量高 </span></div>-->
+                    <p>终花后30天左右，当全株三分之二的角果呈黄绿色，主花序基部角果呈枇杷色，种皮呈黑褐色或黄色时，为适宜收获期，即“八成熟、十成收”，应及时收获。</p>
+                    <p style="margin-top: 0.5rem;">文章来源于网络，如有侵权请联系删除！</p>
+                </li>
+            </ul>
+        </div>
+        
+       
+
+
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+
+</script>
+</html>

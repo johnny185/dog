@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../.././res/css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../.././res/css/aui-slide.css"/>
+    <link rel="stylesheet" type="text/css" href="../../.././res/themes/aui-theme-style1.css"/>
+</head>
+<body class="body-bg-white">
+	<section class="aui-content over-white">
+        <div class="aui-info aui-padded-l-15 aui-padded-r-15">
+        	<a href="">
+            <div class="aui-info-item flex-column">
+            	<h4 class="aui-info-item-title">记工单<span class="aui-round-icon"><i class="aui-iconfont aui-icon-right"></i></span></h4>
+            	<p class="aui-info-item-info">快捷记工，简单易用</p>
+            </div>
+            </a>
+            <div class="aui-info-item" style="height:70px;">
+                <img src="../../.././res/image/icon/order-icon.png" class="aui-margin-r-10" style="height:50px;" />
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-bt-10 over-white">
+        <div class="aui-info aui-padded-l-15 aui-padded-r-15">
+        	<a href="">
+            <div class="aui-info-item flex-column">
+          	 	<h4 class="aui-info-item-title">运输单<span class="aui-round-icon"><i class="aui-iconfont aui-icon-right"></i></span></h4>
+            	<p class="aui-info-item-info">数据精准，运输无忧</p>
+            </div>
+            </a>
+            <div class="aui-info-item" style="height:70px;">
+                <img src="../../.././res/image/icon/transport-icon.png" class="aui-margin-r-10" style="height:60px;" />
+            </div>
+        </div>
+    </section>
+    
+    <section class="aui-content aui-bt-10 over-white">
+    	<div class="aui-slide-header"><h2 class="aui-slide-title">采收量变化图</h2></div>
+        <div id="aui-slide">
+	        <div class="aui-slide-wrap" >
+	            <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+	                <div class="aui-content aui-padded-15">
+	                    <img src="../../.././res/image/gttu.png"/>
+	                </div>
+	            </div>
+	            <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+	                <div class="aui-content aui-padded-15">
+	                    <img src="../../.././res/image/icon/order-icon.png"/>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="aui-slide-page-wrap"><!--分页容器--></div>
+	    </div>
+    </section>
+	
+
+
+</body>
+<script type="text/javascript" src="../../.././res/script/api.js"></script>
+<script type="text/javascript" src="../../.././res/script/aui-slide.js"></script>
+<script type="text/javascript">
+	
+	apiready = function(){
+        api.parseTapmode();
+    }
+    var slide = new auiSlide({
+        container:document.getElementById("aui-slide"),
+        // "width":300,
+        "height":240,
+        "speed":300,
+        "autoPlay": 0, //自动播放
+        "pageShow":true,
+        "loop":true,
+        "pageStyle":'dot',
+        'dotPosition':'center'
+    })
+	
+	
+</script>
+</html>

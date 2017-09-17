@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>运输单列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../.././res/css/aui.css"/>
+	 	<link rel="stylesheet" type="text/css" href="../../../.././res/themes/aui-theme-style1.css"/>
+		<style>
+			.aui-list-tb20{padding-top:20px;padding-bottom:20px;}
+			.aui-card-options + .aui-card-options .aui-list{padding-top:0}
+			.aui-list-item-title > span + span{padding-left:10px;}
+		</style>
+	</head>
+	<body>
+	
+	<div class="aui-content">
+	
+		<ul class="aui-list aui-media-list" style="margin-bottom:15px;">
+			<li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media media-sm-ico">
+                        <img src="../../../.././res/image/icon/userico.png" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">
+                            	<span>司机姓名</span><span>李二</span>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media media-sm-ico">
+                        <img src="../../../.././res/image/icon/phoneico.png" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">
+                            	<span>联系方式</span><span>101010</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media media-sm-ico">
+                        <img src="../../../.././res/image/icon/carico.png" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">
+                            	<span>车牌号码</span><span>202020</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+		</ul>
+	
+		<div class="aui-card-options">
+		<div class="aui-list aui-list-tb20 aui-list-noborder aui-list-nooptions">
+			<div class="aui-list-block">
+			<ul>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">基地名称</div>
+	                    <div class="aui-list-item-right">蒙</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">地块</div>
+	                    <div class="aui-list-item-right">地块一</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">品名</div>
+	                    <div class="aui-list-item-right">西兰花</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">品种</div>
+	                    <div class="aui-list-item-right">耐寒</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">一级</div>
+	                    <div class="aui-list-item-right">一级</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">数量</div>
+	                    <div class="aui-list-item-right">10头</div>
+	                </div>
+	            </li>
+	        </ul>
+	        </div>
+	    </div>
+	  </div>
+	
+	</div>
+	
+		<!--<div class="container">
+			<div class="full-main">-->
+				<!-- 顶部菜单栏 -->
+				<!--<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>运输单</h4> </span>
+					<a href="javascript:void(0)"; onclick="back();"> <span class = "banner-btn banner-back-btn"> </span> </a>
+				</div>-->
+				<!-- 内容区域 -->
+				<!--<div class="sub-container-notop">
+					<div class="argi-body">
+						<div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+							<div class="aui-info-item">
+								<span class="aui-margin-l-5">司机姓名</span>
+							</div>
+							<div class="aui-info-item">
+								杨先生
+							</div>
+						</div>
+						<div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+							<div class="aui-info-item">
+								<span class="aui-margin-l-5">联系方式</span>
+							</div>
+							<div class="aui-info-item">
+								1111111
+							</div>
+						</div>
+						<div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+							<div class="aui-info-item">
+								<span class="aui-margin-l-5">车牌号码</span>
+							</div>
+							<div class="aui-info-item">
+								10000
+							</div>
+						</div>-->
+						<!--表格-->
+						<!--<table>
+							<thead>
+								<th>基地名称</th>
+								<th>地块</th>
+								<th>品种</th>
+								<th>品名</th>
+								<th>级别</th>
+								<th>数量</th>
+								<th>单位</th>
+							</thead>
+							<tbody id="list"></tbody>
+						</table>-->
+						<!--返回按钮-->
+						<!--<div class="foot-btn-group">
+							<div class="argi-flex">
+								<div class="argi-flex-1"onclick="back()">
+									<a href="#" class="argi-btn argi-btn-big btn-full argi-btn-success">返回</a>
+								</div>
+							</div>
+						</div>-->
+					<!--</div>
+				</div>
+			</div>-->
+			<!--<script type="text/javascript" src="../../../.././script/jquery.min.js"></script>-->
+			<script type="text/javascript" src="../../../.././res/script/api.js"></script>
+			<!--<script type="text/javascript" src="../../../.././script/pds.ajax.js"></script>-->
+			<script type="text/javascript">
+//				var id;
+				apiready = function() {
+//					getTransMes(api.pageParam.id);
+				};
+				//返回上一级
+//				function back() {
+//					api.closeWin();
+//				}
+
+				//获取运输单信息
+//				function getTransMes(id) {
+//					pds.ajaxSubmit({
+//						url : "app/customer/getOrderList?t=" + new Date(),
+//						data : {
+//							id : id
+//						},
+//						success : function(res) {
+//							var data = res.data;
+//							alert(JSON.stringify(data))
+//							var el = $api.byId("list");
+//							for (var i = 0; i < data.length; i++) {
+//								var str = '<tr><td>基地名称</td><td>地块</td><td>品种</td><td>品名</td><td>级别</td><td>数量</td><td>单位</td></tr>';
+//								$api.append(el, str);
+//							}
+//						},
+//						error : function(e) {
+//							api.alert({
+//								msg : "服务器异常，请联系管理员!!!"
+//							});
+//						}
+//					});
+//				}
+
+				//返回按钮
+//				function detail(id) {
+//					$api.openWin({
+//						name : 'harvest_transport_detail',
+//						url : 'widget://html/harvest/new_harvest/harvest_transport/harvest_transport_detail.html',
+//						reload : true,
+//						selecteIndex : '3',
+//						pageParam : {
+//							"id" : id
+//						},
+//						animation : {
+//							type : "movein", //动画类型（详见动画类型常量）
+//							subType : "from_right", //动画子类型（详见动画子类型常量）
+//							duration : 300 //动画过渡时间，默认300毫秒
+//						}
+//					});
+//				}
+			</script>
+	</body>
+</html>

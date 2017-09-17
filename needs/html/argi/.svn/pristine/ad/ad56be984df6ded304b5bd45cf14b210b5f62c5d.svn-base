@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    
+    <style>
+    	*{
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+            overflow-y: auto;
+            background-color: #fff;
+        }
+        header{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height:1.35rem;
+            background: #00c558;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.88rem;
+            line-height: 0.88rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{
+            display: inline-block;
+			position: absolute;
+			left: 13px;
+			bottom: 14px;
+			width: 12px;
+			height: 19px;
+			background-image: url(../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+	
+   <header id="header">
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+                                 通知公告
+        </div>
+    </header>
+    
+    <!--<header class="aui-bar aui-bar-nav aui-bar-green" id="aui-header">
+			<a style="border:solid 1px red;" class="aui-pull-left aui-btn" tapmode onclick="closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<span class="leftBack"onclick="closeWin()"></span>
+			<div class="aui-title">
+				记工单
+			</div>
+			<a class="aui-pull-right aui-btn"><button class="aui-btn " id="save">保存</button></a>
+		</header>-->
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var header, headerH;
+        header = $api.byId('header'); 
+        $api.fixStatusBar(header);
+		headerH=$api.offset(header).h;
+//		修改状态栏颜色
+//		api.setStatusBarStyle({
+//	        style: 'light',
+//	        color: "#00c558",
+//      });
+		api.openFrame({
+		    name: 'frm_home_notice_more_lists',
+		    url: './frm_home_notice_more_lists.html',
+		    rect: {
+		        x: 0,
+		        y: headerH+10,
+		        w: 'auto',
+		        h: 'auto'
+		    }
+		    
+		});
+	};
+
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+</script>
+</html>

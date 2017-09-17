@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>运输单列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../.././res/css/aui.css"/>
+	 	<link rel="stylesheet" type="text/css" href="../../../.././res/themes/aui-theme-style1.css"/>
+	 	<script type="text/javascript" src="../../../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../../script/pds.ajax.js"></script>
+		<style>
+			.aui-list-tb20{padding-top:20px;padding-bottom:20px;}
+			.aui-card-options + .aui-card-options .aui-list{padding-top:0}
+			.aui-list-item-title > span + span{padding-left:10px;}
+			
+			#ListBox>div #unit{
+				float:right;
+				margin-top:-33px;
+			}
+			#listBox>div{
+				border:solid 1px #27bf2f;
+			}
+			
+		</style>
+	</head>
+	<body>
+	
+	<div class="aui-content" style="margin-bottom:3.2rem;">
+	
+		<ul class="aui-list" style="margin-bottom:10px;">
+			<li class="aui-list-item">
+				<div class="aui-list-item-media media-sm-ico">
+                    <img src="../../../.././res/image/icon/userico.png" />
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label"style="width:90px">司机姓名</div>
+                    <div class="aui-list-item-input">
+                    	<input id="driver" type="text" placeholder="请输入姓名">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+            	<div class="aui-list-item-media media-sm-ico">
+                    <img src="../../../.././res/image/icon/phoneico.png" />
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label"style="width:90px">手&nbsp&nbsp机&nbsp&nbsp号</div>
+                    <div class="aui-list-item-input">
+                    	<input id="driverPhone" type="text" placeholder="请输入手机号">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+            	<div class="aui-list-item-media media-sm-ico">
+                    <img src="../../../.././res/image/icon/carico.png" />
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label"style="width:90px">车牌号码</div>
+                    <div class="aui-list-item-input">
+                    	<input id="licenseplate" type="text" placeholder="请输入车牌号码">
+                    </div>
+                </div>
+            </li>
+		</ul>
+	
+		<div class="aui-card-options">
+		<div id="ListBox" class="aui-list aui-list-tb20 aui-list-noborder aui-list-nooptions">
+			<!--<div class="aui-list-block">
+			<ul>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">基地名称</div>
+	                    <div class="aui-list-item-right">蒙</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">地块</div>
+	                    <div class="aui-list-item-right">地块一</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">品名</div>
+	                    <div class="aui-list-item-right">西兰花</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">品种</div>
+	                    <div class="aui-list-item-right">耐寒</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">级别</div>
+	                    <div class="aui-list-item-right">一级</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">数量</div>
+	                    <div class="aui-list-item-right">10头</div>
+	                </div>
+	            </li>
+	        </ul>
+	        </div>-->
+	    </div>
+	  </div>
+	</div>
+	
+	<footer class="aui-bar aui-bar-tab">
+		<div class="aui-card-list-footer aui-border-t footer-btns-center">
+	        <div class="fixed-width-btn">
+	            <div id="recordSubmit" class="aui-btn aui-btn-green aui-margin-r-10" onclick="">确认</div>
+	            <div class="aui-btn aui-btn-warning" onclick="back()">返回</div>
+	        </div>
+	    </div>
+	   
+	</footer>
+		
+			<script type="text/javascript" src="../../../.././res/script/api.js"></script>
+			<script type="text/javascript">
+				apiready = function() {
+					var listId=[21];
+					getMessage(listId);
+					$("#recordSubmit").click(function(){
+						recordSubmit(listId)
+					});
+					
+//					var driver, driverPhone, licenseplate;
+//						driverPhone=$("#driverPhone").val();
+//						licenseplate=$("#licenseplate").val();
+//					失去焦点时验证姓名	
+//					$("#driver").blur(function(){
+//						driver=$(this).val();
+//						if(driver!=""){
+//							//过滤特殊表情符号
+//							driver_= driver.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
+//							isDriverName(driver_);
+//							if(isDriverName(driver_)=="false"){
+//							
+//							}
+//						}
+//					})
+					
+//					失去焦点时验证手机号
+//					$("#driverPhone").blur(function(){
+//						driverPhone=$(this).val();
+//						if(driverPhone!=""){
+//							isDriverPhone(driverPhone) 
+//						}else{
+//							
+//						}
+//					});
+					//失去焦点时验证车牌号
+//					$("#licenseplate").blur(function(){
+//						licenseplate=$(this).val();
+////						车牌号非必填
+//						if(licenseplate.length!=0){
+//							isVehicleCarNumber(licenseplate);
+//						}
+//					})
+					
+				};
+				
+				
+//				姓名验证
+				function isDriverName(name){
+					var reg=/^.{1,20}$/;
+					if(!(reg.test(name)) ){
+						api.alert({
+									msg : "请输入正确姓名"
+								});
+						$("#driverPhone").blur();
+				       	$("#licenseplate").blur();
+				       	$("#driver").focus();
+//				       	$("#driver").val("");
+					}	
+				}
+//				手机号验证
+				function isDriverPhone(Phone){
+					var reg=/^1[3|4|5|7|8][0-9]\d{8}$/;
+						if(!(reg.test(Phone))){ 
+//					       alert("手机号格式错误");
+					       api.alert({
+									msg : "手机号格式错误,请重新输入"
+								});
+					       $("#driver").blur();
+					       $("#licenseplate").blur(); 
+					       $("#driverPhone").focus();
+//					       $("#driverPhone").val("");
+						}
+				}
+//				车牌号验证
+				function isVehicleCarNumber(vehicleCarNumber) {
+			        var reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+			        if( !(reg.test(vehicleCarNumber)) ){
+//			        	alert("请输入正确的车牌号");
+			        	api.alert({
+									msg : "请输入正确的车牌号"
+								});
+							
+			        	$("#licenseplate").focus();
+			        	$("#licenseplate").val("");
+			        	$("#driver").blur();
+				       	$("#driverPhone").blur(); 
+			        }
+				}
+				
+//				点击确定按钮
+				function recordSubmit(listId){
+				
+//					点击提交按钮对运输数量作出判断
+					var $inputs=$("#ListBox>div input");
+					var flag=false;//标记状态
+					$inputs.each(function(index,el){
+						var qutilty=$(this).val();
+						if(qutilty==""){
+							flag=true;
+							$(this).focus();
+							return false;
+						}
+					});
+					if(flag){	//运输数量为空的情况
+						api.alert({
+									msg : "请输入运输数量"
+								});
+					}else{
+						//点击提交记录司机信息			
+						var driver, driverPhone, licenseplate;
+							driver=$("#driver").val().replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");	//去除特殊表情符emoji
+							driverPhone=$("#driverPhone").val();
+							licenseplate=$("#licenseplate").val();
+						var regDriver=/^.{1,20}$/,
+							regDriverPhone=/^1[3|4|5|7|8][0-9]\d{8}$/,
+							regLicenseplate=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Za-z]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
+						
+						if(driver=="" && driverPhone!=""){
+							api.alert({
+										msg : "请输入司机姓名"
+									});
+						}else if(driver!="" && driverPhone==""){
+							api.alert({
+										msg : "请输入联系方式"
+									});
+						}else if(driver=="" && driverPhone==""){
+							api.alert({
+										msg : "请输入司机信息"
+									});
+						}else if(driver!="" && driverPhone!=""){
+							//************当车牌号为空的情况***************
+							if(licenseplate==""){
+								if(!regDriver.test(driver) && regDriverPhone.test(driverPhone)){
+									api.alert({
+										msg : "请输入正确的姓名"
+									});
+									$("#driver").focus();
+								}else if(regDriver.test(driver) && !regDriverPhone.test(driverPhone)){
+									api.alert({
+										msg : "请输入正确联系方式"
+									});
+									$("#driverPhone").focus();
+								}else if(regDriver.test(driver) && regDriverPhone.test(driverPhone)){
+									sendMessage(listId);
+								}
+							}else if(licenseplate!=""){		//************当车牌号不为空的情况***************
+								if(!regDriver.test(driver) && regDriverPhone.test(driverPhone) && regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确的姓名"
+									});
+									$("#driver").focus();
+								}else if(regDriver.test(driver) && !regDriverPhone.test(driverPhone) && regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确联系方式"
+									});
+									$("#driverPhone").focus();
+								}else if(regDriver.test(driver) && regDriverPhone.test(driverPhone) && !regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确车牌号"
+									});
+									$("#licenseplate").focus();
+//									return;
+								}else if(!regDriver.test(driver) && !regDriverPhone.test(driverPhone) && regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确的姓名和联系方式"
+									});
+									$("#driver").focus();
+									
+								}else if(!regDriver.test(driver) && regDriverPhone.test(driverPhone) && !regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确的姓名和车牌号"
+									});
+									$("#driver").focus();
+									
+								}else if(regDriver.test(driver) && !regDriverPhone.test(driverPhone) && !regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确的联系方式和车牌号"
+									});
+									$("#driverPhone").focus();
+									
+								}else if(!regDriver.test(driver) && !regDriverPhone.test(driverPhone) && !regLicenseplate.test(licenseplate)){
+									api.alert({
+										msg : "请输入正确的司机信息"
+									});
+									$("#driver").focus();
+									
+								}else if(regDriver.test(driver) && regDriverPhone.test(driverPhone) && regLicenseplate.test(licenseplate)){
+									sendMessage(listId);
+								}
+								
+		
+							};
+
+						};
+					
+					};
+
+				};
+				
+//				提交数据
+				function sendMessage(listId){
+					//点击提交记录司机信息			
+					var driver, driverPhone, licenseplate;
+						driver=$("#driver").val().replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
+						driverPhone=$("#driverPhone").val();
+						licenseplate=$("#licenseplate").val();
+					var listArr=$("#ListBox>div");
+							var harvestTransportDetails=[],jobSheetIdListArr=[];
+							for(i = 0; i< listArr.length ; i++){
+						       	var dataObj={};		//保存运输数据	
+							       	dataObj.farmName = $(listArr[i]).find("#farmName").text();
+							       	dataObj.landName = $(listArr[i]).find("#landName").text();
+							       	dataObj.catelogName = $(listArr[i]).find("#catName").text();
+							       	dataObj.categoryName = $(listArr[i]).find("#catNameP").text();
+							       	dataObj.gradeName = $(listArr[i]).find("#level").text();									
+									dataObj.transportQutilty = $(listArr[i]).find("input").val();
+									dataObj.unitName = $(listArr[i]).find("#unit").text();
+								harvestTransportDetails.push(dataObj);
+								
+								var dataObj2={};//保存运输数据
+									dataObj2.id = $(listArr[i]).find("input").attr("id");
+									dataObj2.transportQutilty = $(listArr[i]).find("input").val();
+									dataObj2.unit = $(listArr[i]).find("#unit").text();
+								jobSheetIdListArr.push(dataObj2);
+								
+						    };
+							var ListData = {};   //保存司机信息
+								ListData.transportName = driver;
+								ListData.transportPhone = driverPhone;
+								ListData.transportCarNumber = licenseplate.toUpperCase();//*******将车牌号转换成大写字母******
+//								alert(JSON.stringify(ListData)+"*******"+JSON.stringify(jobSheetIdListArr));
+	//						保存运输单提交数据
+							pds.ajaxSubmit({
+								url : "app/harvesttransportorder/insert",
+								method : "post",
+								data : {
+									"listId" : JSON.stringify(
+										listId
+									),
+									"data" : JSON.stringify(
+										ListData
+									),
+									"jobSheetIdList" : JSON.stringify(
+										jobSheetIdListArr
+									),
+									"harvestDetails":JSON.stringify(
+										harvestTransportDetails
+									),
+								},
+								success : function(e){
+									if (e.status == 'error') {
+										api.alert({
+											msg : e.message
+										});
+									}else{
+										api.alert({
+											msg : "运输单生成完成!"
+										});
+	//									提交成功后清空司机信息
+										$("#driver").val("");
+										$("#driverPhone").val("");
+										$("#licenseplate").val("");
+									}
+								},
+								error : function(e) {
+									api.alert({
+										msg : "服务器异常，请联系管理员!"
+									});
+								}						
+							});
+						
+				}
+				
+//				获取基地详情
+				function getMessage(listId){
+//					listId =[21];
+					pds.ajaxSubmit({		
+						url : "app/harvesttransportorder/list",
+						method:"post",
+						data : {
+							idList : JSON.stringify(
+								listId
+							)
+						},
+						success : function(e) {						
+							if (e.status == 'error') {
+								api.alert({
+									msg : e.message
+								});
+							}else{				
+//								alert(JSON.stringify(e.data));
+								var ListData=e.data;
+//								遍历数据
+								$.each( ListData, function(index, item) {
+									var BasLevelListData=item.basLevelList;
+									var BasLevelListDataObj={};
+//									遍历BasLevelList
+									$.each( BasLevelListData,function(index_,item_){				
+								
+										var ListStrs= '<div class="aui-list-block">'+
+													'<ul>'+
+											            '<li class="aui-list-item">'+
+											                '<div class="aui-list-item-inner">'+
+											                    '<div class="aui-list-item-title">基地名称</div>'+
+											                    '<div class="aui-list-item-right" id="farmName">'+ item.farmName +'</div>'+
+											                '</div>'+
+											            '</li>'+
+											            '<li class="aui-list-item">'+
+											                '<div class="aui-list-item-inner">'+
+											                    '<div class="aui-list-item-title">地块</div>'+
+											                    '<div class="aui-list-item-right" id="landName">'+ item.landName +'</div>'+
+											                '</div>'+
+											            '</li>'+
+											            '<li class="aui-list-item">'+
+											                '<div class="aui-list-item-inner">'+
+											                    '<div class="aui-list-item-title">品名</div>'+
+											                    '<div class="aui-list-item-right" id="catName">'+ item.catName +'</div>'+
+											                '</div>'+
+											            '</li>'+
+											            '<li class="aui-list-item">'+
+											                '<div class="aui-list-item-inner">'+
+											                    '<div class="aui-list-item-title">品种</div>'+
+											                    '<div class="aui-list-item-right" id="catNameP">'+ item.catNameP +'</div>'+
+											                '</div>'+
+											            '</li>'+
+											            '<li class="aui-list-item">'+
+											                '<div class="aui-list-item-inner">'+
+											                    '<div class="aui-list-item-title">级别</div>'+
+											                    '<div class="aui-list-item-right" id="level">'+ item_.level +'</div>'+
+											                '</div>'+
+											            '</li>'+
+											            '<li class="aui-list-item">'+
+											                '<div class="aui-list-item-inner">'+
+											                    '<div class="aui-list-item-title">数量</div>'+
+											                    '<div class="aui-list-item-right"><input id="'+ item_.id +'" type="text" placeholder="请输入运输数量"/><span id="unit">'+ item_.unit +'</span></div>'+
+											                '</div>'+
+											            '</li>'+
+//											            '<li class="aui-list-item">'+
+//											                '<div class="aui-list-item-inner">'+
+//											                    '<div class="aui-list-item-title">单位</div>'+
+//											                    '<div class="aui-list-item-right" id="unit">'+ item_.unit +'</div>'+
+//											                '</div>'+
+//											            '</li>'+
+											            
+											        '</ul>'+
+										        '</div>';
+										        
+									      $(ListStrs).appendTo( $("#ListBox") );					      
+									      $("#"+item_.id).val(item_.qutilty)
+										      .css({
+										      		"textAlign":"right",
+										      		"paddingRight":"20px",
+										      		"color":"#5cba5c"
+										      })
+//										      	用户手动输入数量，当input框失去焦点时做判断，做出提醒
+										      .blur(function(){
+										      		var val=$(this).val();
+										      		var reg=/^[1-9]\d*$/;
+										      		if(val==""){
+//										      			api.alert({
+//															msg : "请输入运输数量!"
+//														});
+										      		}else if(val!="0"){
+										      			if(!( reg.test(val) ) || val>item_.qutilty){
+												      		api.alert({
+																	msg : "运输数量有误!"
+																});
+															$(this).focus();
+															$(this).attr("placeholder","请输入运输数量");
+											      			$(this).val("");
+											      			$(this).css({
+																"textIndent":"1em"
+											      			});
+										      			} 
+										      		} 				      		
+										      });
+										
+										      
+										  
+									});						
+										
+								});
+
+							};
+							
+						},
+						error : function(e) {
+							api.alert({
+								msg : "服务器异常，请联系管理员!!!"
+							});
+						}
+					});
+				
+				}
+				
+				//返回上一级
+				function back() {
+					api.closeWin();
+				}
+			</script>
+	</body>
+</html>

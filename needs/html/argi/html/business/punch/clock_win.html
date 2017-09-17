@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>打卡首页</title>
+    <link rel="stylesheet" href="../../../css/aui.css" />
+    <link rel="stylesheet" href="../../../css/aui_bar.css" />
+    <style>
+    	.aui-pull-left span{
+  			display:block;
+  			width:15px;
+  			height:18px;
+  			background:url("../../../image/business_img/back.png") no-repeat;
+	 		background-size:100% 100%;
+  		}
+  		.aui-bar-nav .aui-pull-left {
+	    	width: 50px;
+	    }
+   
+    </style>
+</head>
+<body>
+	    
+	
+     <header class="aui-bar aui-bar-nav" id="aui-header">
+        <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+            <span ></span>
+        </a>
+        <div class="aui-title" >打卡</div>
+        <a class="aui-pull-right aui-btn aui-btn-outlined" onclick="punchRecord()">
+            <span >打卡记录</span>
+        </a>
+     </header>
+     
+	    
+	    
+<script type="text/javascript" src="../../../script/api.js"></script>
+
+</body>
+
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header); 
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        api.openFrame({
+            name: 'clock_frm',
+            url: 'clock_frm.html',
+            bounces: false,
+            pageParam:{
+             'h':headerPos.h
+            },
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        })
+    };
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+    function punchRecord(){
+      api.openWin({
+				name : "recording_win",
+				url : "../../../html/business/punch/recording_win.html",
+				reload : true,
+				selecteIndex : '4',
+				slidBackEnabled : false,
+				pageParam:{
+                   queryType:'0'
+                },
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+    }
+</script>
+</html>

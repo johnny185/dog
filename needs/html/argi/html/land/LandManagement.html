@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no"> 
+    <title>地块管理</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+    <style>
+    	body{
+    		
+    	}
+    	 .stopList{
+       display: none;
+   }
+   table{
+       width: 99%;
+       border-collapse: collapse;
+   }
+   td{
+       width:19%;
+       padding: 2% 3%;
+       border:1px solid #999;
+   }
+   .foot{
+   margin-top:5px;
+   }
+    </style>
+</head>
+<body>
+	<div class="container">
+ 	<div class="full-main">
+		<div class = 'banner fixed center'  >
+			<div class="banner-title">
+				<h4>地块新增</h4>
+			</div>
+			<a href="javascript:void(0);" onclick="back();">
+				<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+			</a>
+		</div>
+		<div class="sub-container-notop">
+		    <table>
+		    
+		    <tr>
+		    	<td>地块属性</td>
+		    	<td>地块名称</td>
+		    	<td>种植品名</td>
+		    	<td>种植品种</td>
+		    	<td>面积（亩）</td>
+		    </tr>
+		   
+		    </table>
+			<div class="foot">
+			<button class="argi-btn argi-btn-success" onclick="tarch(landfarmId);">新增</button>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/getLoacat.js"></script>
+<script type="text/javascript">
+var landfarmId =null;
+	apiready = function(){
+		landfarmId = api.pageParam.farmId;
+		pds.ajaxSubmit({
+		url:'app/land/list?landfarmId='+landfarmId,
+		success:function(result){
+	    for(var i=0;i<result.data.length;i++){
+	    result.data[i].speciesName=result.data[i].speciesName==null?'':result.data[i].speciesName;
+	    result.data[i].catName=result.data[i].catName==null?'':result.data[i].catName;
+	    result.data[i].landAreas=result.data[i].landAreas==null?'':result.data[i].landAreas;
+	    var landTypeName = '';
+	    if(result.data[i].landType == 1){
+	    	landTypeName = '大田';
+	    }else{
+	    	landTypeName = '设施';
+	    }
+            var  str="<tr oper-type='view' class='b' id="+result.data[i].id+"><td><span>"+landTypeName+"</span></td><td><span>"+result.data[i].landName+"</span></td><td><span>"+result.data[i].catName+"</span></td><td><span>"+result.data[i].speciesName+"</span></td><td><span>"+result.data[i].landAreas+"</span></td></tr>";
+            $('table').append(str);
+         }
+ 	 }        
+	});
+	};
+	//进入新增页面
+	function tarch(landfarmId){
+		api.openFrame({
+		          name: 'addLand',
+		          url: '../../html/land/addLand.html',
+		          pageParam:{
+		          "landfarmId":landfarmId
+		         } 
+	        	});
+	}
+	//点击表的,进入不同的编辑页面
+         $("table").on("click","[oper-type]",function(){
+        	var operType = $(this).attr("oper-type");
+            var tr = $(this).closest("tr");
+            var id = tr.attr('id');
+              api.openFrame({
+		          name: 'addLand',
+		          url: '../../html/land/addLand.html',
+		          pageParam:{
+		          "id":id,
+		          "landfarmId":landfarmId
+		         } 
+	        	});
+		});
+	//返回
+	function back(){
+	  	api.closeWin();
+	  }
+
+</script>
+</html>

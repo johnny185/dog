@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../../res/css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/themes/aui-theme-style1.css"/>
+	</head>
+	<body class="body-bg-white">
+		<header class="aui-bar aui-bar-nav aui-bar-gray" id="aui-header">
+			<a class="aui-pull-left aui-btn" tapmode onclick="closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title">
+				记工单
+			</div>
+		</header>
+		<section class="aui-content" style="margin-bottom:68px;">
+			<div class="aui-card-list-footer">
+				<div></div>
+				<div id="clear">
+					<div class="aui-btn aui-btn-green aui-btn-outlined"id="clear">
+						<i class="aui-iconfont aui-iconfont-sm aui-icon-trash"></i>清空
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-block">
+						<ul>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										日期
+									</div>
+									<div class="aui-list-item-input">
+										<div class="date-box" style="width:70%;float:left">
+											<input type="text" placeholder=""id="date">
+											<span class="img-icon img-icon-time position"></span>
+										</div>
+										<div class="select-add-arrow" style="width:30%;float:left">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="dateKind">
+												<option value="1">上午</option>
+												<option value="2">下午</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										基地
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="farm" >
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										地块
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="land">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										品名
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="catName">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="aui-list-item">
+								<div class="aui-list-item-inner">
+									<div class="aui-list-item-label width-auto">
+										品种
+									</div>
+									<div class="aui-list-item-input">
+										<div class="select-add-arrow">
+											<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+											<select id="categoryName">
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-item aui-card-header">
+						<div class="aui-list-item-label-icon">
+							<span class="img-icon img-icon-work position"></span>
+						</div>
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								采收记工
+							</div>
+						</div>
+					</div>
+					<div class="aui-card-list-footer">
+						<div></div>
+						<div id="addMes">
+							<div class="aui-btn aui-btn-green aui-btn-outlined">
+								<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>新增
+							</div>
+						</div>
+					</div>
+					<div id="addMesList">
+						<div class="aui-list-block">
+							<ul>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											添加照片
+										</div>
+										<div class="aui-list-item-input">
+											<div class="square-plus" class="picture" onclick="getPic(this)">
+												<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>
+												
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											姓名
+										</div>
+										<div class="aui-list-item-input">
+											<input type="text" class="name" maxlength="20"  placeholder="">
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											性别
+										</div>
+										<div class="aui-list-item-input">
+											<label>
+												<input class="aui-radio" type="radio" value="1"name="demo0" checked>
+												男</label>
+											<label>
+												<input class="aui-radio" type="radio" value="0"name="demo0">
+												女</label>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											手机
+										</div>
+										<div class="aui-list-item-input">
+											<input type="number" class="tel"  placeholder="">
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											规格数量
+										</div>
+										<div class="aui-list-item-input">
+											<div class="date-box" style="width:30%;float:left">
+												<input type="number"class="standard" placeholder="16">
+											</div>
+											<div class="select-add-arrow" style="width:30%;float:left">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="moleChild" onclick="moleChild(this)"onchange="harvestUnit(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+											<div class="select-add-arrow" style="width:6%;text-align:center;float:left;color:#666;padding:0.45rem 0 0 0.8rem;">
+												/
+											</div>
+											<div class="select-add-arrow" style="width:30%;float:right">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="moleParent" onclick="moleParent(this)"onchange="harvestUnit(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											采收量
+										</div>
+										<div class="aui-list-item-input">
+											<div class="date-box" style="width:90%;float:left">
+												<input type="number" placeholder=""  class="harvestNum">
+											</div>
+											<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">
+												<input class="harvestUnit"disabled readonly type="text" placeholder=""  style="text-align:right;float:left;">
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-item aui-card-header card-border-t">
+						<div class="aui-list-item-label-icon">
+							<span class="img-icon img-icon-materials position"></span>
+						</div>
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								采收用料
+							</div>
+						</div>
+					</div>
+					<div class="aui-card-list-footer">
+						<div></div>
+						<div id="addHarvest">
+							<div class="aui-btn aui-btn-green aui-btn-outlined">
+								<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>新增
+							</div>
+						</div>
+					</div>
+					<div id="addHarvestList">
+						<div class="aui-list-block">
+							<ul>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label" style="width:35%;">
+											设备/物料
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow" style="width:35%;float:left;">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="equipType" onclick="equipType(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+											<div class="select-add-arrow" style="width:35%;float:right;">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="equipName" onclick="equipName(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											数量
+										</div>
+										<div class="aui-list-item-input">
+											<div class="date-box" style="width:90%;float:left">
+												<input type="number" class="harNum" placeholder="">
+											</div>
+											<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">
+												<input disabled type="text" placeholder="" style="text-align:right;">
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											单位
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="unit" onclick="unit(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="aui-card-options">
+				<div class="aui-list aui-list-noborder aui-list-nooptions">
+					<div class="aui-list-item aui-card-header card-border-t">
+						<div class="aui-list-item-label-icon">
+							<span class="img-icon img-icon-summary position"></span>
+						</div>
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								采收汇总
+							</div>
+						</div>
+					</div>
+					<div class="aui-card-list-footer">
+						<div></div>
+						<div id="addTotal">
+							<div class="aui-btn aui-btn-green aui-btn-outlined">
+								<i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i>新增
+							</div>
+						</div>
+					</div>
+					<div id="totalList">
+						<div class="aui-list-block">
+							<ul>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											等级
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="onClass" onclick="onBtnclass(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											等级标准
+										</div>
+										<div class="aui-list-item-input">
+											<input type="text"  maxlength="200" class="classStand" placeholder="">
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											规格数量
+										</div>
+										<div class="aui-list-item-input">
+											<div class="date-box" style="width:30%;float:left">
+												<input type="number" class="harNumber" placeholder="16">
+											</div>
+											<div class="select-add-arrow" style="width:30%;float:left">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="moleChild" onclick="moleChild(this)"onchange="harvestUnit(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+											<div class="select-add-arrow" style="width:6%;text-align:center;float:left;color:#666;padding:0.45rem 0 0 0.8rem;">
+												/
+											</div>
+											<div class="select-add-arrow" style="width:30%;float:left">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select class="moleParent" onclick="moleParent(this)"onchange="harvestUnit(this)">
+													<option value="">请选择</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="aui-list-item">
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label">
+											采收量
+										</div>
+										<div class="aui-list-item-input">
+											<div class="date-box" style="width:90%;float:left">
+												<input type="number" class="harvestNum" placeholder="">
+											</div>
+											<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">
+												<input  class="harvestUnit"disabled  readonly  type="text" placeholder="" style="text-align:right;">
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer class="aui-bar aui-bar-tab">
+			<div class="aui-card-list-footer aui-border-t footer-btns-center">
+				<div class="fixed-width-btn">
+					<div class="aui-btn aui-btn-green aui-margin-r-10" id="save">
+						保存
+					</div>
+					<div class="aui-btn aui-btn-warning" id="submit">
+						提交
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var id,_moleParent,_moleChild,_equipType;
+		apiready = function() {
+			id = api.pageParam.id;
+			api.parseTapmode();
+//			_equipType = equipType();
+			moleParent(null,null,id);
+			
+//			init(id);
+//			harvesttraeditFrm.configMoule();
+//			harvesttraeditFrm.initModule();
+
+		};
+		function closeWin() {
+			api.closeWin({
+			});
+		}
+	
+		function init(id) {
+			if(id){
+				pds.ajaxSubmit({
+						url : "app/recordworkorder/query_record_worker",
+						data:{id:id},
+						success : function(res) {
+							console.log(JSON.stringify(res))
+							if (res.status == 'ok') {
+								var data = res.data;
+								var farmId = data.farmId;
+								var landId = data.landId;
+								var catalogId = data.catalogId;
+								var categoryId = data.categoryId;
+								var harvestWorkRecordSubrecordList = data.harvestWorkRecordSubrecordList;
+								var harvestWorkRecordTotalList = data.harvestWorkRecordTotalList;
+								var harvestWorkRecordMaterialList = data.harvestWorkRecordMaterialList;
+								var recordWorkerDate = data.recordWorkerDate;
+								recordWorkerDate = recordWorkerDate.substring(0,recordWorkerDate.indexOf(" "));
+								$('#date').val(recordWorkerDate);
+								var timePhase = data.timePhase;
+								$('#dateKind').val(timePhase);
+								
+								
+								
+								harvesttraeditFrm.configMoule();
+								harvesttraeditFrm.initModule(farmId,landId,catalogId,categoryId);
+								if(harvestWorkRecordSubrecordList && harvestWorkRecordSubrecordList.length>0){
+									for(var i=0;i<harvestWorkRecordSubrecordList.length;i++){
+										addMes(harvestWorkRecordSubrecordList[i],i);
+									}
+								}
+								if(harvestWorkRecordMaterialList && harvestWorkRecordMaterialList.length>0){
+									for(var i=0;i<harvestWorkRecordMaterialList.length;i++){
+										addHarvest(harvestWorkRecordMaterialList[i],i);
+									}
+								}
+								
+								if(harvestWorkRecordTotalList && harvestWorkRecordTotalList.length>0){
+									for(var i=0;i<harvestWorkRecordTotalList.length;i++){
+										addTotal(harvestWorkRecordTotalList[i],i,data);
+									}
+								}
+								
+								
+							}
+						}
+					})
+				}else{
+					harvesttraeditFrm.configMoule();
+					harvesttraeditFrm.initModule();
+				}
+		}
+		
+		var harvesttraeditFrm = (function() {
+			//模块内部操作dom的所有方法写在这
+			var domMap, id = null, setDomMap = function() {
+				domMap = {
+					$farm : $api.byId('farm'),
+					$land : $api.byId('land'),
+					$catName : $api.byId('catName'),
+					$categoryName : $api.byId('categoryName'),
+					$clear : $api.byId('clear'),
+					$date : $api.byId('date'),
+					$addMes : $api.byId('addMes'),
+					$addHarvest : $api.byId('addHarvest'),
+					$addTotal : $api.byId('addTotal'),
+					$save : $api.byId('save'),
+					$submit : $api.byId('submit'),
+					
+				}
+				$api.addEvt(domMap.$date, 'click', onBtnDate);
+				$api.addEvt(domMap.$clear, 'click', onBtnClear);
+				$api.addEvt(domMap.$farm, 'change', onBtnland);
+				$api.addEvt(domMap.$farm, 'change', onBtncatName);
+				$api.addEvt(domMap.$catName, 'change', onBtncategoryName);
+				$api.addEvt(domMap.$addMes, 'click', addMes);
+				$api.addEvt(domMap.$addHarvest, 'click', addHarvest);
+				$api.addEvt(domMap.$addTotal, 'click', addTotal);
+				$api.addEvt(domMap.$save, 'click', save);
+				$api.addEvt(domMap.$submit, 'click', submit);
+			}
+			addMes = function(obj,nameIndex) {
+				var str = '';
+				var mesList = $api.byId('addMesList');
+				str += '<div class="aui-list-block"><ul><li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">添加照片</div>';
+				str += '<div class="aui-list-item-input"><div class="square-plus" class="picture" onclick="getPic(this)"><i class="aui-iconfont aui-iconfont-sm aui-icon-plus fw700"></i></div></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">姓名</div>';
+				str += '<div class="aui-list-item-input"><input type="text"  maxlength="20" class="name" placeholder="" value='+(obj?obj.personName:'')+'></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">性别</div>';
+				str += '<div class="aui-list-item-input">';
+				str += '<label><input class="aui-radio" type="radio" value="1"name="demo' + (nameIndex) + '" checked>男</label>';
+				str += '<label><input class="aui-radio" type="radio" value="0"name="demo' + (nameIndex) + '">女</label></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">手机</div>';
+				str += '<div class="aui-list-item-input"><input type="number" class="tel" placeholder="" value='+(obj?obj.phone:'')+'></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">规格数量</div>';
+				str += '<div class="aui-list-item-input"><div class="date-box" style="width:30%;float:left"><input type="number"class="standard" placeholder="16" value='+(obj?obj.standardNumber:'')+'></div>';
+				str += '<div class="select-add-arrow" style="width:30%;float:left"><span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="moleChild" id="moleChild_'+nameIndex+'" onchange="harvestUnit(this)"><option value="">请选择</option>'+_moleChild+'</select></div>';
+				str += '<div class="select-add-arrow" style="width:6%;text-align:center;float:left;color:#666;padding:0.45rem 0 0 0.8rem;">/</div>';
+				str += '<div class="select-add-arrow" style="width:30%;float:right"><span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="moleParent"  id="moleParent_'+nameIndex+'" name="moleParent" onchange="harvestUnit(this)"><option value="">请选择</option>'+_moleParent+'</select></div></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">采收量</div>';
+				str += '<div class="aui-list-item-input"><div class="date-box" style="width:90%;float:left"><input type="number"  placeholder=""class="harvestNum" value='+(obj?obj.harvestNumber:'')+'></div>';
+				str += '<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;"><input class="harvestUnit"disabled readonly type="text" placeholder=""  style="text-align:right;float:left;"></div>';
+				str += '</div></div></li></ul></div>';
+				$api.append(mesList, str);
+				console.log("_moleChild="+_moleChild);
+				if(obj)$(":radio[name='demo"+nameIndex+"'][value='" + obj.sex + "']").prop("checked", "checked");
+				if(obj)$('#moleChild_'+nameIndex).val(obj.unitStandardNumerator);
+				if(obj)$("#moleParent_"+nameIndex).val(obj.unitStandardDenominator);
+				if(obj){
+				console.log($("select[name='moleParent']  option[selected]").text());
+					$(".harvestUnit").val($("select[name='moleParent'] option[selected]").text()); 
+				}
+			}
+			addHarvest = function(obj,index) {
+				var str = '';
+				var addHarvestList = $api.byId('addHarvestList');
+				str += '<div class="aui-list-block"><ul><li class="aui-list-item">';
+				str += '<div class="aui-list-item-inner"><div class="aui-list-item-label" style="width:35%;">设备/物料</div>';
+				str += '<div class="aui-list-item-input"><div class="select-add-arrow" style="width:35%;float:left;">';
+				str += '<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="equipType" id="equipType_'+index+'" ><option value="">请选择</option></select></div>';
+				str += '<div class="select-add-arrow" style="width:35%;float:right;"><span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="equipName" id="equipName_'+index+'"  onclick="equipName(this)"><option value="">请选择</option></select></div></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">数量</div>';
+				str += '<div class="aui-list-item-input"><div class="date-box" style="width:90%;float:left"><input type="number" class="harNum" placeholder=""  value='+(obj?obj.materialNumber:'')+'></div>';
+				str += '<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;"><input disabled type="text" placeholder="" style="text-align:right;"></div></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">单位</div>';
+				str += '<div class="aui-list-item-input"><div class="select-add-arrow"><span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="unit"  id="unit_'+index+'"  onclick="unit(this)"><option value="">请选择</option></select></div></div></div></li></ul></div>';
+				$api.append(addHarvestList, str);
+				if(obj)equipType($('#equipType_'+index)[0],$('#equipName_'+index)[0],obj.resourceType,obj.resourceName,$('#unit_'+index)[0],obj.resourceUnit);
+				
+			}
+			//采收汇总新增
+			addTotal = function(obj,index,data) {
+				var str = '';
+				var totalList = $api.byId('totalList');
+				str += '<div class="aui-list-block"><ul><li class="aui-list-item"><div class="aui-list-item-inner">';
+				str += '<div class="aui-list-item-label">等级</div><div class="aui-list-item-input">';
+				str += '<div class="select-add-arrow"><span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="onClass"  id="onClass_'+index+'"  onclick="onBtnclass(this)"><option value="">请选择</option></select></div></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">等级标准</div>';
+				str += '<div class="aui-list-item-input"><input type="text" class="classStand" maxlength="200" placeholder="" value='+(obj?obj.gradeStandard:'')+'></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">规格数量</div>';
+				str += '<div class="aui-list-item-input"><div class="date-box" style="width:30%;float:left"><input type="number" class="harNumber" placeholder="16" value='+(obj?obj.standardNumber:'')+'></div>';
+				str += '<div class="select-add-arrow" style="width:30%;float:left">';
+				str += '<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="moleChild" id="moleChild_'+index+'"   onclick="moleChild(this)"onchange="harvestUnit(this)"><option value="">请选择</option>'+_moleChild+'</select></div>';
+				str += '<div class="select-add-arrow" style="width:6%;text-align:center;float:left;color:#666;padding:0.45rem 0 0 0.8rem;">/</div>';
+				str += '<div class="select-add-arrow" style="width:30%;float:left"><span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="moleParent" id="moleParent_'+index+'"  onclick="moleParent(this)"onchange="harvestUnit(this)"><option value="">请选择</option>'+_moleParent+'</select></div></div></div></li>';
+				str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-label">采收量</div>';
+				str += '<div class="aui-list-item-input"><div class="date-box" style="width:90%;float:left">';
+				str += '<input type="number" class="harvestNum" placeholder="" value='+(obj?obj.harvestNumber:'')+'></div>';
+				str += '<div class="date-box" style="width:10%;float:right;margin-right: -0.75rem;">';
+				str += '<input  class="harvestUnit"disabled  readonly  type="text" placeholder="" style="text-align:right;">';
+				str += '</div></div></div></li></ul></div>';
+				$api.append(totalList, str);
+				if(obj)$('#moleChild_'+index).val(obj.unitStandardNumerator);
+				if(obj)$("#moleParent_"+index).val(obj.unitStandardDenominator);
+				if(obj)onBtnclass($("#onClass_"+index)[0],obj.grade,data.farmId,data.categoryId);
+			}
+			onBtnClear=function(e){
+			    defaultDate();
+			    $api.val(domMap.$farm,'');
+				$api.val(domMap.$land,'');
+				$api.val(domMap.$catName,'');
+				$api.val(domMap.$categoryName,'');
+				$api.html($api.byId('addMesList'),'');
+				$api.html($api.byId('addHarvestList'),'');
+				$api.html($api.byId('totalList'),'');
+				addMes();
+				addHarvest();
+				addTotal();
+			}
+			//记录页面需要操作的dom
+			//点击选择日期
+			onBtnDate = function(e) {
+				var date = new Date();
+				var data = date.getTime()
+				api.openPicker({
+					type : 'date',
+					date : data,
+					title : '选择时间'
+				}, function(ret, err) {
+					if (ret) {
+						if (ret.month < 10) {
+							ret.month = '0' + ret.month;
+						}
+						if (ret.day < 10) {
+							ret.day = '0' + ret.day;
+						}
+						var val = ret.year + '-' + ret.month + '-' + ret.day;
+						$api.val(domMap.$date, val);
+					} else {
+						//alert(JSON.stringify(err));
+					}
+				});
+			}
+			equipType = function(obj,nameO,val,name,unitObj,unitV) {
+				console.log("equipType="+obj+","+val);
+				$(obj).html('<option value="">请选择</option>');
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_harvest_recource_type",
+					success : function(res) {
+						//alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '" '+(val==data[i].id?'selected':' ')+'>' + data[i].name + '</option>';
+								$api.append(obj, str);
+							}
+							equipName(nameO,name,unitObj,unitV);
+						}
+					}
+				})
+			}
+			equipName = function(obj,val,unitObj,unitV) {
+				if(obj)$(obj).html('<option value="">请选择</option>');
+				var id = obj?$(obj).parent().parent().find('.equipType').val():null;
+//				alert('equipNameid=' + id)
+				
+				pds.ajaxSubmit({
+					url : "app/workorder/getName",
+					data : {
+						'id' : id
+					},
+					success : function(res) {
+						//alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							var data = res.data;
+							console.log("equipName="+val+JSON.stringify(data));
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '" '+(val==data[i].id?'selected':' ')+'>' + data[i].name + '</option>';
+								
+								$api.append(obj, str);
+							}
+							unit(unitObj,unitV);
+						}
+					}
+				})
+			}
+			//基地下拉
+			onBtnfarm = function(farmId,landId,catalogId,categoryId) {
+				$api.html(domMap.$farm, '<option value="">请选择</option>');
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryFarmlist",
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '" '+(farmId==data[i].id?'selected':' ')+'>' + data[i].farmName + '</option>';
+								$api.append(domMap.$farm, str);
+							}
+							if(farmId){
+								onBtnland(landId);
+								onBtncatName(catalogId,categoryId);
+							}
+						}
+					}
+				})
+				if($api.val(domMap.$farm, '')){
+				  $api.html($api.byId('land'), '<option value="">请选择</option>');
+				  $api.html($api.byId('ca'), '<option value="">请选择</option>');
+				}
+				
+			}
+			getPic = function(obj) {
+				api.actionSheet({
+					title : '上传图片',
+					cancelTitle : '取消',
+					buttons : ['拍照', '从手机相册选择']
+				}, function(ret, err) {
+					if (ret) {
+						getPicture(ret.buttonIndex, obj);
+					}
+				});
+			}
+			getPicture = function(sourceType, obj) {
+				if (sourceType == 1) {// 拍照
+					//获取一张图片
+					api.getPicture({
+						sourceType : 'camera',
+						encodingType : 'png',
+						mediaValue : 'pic',
+						allowEdit : false,
+						quality : 90,
+						saveToPhotoAlbum : true
+					}, function(ret, err) {
+						// 获取拍照数据并处理
+						if (ret) {
+//							alert(JSON.stringify(ret))
+							if (ret && ret.data != "") {
+								$(obj).text('上传中...')
+								pds.ajaxSubmit({
+									url : "attach/upload",
+									fileData : {
+										file : ret.data
+									},
+									success : function(e) {
+										if (e) {
+											var data = e.data;
+//											alert(JSON.stringify(data));
+											$(obj).append('<img style="width:90px;height:90px;z-index:9999;"data-id="' + data.id + '"src="' + ret.data + '">')
+										
+										} else {
+											$(obj).text('上传失败...');
+										}
+									},
+									error : function(e) {
+										api.alert({
+											msg : "服务器异常，请联系管理员!!!"
+										});
+									}
+								});
+								////////////////////////////////////////////
+							}
+							//							var imgSrc = ret.data;
+							//							if (imgSrc != "") {
+							//								var ele = $api.dom('#avatar');
+							//								$api.attr(ele, 'src', imgSrc);
+							//							}
+						}
+					});
+				} else if (sourceType == 2) {
+					// 从相机中选择
+					//UIMediaScanner 是一个多媒体扫描器，可扫描系统的图片、视频等多媒体资源
+					var obj = api.require('UIMediaScanner');
+					obj.open({
+						//返回的资源种类,picture（图片）,video（视频）,all（图片和视频）
+						type : 'picture',
+						//（可选项）图片显示的列数，须大于1
+						column : 4,
+						max : 1,
+						//（可选项）图片排序方式,asc（旧->新）,desc（新->旧）
+						sort : {
+							key : 'time',
+							order : 'desc'
+						},
+						//（可选项）模块各部分的文字内容
+						texts : {
+							stateText : '已选择*项',
+							cancelText : '取消',
+							finishText : '完成'
+						},
+						styles : {
+							bg : '#fff',
+							mark : {
+								icon : '',
+								position : 'bottom_right',
+								size : 20
+							},
+							nav : {
+								bg : '#eee',
+								stateColor : '#000',
+								stateSize : 18,
+								cancleBg : 'rgba(0,0,0,0)',
+								cancelColor : '#000',
+								cancelSize : 18,
+								finishBg : 'rgba(0,0,0,0)',
+								finishColor : '#000',
+								finishSize : 18
+							}
+						}
+					}, function(ret) {
+						// 获取图片数据并处理
+						if (ret) {
+//							alert(JSON.stringify(ret))
+							if (ret && ret.list != "") {
+								$(obj).text('上传中...')
+								pds.ajaxSubmit({
+									url : "attach/upload",
+									fileData : {
+										file : ret.list[0].path
+									},
+									success : function(e) {
+										if (e) {
+											var data = e.data;
+//											alert(JSON.stringify(data));
+//											alert(ret.list[0].path)
+											$(obj).html('<img style="width:90px;height:90px;z-index:9999;"data-id="'+data.id+'"src="'+ret.list[0].thumbPath+'">')
+//$(obj).html('<img style="width:90px;height:90px;"data-id="'+data.id+'"src="/storage/emulated/0/DCIM/Camera/p-82ecd070.jpg">')
+										} else {
+											$(obj).text('上传失败...');
+										}
+									},
+									error : function(e) {
+										api.alert({
+											msg : "服务器异常，请联系管理员!!!"
+										});
+									}
+								});
+								////////////////////////////////////////////
+							}
+						}
+					});
+				}
+			}
+			unit = function(obj,val) {
+				$(obj).html('<option value="">请选择</option>');
+				var data = {};
+				var equipTypeId = $(obj).parent().parent().parent().parent().parent().find('.equipType').val();
+				var equipNameId = $(obj).parent().parent().parent().parent().parent().find('.equipName').val();
+				if (equipTypeId == '') {
+					api.alert({
+						msg : "请选择设备/物料种类"
+					});
+					return;
+				}
+				if (equipNameId == '') {
+					api.alert({
+						msg : "请选择设备/物料名称"
+					});
+					return;
+				}
+				data.resPriId = equipTypeId;
+				data.resSubId = equipNameId;
+				pds.ajaxSubmit({
+					url : "app/workorder/findSourceUnit",
+					data : {
+						"data" : JSON.stringify(data)
+					},
+					success : function(res) {
+						//alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							var data = res.data;
+							
+				console.log("unit="+val+JSON.stringify(data));
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '" '+(val==data[i].id?'selected':' ')+'>' + data[i].name + '</option>';
+								$api.append(obj, str);
+							}
+						}
+					}
+				})
+			}
+			//校验手机号
+			checkMobile=function (str) {
+				var re = /^1\d{10}$/
+				if (re.test(str)) {
+					return '1';
+					//成功
+				} else {
+					return '0';
+					//失败
+				}
+			}
+
+			//等级
+			onBtnclass = function(obj,val,fId,cId) {
+				$api.html(obj, '<option value="">请选择</option>');
+				var farmId = $api.val($api.byId('farm'));
+				if (!val && farmId == '') {
+					api.alert({
+						msg : "请选择基地"
+					});
+					return;
+				}else{
+					farmId = fId;
+				}
+				var categoryNameId = $api.val($api.byId('categoryName'));
+				if (!val && categoryNameId == '') {
+					api.alert({
+						msg : "请选择品种"
+					});
+					return;
+				}else{
+					categoryNameId = cId;
+				}
+				var data = {};
+				data.farmId = farmId;
+				data.catId = categoryNameId;
+//				alert(JSON.stringify(data))
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_grade_list",
+					data : {
+						"data" : JSON.stringify(data)
+					},
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+//							alert(JSON.stringify(data))
+							console.log(JSON.stringify(data))
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '" '+(val==data[i].id?'selected':' ')+'>' + data[i].gradeName + '</option>';
+								$api.append(obj, str);
+							}
+						}
+					}
+				})
+			}
+			//地块下拉
+			onBtnland = function(landId) {
+				$api.html($api.byId('land'), '<option value="">请选择</option>');
+				var farmId = $api.val($api.byId('farm'));
+				if (farmId == '') {
+					api.alert({
+						msg : "请选择基地"
+					});
+					return;
+				}
+				pds.ajaxSubmit({
+					url : "app/land/list",
+					data : {
+						'landfarmId' : farmId
+					},
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '"'+(landId==data[i].id?'selected':' ')+'>' + data[i].landName + '</option>';
+								$api.append(domMap.$land, str);
+							}
+						}
+					}
+				})
+			}
+			//品名下拉
+			onBtncatName = function(catalogId,categoryId) {
+				$api.html(domMap.$catName, '<option value="">请选择</option>');
+				var farmId = $api.val($api.byId('farm'));
+				if (farmId == '') {
+					api.alert({
+						msg : "请选择基地"
+					});
+					return;
+				}
+				//alert('farmId=' + farmId)
+				pds.ajaxSubmit({
+					url : "app/farmingdataresource/coprList",
+					data : {
+						'farmId' : farmId
+					},
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							//alert(data.length)
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '"'+(catalogId==data[i].id?'selected':' ')+'>' + data[i].catName + '</option>';
+								$api.append(domMap.$catName, str);
+							}
+							if(categoryId){
+								onBtncategoryName(categoryId);
+							}
+						}
+					}
+				})
+			}
+			//品种下拉
+			onBtncategoryName = function(categoryId) {
+				$api.html(domMap.$categoryName, '<option value="">请选择</option>');
+				var catId = $api.val(domMap.$catName);
+				if (catId == '') {
+					$api.html(domMap.$categoryName, '<option value="">请选择</option>');
+					api.alert({
+						msg : "请选择品名"
+					});
+					return;
+				}
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/getSubCatList",
+					data : {
+						'catId' : catId
+					},
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '"'+(categoryId==data[i].id?'selected':' ')+'>' + data[i].catName + '</option>';
+								$api.append(domMap.$categoryName, str);
+							}
+						}
+					}
+				})
+			}
+			moleChild = function(obj,id) {
+				if(obj)$(obj).html('<option value="">请选择</option>');
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryUnitDicList",
+					success : function(res) {
+						//alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							var data = res.data;
+							var all = '';
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].ruleType == '3') {
+									var str = '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+									all+=str;
+									if(obj)$api.append(obj, str);
+								}
+							}
+//							alert("c"+id)
+							init(id);
+							_moleChild =  all;
+						}
+					}
+				})
+			}
+			moleParent = function(obj,val,id) {
+//			alert(10)
+				if(obj)$(obj).html('<option value="">请选择</option>');
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryUnitDicList",
+					success : function(res) {
+//						alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							var data = res.data;
+							var all = '';
+//							alert("p"+id)
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].ruleType == '4') {
+									var str = '<option value="' + data[i].id + '" '+(data[i].id==val?' selected':'')+'>' + data[i].name + '</option>';
+									all+=str;
+									if(obj)$api.append(obj, str);
+								}
+							}
+//							alert("p"+id)
+							console.log("moleParent="+val+","+all);
+							moleChild(null,id);
+							_moleParent =  all;
+						}
+					}
+				})
+			}
+			//采收量单位
+			harvestUnit = function(obj) {
+				var harvestUnitVal;
+				//值
+				var harvestUnitId;
+				//单位id
+				//分母判断
+				if ($(obj).attr("class") == "moleParent") {
+					//分母id
+					harvestUnitId = $api.val(obj);
+					//harvestUnit对象
+					var $harvestUnit = $(obj).parent().parent().parent().parent().parent().find('.harvestUnit');
+					//分子
+					var $child = $(obj).parent().parent().parent().parent().parent().find('.moleChild');
+					if (harvestUnitId != '') {
+						//保存单位id
+						$harvestUnit.attr("data-id", harvestUnitId);
+						harvestUnitVal = $(obj).find('option:selected').text();
+						$harvestUnit.val(harvestUnitVal);
+					} else {
+						harvestUnitId = $child.val();
+						$harvestUnit.attr("data-id", harvestUnitId);
+						harvestUnitVal = child.find('option:selected').text();
+						$harvestUnit.val(harvestUnitVal);
+					}
+				}
+				//分子
+				if ($(obj).attr("class") == "moleChild") {
+					var $parent = $(obj).parent().parent().parent().parent().parent().find('.moleParent');
+					var $harvestUnit = $(obj).parent().parent().parent().parent().parent().find('.harvestUnit');
+					harvestUnitId = $parent.val();
+					if (harvestUnitId != '') {
+						//保存单位id
+						$harvestUnit.attr("data-id", harvestUnitId);
+						harvestUnitVal = $parent.find('option:selected').text();
+						$harvestUnit.val(harvestUnitVal);
+					} else {
+						harvestUnitId = $api.val(obj);
+						$harvestUnit.attr("data-id", harvestUnitId);
+						harvestUnitVal = $(obj).find('option:selected').text();
+						$harvestUnit.val(harvestUnitVal);
+					}
+				}
+			}
+			defaultDate=function(e){
+//			alert(1);
+			    var date = new Date();
+				var year=date.getFullYear();
+				var month = date.getMonth()+1;
+				var day=date.getDate();
+				var hours=date.toLocaleTimeString().slice(0,2); //"下午12:49:55"
+				if (month < 10) {
+						month = '0' + month;
+				}
+				if (day < 10) {
+						day = '0' + day;
+				}
+				
+						if(hours>11){
+						  $('#dateKind').val(2);
+						}else{
+						  $('#dateKind').val(1);
+						}
+						var val = year + '-' + month + '-' + day;
+						
+						$api.val(domMap.$date, val);
+						
+			}
+			var _saveOrCommit = function(orderStatus) {
+				var data = {
+					id : id,
+					orderStatus : orderStatus
+				};
+				//日期
+				var date = $api.val(domMap.$date);
+				//alert('date=' + date);
+				data.recordWorkerDate = date;
+				//上下午传值
+				var dateKind = $api.val($api.byId('dateKind'));
+				//alert('dateKind=' + dateKind);
+				data.timePhase = dateKind;
+				//基地id
+				var farmId = $api.val(domMap.$farm);
+				//alert('farmId=' + farmId);
+				data.farmId = farmId;
+				//地块id
+				var landId = $api.val(domMap.$land);
+				//alert('landId=' + landId);
+				data.landId = landId;
+				//品名id
+				var catId = $api.val(domMap.$catName);
+				//alert('catId=' + catId);
+				data.catalogId = catId;
+				//品种id
+				var categoryId = $api.val(domMap.$categoryName);
+				//alert('categoryId=' + categoryId);
+				data.categoryId = categoryId;
+				var harvestWorkRecordSubrecordList = [];
+				var addMesLists = $('#addMesList').find('.aui-list-block');
+				var num1=0;//采收记工计算
+				addMesLists.each(function(i) {
+					var obj = {
+						personPic : {}
+					};
+					var picId = $(this).find('img').attr('data-id');
+					obj.personPic.id = picId;
+					var name = $(this).find('.name').val();
+					obj.personName = name;
+					var sex = $(this).find("input[type='radio']:checked").val();
+					obj.sex = sex;
+					var tel = $(this).find('.tel').val();
+					obj.phone = tel;
+					var standard = $(this).find('.standard').val();
+					alert(standard)
+					obj.standardNumber = standard;
+					var moleChild = $(this).find('.moleChild').val();
+					obj.unitStandardNumerator = moleChild
+					var moleParent = $(this).find('.moleParent').val();
+					obj.unitStandardDenominator = moleParent;
+					var harvestNum = $(this).find('.harvestNum').val();
+					obj.harvestNumber = harvestNum;
+					alert(harvestNum)
+					var harvestUnit = $(this).find('.harvestUnit').attr('data-id');
+					num1+= standard * harvestNum;
+					obj.unit = harvestUnit;
+					
+					harvestWorkRecordSubrecordList.push(obj);
+				})
+				var addHarvestList = $('#addHarvestList').find('.aui-list-block');
+				var harvestWorkRecordMaterialList = [];
+				addHarvestList.each(function() {
+					var obj = {};
+					var equipType = $(this).find('.equipType').val();
+					var equipName = $(this).find('.equipName').val();
+					var harNum = $(this).find('.harNum').val();
+					var unit = $(this).find('.unit').val();
+					obj.resourceType = equipType;
+					obj.resourceName = equipType;
+					obj.materialNumber = harNum;
+					obj.resourceUnit = unit;
+					harvestWorkRecordMaterialList.push(obj);
+				})
+				//alert(JSON.stringify(harvestWorkRecordMaterialList))
+				var totalList = $('#totalList').find('.aui-list-block');
+				var harvestWorkRecordTotalList = [];
+				var num2=0;
+				totalList.each(function() {
+					var obj = {};
+					var onClass = $(this).find('.onClass').val();
+					obj.grade = onClass;
+					var classStand = $(this).find('.classStand').val();
+					obj.gradeStandard = classStand;
+					var harNumber = $(this).find('.harNumber').val();
+					obj.standardNumber = harNumber;
+					var moleChild = $(this).find('.moleChild').val();
+					obj.unitStandardNumerator = moleChild;
+					var moleParent = $(this).find('.moleParent').val();
+					obj.unitStandardDenominator = moleParent;
+					var harvestNum = $(this).find('.harvestNum').val();
+					obj.harvestNumber = harvestNum;
+					var harvestUnit = $(this).find('.harvestUnit').attr('data-id');
+					obj.unit = harvestUnit;
+					num2 += harvestNum * harNumber;
+					harvestWorkRecordTotalList.push(obj);
+				})
+				alert(num1)
+				alert(num2)
+				data.harvestWorkRecordSubrecordList = harvestWorkRecordSubrecordList;
+				data.harvestWorkRecordMaterialList = harvestWorkRecordMaterialList;
+				data.harvestWorkRecordTotalList = harvestWorkRecordTotalList;
+				alert(JSON.stringify(data))
+				if (orderStatus == '1' && !validate(data)) {
+					return;
+				}
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/insert_record_worker",
+					data : {
+						data : JSON.stringify(data)
+					},
+					success : function(res) {
+						alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							id = res.data;
+							alert(id)
+						}
+					}
+				})
+			}
+			save = function(e) {
+				_saveOrCommit('0');
+			}
+			validate = function(obj) {
+				// 日期
+				if (obj.recordWorkerDate == '') {
+					api.alert({
+						msg : "日期不能为空"
+					});
+					return false;
+				}
+				if (obj.timePhase == '') {
+					api.alert({
+						msg : "时间不能为空"
+					});
+					return false;
+				}
+				if (obj.farmId == '') {
+					api.alert({
+						msg : "基地不能为空"
+					});
+					return false;
+				}
+				if (obj.landId == '') {
+					api.alert({
+						msg : "地块不能为空"
+					});
+					return false;
+				}
+				if (obj.catalogId == '') {
+					api.alert({
+						msg : "品名不能为空"
+					});
+					return false;
+				}
+				if (obj.categoryId == '') {
+					api.alert({
+						msg : "品种不能为空"
+					});
+					return false;
+				}
+				for (var i = 0, len = obj.harvestWorkRecordSubrecordList.length; i < len; i++) {
+					if (obj.harvestWorkRecordSubrecordList[i].personName == '') {
+						api.alert({
+							msg : "姓名不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].sex == '') {
+						api.alert({
+							msg : "性别不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].phone != '') {
+					    var flag=checkMobile(obj.harvestWorkRecordSubrecordList[i].phone)
+						if(flag=='true'){
+						api.alert({
+							msg : "手机格式不正确"
+						});
+						}
+						return false;
+					}
+					
+					
+					
+					
+					if (obj.harvestWorkRecordSubrecordList[i].standardNumber == '') {
+						api.alert({
+							msg : "规格数量不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].unitStandardNumerator == '') {
+						api.alert({
+							msg : "规格数量分子不能为空"
+						});
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].unitStandardDenominator == '') {
+						api.alert({
+							msg : "规格数量分母不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].harvestNumber == '') {
+						api.alert({
+							msg : "采收量不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].harvestNumber == '') {
+						api.alert({
+							msg : "采收量不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordSubrecordList[i].unit == '') {
+						api.alert({
+							msg : "采收量单位不能为空"
+						});
+						return false;
+					}
+				}
+				for (var i = 0, len = obj.harvestWorkRecordTotalList.length; i < len; i++) {
+					if (obj.harvestWorkRecordTotalList[i].grade == '') {
+						api.alert({
+							msg : "等级不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordTotalList[i].gradeStandard == '') {
+						api.alert({
+							msg : "等级标准不能为空"
+						});
+					}
+					if (obj.harvestWorkRecordTotalList[i].standardNumber == '') {
+						api.alert({
+							msg : "规格数量不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordTotalList[i].unitStandardNumerator == '') {
+						api.alert({
+							msg : "规格数量分子不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordTotalList[i].unitStandardDenominator == '') {
+						api.alert({
+							msg : "规格数量分母不能为空"
+						});
+					}
+					if (obj.harvestWorkRecordTotalList[i].harvestNumber == '') {
+						api.alert({
+							msg : "采收量不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordTotalList[i].harvestNumber == '') {
+						api.alert({
+							msg : "采收量不能为空"
+						});
+						return false;
+					}
+					if (obj.harvestWorkRecordTotalList[i].unit == '') {
+						api.alert({
+							msg : "采收量单位不能为空"
+						});
+						return false;
+					}
+				}
+				return true;
+			}
+			submit = function(e) {
+				_saveOrCommit('1');
+			}
+			//模块的所有公开方法写到这里
+			configMoule = function() {//可以有参数
+//				alert("fun1");
+			}
+			initModule = function(farmId,landId,catalogId,categoryId) {//可以有参数
+				setDomMap();
+				if(!farmId)defaultDate();
+//				alert("farmId"+farmId);
+				onBtnfarm(farmId,landId,catalogId,categoryId);
+			}
+			//-------end 操作方法-----
+			//return 公用函数
+			return {
+				configMoule : configMoule,
+				initModule : initModule
+			}
+		})();
+	</script>
+</html>

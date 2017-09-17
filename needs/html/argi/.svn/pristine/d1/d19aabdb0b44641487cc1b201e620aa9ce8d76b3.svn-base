@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收计划</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+</head>
+
+<body>
+<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4 id="harvestTitle"></h4>
+				</div>
+				<a href="javascript:void(0);" onclick="back();">
+					<span class = "banner-back-btn banner-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+				</a>
+			</div>
+	</div> 
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript">	
+var	pageParms = null;
+var userId = null;
+var flag =  null;
+var pageName = "";
+var pagePath = "";
+apiready = function(){
+	userId = $api.getStorage("userId");
+	pageParms = api.pageParam;
+	flag = pageParms.pageFlag*1;
+	var harvestTitle = "";
+	switch(flag){
+		case 1 :
+			 pageName = "harvest_plan_list"
+			 pagePath = "./harvest_plan/harvest_plan_list.html"
+			 harvestTitle = "采收计划";
+			 break;
+		case 2 :
+			 pageName = "harvest_workorder_list"
+			 pagePath = "./harvest_workorder/harvest_workorder_list.html"
+			 harvestTitle = "采收工单";
+			 break;
+		case 3 :
+			 pageName = "harvest_record_list"
+			 pagePath = "./harvest_record_order/harvest_record_list.html"
+			 harvestTitle = "记工单";
+			 break;
+		case 4 :
+			 pageName = "harvest_transport_list"
+			 pagePath = "./harvest_transport_order/harvest_transport_list.html"
+			 harvestTitle = "运输单";
+			 break;	 
+	}
+	$("#harvestTitle").text(harvestTitle);
+	api.openFrame({
+	    name:pageName,
+	    url: pagePath,
+	    rect: {
+	        x:0,
+	        y:52,
+	        w:'auto',
+	        h:'auto'
+	    },
+	    reload: true
+	});
+}
+
+/*  回退事件 */
+function back(){
+	  api.closeFrame({
+		   name: pageName
+	  });
+	  api.closeWin({
+	  	   name:"harvest_index_frm"
+	  });
+//	  api.execScript({
+//	  	  name:'win_home',
+//	      frameName:'harvest_index',
+//	      script: 'getHarvestMenuList('+userId+');'
+//	  });
+}
+</script>
+</body>
+</html>

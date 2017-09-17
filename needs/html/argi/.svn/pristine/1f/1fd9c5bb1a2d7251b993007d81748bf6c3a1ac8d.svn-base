@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>智能统计</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+ 	<style>
+	 	.content{
+	 		width:100%;
+	 		overflow: hidden;
+	 		padding:1.7rem 0;
+	 		box-sizing:border-box;
+	 	}
+	 	.visit,.card{
+	 		width:3.03rem;
+	 		height:3.03rem;
+	 		margin:0 auto;
+	 	}
+	 	.visit{
+	 		background:url("../../../image/business_img/vist.png")no-repeat center center;
+	 		margin-bottom:0.89rem;
+	 		background-size:100% 100%;
+	 	}
+	 	.card{
+	 		background:url("../../../image/business_img/i_card.png")no-repeat center center;
+	 		background-size:100% 100%;
+	 	
+	 	}
+    </style>
+    
+</head>
+<body>
+
+	<div class="content" id="context">
+		
+		<div class="visit">
+		
+		</div>
+		<div class="card">
+		
+		</div>
+		
+	</div>
+  		
+  		
+<script>
+
+
+
+</script>	
+</html>

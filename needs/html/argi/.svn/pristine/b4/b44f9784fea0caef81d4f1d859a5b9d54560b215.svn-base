@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>市场信息</title>
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <style>
+		.text{
+			display:block;
+			width:6.61rem;
+			height:2.69rem;
+			border:1px solid #acb2af;
+			margin:0 auto;
+			font-size: 0.26rem;
+			color:#dee1d9;
+			padding:0.2rem;
+			box-sizing: border-box;
+		}
+		.btn{
+			display:block;
+			width:6.98rem;
+			height:0.77rem;
+			background:#ef8233;
+			color:#fff;
+			font-size:0.3rem;
+			text-align:center;
+			line-height: 0.77rem;
+			border:none;
+			margin:0 auto;
+			border-radius:0.1rem;
+			margin-top:5rem;
+		}
+		/*textarea提示信息字颜色*/		
+		.text::-webkit-input-placeholder {
+		  color: #dee1d9;
+		}
+		.text:-moz-placeholder {
+		   color: #dee1d9;
+		}
+		.text:-ms-input-placeholder {
+		   color: #dee1d9;
+		}
+	
+	
+    </style>
+</head>
+<body>
+		
+		<div class="content">
+		
+			<textarea class="text" name="text" id="" placeholder="请输入"></textarea>
+			
+			<button class="btn">保存</button>
+			
+		</div>
+	
+<script type="text/javascript" src="../../..//script/api.js"></script>
+<script type="text/javascript" src="../../../script/rem.js"></script>
+</body>
+
+<script>
+
+</script>
+
+
+<script type="text/javascript">
+	apiready = function(){
+	
+	
+		};
+</script>
+</html>

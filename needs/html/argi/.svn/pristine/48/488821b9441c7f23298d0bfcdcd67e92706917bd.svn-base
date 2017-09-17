@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>作物数据采集</title>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+		<style>
+			html {
+				font-family: "Microsoft YaHei";
+			}
+			/*基本信息框*/
+			.information label {
+				height: 32px;
+				padding-left: 10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			/*设置背景颜色的div*/
+			#module {
+				background-color: #E5E5E5;
+				height: 250%;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				line-height: 50px;
+			}
+			/*地块编号*/
+			.code label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			/*天气情况*/
+			.wether label {
+				font-size: 14px;
+				color: #000000;
+			}
+			.wether input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*气温*/
+			.temperature label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.temperature input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*土壤湿度*/
+			.moisture label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.moisture input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*----------------------------------------------------------------*/
+			/*作物情况框*/
+			.situation label {
+				height: 32px;
+				padding-left: 10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			/*株高*/
+			.height label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.height input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*叶片数量*/
+			.numleaf label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.numleaf input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*叶片直径*/
+			.blade label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.blade input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*叶片茎粗*/
+			.thick label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.thick input {
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*病害的文本框*/
+			.disease label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			#div1 {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*虫害*/
+			.pests label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			#div2 {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*草害*/
+			.weeds label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			#div3 {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*其他说明*/
+			.instructions label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.instructions input {
+				height: 40px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*---------------------------------------------------------------------------*/
+			/*照片上传框*/
+			.photos label {
+				height: 32px;
+				padding-left: 10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			/*叶片正面照*/
+			.positive input {
+				background-size: 35px;
+			}
+			/*叶片反面照*/
+			.reverse input {
+				background-size: 35px;
+			}
+			/*生长点照*/
+			.growing input {
+				background-size: 35px;
+			}
+			/*作物全景照*/
+			.panorama input {
+				background-size: 35px;
+			}
+			/*区域全景照*/
+			.regional input {
+				background-size: 35px;
+			}
+			/*注意事项*/
+			.attention label {
+				font-size: 14px;
+				color: #0F0F0F;
+			}
+			.attention input {
+				height: 60px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*--------------------------------------------------------------------*/
+			.btn {
+				margin: 3px 10px;
+			}
+			.btn {
+				background: #00F5FF;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				font-size: 20px;
+				margin-top: 20px;
+				border-radius: 5px;
+			}
+			.btn button {
+				color: #FFFFFF;
+			}
+			#gallery {
+				background-color: #FFFFFF;
+				padding: 10px;
+				width: 100%;
+			}
+			#gallery ul {
+				list-style: none;
+			}
+			#gallery ul li {
+				display: inline;
+			}
+			#gallery ul img {
+				border: 5px solid #3e3e3e;
+				border-width: 5px 5px 20px;
+			}
+			#gallery ul a:hover img {
+				border: 5px solid #fff;
+				border-width: 5px 5px 20px;
+				color: #fff;
+			}
+			#gallery ul a:hover {
+				color: #fff;
+			}
+			.areas {
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			.areas > div {
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+			input, textarea {
+				border: 1px solid #E5E5E5;
+			}
+			input {
+				height: 30px;
+			}
+			textarea {
+				width: 100%;
+				min-height: 80px;
+				margin-top: 8px;
+				box-sizing: border-box;
+			}
+			.areas > div label {
+				color: #c4c4c4;
+				width: 70px;
+				text-align: right;
+			}
+			.btn-submit {
+				width: 80%;
+				height: auto;
+				line-height: 32px;
+				text-align: center;
+				background-color: #66BB6A;
+				color: #fff;
+				font-size: 16px;
+				font-weight: bold;
+				border-radius: 4px;
+				margin: 0px auto 50px;
+				padding-top: 6px;
+				padding-bottom: 6px;
+			}
+			.icon-plus {
+				position: relative;
+				display: inline-block;
+				width: 14px;
+				height: 2px;
+				background-color: #00B841;
+				top: -10px;
+			}
+			.icon-plus:after {
+				display: inline-block;
+				position: absolute;
+				left: 50%;
+				top: -6px;
+				margin-left: -1px;
+				content: "";
+				height: 14px;
+				width: 2px;
+				background-color: #00B841;
+			}
+			.imgbox {
+				display: table-cell;
+				width: 100px;
+				height: 100px;
+				text-align: center;
+				vertical-align: middle;
+				background-color: #fbfbfb;
+				border: 1px solid #ddd;
+			}
+			.imgbox2 {
+				position: relative;
+				display: table-cell;
+				width: 100%;
+				height: auto;
+				text-align: center;
+				vertical-align: middle;
+				border: 1px solid #ddd;
+			}
+			.imgIcon-del {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				display: inline-block;
+				padding-left: 10px;
+				padding-right: 10px;
+				line-height: 30px;
+				color: #fff;
+				background-color: rgba(0, 0, 0, .7);
+				font-style: normal;
+				-moz-border-radius: 4px;
+				-webkit-border-radius: 4px;
+				border-radius: 4px;
+			}
+			.imgbox p {
+				font-size: 14px;
+				color: #ddd;
+				height: 20px;
+				line-height: 20px;
+				clear: both;
+			}
+			.imgbox img, .imgbox2 img {
+				max-width: 100%;
+				max-height: 100%;
+				display: block;
+			}
+			.img-name {
+				font-size: 14px;
+				font-weight: normal;
+				line-height: 32px;
+				color: #c4c4c4;
+			}
+			.img-list {
+				margin-left: -6px;
+				margin-right: -6px;
+			}
+			.img-list li {
+				display: inline-block;
+				padding-left: 6px;
+				padding-right: 6px;
+				margin-bottom: 10px;
+				overflow: hidden;
+			}
+			.img-area {
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+			.hoderMiddle {
+				height: 55px;
+				width: 100%;
+			}
+			.crop {
+				margin-left: 25%;
+			}
+		</style>
+		<script type="text/javascript" src="../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+		<script type="text/javascript" src="../../script/getLoacat.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class='banner fixed '>
+					<span><a href="javascript:void(0);" onclick="back()";><span class="banner-btn banner-back-btn">
+							<input id='return-btn' type='button' name='return' value=''>
+						</span> </a></span>
+					<span class="banner-title crop"> <h4>作物数据采集</h4></span>
+					<span class="banner-title right"onclick="argiData(farmId)"> <h4>农事数据采集</h4> </span>
+				</div>
+				<div class="hoderMiddle"></div>
+				<!--基本信息框-->
+				<div class="information">
+					<div class="basic">
+						<label>基本信息</label>
+					</div>
+				</div>
+				<!--设置背景颜色的div-->
+				<div id="bigdiv">
+					<div class="areas">
+						<!--地块编号-->
+						<div class="code">
+							<label>地块名称:</label>
+							<select  id="landname">
+								<option>请选择</option>
+							</select>
+						</div>
+						<div class="wether">
+							<label>天气情况:</label>
+							<!-- <input id="weather"/> -->
+							<select id="weather">
+								<option value="晴">晴</option>
+								<option value="阴">阴</option>
+								<option value="雨">雨</option>
+								<option value="雪">雪</option>
+							</select>
+						</div>
+						<div class="temperature">
+							<label>气温:</label>
+							<input id="temperature" type="number" onkeyup='this.value=this.value.replace(/\D/gi,"")'/>
+							℃
+						</div>
+						<!--土壤湿度-->
+						<div class="moisture">
+							<label>土壤湿度:</label>
+							<input id="moisture" type="number"/>
+							%
+						</div>
+						<div class="temperature">
+							<label>土壤温度:</label>
+							<input id="soiltemp" type="number" onkeyup='this.value=this.value.replace(/\D/gi,"")'/>
+							℃
+						</div>
+					</div>
+					<!------------------------------------------------------------->
+					<!--作物情况框-->
+					<div>
+						<label>种植作物</label>
+						<select name="" id="productsCrop">
+							<option value="cd12">作物选择</option>
+						</select>
+						<ul class="totalBox"></ul>
+					</div>
+					<div id="div1">
+						<ul id="div12"></ul>
+					</div>
+					<div class="btn-submit" id="submit" tapmode="" disabledflag="1" onclick="save(this)">
+						提交
+					</div>
+					<div class="btn-submit" id="psubmit" tapmode="" disabledflag="1" onclick="closeWin()">
+						返回
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var userId = null;
+			var TaskId = null;
+			var AppFarmlandDetailData = null;
+			var picUpload = false;
+			var map = null;
+			var data = {};
+			data.appFarmOperPic = [];
+			var imageMap = {};
+			var farmId;
+			apiready = function() {
+				farmId = api.pageParam.farmId;
+				getLandName(farmId);
+				getCrop();
+				var db = pds.getDb();
+				TaskId = api.pageParam.id;
+				userId = $api.getStorage("userId");
+				AppFarmlandDetailData = {};
+				AppFarmlandDetailData.appFarmlandPic = [];
+				map = pds.getMap();
+				getlocation();
+			}
+			/*返回*/
+			function back() {
+				api.closeWin();
+			}
+
+			/*获取地块名称*/
+			function getLandName(farmId) {
+				pds.ajaxSubmit({
+					url : "app/farmland/getLandName",
+					data : {
+						landFarmId : farmId
+					},
+					success : function(res) {
+						var el = $api.byId("landname");
+						var data = res.data;
+						for (var i = 0; i < data.length; i++) {
+							var str = '<option  value="' + data[i].landName + '">' + data[i].landName + '</option>';
+							$api.append(el, str);
+						}
+					}
+				})
+			}
+
+			/*作物选择*/
+			var cropsHtml = '';
+			function getCrop() {
+				$('.totalBox').html("");
+				pds.ajaxSubmit({
+					url : "app/farmland/getCatgory",
+					success : function(res) {
+						var data = res.data;
+						for (var i = 0; i < data.length; i++) {
+							cropsHtml += ('<option data-id="' + data[i].id + '" data-val="' + data[i].catName + '">' + data[i].catName + '</option>');
+						}
+						$('#productsCrop').append(cropsHtml);
+						$('#productsCrop').on('change', function(e) {
+							var $catId = $('#productsCrop').find('option:selected').attr('data-id');
+							pds.ajaxSubmit({
+								url : "app/farmland/getLifeCycle",
+								data : {
+									id : $catId
+								},
+								success : function(res) {
+									var dataCat = res.data
+									//alert('dataCat:' + dataCat)
+									var formOtherHtml = '<ul>';
+									dataCat.forEach(function(formOtherItem, formOtherIndex) {
+										if ( formOtherItem instanceof Array) {// 下拉框
+											if (formOtherItem == '') {
+												return;
+											}
+											var conditionHtml = '<li>' + '<label>生长周期</label>' + '<select class="lifeMid">';
+											formOtherItem.forEach(function(conditionItem, conditionIndex) {
+												conditionHtml += '<option data-id="' + conditionIndex + '">' + conditionItem + '</option>';
+											})
+											conditionHtml += '</select>' + '</li>';
+											formOtherHtml += conditionHtml;
+										} else if ( typeof formOtherItem == 'string') {// input输入框
+											formOtherHtml += '<li>' + '<label>' + dataCat[formOtherIndex] + '</label>' + '<input class="count" name="count' + (formOtherIndex + 1) + '">' + '</li>';
+										} else if ( typeof formOtherItem == 'object') {// 图片上传
+											//  alert(formOtherItem)
+											var formOtherItem = formOtherItem.name;
+											formOtherItem.forEach(function(photoItem, photoIndex) {
+												var value = photoIndex + 24;
+												formOtherHtml += '<li><h3 class="img-name">' + photoItem + '</h3><ul class="img-list"><li flag="' + value + '" bledflag="1" onclick="imageUpload(this)"><div class="imgbox"><i class="icon-plus"></i><p>图片上传 </p></div></li></ul></li>';
+											})
+										}
+									})
+									formOtherHtml += '</ul>';
+									$('.totalBox').html(formOtherHtml);
+								}
+							})
+						});
+					}
+				});
+			}
+
+			function save(dom) {
+				var submitFlag = dom.getAttribute("disabledflag");
+				if (submitFlag != 1) {
+					api.alert({
+						msg : "请勿重复提交"
+					});
+					return true;
+				}
+				var $landName = $('#landname').val();
+				//地块名称
+				data.landName = $landName;
+				var $weather = $("#weather").find('option:selected').val();
+				//天气
+				data.weather = $weather;
+				var $temperature = $("#temperature").val();
+				//气温
+				data.temperature = $temperature;
+				var $moisture = $("#moisture").val();
+				//土壤湿度
+				data.moisture = $moisture;
+				var $soiltemp = $("#soiltemp").val();
+				//土壤温度
+				data.soilTemp = $soiltemp;
+				var $productsCrop = $('#productsCrop').find('option:selected').attr('data-id');
+				//作物id
+				data.catId = $productsCrop;
+				var $lifeMid = $('.lifeMid').val();
+				//生命周期
+				data.cycleGrowth = $lifeMid;
+				var $crops = $('.count');
+				$crops.each(function() {
+					data[$(this).attr("name")] = $(this).val();
+				});
+				//alert(JSON.stringify(data));
+				if (imageMap) {
+					for (var flag in imageMap) {
+						data.appFarmOperPic.push(imageMap[flag]);
+					}
+				}
+				pds.ajaxSubmit({
+					url : "app/farmland/saveFarmOpration",
+					data : {
+						"data" : JSON.stringify(data)
+					},
+					success : function(result) {
+					api.alert({
+						msg : "保存成功"
+					});
+						
+						api.openFrame({
+							name : 'farming_handled_data',
+							url : '../newtask/farming_handled_data.html',
+							pageParam : {
+								"farmId" : farmId
+							}
+						});
+					}
+				});
+			}
+
+			//进入 农事数据采集页面
+			function argiData(farmId) {
+				api.openFrame({
+					name : 'farming_data',
+					url : '../newtask/farming_data.html',
+					pageParam : {
+						"farmId" : farmId
+					},
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+			//返回
+			$('#psubmit').click(function() {
+				pds.foward("${ctx}/html/frm_field_taskListMap");
+			})
+			function getlocation() {
+				pds.ajaxSubmit({
+					url : "app/farmland/find/pushtype",
+					data : {
+						'userId' : userId
+					},
+					success : function(e) {
+						if (e.data == 1) {
+							pds.getLocat();
+						}
+					},
+					error : function(e) {
+						api.alert({
+						msg : "服务器异常，请联系管理员!!!"
+					});
+				
+				}
+				});
+			}
+
+			//点击上传照片的方法
+			function imageUpload(dom) {
+				var Flag = dom.getAttribute("flag");
+				api.getPicture({
+					sourceType : 'camera', //从照相机获取
+					encodingType : 'jpg', //格式
+					mediaValue : 'pic', //视频格式
+					destinationType : 'url', //
+					allowEdit : true,
+					quality : 10,
+					saveToPhotoAlbum : false
+				}, function(re, err) {
+					if (re && re.data != "") {
+						var $ul = $(dom).closest("ul");
+						$(dom).html("上传中...");
+						pds.ajaxSubmit({
+							url : "attach/upload",
+							fileData : {
+								file : re.data
+							},
+							success : function(e) {
+								if (e) {
+									var data = e.data;
+									data.fileBizType = Flag;
+									data.fileBizPk = TaskId;
+									imageMap[Flag] = data;
+									$(dom).remove();
+									$ul.append('<li onclick="imageUpload(this)" class="farmImag"><div class="imgbox2"><img src="' + re.data + '"></div><li>');
+									//									if ($("img").length >= 15) {
+									//										$("#submit").show();
+									//									} else {
+									//										$("#submit").hide();
+									//									}
+								} else {
+									$(dom).html("上传失败...");
+								}
+							},
+							error : function(e) {
+								api.alert({
+						msg : "服务器异常，请联系管理员!!!"
+					});
+							}
+						});
+						////////////////////////////////////////////
+					}
+					else {
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

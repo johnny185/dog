@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>打卡首页</title>
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <script type="text/javascript" src="../../../script/remote.config.js"></script>
+    <style>
+  		.map{
+  			width:100%;
+  			height:3.29rem;
+  			background:#ddd;
+		}
+		.detail{
+			width:100%;
+			height:auto;
+			overflow: hidden;
+			background:#fdfcfc;
+			padding-top:0.28rem;
+			box-sizing: border-box;
+		}
+		.position{
+			width:6.87rem;
+			line-height:0.58rem;
+			background:#f6fdf8;
+			border:1px solid #00c558;
+			color:#6b6865;
+			margin:0 auto;
+			margin-bottom:0.35rem;
+			font-size:0.3rem;
+			padding-left:0.25rem;
+			box-sizing:border-box;
+		}
+		.img{
+			width:3.11rem;
+			height:3.11rem;
+			margin:0 auto;
+			margin-bottom:0.28rem;
+			background:url("../../../image/business_img/card.png");
+			background-size:100% 100%;
+			font-size:0.4rem;
+			color:#fff;
+			text-align:center;
+			padding:1.25rem 0;
+			box-sizing:border-box;
+		}
+		.number{
+			font-weight:normal;
+			font-size: 0.4rem;
+			padding:0;
+		}
+		.remarks{
+			display:block;
+			resize:none;
+			width:6.59rem;
+			height:1.44rem;
+			background-color:#fff;
+			color:#c6bfbf;
+			margin: 0 auto;
+			border:1px solid #c6bfbf;
+			font-size:0.28rem;
+			line-height:0.46rem;
+			padding:0.05rem 0.13rem;
+			box-sizing:border-box;
+		}
+		.picture{
+			width:6.59rem;
+			height:0.76rem;
+			margin:0.18rem auto;
+		}
+		.pic_btn{
+			display:block;
+			width:0.76rem;
+			height:0.76rem;
+			background:url("../../../image/business_img/picture.png");
+			background-size:100% 100%;
+		}	
+		.add_img{
+			width:6.59rem;
+			height:1.8rem;
+			overflow:hidden;
+			margin:0.18rem auto;
+			font-size: 0.2rem;
+			color:red;
+			position:relative;
+		}
+		.add_img img{
+			width:1.8rem;
+			height:1.8rem;
+		}
+		.add_img .address{
+			position:absolute;
+			top: 0;
+			left:0;
+			z-index: 100;
+			width:1.8rem;
+			height:1.8rem;
+			/*padding-left:0.15rem;*/
+			padding-top:0.9rem;
+			box-sizing: border-box;
+		}
+		.add_img .address span{
+			display: inline-block;
+		}
+		.add_img .delete{
+			width:0.4rem;
+			height:0.4rem;
+			line-height:0.35rem;
+			text-align:center;
+			font-weight:bold;
+			font-size:0.4rem;
+			position:absolute;
+			top:0;
+			left:1.6rem;
+			color:#fff;
+			border-radius:50%;
+			background:red;
+			z-index: 112;
+		}
+		
+			
+    </style>
+</head>
+<body>
+		<div class="content">
+			<!--地图-->		
+			<div class="map" id="map"></div>
+			
+			<!--内容区域-->		
+		    <div class="detail">
+		    
+				<!--目前位置-->	    	
+		     	<div class="position" id="position"></div>
+		     	
+				<!--打卡时间-->	     	
+		     	<div class="img" id="save">
+		     	    <!--第几次打卡-->	
+		     		<div class="top_text">第<b class="number" id="number"></b>次打卡</div>
+					<!--时间-->	     		
+		     		<span class="time"id="time"></span>
+		     	</div>
+		     	
+				<!--备注-->
+				<textarea name="remarks" id="remarks" class="remarks" placeholder="备注"></textarea>	     	
+		        
+				<!--拍照-->	 
+				<div class="picture" id="picture">
+				    <a class="pic_btn" href="javascript:;"></a>
+				
+				</div>   
+				<!--照片位置-->				
+				<div class="add_img" id="addImg"  style="display: none;">
+					<img src="../../../image/business_img/picture.png" alt="" />
+					<div class="address" id="address" style="display: none;" >
+						<div class="location"  id="location">北京市</div>
+						<div>经度：<span class="longitude" id="longitude"></span></div>
+						<div>纬度：<span class="latitude"  id="latitude"></span></div>
+					</div>
+				    <a class="delete" id="delPic" href="javascript:;" style="display: none;">-</a>
+				</div>    
+		    </div>
+		</div>
+<script type="text/javascript" src="../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../../script/getLoacat.js"></script>
+</body>
+
+<script type="text/javascript">
+	var script = document.createElement('script')
+	script.src = "clock_frm.js?ver="+(Date.now() / 1000 | 0)
+	document.body.appendChild(script)
+</script>
+</html>

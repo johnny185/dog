@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="hearWeather-List">
+    <ul class="hearWeather">
+        <li><span>星期四6月29日</span></li>
+        <li>空气质量:<span>优</span></li>
+        <li><span>西北风5级</span></li>
+    </ul>
+    <ul class="hearWeather">
+        <li><span class="centigrade">37°</span></li>
+    </ul>
+    <div class="hearWeather hearBox">
+        <div class="thermometer">
+        <img src="http://appimg.showapi.com/images/weather/icon/day/03.png
+" alt="温度计">
+        </div>
+        <div class="runing">雷阵雨</div>
+    </div>
+</div>
+
+<!--天气日期页-->
+<div class="sideMiddle">
+    <ul class="weather ">
+        <li class="dailyData">
+            <ul class="daily">
+                <li><img src="http://appimg.showapi.com/images/weather/icon/day/03.png" alt=""></li>
+                <li>37°/24°</li>
+                <li>周五</li>
+                </li>
+            </ul>
+
+        <li class=" dailyData">
+            <ul class="daily">
+                <li><img src="http://appimg.showapi.com/images/weather/icon/day/03.png" alt=""></li>
+                <li>37°/23°</li>
+                <li>周六</li>
+            </ul>
+
+        </li>
+        <li class=" dailyData">
+            <ul class="daily">
+                <li><img src="http://appimg.showapi.com/images/weather/icon/day/03.png" alt=""></li>
+                <li>35°/23°</li>
+                <li>周日</li>
+            </ul>
+
+        </li>
+        <li class="dailyData">
+            <ul class="daily daily1">
+                <li><img src="http://appimg.showapi.com/images/weather/icon/day/03.png" alt=""></li>
+                <li>36°/23°</li>
+                <li>周一</li>
+            </ul>
+
+    </ul>
+</div>
+    <div id="banner" class="banner">
+        <div class="bannerInner">
+
+        </div>
+        <ul class="focusList">
+
+        </ul>
+        <a  class="left" href="javascript:void 0"></a>
+        <a class="right" href="javascript:void 0"></a>
+    </div>
+
+</body>
+</html>
+<script src="js/utils2.0.js"></script>
+<script src="js/animate_easy.js"></script>
+<!--
+<script src="js/index.js"></script>-->
+<script src="js/bannerClass.js"></script>
+<script>
+    var banner = document.getElementById('banner');
+
+    new Banner(banner,'data.txt',3000);
+
+
+</script>

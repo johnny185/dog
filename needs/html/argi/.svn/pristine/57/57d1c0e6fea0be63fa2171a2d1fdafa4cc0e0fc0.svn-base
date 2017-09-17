@@ -1,0 +1,149 @@
+body.body-bg-white{background-color:#fff;}
+/*导航栏*/
+.aui-bar-gray {
+	color: #666666;
+	background-color: #f0f0f0;
+	border-bottom: 1px solid #d3d3d3;
+}
+.aui-bar-nav.aui-bar-gray .aui-iconfont{color: #666666;}
+
+/* btn*/
+.aui-btn-green {
+	color: #ffffff;
+	background-color: #47b84c;
+}
+.aui-btn-green.aui-active, .aui-btn-green:active {
+	color: #fff;
+	background-color: #00897b;
+}
+
+.aui-btn-warning {
+	color: #ffffff !important;
+	background-color: #ff7a00 !important;
+}
+.aui-btn-warning.aui-active, .aui-btn-warning:active {
+	color: #ffffff !important;
+	background-color: #ffb300 !important;
+}
+.aui-btn-green.aui-btn-outlined {
+	color: #47b84c !important;
+	border: 1px solid #47b84c !important;
+}
+.square-plus{
+	border:solid 1px #47b84c;
+	display:block;
+	padding:0 2px;
+	width:20px;
+	height:20px;
+	text-align:center;
+}
+.aui-list .aui-list-item .square-plus i.aui-iconfont{position:relative;top:-3px;font-size:0.55rem;color:#47b84c;}
+.fixed-width-btn .aui-btn{min-width:120px; padding-top: 0.5rem;padding-bottom: 0.5rem;}
+
+
+/*采收工单列表*/
+
+
+/*列表
+ *
+ * aui-list  列表扩展*/
+
+.aui-list.aui-list-options{background-color:transparent}
+.aui-list-options-label{
+	position:absolute;
+	left:12px;
+	top:50%;
+	margin-top:-10px;
+}
+.footer-options-label .aui-list-options-label{text-align:left;font-size:0.8rem;min-width:80px;}
+.footer-options-label .aui-list-options-label > input{margin-right:5px;}
+.aui-list .aui-list-block .aui-list-item-title,
+.aui-list .aui-list-block .aui-list-item-right{
+	color:#999999;
+}
+.aui-list .aui-list-block .aui-list-item-right{
+	font-size: 0.8rem;
+}
+.aui-list-block{
+	margin:20px 20px 20px 50px;
+	box-shadow:0 0 16px 0 rgba(204,227,207,.7);
+}
+.aui-list-nooptions .aui-list-block{margin:0 0.75rem;}
+
+
+
+/*单选、多选、开关*/
+.aui-radio,
+.aui-checkbox {
+	border: solid 1px #d1d0d0;
+}
+.aui-radio:checked, .aui-radio.aui-checked, .aui-checkbox:checked, .aui-checkbox.aui-checked{
+	background-color: #47b84c;
+    border: solid 1px #47b84c;
+}
+
+
+.aui-bar-nav .aui-btn,
+.aui-bar-nav .aui-title{
+	margin-top:-24px;
+}
+
+
+
+/*图标字体*/
+.aui-card-list-footer .aui-iconfont-sm{font-size:0.7rem;}
+
+/*表单*/
+.date-box,
+.select-add-arrow{position:relative;}
+.add-arrow-layer{
+	position: absolute;
+	right:-0.75rem;
+	top:0.45rem;
+	display: inline-block;
+}
+.aui-list .aui-list-item .add-arrow-layer i.aui-iconfont{
+	color:#aaaca9;
+	font-size:0.6rem;
+	font-weight:700;
+}
+.aui-list-item-input select,
+.aui-list .aui-list-item-label{color:#666;}
+.aui-list-item-input > input{padding-left:4px;}
+
+.aui-list .aui-list-item-label.width-auto{width:auto;padding-right:10px;}
+
+/*图片icon*/
+.date-box .position{position:absolute;right:5px; top:0.6rem;}
+.img-icon{
+	display:block;
+	width:16px;
+	height:16px;
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:100%;
+	background-clip: content-box;
+}
+.img-icon-time{background-image:url("../../res/image/icon/data-time-icon.png")}
+.img-icon-work{background-image:url("../../res/image/icon/header-icon.png")}
+.img-icon-materials{background-image:url("../../res/image/icon/materials-icon.png")}
+.img-icon-summary{background-image:url("../../res/image/icon/summary-icon.png")}
+
+
+.aui-list-item.aui-card-header{
+	border-top:solid 1px #d9dad9;
+	border-bottom:solid 1px #d9dad9;
+	margin-top:1rem;
+}
+.aui-list .aui-card-header .aui-list-item-label-icon{min-width: 1rem;padding-right:0.45rem;}
+.aui-list .aui-card-header .aui-list-item-title{color:#7b7777;}
+
+.fw700{font-weight:700;}
+
+.footer-btns-center{
+	justify-content:center;
+}
+
+.aui-card-header.card-border-t{border-top:solid 10px #f5f6f5;}
+
+.aui-list .aui-list-item-media.media-sm-ico {width:2rem}

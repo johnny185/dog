@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>通知公告</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <style>
+    	*{
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+            overflow-y: auto;
+            background-color: #f2f2f2;
+            /*padding-top: 0.88rem;*/
+        }
+        
+        /*#top{
+            width: 100%;
+            height: 0.46rem;
+            background: #00c558;
+            margin-bottom: 0.82rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }*/
+        /*header{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height:0.88rem;
+            background: #00c558;
+            z-index: 99;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.88rem;
+            line-height: 0.88rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{*/
+           /* display: inline-block;
+            position: absolute;
+            left: 0.25rem;
+            bottom: 0.28rem;
+            width: 0.16rem;
+            height: 0.28rem;
+            background-image: url(../../../image/harvest_back.png);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat; */
+           /*display: inline-block;
+			position: absolute;
+			left: 13px;
+			bottom: 14px;
+			width: 12px;
+			height: 19px;
+			background-image: url(../../../image/harvest_back.png);
+			background-position: center;
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+        }*/
+        #wrapper{
+            width:100%;
+            padding-bottom: 1.94rem;
+        }
+        #wrapper .scroller,#wrapper .scroller>ul,#wrapper .scroller>ul>li{
+            width:100%;
+        }
+        #wrapper .scroller ul>li .noticeTime{
+            width: 100%;
+            padding: 0.2rem 0;
+            text-align: center;
+            background:#f2f2f2;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #717475;
+        }
+        #wrapper .scroller ul>li .noticeContent{
+            width: 100%;
+            padding: 0 0.27rem;
+            background: #fff;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeTitle{
+            width: 100%;
+            padding: 0.2rem 0;
+            font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #ef8233;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeWords{
+            width: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeWords p{
+            width: 4.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #8c8986;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeWords div{
+            width: 1.1rem;
+            font-size: 0.2rem;font-family: PingFangSC-Regular, sans-serif;color: #8c8986;
+
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeWords div span:last-of-type{
+            position:relative;
+            top:-0.02rem;
+            /*left:-0.05rem;*/
+            width:0.2rem;
+            height:0.2rem;
+            background-image: url(../../../image/home_transferInfo_more.png);
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeImg{
+            width:100%;
+            height: 3.15rem;
+            padding: 0.25rem 0;
+        }
+        #wrapper .scroller ul>li .noticeContent .noticeImg img{
+            height:100%;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+	<!--<div id="top"></div>-->
+    <!--<header id="header">        
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+                                   通知公告
+        </div>
+    </header>-->
+
+
+    <div id="wrapper"> 
+        <div class="scroller">
+            <ul>
+                <li>
+                   <div class="noticeTime">8月8日  10:00</div>
+                   <div class="noticeContent"  onclick="openNoticeInfo()">
+                       <div class="noticeTitle">号外！号外！慧种地重装上阵啦~~</div>
+                       <div class="noticeWords" >
+                           <p>8月8日，今天是个好日子！心想的事儿心想的事儿心想的事儿心想的事儿</p>
+                           <div><span>查看详情</span><span></span></div>
+                       </div>
+                       <div class="noticeImg"><img src="../../../image/home_notice_img1_03.png"/></div>
+                   </div>
+                </li>
+               <!-- <li>
+                    <div class="noticeTime">8月8日  10:00</div>
+                   <div class="noticeContent">
+                       <div class="noticeTitle">号外！号外！慧种地重装上阵啦~~</div>
+                       <div class="noticeWords">
+                           <p>8月8日，今天是个好日子！心想的事儿心想的事儿心想的事儿心想的事儿</p>
+                           <div><span>查看详情</span><span></span></div>
+                       </div>
+                       <div class="noticeImg"><img src="../../../image/home_notice_img1_03.png"/></div>
+                   </div>
+                </li>-->
+            </ul>
+            
+           <!--  <div class="more"><i class="pull_icon"></i><span style="font-size: 0.26rem;font-family: PingFangSC-Regular, sans-serif;color: #747474;">上拉加载...</span></div> -->
+            
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+
+<script type="text/javascript" src="../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+//		var header=$api.byId("header");
+//		$api.fixStatusBar(header);
+//		var headerH=$api.offset(header).h;
+//		alert(headerH);
+	};
+
+//打开公告详情页面***************************************************
+function openNoticeInfo(){
+	$api.openWin({
+		name : "home_notice_more_info",
+		url : "widget://html/home/noticeMore/home_notice_more_info.html",
+		reload : true,
+		selecteIndex : '3',
+		slidBackEnabled : false,
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+};
+
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+</script>
+</html>

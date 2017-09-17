@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../../res/css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/themes/aui-theme-style1.css"/>
+		<style>
+		  #headshot{
+		   width:4rem;
+		   padding:0 !important;
+		   height: 5.2rem;
+		   text-align: center;
+		   line-height: 5.2rem;
+		   margin-top:10px;
+		   margin-right:0.5rem;
+		  }
+		   #headshot i{
+		    width:100%;
+		    height:100%;
+		    font-size:26px;
+		    color: #20c714;
+		   }
+		  #headshot img{
+		    width:100%;
+		    height:100%;
+		   }
+		</style>
+	</head>
+	<body class="body-bg-white">
+		<header class="aui-bar aui-bar-nav aui-bar-green" id="aui-header">
+			<a class="aui-pull-left aui-btn" tapmode onclick="closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title">
+				记工单
+			</div>
+			<a class="aui-pull-right aui-btn"> <button class="aui-btn" id="save">保存</button><!--<span id="save">保存</span>--> </a>
+		</header>
+		<section class="aui-content" style="margin-bottom:3.2rem;">
+			<div class="top-slogan">
+				<img src="../../../res/image/banner-img.png" alt="" />
+			</div>
+			<section class="aui-content-padded aui-content-margin5" style="margin-top: -2rem">
+				<div class="aui-list aui-collapse aui-content-radius" style="padding-top:1.5rem;padding-bottom: 0.5rem">
+					<!--基础信息-->
+					<div class="aui-collapse-item">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-title">
+								<span class="item-title-inner">基础信息</span>
+							</div>
+							<div class="aui-list-item-right aui-collapse-header aui-active">
+								<span class="aui-btn aui-btn-green-gray aui-active"> <i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i> 点我收起 </span>
+							</div>
+						</div>
+						<div class="aui-collapse-content aui-padded-10 aui-show">
+							<ul class="aui-list-item-wrap">
+								<li>
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label width-auto">
+											基地
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select id="farmName">
+													<option value="">请选择基地名称</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label width-auto">
+											地块
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select id="landName">
+													<option value="">请选择地块名称</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label width-auto">
+											品名
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select id="catName">
+													<option value="">请选择作物品名</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="aui-list-item-inner">
+										<div class="aui-list-item-label width-auto">
+											品种
+										</div>
+										<div class="aui-list-item-input">
+											<div class="select-add-arrow">
+												<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>
+												<select id="categoryName">
+													<option value="">请选择作物品种</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--工人信息-->
+					<div class="aui-collapse-item">
+						<div class="aui-list-item-inner" style="">
+							<div class="aui-list-item-title">
+								<span class="item-title-inner">工人信息</span>
+							</div>
+						</div>
+						<div class="aui-list-content-ctp">
+							<ul class="aui-list-item-wrap">
+								<li class="" style="display: block;">
+									<div class="aui-media-list-item-inner" style="position: relative">
+										<!--工人图片-->
+										<div class="aui-list-item-media" id="headshot">
+										        <i class="aui-iconfont aui-icon-plus"></i>
+												<!--<img src="../../../image/pic1.png">-->
+										</div>
+										<div id="delPic">
+											<i class="aui-iconfont aui-icon-close"></i>
+										</div>
+										<!--工人信息表单S-->
+										<div class="aui-list-item-inner" style="display: block;">
+											<div class="aui-list-item-text">
+												<div class="aui-list-item-inner">
+													<div class="aui-list-item-label width-auto">
+														姓名
+													</div>
+													<div class="aui-list-item-input">
+														<input id="name" maxlength="20" type="text" class="aui-input-sm" placeholder="请输入姓名">
+													</div>
+													<div class="aui-list-item-label width-auto">
+														性别
+													</div>
+													<div class="aui-list-item-input">
+														<label>
+															<input class="aui-radio aui-radio-sm" type="radio" name="sex" value="1"checked>
+															男 </label>
+														<label>
+															<input class="aui-radio aui-radio-sm" type="radio" name="sex" value="0">
+															女 </label>
+													</div>
+												</div>
+											</div>
+											<div class="aui-list-item-text">
+												<div class="aui-list-item-inner">
+													<div class="aui-list-item-label width-auto">
+														人工
+													</div>
+													<div class="aui-list-item-input">
+														<label>
+															<input class="aui-radio aui-radio-sm" type="radio" name="work"value="1" checked>
+															包工 </label>
+														<label>
+															<input class="aui-radio aui-radio-sm" type="radio" name="work"value="2">
+															日工 </label>
+													</div>
+													<div class="aui-list-item-input aui-list-item-input-sm">
+														<div class="select-add-arrow">
+															<input id="cost" value="" style="font-size: 0.6rem;"class="aui-input-sm" readonly  type="text" placeholder="">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="aui-list-item-text">
+												<div class="aui-list-item-inner">
+													<div class="aui-list-item-label width-auto">
+														手机号
+													</div>
+													<div class="aui-list-item-input">
+														<input id="phone" maxlength="11" class="aui-input-sm" type="number" placeholder="请输入手机号">
+													</div>
+												</div>
+											</div>
+										</div><!--工人信息表单E-->
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--记工信息-->
+					<div class="aui-collapse-item">
+						<div class="aui-list-item-inner aui-active">
+							<div class="aui-list-item-title">
+								<span class="item-title-inner">记工信息</span>
+							</div>
+							<div class="aui-list-item-right">
+								<span id="gradeCheck" class="aui-text-warning">作物等级划分查看</span>
+							</div>
+						</div>
+						<div class="aui-active text-right aui-btns-group">
+							<span id="addRecord" class="aui-btn aui-btn-green-gray">新增记工</span>
+							<span id="history" class="aui-btn aui-btn-green-gray">我都记了啥</span>
+							<span class="aui-btn aui-btn-green-gray aui-collapse-header aui-active"><i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i><span class="info-text">点我收起</span></span>
+							<!--提示-->
+							<div class="bright-tips text-left">
+								<i class="bright-tips-icon"></i><span class="bright-tips-info">小贴士：多记工怎么办？可新增记工明细录入负数来解决哦~</span>
+							</div>
+
+						</div>
+						<div class="aui-collapse-content aui-padded-10 aui-show">
+							
+
+							<div id="hisList"></div>
+
+							<div id="addList"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</section>
+	</body>
+	<!--<script type="text/javascript" src="../../../res/script/api.js"></script>-->
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../res/script/aui-collapse.js" ></script>
+	<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+	<!--<script type="text/javascript" src="hammer.js"></script>-->
+	<script type="text/javascript" src="validatorjs.min.js"></script>
+	
+	<script type="text/javascript">
+		var id;
+		var mainId;
+		var workerId;
+	//分母不必填	
+		apiready = function() {
+			api.parseTapmode();
+			id = api.pageParam.id;
+			init(id);
+//			harvesttraeditFrm.configMoule();
+//			harvesttraeditFrm.initModule();
+		}
+		var collapse = new auiCollapse({
+			autoHide : false //是否自动隐藏已经展开的容器
+		});
+		function closeWin(){
+//		  api.closeWin({
+//				});
+         $api.openWin({
+					name : "list_win",
+					url : "widget://html/harvt/jobsheet/list_win.html",
+					reload : true,
+					selecteIndex : '3',
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+		}
+		function init(id) {
+			if(id){
+				pds.ajaxSubmit({
+						url : "app/recordworkorder/query_work_order_sheet",
+						data:{'workerId':id},
+						success : function(res) {
+							//console.log(JSON.stringify(res))
+							if (res.status == 'ok') {
+								var data = res.data;
+								mainId = data.id;
+								workerId = data.harvestWorkerVo.id;
+								var farmId = data.farmId;
+								var landId = data.landId;
+								var catalogId = data.catalogId;
+								var categoryId = data.categoryId;
+								var cost = data.cost;
+								$('#cost').val(cost);
+								var workerType = data.workerType;
+								$("input:radio[name='work'][value="+workerType+"]").attr("checked","checked");
+							
+								harvesttraeditFrm.configMoule();
+					            harvesttraeditFrm.initModule(farmId,landId,catalogId,categoryId);
+					           //处理未报功场景
+					                 $('#name').attr('readonly','true');
+				           			 $('#phone').attr('readonly','true');
+				           			$("input:radio[name='sex']").attr('disabled','disabled');
+				           			$("input:radio[name='work']").attr('disabled','disabled');
+					           var name=data.harvestWorkerVo.name;
+					           $('#name').val(name);
+					            var phone=data.harvestWorkerVo.phone;
+					           $('#phone').val(phone);
+					            var sex=data.harvestWorkerVo.sex;
+					          $("input:radio[name='sex'][value="+sex+"]").attr("checked","checked");
+							  var url=null;
+					            var baseUrl = pds.defaultUri;
+					            url = baseUrl.substring(0,baseUrl.length-1);
+					            if(data.harvestWorkerVo.basFile!=null){
+								   $("#headshot").html("<img src='"+url+"/attach/view/"+data.harvestWorkerVo.basFile.id+"' data-id='"+ data.harvestWorkerVo.basFile.id+"'/>");
+								
+								}
+				           		if(data.orderStatus==0){
+				           			//disable
+				           			 $('#farmName').attr('disabled','disabled');
+				           			$('#landName').attr('disabled','disabled');
+				           			 $('#catName').attr('disabled','disabled');
+				           			 $('#categoryName').attr('disabled','disabled');
+//				           			 $('#name').attr('readonly','true');
+//				           			 $('#phone').attr('readonly','true');
+//				           			// $api.byId('cost').attr('readonly','true');
+//				           			$("input:radio[name='sex']").attr('disabled','disabled');
+//				           			$("input:radio[name='work']").attr('disabled','disabled');
+				           			 // 展示未报功记录
+				           			 var harvestWorkRecordList = data.harvestWorkRecordList;
+				           			 if(harvestWorkRecordList){
+				           			 	for(var x=0;x<harvestWorkRecordList.length;x++){
+				           			 		addEditRecord(harvestWorkRecordList[x]);
+				           			 	}
+				           			 }
+				           		}
+					          
+							}
+						}
+					})
+					
+				}else{
+					harvesttraeditFrm.configMoule();
+					harvesttraeditFrm.initModule();
+				}
+		}
+		
+		var harvesttraeditFrm = (function() {
+			//模块内部操作dom的所有方法写在这
+			setDomMap = function() {
+				domMap = {
+					$farmName : $api.byId('farmName'),
+					$landName : $api.byId('landName'),
+					$catName : $api.byId('catName'),
+					$categoryName : $api.byId('categoryName'),
+					$name : $api.byId('name'),
+					$phone : $api.byId('phone'),
+					$cost : $api.byId('cost'),
+					$headshot : $api.byId('headshot'),
+					$addRecord : $api.byId('addRecord'),
+					$save : $api.byId('save'),
+					$gradeCheck : $api.byId('gradeCheck'),
+					$history : $api.byId('history'),
+					
+				}
+				//dom操作
+				if (domMap.$farmName != "") {
+					$api.addEvt(domMap.$farmName, 'change', onBtnland);
+					$api.addEvt(domMap.$farmName, 'change', onBtncatName);
+					$api.addEvt(domMap.$farmName, 'change', onBtnCost);
+					$("input:radio[name='sex']").change(function() {
+						onBtnCost();
+					});
+					$("input:radio[name='work']").change(function() {
+						onBtnCost();
+					});
+					$api.addEvt(domMap.$farmName, 'change', getNewGrade);
+				}
+				if (domMap.$catName != "") {
+					$api.addEvt(domMap.$catName, 'change', onBtncategoryName);
+				}
+				if (domMap.$categoryName != "") {
+					$api.addEvt(domMap.$categoryName, 'change', getNewGrade);
+				}
+				$api.addEvt(domMap.$headshot, 'click', getPicture);
+				$api.addEvt(domMap.$addRecord, 'click', addRecord);
+				$api.addEvt(domMap.$save, 'click', onBtnSave);
+				$api.addEvt(domMap.$gradeCheck, 'click', gradeCheck);
+				$api.addEvt($api.byId('delPic'), 'click', delPic);
+				//$('#headshot img').on('press',delPic);  
+				 
+//				var hammertime = new Hammer($('#headshot img'));
+//				 hammertime.on("press", function (e) { alert("长按测试成功"); });
+			    $api.addEvt(domMap.$history, 'click', history);
+			}
+			
+			back = function(e) {
+				api.closeWin({
+				});
+			}
+			delPic = function(e) {
+				var picId = $('#headshot img').attr('data-id');
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/delete_worker_pic",
+					data : {
+						'picId' : picId
+					},
+					success : function(res) {
+						if (res.status == 'ok') {
+							$('#headshot img').remove();
+							
+							api.alert({
+								msg : "图片删除成功"
+							});
+							$("#headshot").html('<i class="aui-iconfont aui-icon-plus"></i>');
+						}
+					}
+				})
+			}
+			//回显未报工
+			addEditRecord = function(obj) {
+			    
+			     var num=obj.standardNumber+obj.numeratorName+'／'+obj.denominatorName;
+			      if(obj.denominatorName==null){
+			         obj.denominatorName='';
+			         num=obj.standardNumber+obj.numeratorName
+			     }
+				var str = '';
+				 	 str += '<div class="aui-infos-item">';
+	                	 str +='<div class="aui-list-item-inner">';
+		                    str += ' <div class="aui-list-item-label">记工日期</div>';
+		                     str += '<div class="aui-list-item-input">'+obj.recordDate+'</div>';
+		                str += ' </div>';
+		                str += ' <div class="aui-list-item-inner">';
+		                   str += '  <div class="aui-list-item-label">规格数量</div>';
+		                    str += ' <div class="aui-list-item-input">'+num+'</div>';
+		                 str += '</div>';
+		                 for(var x=0;x<obj.harvestWorkRecordDetailsVoList.length;x++){
+		                 	var per = obj.harvestWorkRecordDetailsVoList[x];
+		                 	str += ' <div class="aui-list-item-inner">';
+			                  str += '   <div class="aui-list-item-label">'+per.gradeName+'</div>';
+			                   str += '  <div class="aui-list-item-input">'+per.harvestNumber+per.unitName+'</div>';
+			                 str += '</div>';
+           			 	}
+	                 str += '</div>';
+				$('#hisList').append(str);
+			}
+			//新增记工
+			var i = 0;
+			addRecord = function(e) {
+				var str = '';
+				str += '<ul class="aui-infos-item-form mark"><li>';
+				str += '<div class="aui-infos-item-form-left aui-padded-l-10 left">';
+				str += '<div class="aui-list-item-inner">';
+				str += '<div class="aui-list-item-label">记工日期</div>';
+				str += '<div class="aui-list-item-input">';
+				str += '<input type="text" readonly class="date date_' + i + ' aui-control-input" placeholder="" />';
+				str += '</div></div>';
+				str += ' <div class="aui-list-item-inner">';
+				str += '<div class="aui-list-item-label">规格数量</div>';
+				str += '<div class="aui-list-item-input" style="width:32%">';
+				str += '<input type="number" style="border:solid 1px #b8c1b7;height: 1.8rem;" class="harNumber aui-control-input" />';
+				str += '</div>';
+				str += '<div class="aui-list-item-input" style="width:32%">';
+				str += '<div class="select-add-arrow">';
+				str += '<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select onchange="getUnit(this)" style="font-size:0.6rem;"class="molecular molecular_' + i + ' aui-control-select"><option value ="">请选择</option></select>';
+				str += '</div></div>';
+				str += '<div class="aui-list-item-input" style="width:4%">/</div>';
+				str += '<div class="aui-list-item-input" style="width:32%">';
+				str += '<div class="select-add-arrow">';
+				str += '<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select onchange="getUnit(this)" class="denominator denominator_' + i + ' aui-control-select"style="font-size:0.6rem;"><option value ="">请选择</option></select>';
+				str += '</div></div></div>';
+				str += '<div class="aui-list-item-inner addLine">';
+				str += '<div class="aui-list-item-input" style="width:50%">';
+				str += '<div class="select-add-arrow">';
+				str += '<span class="add-arrow-layer"><i class="aui-iconfont aui-icon-down"></i></span>';
+				str += '<select class="grade grade_' + i + ' aui-control-select"><option value ="">请选择</option></select>';
+				str += '</div></div>';
+				str += '<div class="aui-list-item-input" style="width:32%">';
+				str += '<input type="number" style="border:solid 1px #b8c1b7;height: 1.8rem;" class="gradeNum aui-control-input" />';
+				str += '</div>';
+				str += '<div class="aui-list-item-input" style="width:10%"><input readonly  type="text" style="border:none;"class="unit aui-control-input" /></div>';
+				str += '<div class="aui-list-item-input plus" style="width:8%">';
+				str += '<span class="round-icon-wrap" onclick="addPlus(this)"><i class="aui-iconfont aui-icon-plus"></i></span>';
+				str += '</div></div></div>';
+				str += '<div class="aui-infos-item-form-right aui-padded-5 right">';
+				str += '<span onclick="delLine(this)"style="font-size:0.5rem;" class="aui-btn aui-btn-outlined aui-btn-sm-green-gray">记错了</span></div></li></ul>';
+				$('#addList').append(str);
+				getDate(i);
+				getMolecular(i);
+				getDenominator(i);
+				getGrade(i);
+				i++;
+			}
+			//基地下拉
+			onBtnfarm = function(farmId,landId,catalogId,categoryId) {
+				$api.html(domMap.$farmName, '<option value="">请选择基地名称</option>');
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryFarmlist",
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '" '+(farmId==data[i].id?'selected':'')+'>' + data[i].farmName + '</option>';
+								$api.append(domMap.$farmName, str);
+							}
+						}
+					}
+				})
+				if(farmId){
+				  onBtnland(farmId,landId);
+				  onBtncatName(farmId,catalogId,categoryId);
+				}
+			}
+			//地块下拉
+			onBtnland = function(farmId1,landId) {
+			    //alert(typeof farmId1)
+				$api.html(domMap.$landName, '<option value="">请选择地块名称</option>');
+				var farmId;
+				if(farmId1 && typeof farmId1 != 'object'){
+				   farmId=farmId1;
+				}else{
+				   farmId=$api.val(domMap.$farmName);
+				   if(farmId==''){
+				     api.alert({
+				       msg:'请选择基地名称'
+				     })
+				     return;
+				   }
+				}
+				pds.ajaxSubmit({
+					url : "app/land/list",
+					data : {
+						'landfarmId' : farmId
+					},
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '"'+(landId==data[i].id?'selected':'')+'>' + data[i].landName + '</option>';
+								$api.append(domMap.$landName, str);
+							}
+						}
+					}
+				})
+			}
+			//品名下拉
+			onBtncatName = function(farmId1,catalogId,categoryId) {
+				$api.html(domMap.$catName, '<option value="">请选择作物品名</option>');
+				var farmId;
+				if(farmId1 && typeof farmId1 != 'object'){
+				   farmId=farmId1;
+				}else{
+				   farmId= $api.val(domMap.$farmName);
+				}
+				console.log(farmId1)
+				console.log(farmId)
+				pds.ajaxSubmit({
+					url : "app/farmingdataresource/coprList",
+					data : {
+						'farmId' : farmId
+					},
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							console.log(JSON.stringify(data))
+							if (data == '') {
+								$api.html(domMap.$categoryName, '<option value="">请选择作物品种</option>');
+							} else {
+								for (var i = 0; i < data.length; i++) {
+									var str = '<option value="' + data[i].id + '"'+(catalogId==data[i].id?'selected':'')+'>' + data[i].catName + '</option>';
+									$api.append(domMap.$catName, str);
+								}
+							}
+						}
+					}
+				})
+				if(catalogId){
+				  onBtncategoryName(catalogId,categoryId)
+				}
+			}
+			//品种下拉
+			onBtncategoryName = function(catalogId,categoryId) {
+				$api.html(domMap.$categoryName, '<option value="">请选择作物品种</option>');
+				var catId;
+				if(catalogId && typeof catalogId != 'object'){
+				   catId=catalogId;
+				}else{
+				   catId= $api.val(domMap.$catName);
+				}
+				//var catId = $api.val(domMap.$catName);
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/getSubCatList",
+					data : {
+						'catId' : catId
+					},
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '<option value="' + data[i].id + '"'+(categoryId==data[i].id?'selected':'')+'>' + data[i].catName + '</option>';
+								$api.append(domMap.$categoryName, str);
+							}
+						}
+					}
+				})
+			}
+			getPicture = function() {
+			
+				//获取一张图片
+				api.getPicture({
+					sourceType : 'camera',
+					encodingType : 'png',
+					mediaValue : 'pic',
+					allowEdit : false,
+					quality : 90,
+					saveToPhotoAlbum : true
+				}, function(ret, err) {
+					// 获取拍照数据并处理
+					//alert(JSON.stringify(ret))
+					if (ret) {
+						if (ret && ret.data != "") {
+							$('#headshot').text('上传中...');
+							pds.ajaxSubmit({
+								url : "attach/upload",
+								fileData : {
+									file : ret.data
+								},
+								success : function(e) {
+									if (e) {
+										var data = e.data;
+										//alert(JSON.stringify(data));
+										$('#headshot').empty();
+										$('#headshot').append('<img style=""data-id="' + data.id + '" src="' + ret.data + '">');
+									   
+									} else {
+										$('#headshot').html('上传失败...');
+									}
+								},
+								error : function(e) {
+									api.alert({
+										msg : "服务器异常，请联系管理员!!!"
+									});
+								}
+							});
+						}
+					}
+				});
+			}
+			gradeCheck = function(e) {
+				var farmId = $api.val(domMap.$farmName);
+				var catId = $api.val(domMap.$categoryName);
+				if (farmId == '' || catId == '') {
+				}
+				$api.openWin({
+					name : "xb_levelStandard_home",
+					url : "widget://html/harvest/xb_levelStandard_home.html",
+					reload : true,
+					selecteIndex : '3',
+					pageParam : {
+						'farmId' : farmId,
+						'catId' : catId
+					},
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+				history = function(e) {
+				 var id = workerId;
+				 if(id==null){
+				   return false;
+				 }
+				$api.openWin({
+					name : "xb_levelStandard_home",
+					url : "widget://html/harvest/xb_levelStandard_home.html",
+					reload : true,
+					selecteIndex : '3',
+//					pageParam : {
+//						'id' : id
+//					},
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+			
+		
+			//编辑上传照片
+			//			getPic = function() {
+			//				api.actionSheet({
+			//					title : '上传图片',
+			//					cancelTitle : '取消',
+			//					buttons : ['拍照', '从手机相册选择']
+			//				}, function(ret, err) {
+			//					if (ret) {
+			//						getPicture(ret.buttonIndex);
+			//					}
+			//				});
+			//			}
+			//上传方式
+			//			getPicture = function(sourceType) {
+			//				if (sourceType == 1) {// 拍照
+			//					//获取一张图片
+			//					api.getPicture({
+			//						sourceType : 'camera',
+			//						encodingType : 'png',
+			//						mediaValue : 'pic',
+			//						allowEdit : false,
+			//						quality : 90,
+			//						saveToPhotoAlbum : true
+			//					}, function(ret, err) {
+			//						// 获取拍照数据并处理
+			//						//alert(JSON.stringify(ret))
+			//						if (ret) {
+			//							if (ret && ret.data != "") {
+			//								$('#headshot').text('上传中...');
+			//								pds.ajaxSubmit({
+			//									url : "attach/upload",
+			//									fileData : {
+			//										file : ret.data
+			//									},
+			//									success : function(e) {
+			//										if (e) {
+			//											var data = e.data;
+			//											//alert(JSON.stringify(data));
+			//											$('#headshot').empty();
+			//											$('#headshot').append('<img data-id="' + data.id + '"src="' + ret.data + '">');
+			//										} else {
+			//											$('#headshot').html('上传失败...');
+			//										}
+			//									},
+			//									error : function(e) {
+			//										api.alert({
+			//											msg : "服务器异常，请联系管理员!!!"
+			//										});
+			//									}
+			//								});
+			//							}
+			//						}
+			//					});
+			//				} else if (sourceType == 2) {
+			//					// 从相机中选择
+			//					//UIMediaScanner 是一个多媒体扫描器，可扫描系统的图片、视频等多媒体资源
+			//					var obj = api.require('UIMediaScanner');
+			//					obj.open({
+			//						//返回的资源种类,picture（图片）,video（视频）,all（图片和视频）
+			//						type : 'picture',
+			//						//（可选项）图片显示的列数，须大于1
+			//						column : 4,
+			//						max : 1,
+			//						//（可选项）图片排序方式,asc（旧->新）,desc（新->旧）
+			//						sort : {
+			//							key : 'time',
+			//							order : 'desc'
+			//						},
+			//						//（可选项）模块各部分的文字内容
+			//						texts : {
+			//							stateText : '已选择*项',
+			//							cancelText : '取消',
+			//							finishText : '完成'
+			//						},
+			//						styles : {
+			//							bg : '#fff',
+			//							mark : {
+			//								icon : '',
+			//								position : 'bottom_right',
+			//								size : 20
+			//							},
+			//							nav : {
+			//								bg : '#eee',
+			//								stateColor : '#000',
+			//								stateSize : 18,
+			//								cancleBg : 'rgba(0,0,0,0)',
+			//								cancelColor : '#000',
+			//								cancelSize : 18,
+			//								finishBg : 'rgba(0,0,0,0)',
+			//								finishColor : '#000',
+			//								finishSize : 18
+			//							}
+			//						}
+			//					}, function(ret) {
+			//						// 获取图片数据并处理
+			//						if (ret) {
+			//							//							alert(JSON.stringify(ret))
+			//							if (ret && ret.list != "") {
+			//								$('#headshot').text('上传中...');
+			//								pds.ajaxSubmit({
+			//									url : "attach/upload",
+			//									fileData : {
+			//										file : ret.list[0].path
+			//									},
+			//									success : function(e) {
+			//										if (e) {
+			//											var data = e.data;
+			//											$('#headshot').empty();
+			//											//alert(JSON.stringify(data));
+			//											$('#headshot').html('<img data-id="' + data.id + '"src="' + ret.list[0].thumbPath + '">')
+			//										} else {
+			//											$('#headshot').html('上传失败...');
+			//										}
+			//									},
+			//									error : function(e) {
+			//										api.alert({
+			//											msg : "服务器异常，请联系管理员!!!"
+			//										});
+			//									}
+			//								});
+			//							}
+			//						}
+			//					});
+			//				}
+			//			}
+			//费用下拉
+			onBtnCost = function(e) {
+				var farmId = $api.val(domMap.$farmName);
+				var sex = $("input:radio[name='sex']:checked").val() * 1;
+				//性别
+				var workerType = $("input:radio[name='work']:checked").val() * 1;
+				//工人类型
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_cost_list?farmId=" + farmId + '&sex=' + sex + '&workerType=' + workerType,
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							$('#cost').val(data);
+						}
+					}
+				})
+			}
+			//记工日期获取
+			getDate = function(i) {
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				if (month < 10) {
+					month = '0' + month;
+				}
+				var day = date.getDate();
+				if (day < 10) {
+					day = '0' + day;
+				}
+				var hour = date.getHours();
+				if (hour < 10) {
+					hour = '0' + hour;
+				}
+				var minute = date.getMinutes();
+				if (minute < 10) {
+					minute = '0' + minute;
+				}
+				var second = date.getSeconds();
+				if (second < 10) {
+					second = '0' + second;
+				}
+				//var val = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+				var val = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+				$('.date_' + i).val(val);
+			}
+			//分子获取
+			getMolecular = function(key) {
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryUnitDicList",
+					success : function(res) {
+						//alert(JSON.stringify(res.data))
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].ruleType == '3') {
+									var str = '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+									$('.molecular_' + key).append(str);
+								}
+							}
+						}
+					}
+				})
+			}
+			//分母获取
+			getDenominator = function(key) {
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/queryUnitDicList",
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].ruleType == '4') {
+									var str = '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+									$('.denominator_' + key).append(str);
+								}
+							}
+						}
+					}
+				})
+			}
+			//等级获取
+			getGrade = function(key) {
+				$('.grade_' + key).html('<option value="">请选择</option>')
+				var farmId = $api.val(domMap.$farmName);
+				var catId = $api.val(domMap.$categoryName);
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_grade_list?farmId=" + farmId + '&catId=' + catId,
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								// alert(data[i].gradeName)
+								// alert(data[i].status)
+								if (data[i].status == '1') {
+									var str = '<option value="' + data[i].id + '">' + data[i].gradeName + '</option>';
+									$('.grade_' + key).append(str);
+								}
+							}
+						}
+					}
+				})
+			}
+			//等级刷新
+			getNewGrade = function(e) {
+				$('.grade').html('<option value="">请选择</option>')
+				var farmId = $api.val(domMap.$farmName);
+				var catId = $api.val(domMap.$categoryName);
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_grade_list?farmId=" + farmId + '&catId=' + catId,
+					success : function(res) {
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].status == '1') {
+									var str = '<option value="' + data[i].id + '">' + data[i].gradeName + '</option>';
+									$('.grade').append(str);
+								}
+							}
+						}
+					}
+				})
+			}
+			//单位的获取
+			getUnit = function(obj) {
+				var $UnitVal;
+				//值
+				var $UnitId;
+				//单位id
+				//Unit对象
+				var $Unit = $(obj).closest('li').find('.unit')
+				//分母判断
+				if ($(obj).hasClass('denominator')) {
+					//分母id
+					$UnitId = $api.val(obj);
+					if ($UnitId != '') {
+						$Unit.attr('data-id', $UnitId);
+						$UnitVal = $(obj).find('option:selected').text();
+						if($UnitVal=='请选择'){
+						 $UnitVal='';
+						}
+						$Unit.val($UnitVal);
+					} else {
+						$UnitId = $(obj).closest('li').find('.molecular').val();
+						$UnitVal = $(obj).closest('li').find('.molecular').find('option:selected').text();
+						$Unit.attr('data-id', $UnitId);
+						if($UnitVal=='请选择'){
+						 $UnitVal='';
+						}
+						$Unit.val($UnitVal);
+					}
+				}
+				if ($(obj).hasClass('molecular')) {
+					//分母对象
+					var $parent = $(obj).closest('li').find('.denominator');
+					var $parentId = $parent.val();
+					if ($parentId != '') {
+						$Unit.attr('data-id', $parentId);
+						$UnitVal = $parent.find('option:selected').text();
+						if($UnitVal=='请选择'){
+						 $UnitVal='';
+						}
+						$Unit.val($UnitVal);
+						
+					} else {
+						$Unit.attr('data-id', $(obj).val());
+						$UnitVal = $(obj).find('option:selected').text();
+						if($UnitVal=='请选择'){
+						 $UnitVal='';
+						}
+						$Unit.val($UnitVal);
+					}
+				}
+			}
+			//添加按钮
+			addPlus = function(obj) {
+				var html = $(obj).closest('.addLine').clone();
+				$(obj).closest('.addLine').after(html);
+				$(obj).remove();
+			}
+			//删除记工单
+			delLine = function(obj) {
+				$(obj).closest('li').remove();
+			}
+			
+			onBtnSave = function(e) {
+				var data = {
+					harvestWorkerVo : {
+						basFile : {
+						},
+						id:null
+						
+					},
+					harvestWorkRecordList : []
+				};
+				
+				//基础信息保存
+				//基地id
+				var farmId = $api.val(domMap.$farmName);
+				data.farmId = farmId;
+				//地块id
+				var landId = $api.val(domMap.$landName);
+				data.landId = landId;
+				//品名id
+				var catId = $api.val(domMap.$catName);
+				data.catalogId = catId;
+				//品种id
+				var categoryId = $api.val(domMap.$categoryName);
+				data.categoryId = categoryId;
+				var workerType = $("input:radio[name='work']:checked").val() * 1;
+				//工人类型
+				data.workerType = workerType;
+				//费用
+				var cost = $api.val(domMap.$cost);
+				data.cost = cost;
+				//工人信息
+				//姓名
+				var name = $api.val(domMap.$name);
+				data.harvestWorkerVo.name = name;
+				//性别
+				var sex = $("input:radio[name='sex']:checked").val() * 1;
+				data.harvestWorkerVo.sex = sex;
+				//手机号码
+				var phone = $api.val(domMap.$phone);
+				
+				data.harvestWorkerVo.phone = phone;
+				//照片id
+				var picId = $('#headshot img').attr('data-id');
+				data.harvestWorkerVo.basFile.id = picId;
+				
+				//记工单列表
+				$('#addList ul').each(function(i, el) {
+					if($(this).attr("hmc")==1){
+						return true;
+					}
+					var listObj = {
+						harvestWorkRecordDetailsVoList : []
+					};
+					var date = $(el).find('.date').val();
+					listObj.recordDate = date+':00';
+					var harNumber = $(el).find('.harNumber').val();
+					listObj.standardNumber = harNumber;
+					var molecular = $(el).find('.molecular').val();
+					listObj.numerator = molecular;
+					var denominator = $(el).find('.denominator').val();
+					listObj.denominator = denominator;
+					//var sum = 0;
+					$(el).find('.addLine').each(function(j, ele) {
+						var harvestWorkRecordDetail = {};
+						var grade = $(ele).find('.grade').val();
+						harvestWorkRecordDetail.grade = grade;
+						var gradeNum = $(ele).find('.gradeNum').val();
+						harvestWorkRecordDetail.harvestNumber = gradeNum;
+						var unit = $(ele).find('.unit').attr('data-id');
+						harvestWorkRecordDetail.unit = unit;
+						listObj.harvestWorkRecordDetailsVoList.push(harvestWorkRecordDetail);
+						//sum += gradeNum*1;
+					})
+//					if (sum < 0) {
+//						api.alert({
+//							msg : "冲减数量过多，请检查数据"
+//						});
+//					}
+					data.harvestWorkRecordList.push(listObj);
+				})
+			
+				//alert(JSON.stringify(data))
+				var validFields = [
+      {field: 'farmId',    name: '基地' , rule: 'required'},
+      {field: 'landId',    name: '地块' , rule: 'required'},
+      {field: 'catalogId', name: '品名' , rule: 'required'},
+      {field: 'categoryId',name: '基地' , rule: 'required'},
+      {field: 'harvestWorkerVo.name',      name: '姓名' , rule: 'required'},
+      {field: 'harvestWorkerVo.phone',     name: '手机号', rule: 'required|mobile' },
+//    {field: 'standardNumber', name: '规格数量',rule: 'required|digits2' },
+//    {field: 'numerator', name: '规格数量分子' ,rule: 'required'},
+//    {field: 'grade', name: '等级' ,rule: 'required'},
+//    {field: 'harvestNumber', name: '等级数量' ,rule: 'required|digits2'},
+    ]
+    
+    var rules = (function(validFields){
+      var ret = {}
+      validFields.forEach(function(it){
+        ret[it.field] = it.rule
+      })
+      return ret
+    })(validFields);
+
+    var attributeNames = (function(validFields){
+      var ret = {}
+      validFields.forEach(function(it){
+        ret[it.field] = it.name 
+
+      })
+      return ret
+    })(validFields);
+
+    Validator.register('mobile', function(value, requirement, attribute) {
+        return (value+'').match(/^1[0-9]{10}$/);
+    }, ':attribute应为11位数字.');
+
+    Validator.register('digits2', function(value, requirement, attribute) {
+        return (value+'').match(/^\d+(\.\d{1,2})?$/);
+    }, ':attribute应为数字，并允许有两位小数.');
+
+    var messages = Validator.getMessages('en');
+    messages.required = ':attribute不能为空.';
+    Validator.setMessages('en', messages);
+    var valid = new Validator(data, rules);
+
+    valid.setAttributeNames(attributeNames);
+
+    if (!valid.passes()) {
+        for (var i = 0; i < validFields.length; i++) {
+          var vf =  validFields[i].field;
+          if (valid.errors.has(vf)) {
+            api.alert({msg: valid.errors.first(vf) })
+            break
+          }
+        }
+        return
+    }
+if(data.harvestWorkRecordList){
+      	for(var i=0;i<data.harvestWorkRecordList.length;i++){
+      	  var obj = data.harvestWorkRecordList[i];
+					if(obj.standardNumber==''){
+					  api.alert({
+					      msg: '规格数量不能为空' 
+					  })
+					   return;		
+					}else{
+						if(!obj.standardNumber.match(/^\d+(\.\d{1,2})?$/)){
+							api.alert({
+					      	msg: '规格数量应为数字，并允许有两位小数.' 
+						})
+						   return;	
+						}
+					}
+					if(obj.numerator==''){
+					  api.alert({
+					      msg: '规格数量分子不能为空' 
+					  })
+					   return;		
+					}
+					
+					for(var w=0;w<obj.harvestWorkRecordDetailsVoList.length;w++){
+					var det = obj.harvestWorkRecordDetailsVoList[w];
+					 if(det.grade==''){
+					  api.alert({
+					      msg: '等级不能为空' 
+					  })
+					  return;	
+					}
+					if(det.harvestNumber==''){
+					  api.alert({
+					      msg: '等级数量不能为空' 
+					  })	
+					   return;	
+					}else{
+						if(!det.harvestNumber.match(/^\d+(\.\d{1,2})?$/)){
+							api.alert({
+					      	msg: '等级数量应为数字，并允许有两位小数.' 
+						})
+						   return;	
+						}
+					}
+				}
+    }
+      }
+            $('#save').attr('disabled','disabled')
+				pds.ajaxSubmit({
+					url : "app/recordworkorder/query_worker_name?name=" + name + '&sex=' + sex + '&phone' + phone,
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var result = res.data;
+							if (result == 0) {
+								data.id=mainId;
+								data.harvestWorkerVo.id=workerId;
+								pds.ajaxSubmit({
+									url : "app/recordworkorder/insert_work_order_sheet",
+									data : {
+										'data' : JSON.stringify(data)
+									},
+									success : function(res) {
+										if (res.status == 'ok') {
+											//alert(JSON.stringify(res))
+											var data = res.data;
+											
+											api.alert({msg:'保存成功！'})
+											$('#save').remove('disabled','disabled')
+											//标记当前界面所有记工单为已保存
+											mainId = data.id;
+											workerId = data.harvestWorkerVo.id;
+											 $('#farmName').attr('disabled','disabled');
+				           		        	$('#landName').attr('disabled','disabled');
+				           			 $('#catName').attr('disabled','disabled');
+				           			 $('#categoryName').attr('disabled','disabled');
+				           			 $('#name').attr('readonly','true');
+				           			 $('#phone').attr('readonly','true');
+				           			$("input:radio[name='sex']").attr('disabled','disabled');
+				           			$("input:radio[name='work']").attr('disabled','disabled');
+											$('.mark').each(function(){
+												$(this).attr("hmc",1);
+												$(this).find('.left').css('border-right","solid 1px #fff');
+												$(this).find('.plus').css('display','none');
+												$(this).find('.right').css("display","none");
+												
+												 $(this).find('.grade').attr('disabled','disabled');
+				           			             $(this).find('.molecular').attr('disabled','disabled');
+				           			$(this).find('.denominator').attr('disabled','disabled');
+				           			 $(this).find('.gradeNum').attr('disabled','disabled');
+				           			 $(this).find('.harNumber').attr('disabled','disabled');
+				           			 
+											})
+										}
+									}
+								})
+							} else {
+								api.alert({
+									msg : "已经存在该工人信息"
+								});
+							}
+						}
+					}
+				})
+				//
+			}
+			configMoule = function() {//可以有参数
+			}
+			initModule = function(farmId,landId,catalogId,categoryId) {//可以有参数
+				setDomMap();
+				onBtnfarm(farmId,landId,catalogId,categoryId);
+//				onBtnland(farmId,landId)
+			}
+			//-------end 操作方法-----
+			//return 公用函数
+			return {
+				configMoule : configMoule,
+				initModule : initModule
+			}
+		})();
+	</script>
+</html>

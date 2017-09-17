@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>历史记工查看</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link rel="stylesheet" href="../../css/mui.picker.min.css">
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+</head>
+
+<body>
+  <header class="aui-bar aui-bar-nav" id="aui-header" style="background-color: #00c558">
+            <div class="aui-pull-left aui-btn">
+              <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+                <span class="aui-iconfont aui-icon-left"></span>
+              </a>
+            </div>
+            <div class="aui-title">历史记工查看</div>
+						
+						<div class="page-group">
+							<div id="head_img">
+								<button id="checkRecord" class="btn mui-btn mui-btn-block">查记工点我哦</button>
+								<div id="result" class="ui-alert"></div>
+							</div>
+						</div>
+  </header>
+	<script src="../../script/mui.min.js"></script>
+	<script src="../../script/mui.picker.min.js"></script>
+<script type="text/javascript" src="../../lib/harvest/xb_historyView_home.js?7a6f229c5a0bee88c50d"></script></body>
+<script type="text/javascript">function closeWin(){api.closeWin({})}apiready=function(){xbhistoryView.init()}</script>
+</html>

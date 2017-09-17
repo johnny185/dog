@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>农事数据采集</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		 <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<!--<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">-->
+		<link rel="stylesheet" type="text/css" href="farming_data.css"> 
+		<script type="text/javascript" src="../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/getLoacat.js"></script>
+		<script type="text/javascript" src="farming_detail.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<!-- <div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4 >农事数据采集</h4> </span>
+					<a href="../mysetting/mysettings/business.html"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div> -->
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title right"> <h4 >农事数据采集</h4> </span>
+					<!-- <span class="banner-title center"  onclick="goFieldData()"> <h4 >作物数据采集</h4> </span> -->
+					<!--<a href="../mysetting/mysettings/business.html"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>-->
+					<a onclick="closeWin()"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value='返回'>
+					</span> </a>
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="container sub-container-notop">
+				<div class="full-main">
+					<div class="photos">
+						<div class="update ">
+							<label><b>基本信息</b></label>
+						</div>
+					</div>
+					<div class="sub-container">
+						<form name="addCustomerInfoForm" id="customerform">							
+							地点定位：
+							<input id="address" name="address" required="required" disabled="true"/> 							
+							<br/>
+							经度：
+							<input id="lon" name="lon" type="text"  required="required" disabled="true">
+							<br/>
+							纬度：
+							<input id="lat" name="lat" type="text"  required="required" disabled="true">
+							<br />
+							日期：
+							<input id="date" name="date" type="text" required="required" disabled="true">
+							<br />
+							地块名称：
+							<input  id="farmLandId" name="farmLandId" required="required" disabled="true">
+							<br />
+							种植品名： <!--<input id="catName" name="catName" type="text" >
+							<input id="catalogId" name="catalogId" type="text" >
+							<br />-->
+							<input  id="catalogId" name="catalogId" disabled="true">
+								
+							<br />
+							种植品种： <!--<input id="speciesName" name="speciesName" type="text" >
+							<input id="categoryId" name="categoryId" type="text" >-->
+							<input  id="categoryId" name="categoryId"disabled="true" >
+								
+							<br />
+							工序属性：
+							<input  id="processId" name="processId" disabled="true">
+								
+							<br />
+							工序标准：
+							<input id="proStandard" name="proStandard" type="text" maxlength="50" disabled="true">
+							<br />
+							备注：
+							<input id="remark" name="remark" type="text"  maxlength="500" disabled="true">
+							<br />
+						</form>
+					</div>
+				
+				</div>
+			</div>
+			<div>
+				<div class="photos">
+					<div class="update ">
+						<label><b>资源信息</b></label>
+					</div>
+				</div>
+			</div>
+			<div id="farmdiv" align="center">
+				<table id="farmResources" width="100%">
+					<thead>
+						<th id="oneTh">资源名称</th>
+						<th id="secondTh">亩数</th>
+						<th>数量</th>
+						<th>金额</th>
+						<th>状态</th>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<!-- 		<div>
+				<button style="color:green" onclick="addFarmingResource()">
+				农事资源添加
+				</button>
+				<button style="color:green" onclick="addNewFarmLand()">
+				农事资源编辑
+				</button>
+				<button style="color:green" onclick="addNewFarmLand()">
+				农事资源删除
+				</button>
+				</div> -->
+			</div>
+		</div>
+	</body>
+	
+</html>

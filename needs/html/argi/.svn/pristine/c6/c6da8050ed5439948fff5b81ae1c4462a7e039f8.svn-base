@@ -1,0 +1,892 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*
+ * APICloud JavaScript Library
+ * Copyright (c) 2014 apicloud.com
+ */
+(function (window) {
+    var u = {};
+    var isAndroid = /android/gi.test(navigator.appVersion);
+    var uzStorage = function uzStorage() {
+        var ls = window.localStorage;
+        if (isAndroid) {
+            ls = os.localStorage();
+        }
+        return ls;
+    };
+    function parseArguments(url, data, fnSuc, dataType) {
+        if (typeof data == 'function') {
+            dataType = fnSuc;
+            fnSuc = data;
+            data = undefined;
+        }
+        if (typeof fnSuc != 'function') {
+            dataType = fnSuc;
+            fnSuc = undefined;
+        }
+        return {
+            url: url,
+            data: data,
+            fnSuc: fnSuc,
+            dataType: dataType
+        };
+    }
+    u.trim = function (str) {
+        if (String.prototype.trim) {
+            return str == null ? "" : String.prototype.trim.call(str);
+        } else {
+            return str.replace(/(^\s*)|(\s*$)/g, "");
+        }
+    };
+    u.trimAll = function (str) {
+        return str.replace(/\s*/g, '');
+    };
+    u.isElement = function (obj) {
+        return !!(obj && obj.nodeType == 1);
+    };
+    u.isArray = function (obj) {
+        if (Array.isArray) {
+            return Array.isArray(obj);
+        } else {
+            return obj instanceof Array;
+        }
+    };
+    u.isEmptyObject = function (obj) {
+        if (JSON.stringify(obj) === '{}') {
+            return true;
+        }
+        return false;
+    };
+    u.addEvt = function (el, name, fn, useCapture) {
+        if (!u.isElement(el)) {
+            console.warn('$api.addEvt Function need el param, el param must be DOM Element');
+            return;
+        }
+        useCapture = useCapture || false;
+        if (el.addEventListener) {
+            el.addEventListener(name, fn, useCapture);
+        }
+    };
+    u.rmEvt = function (el, name, fn, useCapture) {
+        if (!u.isElement(el)) {
+            console.warn('$api.rmEvt Function need el param, el param must be DOM Element');
+            return;
+        }
+        useCapture = useCapture || false;
+        if (el.removeEventListener) {
+            el.removeEventListener(name, fn, useCapture);
+        }
+    };
+    u.one = function (el, name, fn, useCapture) {
+        if (!u.isElement(el)) {
+            console.warn('$api.one Function need el param, el param must be DOM Element');
+            return;
+        }
+        useCapture = useCapture || false;
+        var that = this;
+        var cb = function cb() {
+            fn && fn();
+            that.rmEvt(el, name, cb, useCapture);
+        };
+        that.addEvt(el, name, cb, useCapture);
+    };
+    u.dom = function (el, selector) {
+        if (arguments.length === 1 && typeof arguments[0] == 'string') {
+            if (document.querySelector) {
+                return document.querySelector(arguments[0]);
+            }
+        } else if (arguments.length === 2) {
+            if (el.querySelector) {
+                return el.querySelector(selector);
+            }
+        }
+    };
+    u.domAll = function (el, selector) {
+        if (arguments.length === 1 && typeof arguments[0] == 'string') {
+            if (document.querySelectorAll) {
+                return document.querySelectorAll(arguments[0]);
+            }
+        } else if (arguments.length === 2) {
+            if (el.querySelectorAll) {
+                return el.querySelectorAll(selector);
+            }
+        }
+    };
+    u.byId = function (id) {
+        return document.getElementById(id);
+    };
+    u.first = function (el, selector) {
+        if (arguments.length === 1) {
+            if (!u.isElement(el)) {
+                console.warn('$api.first Function need el param, el param must be DOM Element');
+                return;
+            }
+            return el.children[0];
+        }
+        if (arguments.length === 2) {
+            return this.dom(el, selector + ':first-child');
+        }
+    };
+    u.last = function (el, selector) {
+        if (arguments.length === 1) {
+            if (!u.isElement(el)) {
+                console.warn('$api.last Function need el param, el param must be DOM Element');
+                return;
+            }
+            var children = el.children;
+            return children[children.length - 1];
+        }
+        if (arguments.length === 2) {
+            return this.dom(el, selector + ':last-child');
+        }
+    };
+    u.eq = function (el, index) {
+        return this.dom(el, ':nth-child(' + index + ')');
+    };
+    u.not = function (el, selector) {
+        return this.domAll(el, ':not(' + selector + ')');
+    };
+    u.prev = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.prev Function need el param, el param must be DOM Element');
+            return;
+        }
+        var node = el.previousSibling;
+        if (node.nodeType && node.nodeType === 3) {
+            node = node.previousSibling;
+            return node;
+        }
+    };
+    u.next = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.next Function need el param, el param must be DOM Element');
+            return;
+        }
+        var node = el.nextSibling;
+        if (node.nodeType && node.nodeType === 3) {
+            node = node.nextSibling;
+            return node;
+        }
+    };
+    u.closest = function (el, selector) {
+        if (!u.isElement(el)) {
+            console.warn('$api.closest Function need el param, el param must be DOM Element');
+            return;
+        }
+        var doms, targetDom;
+        var isSame = function isSame(doms, el) {
+            var i = 0,
+                len = doms.length;
+            for (i; i < len; i++) {
+                if (doms[i].isEqualNode(el)) {
+                    return doms[i];
+                }
+            }
+            return false;
+        };
+        var traversal = function traversal(el, selector) {
+            doms = u.domAll(el.parentNode, selector);
+            targetDom = isSame(doms, el);
+            while (!targetDom) {
+                el = el.parentNode;
+                if (el != null && el.nodeType == el.DOCUMENT_NODE) {
+                    return false;
+                }
+                traversal(el, selector);
+            }
+
+            return targetDom;
+        };
+
+        return traversal(el, selector);
+    };
+    u.contains = function (parent, el) {
+        var mark = false;
+        if (el === parent) {
+            mark = true;
+            return mark;
+        } else {
+            do {
+                el = el.parentNode;
+                if (el === parent) {
+                    mark = true;
+                    return mark;
+                }
+            } while (el === document.body || el === document.documentElement);
+
+            return mark;
+        }
+    };
+    u.remove = function (el) {
+        if (el && el.parentNode) {
+            el.parentNode.removeChild(el);
+        }
+    };
+    u.attr = function (el, name, value) {
+        if (!u.isElement(el)) {
+            console.warn('$api.attr Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length == 2) {
+            return el.getAttribute(name);
+        } else if (arguments.length == 3) {
+            el.setAttribute(name, value);
+            return el;
+        }
+    };
+    u.removeAttr = function (el, name) {
+        if (!u.isElement(el)) {
+            console.warn('$api.removeAttr Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 2) {
+            el.removeAttribute(name);
+        }
+    };
+    u.hasCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.hasCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (el.className.indexOf(cls) > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    u.addCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.addCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if ('classList' in el) {
+            el.classList.add(cls);
+        } else {
+            var preCls = el.className;
+            var newCls = preCls + ' ' + cls;
+            el.className = newCls;
+        }
+        return el;
+    };
+    u.removeCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.removeCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if ('classList' in el) {
+            el.classList.remove(cls);
+        } else {
+            var preCls = el.className;
+            var newCls = preCls.replace(cls, '');
+            el.className = newCls;
+        }
+        return el;
+    };
+    u.toggleCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.toggleCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if ('classList' in el) {
+            el.classList.toggle(cls);
+        } else {
+            if (u.hasCls(el, cls)) {
+                u.removeCls(el, cls);
+            } else {
+                u.addCls(el, cls);
+            }
+        }
+        return el;
+    };
+    u.val = function (el, val) {
+        if (!u.isElement(el)) {
+            console.warn('$api.val Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 1) {
+            switch (el.tagName) {
+                case 'SELECT':
+                    var value = el.options[el.selectedIndex].value;
+                    return value;
+                    break;
+                case 'INPUT':
+                    return el.value;
+                    break;
+                case 'TEXTAREA':
+                    return el.value;
+                    break;
+            }
+        }
+        if (arguments.length === 2) {
+            switch (el.tagName) {
+                case 'SELECT':
+                    el.options[el.selectedIndex].value = val;
+                    return el;
+                    break;
+                case 'INPUT':
+                    el.value = val;
+                    return el;
+                    break;
+                case 'TEXTAREA':
+                    el.value = val;
+                    return el;
+                    break;
+            }
+        }
+    };
+    u.prepend = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.prepend Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('afterbegin', html);
+        return el;
+    };
+    u.append = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.append Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('beforeend', html);
+        return el;
+    };
+    u.before = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.before Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('beforebegin', html);
+        return el;
+    };
+    u.after = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.after Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('afterend', html);
+        return el;
+    };
+    u.html = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.html Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 1) {
+            return el.innerHTML;
+        } else if (arguments.length === 2) {
+            el.innerHTML = html;
+            return el;
+        }
+    };
+    u.text = function (el, txt) {
+        if (!u.isElement(el)) {
+            console.warn('$api.text Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 1) {
+            return el.textContent;
+        } else if (arguments.length === 2) {
+            el.textContent = txt;
+            return el;
+        }
+    };
+    u.offset = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.offset Function need el param, el param must be DOM Element');
+            return;
+        }
+        var sl = Math.max(document.documentElement.scrollLeft, document.body.scrollLeft);
+        var st = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+
+        var rect = el.getBoundingClientRect();
+        return {
+            l: rect.left + sl,
+            t: rect.top + st,
+            w: el.offsetWidth,
+            h: el.offsetHeight
+        };
+    };
+    u.css = function (el, css) {
+        if (!u.isElement(el)) {
+            console.warn('$api.css Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (typeof css == 'string' && css.indexOf(':') > 0) {
+            el.style && (el.style.cssText += ';' + css);
+        }
+    };
+    u.cssVal = function (el, prop) {
+        if (!u.isElement(el)) {
+            console.warn('$api.cssVal Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 2) {
+            var computedStyle = window.getComputedStyle(el, null);
+            return computedStyle.getPropertyValue(prop);
+        }
+    };
+    u.jsonToStr = function (json) {
+        if ((typeof json === 'undefined' ? 'undefined' : _typeof(json)) === 'object') {
+            return JSON && JSON.stringify(json);
+        }
+    };
+    u.strToJson = function (str) {
+        if (typeof str === 'string') {
+            return JSON && JSON.parse(str);
+        }
+    };
+    u.setStorage = function (key, value) {
+        if (arguments.length === 2) {
+            var v = value;
+            if ((typeof v === 'undefined' ? 'undefined' : _typeof(v)) == 'object') {
+                v = JSON.stringify(v);
+                v = 'obj-' + v;
+            } else {
+                v = 'str-' + v;
+            }
+            var ls = uzStorage();
+            if (ls) {
+                ls.setItem(key, v);
+            }
+        }
+    };
+    u.getStorage = function (key) {
+        var ls = uzStorage();
+        if (ls) {
+            var v = ls.getItem(key);
+            if (!v) {
+                return;
+            }
+            if (v.indexOf('obj-') === 0) {
+                v = v.slice(4);
+                return JSON.parse(v);
+            } else if (v.indexOf('str-') === 0) {
+                return v.slice(4);
+            }
+        }
+    };
+    u.rmStorage = function (key) {
+        var ls = uzStorage();
+        if (ls && key) {
+            ls.removeItem(key);
+        }
+    };
+    u.clearStorage = function () {
+        var ls = uzStorage();
+        if (ls) {
+            ls.clear();
+        }
+    };
+
+    /*by king*/
+    u.fixIos7Bar = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.fixIos7Bar Function need el param, el param must be DOM Element');
+            return;
+        }
+        var strDM = api.systemType;
+        if (strDM == 'ios') {
+            var strSV = api.systemVersion;
+            var numSV = parseInt(strSV, 10);
+            var fullScreen = api.fullScreen;
+            var iOS7StatusBarAppearance = api.iOS7StatusBarAppearance;
+            if (numSV >= 7 && !fullScreen && iOS7StatusBarAppearance) {
+                el.style.paddingTop = '20px';
+            }
+        }
+    };
+    u.fixStatusBar = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.fixStatusBar Function need el param, el param must be DOM Element');
+            return;
+        }
+        var sysType = api.systemType;
+        if (sysType == 'ios') {
+            u.fixIos7Bar(el);
+        } else if (sysType == 'android') {
+            var ver = api.systemVersion;
+            ver = parseFloat(ver);
+            if (ver >= 4.4) {
+                el.style.paddingTop = '25px';
+            }
+        }
+    };
+    u.toast = function (title, text, time) {
+        var opts = {};
+        var show = function show(opts, time) {
+            api.showProgress(opts);
+            setTimeout(function () {
+                api.hideProgress();
+            }, time);
+        };
+        if (arguments.length === 1) {
+            var time = time || 500;
+            if (typeof title === 'number') {
+                time = title;
+            } else {
+                opts.title = title + '';
+            }
+            show(opts, time);
+        } else if (arguments.length === 2) {
+            var time = time || 500;
+            var text = text;
+            if (typeof text === "number") {
+                var tmp = text;
+                time = tmp;
+                text = null;
+            }
+            if (title) {
+                opts.title = title;
+            }
+            if (text) {
+                opts.text = text;
+            }
+            show(opts, time);
+        }
+        if (title) {
+            opts.title = title;
+        }
+        if (text) {
+            opts.text = text;
+        }
+        time = time || 500;
+        show(opts, time);
+    };
+    u.post = function () /*url,data,fnSuc,dataType*/{
+        var argsToJson = parseArguments.apply(null, arguments);
+        var json = {};
+        var fnSuc = argsToJson.fnSuc;
+        argsToJson.url && (json.url = argsToJson.url);
+        argsToJson.data && (json.data = argsToJson.data);
+        if (argsToJson.dataType) {
+            var type = argsToJson.dataType.toLowerCase();
+            if (type == 'text' || type == 'json') {
+                json.dataType = type;
+            }
+        } else {
+            json.dataType = 'json';
+        }
+        json.method = 'post';
+        api.ajax(json, function (ret, err) {
+            if (ret) {
+                fnSuc && fnSuc(ret);
+            }
+        });
+    };
+    u.get = function () /*url,fnSuc,dataType*/{
+        var argsToJson = parseArguments.apply(null, arguments);
+        var json = {};
+        var fnSuc = argsToJson.fnSuc;
+        argsToJson.url && (json.url = argsToJson.url);
+        //argsToJson.data && (json.data = argsToJson.data);
+        if (argsToJson.dataType) {
+            var type = argsToJson.dataType.toLowerCase();
+            if (type == 'text' || type == 'json') {
+                json.dataType = type;
+            }
+        } else {
+            json.dataType = 'text';
+        }
+        json.method = 'get';
+        api.ajax(json, function (ret, err) {
+            if (ret) {
+                fnSuc && fnSuc(ret);
+            }
+        });
+    };
+
+    /*end*/
+
+    window.$api = u;
+})(window);
+
+/***/ }),
+
+/***/ 80:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _doT = __webpack_require__(81);
+
+var _doT2 = _interopRequireDefault(_doT);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__(0);
+
+var historyHtml = __webpack_require__(82);
+
+var $historyList = $api.byId('history-content');
+
+var tempFn = _doT2.default.template(historyHtml);
+var mockHists = [{
+    workDate: '2017-07-28',
+    harvestSpecifications: 16,
+    numerator: '头',
+    denominator: '筐',
+    levelName: '一等品',
+    levelNumber: 10,
+    levelUnit: '头'
+}, {
+    workDate: '2017-07-28',
+    harvestSpecifications: 16,
+    numerator: '头',
+    denominator: '筐',
+    levelName: '二等品',
+    levelNumber: 6,
+    levelUnit: '头'
+}, {
+    harvestSpecifications: 16,
+    numerator: '头',
+    denominator: '筐',
+    levelName: '一等品',
+    levelNumber: 10,
+    levelUnit: '头'
+}, {
+    workDate: '2017-07-28',
+    harvestSpecifications: 16,
+    numerator: '头',
+    denominator: '筐',
+    levelName: '二等品',
+    levelNumber: 6,
+    levelUnit: '头'
+}];
+$api.html($historyList, tempFn(mockHists));
+
+/***/ }),
+
+/***/ 81:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
+// 2011-2014, Laura Doktorova, https://github.com/olado/doT
+// Licensed under the MIT license.
+
+(function () {
+	"use strict";
+
+	var doT = {
+		name: "doT",
+		version: "1.1.1",
+		templateSettings: {
+			evaluate:    /\{\{([\s\S]+?(\}?)+)\}\}/g,
+			interpolate: /\{\{=([\s\S]+?)\}\}/g,
+			encode:      /\{\{!([\s\S]+?)\}\}/g,
+			use:         /\{\{#([\s\S]+?)\}\}/g,
+			useParams:   /(^|[^\w$])def(?:\.|\[[\'\"])([\w$\.]+)(?:[\'\"]\])?\s*\:\s*([\w$\.]+|\"[^\"]+\"|\'[^\']+\'|\{[^\}]+\})/g,
+			define:      /\{\{##\s*([\w\.$]+)\s*(\:|=)([\s\S]+?)#\}\}/g,
+			defineParams:/^\s*([\w$]+):([\s\S]+)/,
+			conditional: /\{\{\?(\?)?\s*([\s\S]*?)\s*\}\}/g,
+			iterate:     /\{\{~\s*(?:\}\}|([\s\S]+?)\s*\:\s*([\w$]+)\s*(?:\:\s*([\w$]+))?\s*\}\})/g,
+			varname:	"it",
+			strip:		true,
+			append:		true,
+			selfcontained: false,
+			doNotSkipEncoded: false
+		},
+		template: undefined, //fn, compile template
+		compile:  undefined, //fn, for express
+		log: true
+	}, _globals;
+
+	doT.encodeHTMLSource = function(doNotSkipEncoded) {
+		var encodeHTMLRules = { "&": "&#38;", "<": "&#60;", ">": "&#62;", '"': "&#34;", "'": "&#39;", "/": "&#47;" },
+			matchHTML = doNotSkipEncoded ? /[&<>"'\/]/g : /&(?!#?\w+;)|<|>|"|'|\//g;
+		return function(code) {
+			return code ? code.toString().replace(matchHTML, function(m) {return encodeHTMLRules[m] || m;}) : "";
+		};
+	};
+
+	_globals = (function(){ return this || (0,eval)("this"); }());
+
+	/* istanbul ignore else */
+	if (typeof module !== "undefined" && module.exports) {
+		module.exports = doT;
+	} else if (true) {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return doT;}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		_globals.doT = doT;
+	}
+
+	var startend = {
+		append: { start: "'+(",      end: ")+'",      startencode: "'+encodeHTML(" },
+		split:  { start: "';out+=(", end: ");out+='", startencode: "';out+=encodeHTML(" }
+	}, skip = /$^/;
+
+	function resolveDefs(c, block, def) {
+		return ((typeof block === "string") ? block : block.toString())
+		.replace(c.define || skip, function(m, code, assign, value) {
+			if (code.indexOf("def.") === 0) {
+				code = code.substring(4);
+			}
+			if (!(code in def)) {
+				if (assign === ":") {
+					if (c.defineParams) value.replace(c.defineParams, function(m, param, v) {
+						def[code] = {arg: param, text: v};
+					});
+					if (!(code in def)) def[code]= value;
+				} else {
+					new Function("def", "def['"+code+"']=" + value)(def);
+				}
+			}
+			return "";
+		})
+		.replace(c.use || skip, function(m, code) {
+			if (c.useParams) code = code.replace(c.useParams, function(m, s, d, param) {
+				if (def[d] && def[d].arg && param) {
+					var rw = (d+":"+param).replace(/'|\\/g, "_");
+					def.__exp = def.__exp || {};
+					def.__exp[rw] = def[d].text.replace(new RegExp("(^|[^\\w$])" + def[d].arg + "([^\\w$])", "g"), "$1" + param + "$2");
+					return s + "def.__exp['"+rw+"']";
+				}
+			});
+			var v = new Function("def", "return " + code)(def);
+			return v ? resolveDefs(c, v, def) : v;
+		});
+	}
+
+	function unescape(code) {
+		return code.replace(/\\('|\\)/g, "$1").replace(/[\r\t\n]/g, " ");
+	}
+
+	doT.template = function(tmpl, c, def) {
+		c = c || doT.templateSettings;
+		var cse = c.append ? startend.append : startend.split, needhtmlencode, sid = 0, indv,
+			str  = (c.use || c.define) ? resolveDefs(c, tmpl, def || {}) : tmpl;
+
+		str = ("var out='" + (c.strip ? str.replace(/(^|\r|\n)\t* +| +\t*(\r|\n|$)/g," ")
+					.replace(/\r|\n|\t|\/\*[\s\S]*?\*\//g,""): str)
+			.replace(/'|\\/g, "\\$&")
+			.replace(c.interpolate || skip, function(m, code) {
+				return cse.start + unescape(code) + cse.end;
+			})
+			.replace(c.encode || skip, function(m, code) {
+				needhtmlencode = true;
+				return cse.startencode + unescape(code) + cse.end;
+			})
+			.replace(c.conditional || skip, function(m, elsecase, code) {
+				return elsecase ?
+					(code ? "';}else if(" + unescape(code) + "){out+='" : "';}else{out+='") :
+					(code ? "';if(" + unescape(code) + "){out+='" : "';}out+='");
+			})
+			.replace(c.iterate || skip, function(m, iterate, vname, iname) {
+				if (!iterate) return "';} } out+='";
+				sid+=1; indv=iname || "i"+sid; iterate=unescape(iterate);
+				return "';var arr"+sid+"="+iterate+";if(arr"+sid+"){var "+vname+","+indv+"=-1,l"+sid+"=arr"+sid+".length-1;while("+indv+"<l"+sid+"){"
+					+vname+"=arr"+sid+"["+indv+"+=1];out+='";
+			})
+			.replace(c.evaluate || skip, function(m, code) {
+				return "';" + unescape(code) + "out+='";
+			})
+			+ "';return out;")
+			.replace(/\n/g, "\\n").replace(/\t/g, '\\t').replace(/\r/g, "\\r")
+			.replace(/(\s|;|\}|^|\{)out\+='';/g, '$1').replace(/\+''/g, "");
+			//.replace(/(\s|;|\}|^|\{)out\+=''\+/g,'$1out+=');
+
+		if (needhtmlencode) {
+			if (!c.selfcontained && _globals && !_globals._encodeHTML) _globals._encodeHTML = doT.encodeHTMLSource(c.doNotSkipEncoded);
+			str = "var encodeHTML = typeof _encodeHTML !== 'undefined' ? _encodeHTML : ("
+				+ doT.encodeHTMLSource.toString() + "(" + (c.doNotSkipEncoded || '') + "));"
+				+ str;
+		}
+		try {
+			return new Function(c.varname, str);
+		} catch (e) {
+			/* istanbul ignore else */
+			if (typeof console !== "undefined") console.log("Could not create a template function: " + str);
+			throw e;
+		}
+	};
+
+	doT.compile = function(tmpl, def) {
+		return doT.template(tmpl, null, def);
+	};
+}());
+
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports) {
+
+module.exports = "{{~it :value:index}}<section class=\"aui-content-padded\"><ul class=\"aui-list aui-list-in\"><li class=\"aui-list-item\">    <div class=\"aui-list-item-inner\">        <div class=\"aui-list-item-title\">基地</div>        <div class=\"aui-list-item-right\">{{=value.farmName}}</div>    </div></li><li class=\"aui-list-item\">    <div class=\"aui-list-item-inner\">        <div class=\"aui-list-item-title\">            <span>作物</span>        </div>        <div class=\"aui-list-item-right\">            <span>{{=value.catelogName}}{{=value.categoryName}}</span>        </div>    </div></li><li class=\"aui-list-item\">    <div class=\"aui-list-item-inner\">        <div class=\"aui-list-item-title\">            <span>记工日期</span>        </div>        <div class=\"aui-list-item-right\">            <span>{{=value.workDate}}</span>        </div>    </div></li><li class=\"aui-list-item\">    <div class=\"aui-list-item-inner\">        <div class=\"aui-list-item-title\">            <span>规格数量</span>        </div>        <div class=\"aui-list-item-right\" style=\"margin-left:50px\">            <span>{{=value.harvestSpecifications}}</span>        </div>        <div class=\"aui-list-item-right\">            <span>{{=value.numerator}} / {{=value.denominator}}</span>        </div>    </div></li><li class=\"aui-list-item\">    <div class=\"aui-list-item-inner\">        <div class=\"aui-list-item-title\">            <span>{{=value.levelName}}</span>        </div>        <div class=\"aui-list-item-right\" style=\"margin-left:50px\">            <span>{{=value.levelNumber}}</span>        </div>        <div class=\"aui-list-item-right\">            <span>{{=value.levelUnit}}</span>        </div>    </div></li></ul></section>{{~}}"
+
+/***/ })
+
+/******/ });

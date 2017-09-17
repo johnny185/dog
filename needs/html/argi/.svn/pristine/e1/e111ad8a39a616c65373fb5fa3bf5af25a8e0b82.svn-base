@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户管理</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.binder.min.js"></script>
+	<script type="text/javascript" src="../../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../../script/pds.ajax.js"></script>
+    <style>
+    	.areas {padding-left:10px; padding-right:10px;}
+			.areas > div {
+				margin-top:10px;
+				margin-bottom:10px;
+			}
+			.areas > div label {
+				color:#c4c4c4;
+				width:70px;
+				text-align:right;
+			}
+			.img-list {
+				margin-left:-3px;
+				margin-right:-3px;
+			}
+			.img-list li {
+				position:relative;
+				display:inline-block;
+				padding-left:3px;
+				padding-right:3px;
+				margin-bottom:10px;
+				overflow:hidden;
+				float:left;
+			}
+			.img-name {
+				font-size:14px;
+				font-weight:normal;
+				line-height:32px;
+				color:#c4c4c4;
+			}
+			.imgbox {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				background-color: #fbfbfb;
+				border: 1px solid #ddd;
+				/* Firefox */
+				/*display:-moz-box;
+				-moz-box-pack:center;
+				-moz-box-align:center;*/
+				
+				/* Safari, Chrome, and Opera */
+				/*display:-webkit-box;
+				-webkit-box-pack:center;
+				-webkit-box-align:center;*/
+				
+				/* W3C */
+				/*display:box;
+				box-pack:center;
+				box-align:center;*/	
+			}
+			.imgbox2 {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				border: 1px solid #ddd;
+			}
+			.imgbox img,
+			.imgbox2 img {
+				width:100%;
+				height:100%;
+				display:block;
+			}
+    </style>
+</head>
+<body>
+<div class="container">
+ <div class="full-main">
+ 	<!-- 顶部菜单栏 -->
+    <div class = 'banner fixed center'>
+		<span class="banner-title center">
+			<h4 >经营信息</h4>
+		</span>
+		<a href="customers_look.html">
+			<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+		</a>
+	</div>
+	<!-- 内容区域 -->
+	<div class="sub-container-notop">
+		<div class="argi-body">
+			<div class="container-panel">
+			<ul class="infos-list-panel">
+				<li class="infos-panel-line argi-flex">
+					<div>客户来源</div>
+					<div class="argi-flex-2">
+						<input id="customerSource" type="text" placeholder="请输入客户来源" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>运营模式</div>
+					<div class="argi-flex-2">
+						<select class="select-form-control" name="" id="operativeType">
+							<option value="0">请选择</option>
+							<option value="business_self">自营</option>
+							<option value="business_join">合作</option>
+							<option value="business_trust">托管</option>
+							<option value="business_else">其他</option>
+						</select>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>主营业务</div>
+					<div class="argi-flex-2">
+						<input id="mainSource" type="text" placeholder="请输入主营业务" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>营业额（元）</div>
+					<div class="argi-flex-2">
+						<input id="money" type="number" placeholder="金额/元" class="argi-input-control" onkeyup='this.value=this.value.replace(/[^\d\.]/gi,"")' />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>备注</div>
+					<div class="argi-flex-2">
+						<textarea id="remarks" placehoder="选填项" class="argi-textarea-control"></textarea>
+					</div>
+				</li>
+				
+			</ul>
+			</div>
+			<div class="album-group argi-flex">
+				<div class="flex-full center">客户相关信息上传（如营业执照）</div>
+				<div class="areas">
+				<!--照片-->  
+				<span class="img-area">
+					<ul class="img-list">
+						<li flag="21" bledflag="1" onclick="imageUpload(this)">
+							<div class="imgbox">
+								<i class="icon-plus"></i>
+								<p>点击上传图片</p>
+							</div>
+						</li>
+					</ul>
+				</span>
+				<span class="img-area">
+				<ul class="img-list">
+						<li flag="22" bledflag="1" onclick="imageUpload(this)">
+							<div class="imgbox">
+								<i class="icon-plus"></i>
+								<p>点击上传图片</p>
+							</div>
+						</li>
+				</ul>
+				</span>
+				<span class="img-area">
+				   <ul class="img-list">
+						<li flag="23" bledflag="1" onclick="imageUpload(this)">
+							<div class="imgbox">
+								<i class="icon-plus"></i>
+								<p>点击上传图片</p>
+							</div>
+							
+						</li>
+					</ul>	
+				</span>
+			</div>
+			</div>
+			
+			<div class="foot-btn-group">
+				<div class="argi-flex">
+					<div class="argi-flex-1"><a href="customers_look.html" class="argi-btn argi-btn-big btn-full argi-btn-default">返回</a></div>
+					<div id="submit" class="argi-flex-1"><button href="#" disabledflag="1" class="argi-btn argi-btn-big btn-full argi-btn-success" onclick="saveCustomerInfo(this)">保存</button></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+ </div>
+</div>
+</body>
+
+<script type="text/javascript">
+var office = {};
+	 office.appFarmlandPic=[];
+var TaskId=null;
+var imageMap = {};
+var customerIdadd;
+	apiready = function(){
+	
+		customerIdadd= api.pageParam.customerId;	
+	};
+	//点击上传照片的方法
+	function imageUpload(dom){
+	    var Flag = dom.getAttribute("flag");
+	    
+		api.getPicture({
+		    sourceType: 'camera',//从照相机获取
+		    encodingType: 'jpg',//格式
+		    mediaValue: 'pic',//视频格式
+		    destinationType: 'url',//
+		    allowEdit: true,
+		    quality: 10,
+		    saveToPhotoAlbum: false
+		}, function(re, err){ 
+		
+		   
+		  if(re && re.data!=""){
+		     var $ul = $(dom).closest("ul");
+		  	 $(dom).html("上传中...");
+		   pds.ajaxSubmit({
+				url:"attach/upload",
+				fileData: {file: re.data},
+				success:function(e){
+				  if (e) {
+		        	var data = e.data;
+		        	data.fileBizType = Flag;
+			        data.fileBizPk = TaskId;
+			        imageMap[Flag] = data;
+			        $(dom).remove();
+			        $ul.append('<li onclick="imageUpload(this)" class="farmImag"><div class="imgbox2"><img src="'+re.data+'"></div><li>');
+			        if($("img").length>=3){
+			        	$("#submit").show();
+			        }else{
+			       		$("#submit").hide();
+			        }  
+			        } else {
+			        $(dom).html("上传失败...");
+
+			         //$ul.append('<li flag="15" bledflag="1" onclick="imageUpload(this)"><div class="imgbox"><i class="icon-plus"></i><p>图片上传</p></div></li>'); 
+			        }
+				    
+				    
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	
+	         }else{
+		        
+		    }
+		});
+ }
+ //点击保存的方法
+ function saveCustomerInfo(obj){
+	var userId = $api.getStorage("userId");
+	var submitFlag = obj.getAttribute("disabledflag");
+	var companeyId = customerIdadd;
+	var saveFlag = 1;
+	office.id=companeyId;
+	if(submitFlag != 1){
+				alert("请勿重复提交");
+				return true;
+			}
+	 var customerSource=$("#customerSource").val();
+	 if(customerSource ==""){
+	 	api.alert({msg:"请输入客户来源!"});
+		return;
+	 }
+	 
+	var operativeType=$("#operativeType").val();
+	if(operativeType =="0"){
+		api.alert({msg:"请选择运营模式!"});
+		return;
+	}
+	
+	var mainBusiness=$("#mainSource").val();
+	if(mainBusiness ==""){
+		api.alert({msg:"请输入主营业务!"});
+		return;
+	}
+	
+	var money=$("#money").val();
+	if(money == ""){
+		api.alert({msg:"请输入金额!"});
+		return;
+	} 
+	var remarks=$("#remarks").val();
+	 if(imageMap){
+		  	for(var flag in imageMap){
+		  		office.appFarmlandPic.push(imageMap[flag]);
+		  	}
+		  }
+	if(imageMap[flag] == null){
+		api.alert({msg:"请拍摄照片!"});
+		return;
+	}
+		  	  
+	office.master=$("#master").val();
+	office.saveFlag =saveFlag;
+	office.customerSource=customerSource;
+	office.operativeType=operativeType;
+	office.mainBusiness=mainBusiness;
+	office.money=money;
+	office.remarks=remarks;
+	$(obj).attr("disabledFlag", 0);  
+	pds.ajaxSubmit({
+				url:"app/customer/saveCustomer",
+				data:{"data":JSON.stringify(office)},
+				success:function(e){
+				companeyId=e.data;
+				api.alert({msg:"保存成功!"});
+				$(obj).attr("disabledFlag", 1);
+				},
+				error:function(e){
+					api.alert({msg:"服务器错误，请联系管理员!"});
+					$(obj).attr("disabledFlag", 1);
+				}
+			});
+}
+</script>
+</html>

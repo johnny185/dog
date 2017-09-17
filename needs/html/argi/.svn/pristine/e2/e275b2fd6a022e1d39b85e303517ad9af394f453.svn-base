@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收计划-详情</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+
+<body>
+
+	<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4>详情</h4>
+				</div>
+				<a href="javascript:void(0);"   onclick="back();">
+					<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return'></span>
+				</a>
+			</div>
+	</div>
+
+	<div class="container  sub-container-notop">
+		<div class="full-main">
+			<div class="sub-container">
+				<form name="d2-0" id="assignOrderForm">
+					<div class="sub-title sub-title2">
+						<h4>基本信息</h4>
+					</div>
+					<div id="harvestItemContent">
+					
+					</div>
+
+					<div class="sub-title sub-title2">
+						<h4>执行对象</h4>
+					</div>
+
+					<div class="">
+						<table class="table-detail-1"> 
+							<tr>
+								<th>执行部门:</th>
+								<td>
+									<select name="executeDeptId" id="executeDeptId" class="harvestPlanItemData select-block select-1">
+									    <option value="apartment0">--请选择--</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>执行人:</th>
+								<td>
+									<select name="executorId" id="executorId" class="harvestPlanItemData select-block select-1">
+									    <option value="apartment0">--请选择--</option>
+									</select>
+								</td>
+							</tr> 
+						</table>
+					</div>
+				</form>		
+			</div>
+
+			<div class="short-container">
+				<div class="main">
+					<div class="center">
+						<input id = "d2-0-btn" class="btn-style2 clear" type="button" name="save" value="下单">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../../../script/common/availdate-v1.0.2.js"></script>
+<script id="optionTmp" type="text/x-dot-template">
+{{~it :value:index }}
+	<option value="{{= value.id }}">{{= value.name }}</option>
+{{~}}
+</script>
+<script id="harvestItemContentTmp" type="text/x-dot-template">
+	<table class="table-detail-1">
+							<tr>
+								<th>地块名称:</th><td>{{=it.landName}}</td>
+							</tr>
+							<tr>
+								<th>品名:</th><td>{{=it.catalogName}}</td>
+							</tr> 
+							<tr>
+								<th>品种:</th><td>{{=it.categoryName}}</td>
+							</tr> 
+							<tr>
+								<th>茬口:</th><td>{{=it.cropRotationName}}</td>
+							</tr>
+							<tr>
+								<th>采收时间:</th>
+								<td>
+									<input  type="date"  data-rule="*" data-nullmsg="采收时间不能为空" data-errmsg="" data-sucmsg=""  name="realStartDate" class="harvestPlanItemData select-1" value="{{=it.realStartDate}}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>计划采收数量:</th>
+								<td> 
+									<input type="number" data-rule="n1-8" data-nullmsg="计划采摘数量不能为空" data-errmsg="计划采摘数量只能输入1-8位正整数" data-sucmsg="" name="realQuantity" class="harvestPlanItemData select-1" value="{{=it.planQuantity}}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>计划人数:</th>
+								<td> 
+									<input type="number" data-rule="n1-8" data-nullmsg="计划人数不能为空" data-errmsg="计划人数只能输入1-8位正整数" data-sucmsg="" name="realPersons" class="harvestPlanItemData select-1" value="{{=it.planPersons}}"/>
+								</td>
+							</tr> 
+	</table>
+</script>
+<script type="text/javascript">
+var userId = null;
+var pageParms = null;
+var harvestPlanItemId = null;
+var harvestPlanId = null;
+var deptUserMap = {};
+
+apiready = function(){
+	userId = $api.getStorage("userId");
+	pageParms = api.pageParam;
+	harvestPlanId = pageParms.harvestPlanId;
+	harvestPlanItemId = pageParms.harvestPlanItemId;
+	
+	//加载执行部门及用户列表
+	getExecutorInfoList(userId,function(deptList){
+		if(deptList && deptList.length>0){
+			var interDeptText = doT.template($("#optionTmp").text());
+			$("#executeDeptId").html(interDeptText(deptList));
+			for(var i=0;i<deptList.length;i++){
+				var deptModel = deptList[i];
+				deptUserMap[deptModel.id] = deptModel.userList;
+			}
+			var interUserText = doT.template($("#optionTmp").text());
+			$("#executorId").html(interUserText(deptList[0].userList));
+			
+		}
+		//加载条目详情
+		getHarvestPlanItmlDetails(userId,harvestPlanItemId,function(harvestitemData){
+			var interHarvestItemText = doT.template($("#harvestItemContentTmp").text());
+			$("#harvestItemContent").html(interHarvestItemText(harvestitemData));
+		},function(){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		});
+	
+	},function(){
+		api.alert({msg:"服务器错误，请联系管理员!"});
+	});
+	
+	/* 表单校验   */
+	ac.form({
+        area: "#assignOrderForm",
+        btn: "#d2-0-btn",
+        endSuccess: function () {
+        	var realPlanDateStr = $("input[name='realStartDate']").val();
+        	var nowDateStr = ChangeDateToString(new Date());
+        	
+        	if(!dateCompare(nowDateStr,realPlanDateStr)){
+        		api.alert({msg:"采收日期不能早于当天!"});
+	        	return;
+        	}
+    		$("#d2-0-btn").attr("disabled","true");
+			var params = {"userId":userId,"id":harvestPlanItemId,"harvestPlanId":harvestPlanId};
+			$(".harvestPlanItemData[name]").each(function(){
+				var attrName = $(this).attr("name");
+				params[attrName] = $(this).val();
+			});
+			pds.ajaxSubmit({
+				url:"app/harvestplan/assignHarvestItems",
+				data:{"data":JSON.stringify(params)},
+				success:function(e){
+					back();
+				},
+				error:function(e){
+					$("#d2-0-btn").removeAttr("disabled");
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+        }
+    });
+}
+
+function ChangeDateToString(DateIn)
+{
+    var Year=0;
+    var Month=0;
+    var Day=0;
+    var CurrentDate="";
+
+    Year      = DateIn.getFullYear();
+    Month     = DateIn.getMonth()+1;
+    Day       = DateIn.getDate();
+    
+    CurrentDate = Year + "-";
+    if (Month >= 10 ){
+        CurrentDate = CurrentDate + Month + "-";
+    }else{
+        CurrentDate = CurrentDate + "0" + Month + "-";
+    }if (Day >= 10 ){
+        CurrentDate = CurrentDate + Day ;
+    }else {
+        CurrentDate = CurrentDate + "0" + Day ;
+    }
+    return CurrentDate;
+}
+
+/* 时间比较   */
+function dateCompare(startDate,endDate){   
+	var arr=startDate.split("-");    
+	var starttime=new Date(arr[0],arr[1],arr[2]);    
+	var starttimes=starttime.getTime();   
+	  
+	var arrs=endDate.split("-");    
+	var lktime=new Date(arrs[0],arrs[1],arrs[2]);    
+	var lktimes=lktime.getTime();   
+	  
+
+	if(starttimes>lktimes){   
+		return false;   
+	}
+	return true;   
+}  	
+
+/* 根据登录用户加载其所在公司的部门列表及部门下的用户  */
+function getExecutorInfoList(loginId,sCallback,eCallback){
+	pds.ajaxSubmit({
+		url:"app/harvestplan/getExecutorInfoList",
+		data:{"userId":userId},
+		success:function(e){
+			sCallback.call(null,e.data);
+		},
+		error:function(e){
+			eCallback.call(null,e.data);
+		}
+	});
+}
+
+/* 加载采收条目详情  */
+function getHarvestPlanItmlDetails(loginId,harvestPlanItemId,successCallback,errorCallback){
+	var params = {"userId":loginId,"id":harvestPlanItemId};
+	pds.ajaxSubmit({
+		url:"app/harvestplan/getHarvestPlanItmlDetails",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			successCallback.call(null,e.data);
+		},
+		error:function(e){
+			errorCallback.call(null,e.data);
+		}
+	});
+}
+
+/*  回退事件 */
+function back(){
+	 api.closeWin();
+	 //刷新数据
+	 api.execScript({
+	      name:'harvest_plan_detail',
+	      script:'getHarvestPlanDetails('+userId+','+harvestPlanId+');'
+	 });
+}
+$("#executeDeptId").off("change");
+$("#executeDeptId").on("change",function(){
+	var that = $(this);
+	var deptId = that.val();
+	var userList = deptUserMap[deptId];
+	if(userList && userList.length>0){
+		var interUserText = doT.template($("#optionTmp").text());
+		$("#executorId").html(interUserText(userList));
+	}
+});
+</script>
+</body>
+</html>

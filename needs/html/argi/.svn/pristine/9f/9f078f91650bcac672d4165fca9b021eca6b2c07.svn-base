@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户管理</title>
+    <link rel="stylesheet" type="text/css" href="../../../../icon/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../../script/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.binder.min.js"></script>
+	<script type="text/javascript" src="../../../../script/availdate-v1.0.2.js"></script>
+	<script type="text/javascript" src="../../../../script/getLoacat.js"></script>
+    <style>
+    	body{
+    		
+    	}
+    	/*照片上传框*/
+			.photos label {
+				height: 32px;
+				padding-left:10px;
+				color: #333;
+				background-color: #f5f5f5;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				font-size: 16px;
+				vertical-align: middle;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				 align-items: center;
+			
+			}
+			/*照片1*/
+			.positive input {
+				background-size: 35px;
+			}
+			/*照片2*/
+			.reverse input {
+				background-size: 35px;
+			}
+			/*照片3*/
+			.growing input {
+				background-size: 35px;
+			}
+			
+			.attention input {
+				height: 60px;
+				background-color: #FFFFFF;
+				background-size: 35px;
+			}
+			/*--------------------------------------------------------------------*/
+			.btn {
+				margin: 3px 10px;
+			}
+			.btn {
+				background: #00F5FF;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				font-size: 20px;
+				margin-top: 20px;
+				border-radius: 5px;
+			}
+			.btn button {
+				color: #FFFFFF;
+			}
+			.areas > div {
+				margin-top:10px;
+				margin-bottom:10px;
+			}
+			textarea {
+				width:100%;
+				min-height:80px;
+				margin-top:8px;
+				box-sizing: border-box;
+			}
+			input,textarea {
+				border:1px solid #E5E5E5;
+			}
+			input {
+				height:30px;
+			}
+			.areas > div label {
+				color:#c4c4c4;
+				width:70px;
+				text-align:right;
+			}
+			.btn-submit {
+				width:40%;
+				height:auto;
+				line-height:32px;
+				text-align:center;
+				background-color:#66BB6A;
+				color:#fff;
+				font-size:16px;
+				font-weight:bold;
+				border-radius:4px;
+				margin: 0px auto 50px;
+				padding-top: 6px;
+				padding-bottom: 6px; 
+				margin-top:10px 
+			}
+			.icon-plus {
+				position:relative;
+				display:inline-block;
+				width:14px;
+				height:2px;
+				background-color:#00B841;
+				top:-10px;
+			}
+			.icon-plus:after {
+				display:inline-block;
+				position:absolute;
+				left: 50%;
+				top: -6px;
+				margin-left: -1px;
+				content: "";
+				height:14px;
+				width:2px;
+				background-color:#00B841;
+			}
+			.imgbox {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				background-color: #fbfbfb;
+				border: 1px solid #ddd;				
+			}
+			.imgbox2 {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				border: 1px solid #ddd;
+			}
+			.imgIcon-del {
+				position:absolute;
+				right:5px;
+				top:5px;
+				display:inline-block;
+				padding-left:10px;
+				padding-right:10px;
+				line-height:30px;
+				color:#fff;
+				background-color:rgba(0,0,0,.7);
+				font-style:normal;
+				-moz-border-radius:4px;
+				-webkit-border-radius:4px;
+				border-radius:4px;
+			}
+			.imgbox p {
+				font-size:14px;
+				color:#ddd;
+				height:20px;
+				line-height:20px;
+				clear:both;
+			}
+			.imgbox img,
+			.imgbox2 img {
+				width:100%;
+				height:100%;
+				display:block;
+			}
+			.img-name {
+				font-size:14px;
+				font-weight:normal;
+				line-height:32px;
+				color:#c4c4c4;
+			}
+			.img-list {
+				margin-left:-3px;
+				margin-right:-3px;
+			}
+			.img-list li {
+				position:relative;
+				display:inline-block;
+				padding-left:3px;
+				padding-right:3px;
+				margin-bottom:10px;
+				overflow:hidden;
+				float:left;
+			}
+			.addr-group{
+				position:absolute;
+				bottom:8px;
+				width:100%;
+				padding:5px;
+				font-size:12px;
+				line-height:16px;
+				color:red;				
+			}
+			.addr-group > div{padding:0;margin:0;}
+			.img-area {
+				position:relative;
+			}
+			.areas:after{
+    			content:"";
+    			display:block;
+    			line-height:0;
+    			clear:both;
+    		}
+			.gallery{text-align:center;float:left;}
+			.reverse{
+				display: inline-block;
+				width: 100px;
+				height: 100px;
+				text-align: center;
+				vertical-align: middle;
+				background-color: #fff;
+				border: 1px solid #ddd;
+
+			}
+			.reverse img{
+				width:100%;
+				height:100%;
+			}
+			.argi-lists-sub{padding-left:.5em}
+			.arrow-a{right:15px;}
+			@media screen and (max-width:360px){
+				.gallery {width:33.33333%;}
+			}
+			@media screen and (min-width:361px) and (max-width:460px){
+				.gallery {width:25%;}
+			}
+			@media screen and (min-width:461px){
+				.gallery {width:auto;}
+				.gallery + .gallery{margin-left:10px;}
+			}
+			.img-area-header{padding:1em 0; text-align:center;}
+    </style>
+</head>
+<body>
+<div class="container">
+ <div class="full-main">
+ 	<!-- 顶部菜单栏 -->
+    <div class = 'banner fixed center'>
+		<span class="banner-title center">
+			<h4 >客户管理</h4>
+		</span>
+		<a href="javascript:void(0)"; onclick="back();">
+			<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value='' style="display:none"></span>
+		</a>
+	</div>
+	<!-- 内容区域 -->
+	<div class="sub-container-notop">
+		<div class="argi-body">
+				<input type="hidden" id="provinceCode" value=""/>
+				<input type="hidden" id="cityCode" value=""/>
+				<input type="hidden" id="countyCode" value=""/>					
+			<div class="container-panel">
+			<form name="addCustomerInfoForm" id="customerform">	
+			<ul class="infos-list-panel argi-flex-name100">
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">公司名称</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="name" name="name" type="text"  required="required"></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">公司地址</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="provinceCityCounty" name="provinceCityCounty" type="text" disabled="disabled"  required="required" style="width: 80%"  /><span class="iafter"><a class="alink-default" style="margin-left: 3px"  href="javascript:getAdress()">选择</a></span></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">详细地址</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="address" name="address"type="text"  required="required"></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">公司联系人</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="contactPerson" name="contactPerson" type="text"  required="required"></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">公司联系方式</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="phone" name="phone"type="text" required="required"></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">公司法人</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="master" name="master" type="text"  ></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name" style="line-height:18px;padding-right:10px;">统一社会信用代码</div>
+					<div class="argi-flex-infos"><input class="argi-input-control" id="organizationCode" name="organizationCode" type="text" ></div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">客户分类</div>
+					<div class="argi-flex-infos">
+						<select class="select-form-control"  id="grade" name="grade" required="required">
+							<!-- <option value="0">请选择</option>	 -->										
+						</select>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div class="argi-flex-name">客户状态</div>
+					<div class="argi-flex-infos">
+						<select class="select-form-control"  id="officeStatus" name="officeStatus" required="required">
+							<!-- <option value="0">请选择</option>	 -->																
+						</select>
+					</div>
+				</li>
+			</ul>
+			</form>
+			</div>
+			<!--照片上传框-->
+			<div class="photos">
+				<div class="update ">
+					<label>照片详情</label>
+				</div>
+			</div>
+			<div class="areas">
+				<!--照片-->
+			    <ul ><!-- data-template="li-template" data-bind="source:imagedata" -->
+				   <li  class="gallery">
+				   		 <p>照片1：</p>
+						<span class="reverse">					         
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </span>
+				     </li>
+				     <li  class="gallery">
+				      	<p>照片2：</p> 
+						<span class="reverse">					        
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </span>
+				     </li>
+				      <li  class="gallery">
+				      	<p>照片3：</p> 
+						<span class="reverse">					         
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </span>
+				     </li>
+				</ul> 
+			</div>
+				<div class="addr-group" style="display: none">
+					<div class="location" id="zhuzhi"></div>
+					<div class="longitude" id="jingdu"></div>
+					<div class="weidu" id="weidu1"></div>
+				</div>			
+				
+			</div>
+			</div>
+			
+			<div class="foot-btn-group">
+				<div class="btn-h2">
+				<ul>
+					<li class="argi-flex-1"><button id="submit" tapmode="" disabledflag="1" onclick="saveCustomerInfo()" class="argi-btn argi-btn-big btn-full argi-btn-success">保存</button></li>
+				</ul>
+				</div>
+			</div>			
+			<div class="argi-lists">
+				<div class="argi-lists-sub">												
+				</div>	
+				</div>
+			<div class="foot-btn-group">
+				<div class="btn-h2">
+				<ul>
+					<li class="argi-flex-1"><button onclick="toAddFarmLand()" class="argi-btn argi-btn-big btn-full argi-btn-success">新增基地</button></li>
+				</ul>
+				</div>
+			</div>											
+			<div class="foot-btn-group">
+				<div class="btn-h2">
+				<ul>
+					<li class="argi-flex-1"><button id="farmlandsubmit" tapmode="" disabledflag="1" onclick="addNewFarmLand()" class="argi-btn argi-btn-big btn-full argi-btn-success">客户经营信息</button></li>
+				</ul>
+				</div>
+			</div>
+		
+		
+	</div>
+ </div>
+</div>
+
+<script type="text/javascript">
+	
+	var userId = null;
+	var TaskId = null;
+	var office={};
+	var AppFarmlandDetailData = null;
+	var picUpload = false;
+	var map = null;
+	var imageMap = {};
+	var customerId="";		
+	//定义全局变量
+	   var gloableData = null;
+	   var viewModel = null;
+	    var url = null;
+	    //数据交换
+     function getTaskDetail(data1){
+		 pds.ajaxSubmit({
+				url:"app/farmland/get_customer",
+				data:{'id':data1},
+				success:function(e){
+				    gloableData = e.data;
+				 
+				    if(gloableData.soilTemp!=null&&gloableData.moisture!=null){
+				      document.getElementById("soiltemp").value =gloableData.soilTemp;
+				      document.getElementById("moisture").value =gloableData.moisture;
+				     }                          
+				  
+				    
+				     viewModel = kendo.observable({
+			            
+			          //  soiltemp: gloableData.soilTemp,
+			            weather : gloableData.weather,
+			       		  code  : gloableData.code,
+			       	temperature : gloableData.temperature,
+			       	   leaveNum : gloableData.leaveNum,
+			       	 cropHeight : gloableData.cropHeight,
+			       diseasesFlag : gloableData.diseasesFlag,
+			          pestsFlag : gloableData.pestsFlag,
+			       	   //moisture : gloableData.moisture,
+			       	  weedsFlag : gloableData.weedsFlag,
+			        cropRemarks : gloableData.cropRemarks,	
+			       leaveDiameter: gloableData.leaveDiameter,
+			          imagedata : gloableData.appFarmlandPic,
+			        cropRemarks : gloableData.cropRemarks,
+			            remarks : gloableData.cropRemarks
+			        });
+			        kendo.bind("#bigdiv", viewModel);
+			     
+			       
+			     var images = document.getElementsByName("image");
+			        for(var i =0;i<images.length;i++){
+				         if(viewModel.imagedata==null){
+				         	return;
+				         }			        
+			            if(viewModel.imagedata[i]!=null && viewModel.imagedata[i]!='undefined' && viewModel.imagedata[i]!=undefined){
+			               if(viewModel.imagedata[i].filePath !=null &&viewModel.imagedata[i].filePath!='undefined'&& viewModel.imagedata[i].filePath!=undefined){
+			                 images[i].setAttribute('src',url+"/attach/view/"+viewModel.imagedata[i].id);
+			                }
+			            }
+			        }
+			        
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+		}
+		
+		function preview(dom){
+		       imagUrls = [];
+		       var images = document.getElementsByName("image");
+		       for(var i =0;i<images.length;i++){
+		       		if(images[i].getAttribute("src") !=''){		       		
+		       		 	imagUrls.push(images[i].getAttribute("src"));
+		       		}
+		          
+		       }
+		
+		   var imageBrowser = api.require('imageBrowser');
+				imageBrowser.openImages({
+				    imageUrls: imagUrls
+				});			  
+		}
+		
+	//获取客户等级字典数据
+	function getCusterGradeDict(){
+		pds.ajaxSubmit({
+					 url:"app/customer/findCusterGradeDict",					 
+					 success:function(e){
+						 $.each(e.data,function(index,val){						
+						 	 $("#grade").append( "<option value='"+val.value+"'>"+val.label+"</option>");						 	
+						 });				     
+						   
+					}					
+				});
+			}
+			
+	//获取客户状态字典数据
+	function findCusterStatusDict(){
+		pds.ajaxSubmit({
+					 url:"app/customer/findCusterStatusDict",					
+					 success:function(e){					     
+					   $.each(e.data,function(index,val){						
+						 	 $("#officeStatus").append( "<option value='"+val.value+"'>"+val.label+"</option>");						 	
+						 });				     						   
+					}
+					
+				});
+			}		
+			
+//返回上一级
+				function back() {
+					api.closeWin();
+				}
+			
+	apiready=function(){		
+			getCusterGradeDict();//初始化下拉框的值
+			findCusterStatusDict();//初始化下拉框的值	
+			customerId=api.pageParam.id;			
+			if(customerId != null){
+				getCustomerInfo(customerId);
+				exec();//初始化基地信息列表
+			}
+			
+			
+			
+			var data = customerId;
+	   getTaskDetail(data);
+	   baseUrl = pds.defaultUri;
+	  url = baseUrl.substring(0,baseUrl.length-1);														
+	};
+	
+	/*返回*/
+
+	function closeWin() {
+		api.closeWin();
+	}
+
+//校验手机号11位数字，以1开头
+//校验手机号
+function checkMobile(str) {
+    var re = /^1\d{10}$/
+   if (re.test(str)) {   	
+        return '1';//成功
+    } else {   	
+       return '0';//失败
+    }
+} 
+ 
+//电话校验验证规则：区号+号码，区号以0开头，3位或4位
+//号码由7位或8位数字组成
+//区号与号码之间可以无连接符，也可以“-”连接
+function checkPhone(str){
+    var re = /^0\d{2,3}-?\d{7,8}$/;
+    if(re.test(str)){    	
+        return '1';//成功
+    }else{    	
+        return '0';//失败
+    }
+} 
+
+//验证组织机构合法性方法    false 就是组织机构代码是对的,true 组织机构代码不合法
+//判断是否为统一社会信用代码格式
+function CheckSocialCreditCode(Code) 
+{ 
+	var patrn=/^[0-9A-Z]+$/;
+	　//18位校验及大写校验
+	if((Code.length != 18) || (patrn.test(Code) == false)){
+		return false;
+	}else{
+		var ancode;//统一社会信用代码的每一个值
+		var ancodevalue;//统一社会信用代码的每一个值的权重
+		var total =0;
+		var weightedfactors=[1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28];//加权因子
+		var str = '0123456789ABCDEFGHJKLMNPQRTUWXY';
+		//不用I，O，S，V，Z
+		for(var i=0;i<Code.length-1;i++){
+			ancode=Code.substring(i,i+1);
+			ancodevalue=str.indexOf(ancode);
+			//权重与加权因子相乘之和 
+			total=total+ancodevalue*weightedfactors[i];
+		}
+		var logiccheckcode = 31 - total % 31;
+		if (logiccheckcode == 31){
+			logiccheckcode=0;
+		}
+                　　　
+		var Str = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,J,K,L,M,N,P,Q,R,T,U,W,X,Y";
+        var Array_Str=Str.split(',');       　　
+		logiccheckcode=Array_Str[logiccheckcode];
+		
+		var checkcode=Code.substring(17,18);
+		if(logiccheckcode != checkcode){
+			return false;
+		}				
+	} 　　　
+　　
+	return true;
+
+
+　}
+	
+//保存
+function saveCustomerInfo(){
+		if(customerId != null){
+			office.id=customerId;
+			office.name=$("#name").val();
+			office.provinceCityCounty=$("#provinceCityCounty").val();
+			office.provinceCode=$('#provinceCode').val();		
+			office.cityCode=$('#cityCode').val();		
+			office.countyCode=$('#countyCode').val();			
+			office.address=$("#address").val();
+			office.contactPerson=$("#contactPerson").val();
+			office.phone=$("#phone").val();
+			office.master=$("#master").val();
+			office.organizationCode=$("#organizationCode").val();
+			office.grade=$("#grade").val();
+			office.officeStatus=$("#officeStatus").val();
+			
+			 if(office.name == ''){
+				 	api.alert({msg:"公司名称不能为空"});
+					return;
+				 }
+			   if(office.name != ''){	 
+	  	var officeNameVa={};
+	  	officeNameVa.name=office.name;
+	  	officeNameVa.id=customerId;
+	  	var flag1='0';//0表示不存在,1表示存在	 	  	  		
+	  	$.ajax({
+	  			type : "POST",				
+				url:pds.defaultUri+"app/customer/checkOfficeNameApp",
+				data:{"data":JSON.stringify(officeNameVa)},
+				async: false,
+				success:function(e){							
+					flag1=e.data;					
+				},
+				error:function(e){					
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});				
+	  	if(flag1=='1'){
+	  		api.alert({msg:"公司名称重复,重新填写"});
+	  		return;
+	  	}
+		
+	 }	 	  
+				 
+			 if(office.provinceCityCounty == ''){
+			 	api.alert({msg:"公司地址不能为空"});
+				return;
+			 }
+			if(office.address ==''){
+				api.alert({msg:"详细地址不能为空"});
+				return;
+			}
+			if(office.contactPerson == ''){
+				api.alert({msg:"公司联系人不能为空"});
+				return;
+			}
+			if(office.phone == ""){
+				api.alert({msg:"公司联系方式不能为空"});
+				return;
+			} 
+			
+			if(checkMobile(office.phone)=='0' && checkPhone(office.phone)=='0'){			
+				api.alert({msg:"联系方式格式不正确"});
+				return;
+			}
+	
+			/*if(office.master == ""){
+				api.alert({msg:"请输入公司法人!"});
+				return;
+			}   */
+			
+			if(office.organizationCode != ""){
+				if(!CheckSocialCreditCode(office.organizationCode)){
+		
+					api.alert({msg:"统一社会信用代码不合法"});
+					return;
+				}
+			}
+			
+//			if(office.grade == '0'){
+//				api.alert({msg:"请选择客户分类"});
+//				return;
+//			} 
+//			if(office.officeStatus == '0'){
+//				api.alert({msg:"请选择客户状态"});
+//				return;
+//			} 		   
+			pds.ajaxSubmit({
+						url:"app/customer/saveCustomer",
+						data:{"data":JSON.stringify(office)},
+						success:function(e){
+							api.alert({msg:"保存成功!"});
+						},
+						error:function(e){
+							
+							api.alert({msg:"服务器错误，请联系管理员!"});
+						}
+					});
+			}else{
+				return false;
+			}
+				
+	}
+	
+	//获取客户信息
+	function getCustomerInfo(customerId){
+		var office={};
+		office.id=customerId;
+		office.createBy=userId;
+		pds.ajaxSubmit({
+				url:"app/customer/getCustomer",
+				data:{"data":JSON.stringify(office)},
+				success:function(e){
+								var customer=e.data;										
+						 	 if(customer != null){									  				 							    
+							     $("#name").val(customer.name);
+								 $("#provinceCityCounty").val(customer.provinceCityCounty);
+								 $('#provinceCode').val(customer.provinceCode);		
+								 $('#cityCode').val(customer.cityCode);		
+								 $('#countyCode').val(customer.countyCode);	
+								 $("#address").val(customer.address);
+								 $("#contactPerson").val(customer.contactPerson);
+								 $("#phone").val(customer.phone);
+								 $("#master").val(customer.master);
+								 $("#organizationCode").val(customer.organizationCode);								 
+								 $("#grade").val(customer.grade);									
+								 $("#officeStatus").val(customer.officeStatus);								 
+							 }						 	
+										     			
+					
+					},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	}
+//获取基地列表
+function exec(){
+	//删除所有的行	
+	if($(".argi-lists-in").length>0){
+		$('.argi-lists-sub').html("");
+	}	 	 	
+	pds.ajaxSubmit({
+				url:"app/customer/findFarmLandList",
+				data:{"companyId":customerId},
+				success:function(e){
+				  $.each(e.data,function(index,farmland){				  
+				  	/*var $tr = $("<tr  onclick='toFarmLandEdit("+farmland.id+")' class='alt'><td>"+farmland.farmName+"</td><td>"+farmland.farmArea+"</td> <td>"+farmland.farmUserName+"</td> <td>"+farmland.farmMobile+"</td></tr>");
+					$("#farm tbody").append($tr);*/
+					
+					var div="<div class='argi-lists-in'>"
+						+"<a href='javascript:toFarmLandEdit("+farmland.id+")' class='argi-flex'>"					
+						+"<div class='argi-flex-img'><img src='../../../../image/farm_map1.jpg' /></div>"
+						+"<div class='argi-flex-infos'>"
+						+"<p class='argi-p'><span>基地名称</span><span>"+farmland.farmName+"</span></p>"
+						+"<p class='argi-p'><span>基地面积(亩)</span><span>"+farmland.farmArea+"</span></p>"
+						+"<p class='argi-p'><span>基地负责人</span><span>"+farmland.farmUserName+"</span></p>"
+						+"<p class='argi-p'><span>联系方式</span><span>"+farmland.farmMobile+"</span></p>"
+						+"</div><span class='arrow-a'>"						
+			            +"<img class='sm-button' src='../../../../image/next-button.png'>"
+			            +"</span>"
+		            	+"</a>"
+						+"</div>";										
+						$(".argi-lists-sub").append(div);																		  				  	
+				  });									
+				},
+				error:function(e){					
+					api.alert({msg:"服务器错误，请联系管理员!"});
+				}
+			});
+}
+
+//跳转到基地编辑页面
+function toFarmLandEdit(farmId){
+	$api.openWin({
+		    name: "farm_detail",
+		    url: "widget://html/farm/farm_detail.html",
+		    reload:true,
+		    selecteIndex:'4',
+		    pageParam:{
+		    	"farmId":farmId,
+		    	"sourceName":"edit_customers"
+		    },
+		    animation:{ 
+		      type:"movein",              //动画类型（详见动画类型常量）
+		      subType:"from_right",       //动画子类型（详见动画子类型常量）
+		      duration:300                //动画过渡时间，默认300毫秒
+		    }
+	    });
+}
+
+
+//跳转到新增基地信息页面
+function toAddFarmLand(){
+			 $api.openWin({
+			    name: "farm_save",
+			    url: "widget://html/farm/farm_save.html",
+			    reload:true,
+			    selecteIndex:'4',	
+			    pageParam:{
+			    	"farmOfficeId":customerId,
+			    	"sourceName":"edit_customers"
+			    },
+			    animation:{ 
+			      type:"movein",              //动画类型（详见动画类型常量）
+			      subType:"from_right",       //动画子类型（详见动画子类型常量）
+			      duration:300                //动画过渡时间，默认300毫秒
+			    }
+		    });
+	    }
+
+
+//查看经营信息按钮
+//查看客户经营信息
+	function addNewFarmLand(){
+		var office={};
+		office.id=customerId;
+		pds.ajaxSubmit({
+				url:"app/customer/getCustomer",
+				data:{"data":JSON.stringify(office)},
+				success:function(e){
+								var customer=e.data;										
+						 	 if(customer != null){
+						 	 	if(customer.customerSave == 2 && customer.saveFlag!=1){
+						 
+						 	 				$api.openWin({
+		    										name: "customers_look_manage",
+		   			 								url: "widget://html/mysetting/mysettings/customers/customers_look_manage.html",
+		    										reload:true,
+		    										selecteIndex:'4',	
+		    										pageParam:{
+		    										"customerId":customerId,
+		    									},
+		    					animation:{ 
+		     					type:"movein",              //动画类型（详见动画类型常量）
+		      					subType:"from_right",       //动画子类型（详见动画子类型常量）
+		      					duration:300                //动画过渡时间，默认300毫秒
+		    						}
+	    								});						  				 							    
+							     }
+							     if(customer.saveFlag == 1){
+							     
+							    	$api.openWin({
+		    										name: "customers_edit_manage",
+		   			 								url: "widget://html/mysetting/mysettings/customers/customers_edit_manage.html",
+		    										reload:true,
+		    										selecteIndex:'4',
+		    										pageParam:{
+		    										"customerId":customerId,
+		    									},
+		    					animation:{ 
+		     					type:"movein",              //动画类型（详见动画类型常量）
+		      					subType:"from_right",       //动画子类型（详见动画子类型常量）
+		      					duration:300                //动画过渡时间，默认300毫秒
+		    						}
+	    								});			 
+							    
+							     }
+							 }						 	
+										     			
+					
+					},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	}
+
+
+
+function getAdress() {
+	api.openWin({
+		name : 'adress_province',
+		url : '../address/address_province.html',
+		reload : true,
+		pageParam : {
+			"name" : 'edit_customers',
+			"fun" : 'setAddress'
+		},
+		animation : {
+			type : "movein", //动画类型（详见动画类型常量）
+			subType : "from_right", //动画子类型（详见动画子类型常量）
+			duration : 300 //动画过渡时间，默认300毫秒
+		}
+	});
+}
+function setAddress(adressFullName, pcode, ccode, cocode) {
+	$('#provinceCityCounty').val(adressFullName);
+	$('#provinceCode').val(pcode);		
+	$('#cityCode').val(ccode);		
+	$('#countyCode').val(cocode);	
+}
+</script>	
+</body>
+</html>

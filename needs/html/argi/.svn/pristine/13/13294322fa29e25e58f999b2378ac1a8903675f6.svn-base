@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>农化列表页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<link rel="stylesheet" type="text/css" href="../../css/aui-theme-style1.css">
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+</head>
+
+<body>
+	<header class="aui-bar aui-bar-nav" id="header" style="background-color: #00c558">
+		<a class="aui-btn aui-pull-left" tapmode id="btn_quit">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="aui-title">采收汇总详情</div>
+		<a class="aui-pull-right aui-btn" tapmode id="btn_save">
+			<div class="aui-btn aui-btn-primary">保存</div>
+		</a>
+	</header>
+<script type="text/javascript" src="../../lib/harvest/xb_list_home.js?f8f0f0b7fc52a83c3563"></script></body>
+</html>

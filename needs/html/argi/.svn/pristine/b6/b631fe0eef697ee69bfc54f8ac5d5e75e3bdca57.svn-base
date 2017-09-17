@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>农化列表页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<link rel="stylesheet" type="text/css" href="../../css/aui-theme-style1.css">
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+	<style>
+		input::-webkit-input-placeholder{
+			color: red;
+		}
+		#content.aui-list{background-image: none}
+		.aui-list .aui-list-item-right{font-size:0.8rem}
+	</style>
+</head>
+<body>
+	<div class="aui-content">
+		<div class="top-slogan">
+			<img src="../../image/harvest_allListmain_content_bc.png" alt="">
+		</div>
+		<section class="aui-content-padded aui-content-margin5" style="margin-top: -4rem">
+			<div id="content" class="aui-list aui-collapse aui-content-radius" style="padding-top:1.5rem;padding-bottom: 0.5rem">
+
+
+				
+
+
+			</div>
+		</section>
+  </div>
+<script type="text/javascript" src="../../lib/harvest/xb_list_frm.js?f8f0f0b7fc52a83c3563"></script></body>
+</html>

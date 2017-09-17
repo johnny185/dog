@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>等级标准</title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+    <script type="text/javascript" src="../../script/remote.config.js"></script>
+
+</head>
+<body>
+
+	<div id="content">
+		<div id="levelStandard">
+		</div>
+	</div>
+	
+<script type="text/javascript" src="../../lib/harvest/xb_levelStandard_frm.js?4dd12ad3d5b427c0db86"></script></body>
+<script type="text/javascript">apiready=function(){listGrade()}</script>
+</html>

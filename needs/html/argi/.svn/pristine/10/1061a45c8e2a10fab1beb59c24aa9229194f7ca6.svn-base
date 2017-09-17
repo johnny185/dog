@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>县</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/login-style.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+		<style>
+			.posAddress {
+				margin-top: 52px;
+			}
+			.posAddress .posTitle, .province .provTitle {
+				background: #BFBFBF;
+				height: 40px;
+				line-height: 40px;
+				text-indent: 20px;
+			}
+			.posAddress .location {
+				height: 40px;
+			}
+			#provinceAll {
+				padding-left: 20px;
+			}
+			#provinceAll li {
+				border-bottom: 1px solid #CCCCCC;
+				height: 40px;
+				line-height: 40px;
+			}
+			#provinceAll li .return {
+				float: right;
+				margin-right: 15px;
+				margin-top: 10px;
+				width: 20px;
+				height: 20px;
+				background-image: url('../../../../image/arrow.png');
+				background-size: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>地区选择</h4> </span>
+					<a href=""> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<!-- 全部县显示 -->
+				<div class="province">
+					<div class="provTitle">
+						全部
+					</div>
+					<ul id="provinceAll"></ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var name;
+		var fun;
+		var provinceName;
+		var provinceCode;
+		var cityName;
+		var cityCode;
+		apiready = function() {
+			//alert(api.pageParam.name+api.pageParam.fun);
+			name = api.pageParam.name;
+			fun = api.pageParam.fun;
+			if (!name || !fun) {
+				alert("系统出错，请联系管理员！");
+			}
+			provinceCode = api.pageParam.provinceCode;
+			provinceName = api.pageParam.provinceName;
+			cityName = api.pageParam.cityName;
+			cityCode = api.pageParam.cityCode;
+			getCounty(api.pageParam.cityId, api.pageParam.cityName, api.pageParam.cityCode, api.pageParam.provinceCode, api.pageParam.provinceName);
+		};
+		function getCounty(cityId, cityName, cityCode, provinceCode, provinceName) {
+			pds.ajaxSubmit({
+				url : "app/customer/findCityList",
+				data : {
+					id : cityId
+				},
+				success : function(res) {
+					var el = $api.byId("provinceAll");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						//alert(data.length);
+						//alert(data[0].id);
+						var str = '<li onclick="xian(this)" data-id="' + data[i].id + '" data-code="' + data[i].code + '"><p>' + data[i].name + '</p><span class = "return"></span></li>';
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		function xian(obj) {
+			var $text = $(obj).find('p').text();
+			var $code = $(obj).attr("data-code");
+			var $countyId = $(obj).attr("data-id");
+			alert(name);
+			alert(fun + "('" + provinceName + cityName + $text + "','" + provinceCode + "','" + cityCode + "','" + $code + "');");
+			var resultId = provinceName + cityName + $text;
+			var resultCode = provinceCode + '_' + cityCode + '_' + $code;
+			//		alert(resultId);
+			alert(resultCode);
+			//连跳返回
+			api.closeToWin({name: name});
+			//刷新数据
+			api.execScript({
+				name : name,
+				script : fun + "('" + provinceName + cityName + $text + "','" + provinceCode + "','" + cityCode + "','" + $code + "');"
+			});
+		}
+	</script>
+</html>

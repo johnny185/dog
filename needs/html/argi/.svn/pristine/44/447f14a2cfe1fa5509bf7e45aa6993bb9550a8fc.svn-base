@@ -1,0 +1,258 @@
+
+/*照片上传框*/
+.photos label {
+	height: 32px;
+	padding-left: 10px;
+	color: #333;
+	background-color: #f5f5f5;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	font-size: 16px;
+	vertical-align: middle;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+/*照片1*/
+.positive input {
+	background-size: 35px;
+}
+/*照片2*/
+.reverse input {
+	background-size: 35px;
+}
+/*照片3*/
+.growing input {
+	background-size: 35px;
+}
+.attention input {
+	height: 60px;
+	background-color: #FFFFFF;
+	background-size: 35px;
+}
+/*--------------------------------------------------------------------*/
+.btn {
+	margin: 3px 10px;
+}
+.btn {
+	background: #00F5FF;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 20px;
+	margin-top: 20px;
+	border-radius: 5px;
+}
+.btn button {
+	color: #FFFFFF;
+}
+#gallery {
+	background-color: #FFFFFF;
+	padding: 10px;
+	width: 100%;
+}
+#gallery ul {
+	list-style: none;
+}
+#gallery ul li {
+	display: inline;
+}
+#gallery ul img {
+	border: 5px solid #3e3e3e;
+	border-width: 5px 5px 20px;
+}
+#gallery ul a:hover img {
+	border: 5px solid #fff;
+	border-width: 5px 5px 20px;
+	color: #fff;
+}
+#gallery ul a:hover {
+	color: #fff;
+}
+.areas {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.areas > div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+input, textarea {
+	border: 1px solid #E5E5E5;
+}
+input {
+	height: 30px;
+}
+input[disabled]{color:black;opacity:0.8}
+textarea[disabled]{color:black;opacity:0.8}
+textarea {
+	width: 100%;
+	min-height: 80px;
+	margin-top: 8px;
+	box-sizing: border-box;
+}
+.areas > div label {
+	color: #c4c4c4;
+	width: 70px;
+	text-align: right;
+}
+.btn-submit {
+	width: 40%;
+	height: auto;
+	line-height: 32px;
+	text-align: center;
+	background-color: #66BB6A;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 4px;
+	margin: 0px auto 50px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top: 10px
+}
+.icon-plus {
+	position: relative;
+	display: inline-block;
+	width: 14px;
+	height: 2px;
+	background-color: #00B841;
+	top: -10px;
+}
+.icon-plus:after {
+	display: inline-block;
+	position: absolute;
+	left: 50%;
+	top: -6px;
+	margin-left: -1px;
+	content: "";
+	height: 14px;
+	width: 2px;
+	background-color: #00B841;
+}
+.imgbox {
+	display: table-cell;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #fbfbfb;
+	border: 1px solid #ddd;
+	/* Firefox */
+	/*display:-moz-box;
+	 -moz-box-pack:center;
+	 -moz-box-align:center;*/
+	/* Safari, Chrome, and Opera */
+	/*display:-webkit-box;
+	 -webkit-box-pack:center;
+	 -webkit-box-align:center;*/
+	/* W3C */
+	/*display:box;
+	 box-pack:center;
+	 box-align:center;*/
+}
+.imgbox2 {
+	display: table-cell;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+}
+.imgIcon-del {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 30px;
+	color: #fff;
+	background-color: rgba(0,0,0,.7);
+	font-style: normal;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.imgbox p {
+	font-size: 14px;
+	color: #ddd;
+	height: 20px;
+	line-height: 20px;
+	clear: both;
+}
+.imgbox img, .imgbox2 img {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.img-name {
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 32px;
+	color: #c4c4c4;
+}
+.img-list {
+	margin-left: -3px;
+	margin-right: -3px;
+}
+.img-list li {
+	position: relative;
+	display: inline-block;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	float: left;
+}
+.addr-group {
+	position: absolute;
+	bottom: 8px;
+	width: 100%;
+	padding: 5px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #fff;
+}
+.addr-group > div {
+	padding: 0;
+	margin: 0;
+}
+.img-area {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	position: relative;
+}
+#farmdiv {
+	margin-top: 0px;
+}
+#farmResources {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+#farmResources td, #farmResources th {
+	font-size: 1em;
+	border: 1px solid #98bf21;
+ 	padding: 5px 7px 5px 7px; 
+ 	text-align:center;
+}
+#farmResources th {
+	font-size: 1.1em;
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 4px;
+	background-color: #A7C942;
+	color: #ffffff;
+}
+#farmResources tr.alt td {
+	color: #000000;
+	background-color: #EAF2D3;
+}
+#farmlandsubmit {
+	margin-top: 50px;
+}

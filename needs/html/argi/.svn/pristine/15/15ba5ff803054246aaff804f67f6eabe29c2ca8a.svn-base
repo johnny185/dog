@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>tianjian首页</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../css/farm.css">	
+
+</head>
+<body>
+	<!-- 导航栏 -->
+	<div class='full-main'> 
+		<div class = 'banner2 fixed'>
+			<div class="banner2-list-btn"><img src="../image/list.png"></div>
+			<div class="banner-select" id="location-select">
+				<select>
+					<option>天津七镰种植基地</option>
+				</select>
+			</div>
+			<div class="banner2-people-btn"><img src="../image/people.png"></div>
+			<div class="banner-text">当前在线：<span>5人</span></div>	
+		</div>
+	</div>
+
+	<!-- 内容 -->
+	<div class="sub-container-notop sub-container-nobottom">
+		<!-- 地图 -->
+		<div class="frm-map-top"></div>
+	
+		<div><img  src="../image/map2.png"></div>
+		<!-- sub-nav -->
+		<div class="sub-nav-container fixed" style="z-index:9999;">
+			<div class="col-5 left center sub-nac-btn-l">
+				<input type="button" name="" value="待处理" class="tobe-process-btn">
+			</div>
+			<div class="center-btn-container" onclick="toField()">
+				<div class="center-btn" id="sign">签到</div>
+			</div>
+			<div class="col-5 right center sub-nac-btn-r">
+				<input type="button" name="" value="已处理" class="processed-btn">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		var signbtn = document.getElementById("sign");
+		var signflag = false;
+		signbtn.onclick = function(){
+//			if (!signflag) {
+//				signbtn.innerHTML = '签退';
+//				signbtn.style.backgroundColor = "#999";
+//				signflag = true;
+//			}
+//			else if(signflag){
+//				signbtn.innerHTML = '签到';
+//				signbtn.style.backgroundColor = "#A2CDA5";
+//				signflag =false;
+//			}
+		}
+
+//		apiready = function(){
+//		    var  map = api.require('bMap');
+//		    map.open({
+//			    rect: {//模块的位置及尺寸
+//			        x: 0,
+//			        y: 68,
+//			        h: 449
+//		        },
+//		        zoomLevel: 18,//设置百度地图缩放等级，取值范围：3-18级
+//			    showUserLocation: true,//是否在地图上显示用户位置
+//			    fixed: true,
+//			    center:{
+//		                lon: 116.3247,       //数字类型；打开地图时设置的中心点经度
+//		                lat: 40.0454         //数字类型；打开地图时设置的中心点纬度
+//		               }            //模块是否随所属 Window 或 Frame 滚动
+//		    },
+//		   function(ret){ //ret为JSON类型
+//		        if(ret.status){
+//		       
+//		        }
+//		   }); 
+//		 };
+	    
+		toField = function(){
+//		   var map = api.require('bMap');
+//		   map.close();
+	       api.openWin({
+	           name: 'frm_field',
+	           url: 'frm_field.html',
+           });
+		}
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收工单－累计采收量</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+
+<body>
+	<div class='full-main'>
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4>累计采收量</h4>
+				</div>
+				<a href="javascript:void(0);" onclick="back();">
+					<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+				</a>
+				<a href="javascript:void(0);" id="addRecorderBtn" style="display:none;" onclick="toAddRecordDetail();">
+					<span id = 'morebtn' class = "banner-btn banner-trans-btn"><input type='button' name='more' value='记一笔'></span>
+				</a>
+				
+				<!-- <a href="javascript:void(0);" id="addRecorderBtn" style="display:;" onclick="toAddRecordDetail();">
+					<span class = "banner-btn banner-more-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+				</a> -->
+			</div>
+	</div>
+	<div class="container">
+		<div class="full-main">
+				<div class="sub-container sub-container-notop">
+					<form name="d2-0">
+						<!--采收量-->
+						<div id="harvestNumContainer">
+							
+						</div>
+						<!--详细列表-->
+						<div class="full-main">
+							<div class="scrollutable">
+								<div class="scroll-banner">
+									<label class="scroll-sm-banner" id="number">编号</label>
+									<label class="scroll-md-banner" id="time">时间</label>
+									<label class="scroll-lg-banner" id="harvest">采收量</label>
+								</div>
+								<div class="scrollcontent">
+									<div id="recordListContainer">
+									
+									</div>
+									<div class="scrollcontentblock clear">
+										<span class="no col-xs-2"></span>
+										<span class="date col-2"></span>
+									</div>
+							</div>
+						</div>
+					</div>
+				</form>		
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script id="harvestNumTmp" type="text/x-dot-template">
+	<div class="detailcontainer dc-color1">
+		<h3>单据采收量(头)</h3>
+		<h1>{{=it.farmQuantity}}</h1>
+		<br>
+		<h3>累计采收总量(头)</h3>
+		<h2>{{=it.landQuantity}}</h2>
+	</div>
+</script>
+<script id="recordListTmp" type="text/x-dot-template">
+{{~it :value:index }}
+	{{ 
+	   var tmpHarvestMap = value.harvestMap;
+	   var gradeOne = tmpHarvestMap["1"] * 1;
+	   var gradeTwo = tmpHarvestMap["2"] * 1;
+	   var total = gradeOne +  gradeTwo;
+	   var onePercent = ((gradeOne/total)*100).toFixed(2);
+	   var twoPercent = ((gradeTwo/total)*100).toFixed(2);  
+	}}
+	
+	<div class="scrollcontentblock clear">
+		<span class="no col-xs-2">{{=value.serialNumber}}</span>
+		<span class="date col-2">{{=value.recordeDateStr}}</span>
+		<span class="histogram col-lg-5">
+			<div class="harvestcontainer">
+				<div class="level1 level1color" style="width:{{= onePercent}}%;">{{=gradeOne}}</div>
+				<div class="level2 level2color" style="width:{{= twoPercent }}%;">{{=gradeTwo}}</div>
+			</div>
+		</span>
+	</div>
+{{~}}
+</script>
+<script type="text/javascript">
+var userId  = null;
+var orderId = null;//工单id
+var orderStatus = null;//工单状态
+var recorderName = null;
+apiready = function(){
+	userId = $api.getStorage("userId");
+	orderId = api.pageParam.orderId;
+	orderStatus = api.pageParam.orderStatus;
+	/*加载记工单列表详情 */
+	getHarvestRecordOrderList(userId,orderId);
+}
+
+/* 跳转至记工单页面   */
+function toAddRecordDetail(){
+	api.openWin({
+        name: "harvest_workorder_record_order",
+        url:  "./harvest_workorder_record_order.html",
+        pageParam: {"orderId":orderId,"orderStatus":orderStatus,"userName":recorderName},
+        slidBackEnabled:false,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+}
+
+/* 加载 */
+function getHarvestRecordOrderList(loginId,OrderId){
+	$("#recordListContainer").html("");
+	var params = {"userId":loginId,"workOrderId":OrderId};
+	pds.ajaxSubmit({
+		url:"app/harvestworkorder/getHarvestRecordOrderList",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var harvestRecordOrderData = e.data;
+			var workOrderStatus = harvestRecordOrderData["workOrderStatus"];//工单状态
+			var orderStatus = harvestRecordOrderData["orderStatus"];//记工单状态
+			var recorderList = harvestRecordOrderData["recorderList"];
+			recorderName = 	harvestRecordOrderData["userName"];
+			//控制记工单按钮是否显示
+			if(workOrderStatus == "COMPLETED" || orderStatus == "COMPLETED"){
+				$("#addRecorderBtn").hide();
+			}else{
+				$("#addRecorderBtn").show();			
+			}
+			//累计采收数量
+			var interHarvestData = doT.template($("#harvestNumTmp").text());
+			$("#harvestNumContainer").html(interHarvestData(harvestRecordOrderData));
+			//记工单列表
+			if(recorderList && recorderList.length>0){
+				var interText = doT.template($("#recordListTmp").text());
+				$("#recordListContainer").html(interText(recorderList));
+			}
+		},
+		error:function(e){
+		
+		}
+	});
+}
+
+/* 回退事件  */
+function back(){
+	api.closeWin();
+  	//刷新数据
+  	api.execScript({
+  	 	name:'harvest_workorder_detail',
+      	script:'getHarvestWorkOrderDetails('+userId+","+orderId+');'
+  	});
+}
+</script>
+</body>
+</html>

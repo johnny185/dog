@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户回访</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/mui/css/mui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/mui/css/mui.picker.min.css">
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <script type="text/javascript" src="../../../script/mui/mui.min.js"></script>
+	<script type="text/javascript" src="../../../script/mui/mui.picker.min.js"></script>
+    
+ 	<style>
+	 	
+ 		.content{
+ 			font-size:0.26rem;
+ 			color:#949996;
+ 		}
+ 		span{
+ 			display:inline-block;
+ 		}
+ 		/*tab切换*/
+ 		.tab{
+ 			width:100%;
+ 			overflow: hidden;
+ 			font-size:0.3rem;
+ 		}
+ 		.clear { 
+ 			zoom:1; 
+ 		}
+		.clear:after { 
+			visibility:hidden;
+			display:block; 
+			font-size:0; 
+			content:"1"; 
+			clear:both; 
+			height:0; 
+		}
+		.tabs{ 
+			width:100%;
+			height:0.74rem;
+			line-height:0.74rem;
+			border-bottom:1px solid #f3f6f6;
+			-webkit-box-flex: flex;
+			display:flex;
+			justify-content: space-around;
+		}
+		.tabs span { 
+			margin-left:0.93rem;
+			text-align: center;
+			padding:0 0.12rem;
+ 			box-sizing:border-box;
+		}
+		.con { 
+			width:100%;
+			padding:0.25rem 0.15rem 0.38rem 0.25rem;
+			box-sizing:border-box;
+			overflow: hidden;
+		}
+		.active{
+			color:#00C558;
+			border-bottom: 2px solid #00c558;
+		}
+		.serch{
+			width:100%;
+			overflow: hidden;
+			min-height:1.56rem;
+		}
+		.serch .top .top_i{
+			display: inline-block;
+			width:1.3rem;
+			line-height:0.43rem;
+			color:#9a9e9b;
+			background:#f6f6f8;
+			text-align:center;
+			margin-right:0.7rem;
+			margin-bottom:0.3rem;
+			border-radius: 3px;
+		}
+		.serch .top .checked{
+			line-height:0.41rem;
+			border: 1px solid #30be6a;
+			color:#30be6a;
+			background:#f5fef7;
+		}
+		.name input{
+			width:100%;
+			height:0.54rem;
+			border:1px solid #c8cac9;
+			border-radius:0;
+		}
+		/*底部列表样式*/
+ 		.list{
+ 			width:100%;
+ 			overflow: hidden;
+ 		}
+ 		.list .item{     
+ 			width:100%;
+ 			overflow: hidden;
+ 			border:1px solid #c8cac9;
+ 			margin-bottom:0.3rem;
+ 			padding-bottom:0.2rem;
+ 			box-sizing:border-box;
+ 		}
+ 		.list .item .top,.list .item .item_l{  
+ 			width:100%;   
+ 			line-height:0.6rem;
+ 			padding:0 0.23rem;
+ 			box-sizing:border-box;
+ 		}
+ 		.list .item .top{
+ 			margin-bottom:0.2rem;
+ 			color:#785c38;
+ 			font-size:0.28rem;
+ 		}
+ 		.list .item:nth-child(odd) .top{  
+ 			background:url("../../../image/business_img/v_by.png")no-repeat;
+ 			background-size:100% 100%;
+ 		}
+ 		.list .item:nth-child(even) .top{  
+ 			background:url("../../../image/business_img/v_bb.png")no-repeat;
+ 			background-size:100% 100%;
+ 		}
+		/*回访日期样式*/
+		.date .top{
+			width:100%;
+			overflow: hidden;
+		}
+		.date .top .text_s{
+			float:left;
+			width:3rem;
+			height:0.5rem;
+			line-height:0.5rem;
+			border:1px solid #c8cac9;
+			padding:0 0.25rem;
+			box-sizing:border-box;
+		}
+		.date .top .sDate{
+			background:url("../../../image/business_img/v_date_03.png")no-repeat 2.65rem center;
+			background-size:0.2rem 0.2rem;
+		}
+		.date .top .line{
+			float:left;
+			margin:0 0.22rem;
+		}
+		.date .top span{
+			width:0.39rem;
+			height:1px;
+			background:#f3f6f6;	
+		}
+		.date .btn {
+			width: 100%;
+			overflow: hidden;
+			text-align:center;
+		}
+		.date .btn button{
+			display:inline-block;
+			width:3.5rem;
+			line-height:0.54rem;
+			background-color:#ef8233;
+			color: #fff;
+ 			text-align:center;
+ 			border-radius:4px;
+ 			padding:0;
+ 			margin:0.25rem 0;
+		}
+		.build{
+			width:0.74rem;
+			height:0.74rem;
+			background:url("../../../image/che_img/xin.png");
+			background-size:100% 100%;
+			position:fixed;
+			right:0.6rem;
+			bottom:2.82rem;
+			z-index: 9999;
+		}
+    </style>
+</head>
+<body>
+
+  		<div class="content" id="context">
+  			<div class="build"></div>
+			<!--tab切换-->  					
+			 <div class="tab">
+  			
+				 <div class="tabs clear">
+				 	<span class="not active">未回访 (2)</span>
+				 	<span class="finsh">已回访 (2)</span>
+				 </div>
+  			 </div>	 
+			 <!--未回访-->
+			 <div class="con not_v">
+			 	<div class="serch">
+			 		<div class="top">
+			 			<span class="top_i " >回访人</span>
+			 			<span class="top_i checked">回访日期</span>
+			 		</div>
+			 		<div class="bottom">
+			 		<!--回访人-->
+			 			<div class="name" style="display: none;">
+							<input type="text" />
+				 		</div>
+			 		<!--日期-->
+				 		<div class="date">
+							<div class="top">
+								<div class="text_s sDate" id="startDate"></div>
+								<div class="line">至</div>
+								<div class="text_s sDate" id="endDate"></div>
+							</div>
+							<div class="btn" id="searchBtn">
+								<button>搜索</button>
+							</div>
+				 		</div>
+			 		</div>
+			 	</div>
+			 	<div class="list">
+			 		<div class="item">
+						<div class="top">中农普惠金服</div>
+						<div class="item_l">
+							被访人：<span>农户服务</span>
+						</div>
+						<div class="item_l">
+							联系方式：<span>123455677</span>							
+						</div>
+						<div class="item_l">
+							回访日期：<span>2015年3月6日</span>							
+						</div>
+						<div class="item_l">
+							回访人：<span>张三</span>							
+						</div>
+				    </div>
+			 			
+			 	</div>
+			 
+			
+			 </div>
+			 
+			 <!--已回访-->
+			 <div class="con finsh_v" style="display:none;">
+				 <div class="serch">
+			 		<div class="top">
+			 			<span class="top_i " >回访人</span>
+			 			<span class="top_i checked">回访日期</span>
+			 		</div>
+			 		<div class="bottom">
+			 		<!--回访人-->
+			 			<div class="name" style="display: none;">
+							<input type="text" />
+				 		</div>
+			 		<!--日期-->
+				 		<div class="date">
+							<div class="top">
+								<div class="text_s sDate" id="startDate"></div>
+								<div class="line">至</div>
+								<div class="text_s sDate" id="endDate"></div>
+							</div>
+							<div class="btn" id="searchBtn">
+								<button>搜索</button>
+							</div>
+				 		</div>
+			 		</div>
+			 	</div>
+			 	<div class="list">
+			 		<div class="item">
+						<div class="top">中农普惠金服</div>
+						<div class="item_l">
+							被访人：<span>农户服务</span>
+						</div>
+						<div class="item_l">
+							联系方式：<span>123455677</span>							
+						</div>
+						<div class="item_l">
+							回访日期：<span>2015年3月6日</span>							
+						</div>
+						<div class="item_l">
+							回访人：<span>张三</span>							
+						</div>
+				    </div>
+			 			
+			 	</div>
+		     </div>			
+  		</div><!--content-->
+  		
+  		
+</body>  		
+</html>

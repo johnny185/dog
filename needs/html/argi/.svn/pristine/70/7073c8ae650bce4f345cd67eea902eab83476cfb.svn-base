@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+		<script src="../../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../script/api.js"></script>
+		<style>
+			.clearFloat:after {
+				content: "";
+				display: block;
+				clear: both;
+				visibility: hidden;
+				height: 0;
+			}
+			#mapLazyLoad {
+				width: 100%;
+				height: 270px;
+			}
+			#mapLazyLoad h4 {
+				color: #333;
+				font-size: 18px;
+				font-weight: normal;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 99;
+				text-align: center;
+				background: #ffffff;
+			}
+			#mapLazyLoad h4 span {
+				position: fixed;
+				z-index: 99;
+				width: 20px;
+				height: 20px;
+				left: 20px;
+				top: 15px;
+				background-image: url("../../../image/back-button.png");
+				background-size: 100%;
+				background-repeat: no-repeat;
+				background-position: 0 0;
+			}
+			#mapInformation {
+				/*border: solid 1px blue;*/
+				padding: 10px;
+				font-size: 14px;
+			}
+			#mapInformation ul li {
+				/*border:solid 1px red;*/
+				position: relative;
+			}
+			#mapInformation ul li button {
+				font-size: 10px;
+				float: right;
+				margin-left: 5px;
+				background: #5cba5c;
+				padding: 7px 10px 5px 10px;
+				border-radius: 12px;
+				color: #ffffff;
+				outline: none;
+			}
+			#mapInformation ul li button:first-of-type {
+				float: left;
+				margin-left: 0;
+			}
+			/*卫星地图*/
+			/*#mapInformation ul li button:nth-of-type(2){
+			 }*/
+			/*标准地图*/
+			#mapInformation ul li button:last-of-type {
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				display: none;
+			}
+			#mapInformation table {
+				width: 100%;
+				margin-top: 10px;
+			}
+			#mapInformation table th, #mapInformation table td {
+				/*width:25%;*/
+				padding: 5px 0;
+				border: solid 1px #f2f2f2;
+				text-align: center;
+				color: #999;
+			}
+			#mapInformation table thead tr {
+				display: block;
+			}
+			#mapInformation table tbody {
+				display: block;
+				overflow: scroll;
+				/*height:800px;*/
+			}
+			#mapInformation table tbody tr td span {
+				display: inline-block;
+				width: 13px;
+				height: 13px;
+				background-image: url(../../../image/Delete.png);
+				background-repeat: no-repeat;
+				background-position: 0 0;
+				background-size: 100%;
+			}
+			.changeStyle {
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mapLazyLoad">
+			<h4 style="height:50px;line-height:50px;text-align: center;"><span onclick="back();"></span>我的位置</h4>
+		</div>
+		<div id="mapInformation">
+			<ul class="clearFloat">
+				<li class="clearFloat">
+					<button id="hitBtn" >
+						获取坐标
+					</button><!-- onclick="getPosition();" -->
+					<button onclick="satellite();">
+						卫星地图
+					</button>
+					<button onclick="standard();">
+						标准地图
+					</button>
+				</li>
+			</ul>
+			<table width="100%"  cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+				<thead>
+					<tr>
+						<th class="line1">序号</th>
+						<th>经度</th>
+						<th>纬度</th>
+						<th>删除</th>
+					</tr>
+				</thead>
+				<tbody class="clearFloat"></tbody>
+			</table>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 关闭地图
+		function back() {
+			map.close();
+			api.closeWin();
+		}
+
+		// 定位并获取坐标
+		function getPosition() {
+			//var bmap = api.require('bMap');
+			//	alert(3);
+			map.getLocation({
+				accuracy : '10m', // 定位精度，默认100m
+				autoStop : true, // 获取到位置信息后是否自动停止定位
+				filter : 1 // 位置更新所需的最小距离（单位米），autoStop 为 true 时，此参数有效
+			}, function(ret, err) {
+				if (ret.status) {
+					//alert(JSON.stringify(ret));
+					document.getElementById("lon").value = ret.lon;
+					document.getElementById("lat").value = ret.lat;
+				} else {
+					alert(err.code);
+				}
+			});
+		}
+
+		// 打开地图
+		function openMap() {
+			var rectY = 50;// 地图在y轴上的距离
+			var strDM = api.systemType;
+			if (strDM == 'ios') {
+				var strSV = api.systemVersion;
+				var numSV = parseInt(strSV, 10);
+				var fullScreen = api.fullScreen;
+				var iOS7StatusBarAppearance = api.iOS7StatusBarAppearance;
+				// 苹果系统 得向下移20
+				if (numSV >= 7 && !fullScreen && iOS7StatusBarAppearance) {
+					rectY = 70;
+				}
+			}
+			map.open({
+				// （可选项）模块的位置及尺寸
+				rect : {
+					x : 0, //（可选项）数字类型；地图左上角的 x 坐标（相对于所属的 Window 或 Frame）；默认：0
+					y : rectY, //（可选项）数字类型；地图左上角的 y 坐标（相对于所属的 Window 或 Frame）；默认：0
+					w : api.frameWidth, //（可选项）数字类型；地图的宽度；默认：所属的 Window 或 Frame 的宽度
+					h : 220 //（可选项）数字类型；地图的高度；默认：所属的 Window 或 Frame 的高度
+				},
+				//（可选项）打开地图时设置的中心点经纬度，若不传则默认打开北京市为中心的地图
+				//				center : {
+				//					lon : 116.4021310000,
+				//					lat : 39.9994480000
+				//				},
+				zoomLevel : 18, //（可选项）设置百度地图缩放等级，取值范围：3-18级
+				showUserLocation : true, //（可选项）是否在地图上显示用户位置
+				//fixedOn : api.frameName,//（可选项）模块视图添加到指定 frame 的名字（只指 frame，传 window 无效）
+				fixed : true //（可选项）模块是否随所属 window 或 frame 滚动
+			}, function(ret) {
+				if (ret.status) {
+					//					alert('地图打开成功');
+				} else {
+					alert("地图打开失败");
+				}
+			});
+		}
+
+		// 将地图切换到卫星地图模式
+		function satellite() {
+			map.setMapAttr({
+				type : 'satellite'
+			});
+		}
+
+		// 将地图切换到标准模式
+		function standard() {
+			map.setMapAttr({
+				type : 'standard'
+			});
+		}
+
+		// 显示地图
+		function show() {
+			map.show();
+		}
+
+		// 隐藏地图
+		function hide() {
+			map.hide();
+		}
+
+		var map = null;
+		// 加载模块一定要在apiready方法里
+		apiready = function() {
+//			var header = $api.byId('mapLazyLoad'); // 获取头部
+//		    $api.fixStatusBar(header); // 处理ios
+
+			// 监听退出
+			exitApp();
+			//				document.body.addEventListener('touchmove', function(event) {
+			//					event.preventDefault();
+			//				}, true);
+			var screenHeight = api.frameHeight;
+			//				$("#mapLazyLoad").css("height",screenHeight*0.72+"px");
+			// 加载百度地图模块
+			map = api.require('bMap');
+			// 显示百度地图
+			map.show();
+			// 显示用户的位置
+			map.showUserLocation({
+				isShow : true,
+				trackingMode : 'none'
+			});
+			// 是否显示比例尺
+			map.setScaleBar({
+				show : true,
+				position : {
+					x : 25, //（可选项）数字类型；比例尺左上角的 x 坐标（相对于地图）；默认：0
+					y : 160 //（可选项）数字类型；比例尺左上角的 y 坐标（相对于地图）；默认：0
+				}
+			});
+			// 判断定位功能是否开启
+			map.getLocationServices(function(ret, err) {
+				if (ret.enable) {
+					//alert(JSON.stringify(ret));
+				} else {
+					alert("未开启定位功能！");
+				}
+			});
+			openMap();
+			//				点击打点按钮添加表格
+			var addressNum;
+			var arr = [];
+			var lonVal;
+			var latVal;
+			var thWidth = $("#mapInformation table thead").width() / 4;
+			$("#mapInformation table thead th").width(thWidth)
+			// 监听获取位置
+			$("#hitBtn").click(function() {
+				// 获取当前位置
+				map.getLocation({
+					accuracy : '10m', // 定位精度，默认100m
+					autoStop : true, // 获取到位置信息后是否自动停止定位
+					filter : 1 // 位置更新所需的最小距离（单位米），autoStop 为 true 时，此参数有效
+				}, function(ret, err) {
+					if (ret.status) {
+						addressNum = $("table tr").length - 1;
+						setTimeout(function() {
+							//经度
+							lonVal = ret.lon;
+							//纬度
+							latVal = ret.lat;
+							addressNum++;
+							// 坐标ID自增
+							idNum++;
+							//	每次點擊創建新對象 保存經緯度
+							var dataPosition = {};
+							if (lonVal != "" && latVal != "") {
+								var coordArray = new Array();
+								dataPosition.id = addressNum;
+								//	dataPosition.lon = lonVal;
+								//	dataPosition.lat = latVal;
+								var data = {
+									id : idNum,
+									lon : ret.lon,
+									lat : ret.lat
+								};
+								// 添加到坐标数组中
+								coordArray.push(data);
+								// 将该点在地图上标注
+								AddOneAnnotations(coordArray);
+								var tabTr = $("<tr></tr>").html("<td>" + addressNum + "</td><td>" + lonVal.toFixed(6) + "</td><td>" + latVal.toFixed(6) + "</td><td><span data-coorid=" + data.id + " id='" + data.id + "' ></span></td>");
+								$("#mapInformation table tbody").prepend(tabTr);
+								$("#mapInformation table tbody td").width(thWidth);
+								// 监听删除
+								$("#" + data.id).click(function(p1, p2, p3) {
+									var lineNum;
+									api.confirm({
+										title : '提示',
+										msg : '确定删除吗',
+										buttons : ['确定', '取消']
+									}, function(ret, err) {
+										//alert(JSON.stringify(ret));
+										var lineNum;
+										var index = ret.buttonIndex;
+										if (index == 1) {
+											$("#" + data.id).parent().parent().prevAll("tr").each(function(index, el) {
+												var trNum = $(this).children("td:first-child").text()
+												$(this).children("td:first-child").text(trNum - 1);
+											});
+											$("#" + data.id).parent().parent().remove();
+											// 删除对应ID的标注
+											map.removeAnnotations({
+												ids : [data.id]
+											});
+										}
+									});
+								})
+							};
+						}, 300)
+					} else {
+						alert(err.code);
+					}
+				});
+			});
+			//	卫星地图按钮点击
+			$("#mapInformation ul li button:eq(1)").click(function(ev) {
+				ev.stopPropagation();
+				$("#mapInformation ul li button:eq(2)").css("display", "block");
+			});
+			//	标准按钮点击
+			$("#mapInformation ul li button:eq(2)").click(function(ev) {
+				ev.stopPropagation();
+				$(this).css("display", "none");
+			});
+			// 监听到进入后台时停止定位
+			api.addEventListener({
+				name : 'pause'
+			}, function(ret, err) {
+				map.stopLocation();
+			});
+		};
+		// 存放坐标的数组容器
+		var coorArray = new Array();
+		var idNum = 0;
+		// 添加一个标注
+		function AddOneAnnotations(arr) {
+			map.addAnnotations({
+				annotations : arr,
+				icon : 'widget://',
+				draggable : true
+			}, function(ret) {
+				// 点击该标注后，会触发该方法
+				if (ret) {
+					alert(ret.id);
+				}
+			});
+		}
+		function closeMap(){
+			map.close();
+		}
+		function exitApp() {
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				//coding...
+				map.close();
+				api.closeWin();
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>详情页</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/icons.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+		<style>
+			/*body{background-color:#fff;}
+			#header {
+				height: 46px;
+				width: 100%;
+				font-size: 18px;
+				color: #fff;
+				text-align: center;
+				background-color: #66BB6A;
+				border-bottom: 1px solid #2ba399;
+				line-height: 46px;
+			}*/
+			 html,body{
+				width:100%;
+				height:100%;
+			}
+			body{
+				background: #fff;
+				overflow: auto;
+				position:relative;
+				padding-top:68px;
+			}
+			header{	
+				position:relative;
+				width: 100%;
+				height:68px;
+				/*padding-top: 0.4rem;*/
+				background: #00c558;
+				position:fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 99;
+			}
+			header .title{
+				/*position: relative;*/
+				width: 100%;
+				height: 45px;
+				line-height: 45px;
+				/*background: #00c558;*/
+				margin-top:23px;
+				text-align: center;font-size: 18px;font-family: PingFangSC-Regular, sans-serif;color: #fff; 
+			}
+			header .title span{
+				/*position: absolute;
+				left: 0.2rem;
+				top: 0.3rem;
+				width:0.16rem;
+				height: 0.28rem;
+				background-image: url(../../image/plant_header_left.png);
+				background-size: 100% 100%;
+				background-position: center center;
+				background-repeat: no-repeat;*/
+				display: inline-block;
+				position: absolute;
+				left: 13px;
+				bottom: 14px;
+				width: 12px;
+				height: 18px;
+				background-image: url(../image/harvest_back.png);
+				background-position: center center;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+			}
+			.back {
+				font-size: 0px;
+				padding: 0 5px;
+			}
+			.back .title {
+				font-size: 20px;
+				vertical-align: middle;
+			}
+			.favorite, .share {
+				display: inline-block;
+				line-height: 46px;
+			}
+			.flex-full {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			/*icon*/
+			.i-logo {
+				display: inline-block;
+				padding: 23px;
+				background: url(../image/ic_action_home.png) no-repeat center center;
+				-webkit-background-size: 34px;
+				background-size: 34px;
+				vertical-align: middle;
+			}
+			.i-back {
+				display: inline-block;
+				padding: 23px 10px;
+				background: url(../image/ic_global_title_bar_48_back.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			.i-favorite {
+				display: inline-block;
+				padding: 20px;
+				background: url(../image/ic_action_favorite_off.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			.i-share {
+				display: inline-block;
+				padding: 20px;
+				background: url(../image/ic_action_share.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			.btn_login {
+				display: block;
+				color: #000000;
+				margin-left: 70px;
+				text-align: center;
+				border-radius: 18px;
+				height: 40px;
+				width: 80px;
+				line-height: 40px;
+				border: 1px solid #EEEEEE;
+				background-color: #2BAF2B;
+				color: #FFFFFF;
+				font-size: 14px;
+			}
+			.btn_quit {
+				display: block;
+				color: #000000;
+				margin: 0 40px;
+				text-align: center;
+				border-radius: 18px;
+				height: 40px;
+				width: 80px;
+				line-height: 40px;
+				border: 1px solid #CECECE;
+				background-color: #738FFE;
+				color: #FFFFFF;
+				font-size: 14px;
+			}
+			.fl {
+				float: left;
+			}
+			.listBlockMax-infos p {
+				clear: both;
+			}
+			.opt-num {
+				position: absolute;
+				top: 7px;
+				right: 20px;
+			}
+			.order-list {
+				position: relative;
+				font-size: 14px;
+				padding: 15px 20px;
+				border-bottom: 1px solid #e7e7e7;
+			}
+			.order-l {
+				float: left;
+			}
+			.order-r {
+				float: right;
+				font-size: 16px;
+			}
+			.order-r.sum {
+				color: orange;
+			}
+			.opt-num {
+				position: absolute;
+				top: 7px;
+				right: 20px;
+			}
+			.opt-btn-increase {
+				border-radius: 5px;
+				background-color: #666;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				background: #ddd url(../image/ic_add.png) no-repeat center center;
+				-webkit-background-size: 16px;
+				background-size: 16px;
+				vertical-align: middle;
+			}
+			.opt-btn-reduce {
+				border-radius: 5px;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				background: #ddd url(../image/ic_subtract.png) no-repeat center center;
+				-webkit-background-size: 16px;
+				background-size: 16px;
+				vertical-align: middle;
+			}
+			.opt-btn-increase, .opt-btn-reduce, .opt-input {
+				display: inline-block;
+			}
+			.opt-input {
+				background: url(../image/bg_edit_selected.9.png) no-repeat left -17px;
+				width: 39px;
+				height: 30px;
+				padding-left: 8px;
+			}
+			.opt-input input {
+				width: 24px;
+				text-align: center;
+			}
+			.opt-input input:focus {
+				border: none;
+				outline: none;
+			}
+			.opt-btn-increase.active, .opt-btn-reduce.active {
+				background-color: #32b9a8;
+			}
+			
+			
+			
+			.h3{
+				font-size: 18px;font-family: PingFangSC-Regular, sans-serif;color: #00C558; 
+			}
+			p{
+				line-height:30px;
+			}
+			.userInfo p{
+				text-indent:5px;
+				line-height:35px;
+			}
+			.userInfo p:first-of-type{
+				margin-top:0px;
+			}
+			.btn_zu{
+				padding:10px 0;
+			}
+			.btn_zu>div{
+				height:35px;
+				line-height:35px;
+				border-radius:18px;
+				margin-bottom:30px;
+				position:relative;
+				left:70px;
+			}
+			#remarkId{
+				/*padding:10px 0;*/
+				outline: none;
+				border:solid 1px #00c558;
+				font-size: 15px;font-family: PingFangSC-Regular, sans-serif;color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div id="wrap">
+				<div>
+					<header id="header">
+						<div class="title"><span onclick="closeWin()"></span>工单详情</div>
+					</header>
+					<!-- <div class="btn back" tapmode="topbar-active" onclick="closeWin();">
+						<i class="i-back"></i>
+						<span class="title">返回</span>
+					</div> -->
+					<!--<div class = 'banner fixed center'>
+						<span class="banner-title center"> <h4 >工单详情</h4> </span>
+						<a href="javascript:void(0)"; onclick="closeWin();"> <span class = "banner-btn banner-back-btn">
+							<input id = 'return-btn' type='button' name='return' value=''>
+						</span> </a>
+		    		</div>-->
+				</div>
+				<div id="content">
+					<div data-template="li-template" data-bind="source:resources"></div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../script/api.js"></script>
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../script/pds.ajax.js"></script>
+		
+	    <script type="text/javascript" src="../script/kendo.core.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+
+		<script id="li-template" type="text/x-kendo-template">
+			<!-- 待确认工单二级页 -->
+			<div class="" style="display: block" data-title="PG20160307001" id="mainInSub-in1">
+			<ul>
+			<li class="listBlockMax">
+				<h3 class="listBlockMax-title"><i class="icon"></i><span class="h3">工单内容</span></h3>
+				<div class="listBlockMax-infos">
+					<p><span>基地名称：</span><span>#:workOrderData.farmName#</span></p>
+						<p><span>地块名称：</span><span>#:workOrderData.landName#</span></p>
+					<p><span>品名：</span><span>#:workOrderData.catalogName#</span></p>
+					<p><span>品种：</span><span>#:workOrderData.categoryName#</span></span></p>
+					<p><span>要求开始时间：</span><span>#:kendo.toString(kendo.parseDate(processData.startDate, "yyyy-MM-dd"), "yyyy-MM-dd" )#</span></p>
+					<p><span>要求结束时间：</span><span>#:kendo.toString(kendo.parseDate(processData.endDate, "yyyy-MM-dd"), "yyyy-MM-dd" )#</span></p>
+					<p><span>实际开始时间：</span><span>#:kendo.toString(kendo.parseDate(feedbackData.startDate, "yyyy-MM-dd"), "yyyy-MM-dd" )#</span></p>
+			        <p><span>实际结束时间：</span><span>#:kendo.toString(kendo.parseDate(feedbackData.endDate, "yyyy-MM-dd"), "yyyy-MM-dd" )#</span></p>
+					<p><span>要求执行面积：</span><span>#:workOrderData.plantArea# 亩</span></p>
+					<p><span>实际执行面积：</span><span>#:feedbackData.realPlantArea# 亩</span></p>
+					<p><span>执行工序：</span><span>#:processData.name#</span></p>
+					<p><span>考核标准：</span>
+						# if(processData.standardsList!=null){ #
+						# for(var i = 0;i<processData.standardsList.length;i++){ #
+						<span>#: processData.standardsList[i] #</span>
+						# } #
+						# } #
+					</p>
+				</div>
+			</li>
+			<li class="listBlockMax">
+				<h3 class="listBlockMax-title"><i class="icon"></i><span class="h3">资源用量</span></h3>
+				# if(feedbackData.resourceList!=null){ #
+				# for(var a=0;a<feedbackData.resourceList.length;a++){ #
+				<div>
+					<div class="listBlockMax-infos">
+						<p>
+							<span>资源类型：</span><span>#:feedbackData.resourceList[a].resPriIdName#</span>
+						</p>
+						<p>
+							<span>资源名称：</span><span>#:feedbackData.resourceList[a].resSubIdName#</span>
+						</p>
+						<p>
+							<span>能力值：</span><span class="clearb"> <b>#:emp(feedbackData.resourceList[a].resultVal)#</b>  <b>#:emp(feedbackData.resourceList[a].resultValUnitName)#</b></span>
+						</p>
+						<p>
+							<span>资源总量：</span><span  class="clearb"><b>#:feedbackData.resourceList[a].realResTotal# </b><b> #:feedbackData.resourceList[a].resourceUnitName#</b></span>
+						</p>
+					</div>
+	
+					<p class="autoMsgs">
+					# if(feedbackData.resourceList[a].materialData != null){ #
+						<span class="autoMsgsA8">物料名称：</span><span>#:feedbackData.resourceList[a].materialData.matSubName #</span>
+						<span class="autoMsgsA8">规格：</span><span>#:feedbackData.resourceList[a].materialData.matSpec #</span>
+						<span class="autoMsgsA8">产地：</span><span>#:feedbackData.resourceList[a].materialData.matHabitat #</span>
+						
+					# } #
+					</p>
+				</div>
+				
+				# } #
+				# } #
+			</li>
+		    <li class="listBlockMax">
+	            <h3 class="listBlockMax-title"><i class="icon"></i><span class="h3">验收结果</span></h3>
+	            <div class="textareas">
+	                <div class="radioSlipCss3">
+	                    <div id="button">不合格</div>
+	                    <div class="radioSlip" tapmode="" onclick="switchBtn(this);" id="switchBtnId">
+	                        <div class="radioSlipTrue"></div>
+	                        <div class="radioSlipFalse"></div> 
+	                    </div>
+	                </div>
+	                <div class="radioSlipCss3">
+	                    <div>验收说明</div>
+	                    <!-- <div class="evaluateList-right"> -->
+	                   <textarea id="remarkId" class="bgcolors"></textarea>
+	                    <!-- </div> -->
+	                </div>
+	            </div>
+               
+            </li>
+			<li>
+				<div class="userInfo">
+					<p><span>发&nbsp&nbsp起&nbsp&nbsp人：</span><span>#:workOrderData.createUser#</span></p>
+					<p><span>发起时间：</span><span>#:workOrderData.assignDate#</span></p>
+				</div>
+			</li>
+			</ul>
+			<div class="btn_zu">
+				<div class="btn_login fl" id="login" tapmode="" flag='1' disabledflag="1" onclick="submit(this)">提交</div>
+		    </div>
+			</div>
+		</script>
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+		<script type="text/javascript">
+		function closeWin() {
+			api.closeWin();
+		}
+		
+		    function emp(val){
+  		      if(val== null || val == undefined){
+  			      val = "";
+  		      }
+  		        return val;
+  	        };
+		
+		
+		//评价按钮
+		function switchBtn(dom){
+			var $_rdio = $(dom).find("div.radioSlipTrue");
+            if($_rdio.is(":hidden")){
+            
+              $_rdio.show().next().animate({left:"60px"},300);
+              document.getElementById('button').innerHTML = '合格';
+
+           } else{
+              $_rdio.next().animate({left:0}, 300,function(){ $_rdio.hide(); }); 
+             document.getElementById('button').innerHTML = '不合格';
+  
+           }    
+		}
+		
+	
+
+		var viewModel = null;
+		apiready = function() {
+	   pds.ajaxSubmit({
+			url:"app/workorder/getOrderDetails",
+			data:api.pageParam,
+			success:function(e){
+				if (e.status) {
+					var data = e.data;
+					viewModel = kendo.observable({
+						resources : data
+					});
+					kendo.bind("#content", viewModel);
+				                                                                
+				} 
+			},
+			error:function(e){
+				alert("服务器异常，请联系管理员!");
+			}
+    	});
+		
+	
+		}
+		function submit(dom) {
+			var submitFlag = dom.getAttribute("disabledflag")*1;
+			if(submitFlag != 1){
+				alert("验收单已提交");
+				return;
+			}
+		    //获取按钮值
+			var $_rdio = $("#switchBtnId").find("div.radioSlipTrue");
+           
+			if($_rdio.is(":hidden")){
+			  viewModel.resources.feedbackData.checkingFlag = '2';
+				if(document.getElementById('remarkId').value==null || document.getElementById('remarkId').value==""){
+				  alert("验收说明不能为空");
+				  return true;
+				}
+			}else{
+			  
+				viewModel.resources.feedbackData.checkingFlag ='1';
+			}
+			
+		    viewModel.resources.feedbackData.checkingRemarks=document.getElementById("remarkId").value;
+		    
+		    viewModel.resources.userId = $api.getStorage("userId");
+		    var data = {
+				'data' : JSON.stringify(viewModel.resources)
+		    };
+			
+		    pds.ajaxSubmit({
+					url:"app/workorder/updateCheckResult",
+					data:data,
+					success:function(e){
+						$(dom).attr("disabledflag", 00);
+//						api.openWin({
+//							name : 'win_home',
+//							url : 'win_home.html',
+//							reload: true,
+//							animation:{ 
+//	                                type:"movein",              //动画类型（详见动画类型常量）
+//	                                subType:"from_right",       //动画子类型（详见动画子类型常量）
+//	                                duration:300                //动画过渡时间，默认300毫秒
+//	      		            }
+//						});
+
+                              api.closeToWin({
+                                  name : 'win_home',
+                                  url : 'win_home.html',
+                                  reload:true,
+                                  animation:{
+                                      type:"movein",              //动画类型（详见动画类型常量）
+                                      subType:"from_right",       //动画子类型（详见动画子类型常量）
+                                      duration:300                //动画过渡时间，默认300毫秒
+                                  }
+                              });
+
+                              //刷新确认单统计数据
+                              api.execScript({
+                                  name:'win_home',
+                                  frameName: 'frm_homeMain',
+                                  script: 'refreshStatusList();'
+                              });
+
+
+					},
+					error:function(e){
+						$(dom).attr("disabledflag", 1);
+						alert("服务器异常，请联系管理员!");
+					}
+			});
+			
+        }
+			
+		</script>
+	</body>
+</html>

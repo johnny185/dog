@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>沃柑技术</title>
+     <link rel="stylesheet" type="text/css" href="../css/api.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <style>
+    	*{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+            overflow-y: auto;
+            background-color: #f2f2f2;
+            padding-top: 1.28rem;
+        }
+        
+        #top{
+            width: 100%;
+            height: 0.46rem;
+            background: #00c558;
+            margin-bottom: 0.82rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+        header{
+            position: fixed;
+            left: 0;
+            top: 0.44rem;
+            width: 100%;
+            background: #00c558;
+            z-index: 99;
+        }
+        header #title{
+            position: relative;
+            width:100%;
+            height: 0.82rem;
+            line-height: 0.82rem;
+            text-align: center;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        header #title span{
+            display: inline-block;
+            position: absolute;
+            left: 0.25rem;
+            bottom: 0.28rem;
+            width: 0.16rem;
+            height: 0.28rem;
+            background-image: url(../../../image/harvest_back.png);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat; 
+        }
+        #content{
+
+            width: 100%;
+            background: #fff;
+            padding-bottom:1.0rem;
+            background-color: #f2f2f2;
+        }
+        #content .mainInfo{
+            /*border: solid 1px red;*/
+            width: 100%;
+            margin-bottom: 0.16rem;
+            background: #fff;
+            padding:0  0.25rem;
+            padding-bottom: 0.2rem;
+        }
+        #content .mainInfo .mainInfoTitle{
+            width:100%;
+            padding: 0.15rem 0.25rem 0.1rem 0.4rem;
+            border-bottom:solid 1px #e3e3e3;
+        }
+        #content .mainInfo .mainInfoTitle p:first-of-type{
+            width: 100%;
+            padding:0.2rem 0;
+            text-align: center;
+            font-size: 0.3rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        #content .mainInfo .mainInfoTitle p:last-of-type{
+            width: 100%;
+            padding: 0.1rem 0.22rem;
+            text-align: right;
+            font-size: 0.18rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        #content .mainInfo .mainInfoTitle p:last-of-type span{
+            margin-left: 0.12rem;
+        }
+
+        #content .mainInfo .mainInfoContent{
+            padding-top: 0.15rem;
+            width: 100%;
+        }
+        #content .mainInfo .mainInfoContent p:first-of-type{
+            width:100%;
+            line-height: 0.4rem;
+            text-indent: 2em;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        #content .mainInfo .mainInfoContent div{
+            margin-top: 0.18rem;
+            width:100%;
+            height: 3.95rem;
+        }
+        #content .mainInfo .mainInfoContent img{
+            width: 100%;
+            height:100%;
+        }
+        #content .mainInfo .mainInfoContent>p:last-of-type{
+            position:relative;
+            width:100%;
+            height:0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+        #content .mainInfo .mainInfoContent>p:last-of-type>span{
+            margin-left: 0.1rem;
+            font-size: 0.2rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+
+
+        .varietyInfo{
+            width:100%;
+            padding: 0 0.25rem;
+            background: #FFF;
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.16rem;
+        }
+        .varietyInfo .InfoTitle{
+            width: 1.6rem;
+            height: 0.41rem;
+            line-height: 0.41rem;
+            text-align: center;
+            background: #00c558;
+            margin: 0 auto;
+            margin-bottom: 0.3rem;
+            border-radius: 0 0 0.08rem 0.08rem;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #ffffff;
+        }
+        .varietyInfo ul{
+            width: 100%;
+            border-left: dashed 1px #00c558; 
+        }
+        .varietyInfo ul li{
+            width: 100%;
+            padding-left: 0.25rem;
+        }
+        .varietyInfo ul li>div{
+            position: relative;
+            height: 0.6rem;
+            line-height: 0.6rem;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        .varietyInfo ul li>div span:first-of-type{
+            position: absolute;
+            left: -0.43rem;
+            top: 0.15rem;
+            display: inline-block;
+            width: 0.31rem;
+            height: 0.31rem;
+            line-height: 0.34rem;
+            text-align: center;
+            background: #00c558;
+            border-radius: 50%;
+            font-size: 0.22rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+
+        }
+        .varietyInfo ul li>p{
+            text-indent: 2em;
+            line-height: 0.4rem;
+            font-size: 0.22rem;font-family: PingFangSC-Regular, sans-serif;color: #5e5a5a;
+        }
+        .varietyInfo ul li>img{
+            width: 100%;
+            margin-top: 0.15rem;
+        }
+        .varietyInfo ul li>p.varietyImgInfo{
+            position: relative;
+            top: -0.15rem;
+            width: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            /*-webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;*/
+
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+	<div id="top"></div>
+    <header>        
+        <div id="title">
+            <span class="left" onclick="back()"></span>
+            技术详情
+        </div>
+    </header>
+    <div id="content">
+        <div class="mainInfo">
+            <div class="mainInfoTitle">
+                <p>晚熟大王沃柑秋季管理要点：做好三点带来丰产</p>
+                <p><span>慧种地</span><span>08-09</span><span>10:00</span></p>
+            </div>
+            <div class="mainInfoContent">
+                <p>沃柑是目前柑橘新品种中将高糖、易剥皮和晚熟三大特点集于一身的明星品种，被果农称为晚熟大王。</p>
+                <!--<div><img src="http://mmbiz.qpic.cn/mmbiz_jpg/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtQuq06I3dSSJYDPjX4CfnFpkSEhqK3iaIXgfpTcpicJZS4g4oNghcoibew/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1"></div>-->
+                <div><img src="../../../image/win_home_tech_transfer_info_img1.png"/></div>
+                <p><span>图1沃柑</span><span>来源：网络</span></p>
+            </div>
+        </div>
+
+        <div class="varietyInfo">
+            <div class="InfoTitle">沃柑品种特点</div>
+            <ul>
+                <li>
+                    <div><span>01</span><span>树势旺盛，带刺</span></div>
+                    <p>沃柑是柑橘品种当中树势相当旺盛的，而且枝条粗壮，南宁地区的沃柑，一年可以抽发5次以上，有的两年生沃柑就挂果很多，这是沃柑一个显著的特征。</p>
+                    <img src="../../../image/win_home_tech_transfer_info_img2.png"/>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_png/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtHyD0eEYaqdW40VZ7KXkeibBgYLa5meBaWJUQLVR3t3WQpkzjwzLyVBA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">-->
+                    <p class="varietyImgInfo"><span>图2沃柑枝条上的刺</span><span>来源：广西柑橘行业协会</span></p>
+                    <p>沃柑不仅旺盛，而且带刺，如果偏施氮肥，刺容易长得很长，比如使用硝态氮过高的肥料就会猛长刺，增加磷、钾的使用长刺现象会减轻。</p>
+                </li>
+                <li>
+                    <div><span>02</span><span>溃疡严重</span></div>
+                    <p>沃柑的溃疡严重是众所周知的，因为本身易感染溃疡并且新梢抽发旺盛，所以沃柑溃疡难防治。但是我们也实地探访过很多沃柑园，基本没有溃疡病。这和管理者的管理密切相关。</p>
+                    <img src="../../../image/win_home_tech_transfer_info_img3.png"/>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_jpg/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtIic6GlTuJyROkTkS8Zvu9ibwRek89bzrBkBDuIbrkeRIgcL8rEplvSog/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">-->
+                    <p class="varietyImgInfo"><span>图3沃柑溃疡病</span><span>来源：网络</span></p>
+                    <p>总结一下，管理得好的沃柑园一定是非常重视溃疡的，从小苗开始就一定是正规无毒苗，每一趟梢老熟之前，一般两次用药，平时雨前使用无机铜，雨后有机铜类加内吸性药剂，同时也经常轮换使用枯草芽孢杆菌等防溃疡药剂。同时，一旦发现病枝病叶，及时清理出果园烧毁。</p>
+                </li>
+                 <li>
+                    <div><span>03</span><span>商品果多产量高 </span></div>
+                    <p>沃柑外形扁圆，外皮红色，商品性非常好，加上浓甜的口感，让市场很容易接受这个品种，所以价格也非常好，一斤沃柑七八元钱，而且沃柑本身的亩产很高，上一万斤比较轻松，因此一亩沃柑赚七八万的可是真的在身边上演的致富神话。</p>
+                   
+                    <p>但是沃柑的大小年现象也比较明显，因为沃柑的成花率高，一棵丰产树可以开花一万朵以上，结果过多会造成大小年，因此要及时剪掉过多花枝和部分小果。</p>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="varietyInfo">
+            <div class="InfoTitle">沃柑秋季管理</div>
+            <ul>
+                <li>
+                    <div><span>01</span><span>枝梢控制 </span></div>
+                    <p>沃柑长势旺盛，造成很多直立粗枝，这种枝条容易结出朝天果，果大而果皮粗糙，影响商品性，因此秋梢自剪后，对于较长的枝条应该摘心截短，控制秋梢的数量和质量。同时，采用拉枝撑枝等不同方法促进枝条斜生，果实下垂。</p>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_jpg/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWticBdqXZccETd1FcB62nT6ibVJOwDsNbBqApGR23dgO3O1odfcRtnyOog/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">-->
+                    <img src="../../../image/win_home_tech_transfer_info_img4.png"/>
+                    <p class="varietyImgInfo"><span>图5拉枝撑枝</span><span>来源：网络</span></p>
+                    
+                </li>
+                <li>
+                    <div><span>02</span><span>及时施肥</span></div>
+                    <p>为了保证果实的质量，果皮细腻，应该在膨果期及时补充钙元素，秋肥中补充磷元素和中微量元素，提升果实品质。因为7月底到8月是沃柑果实的第二次膨大高峰，随着砂囊迅速增加，果实需要生长素和钙元素，以保证果实品质的提升。</p>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_jpg/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtMIoYOFLNUnfpediaU8qvQfk5ZCkRe4ia98aU9JEp6rJrDNLTBRhs6uiaw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">-->
+                    <img src="../../../image/win_home_tech_transfer_info_img5.png"/>
+                    <p class="varietyImgInfo"><span>图6叶面喷肥</span><span>来源：网络</span></p>
+                    <p>另外，这时候还要做好土壤改良，增加有机质含量，沃柑秋肥用量没有太多限制，适应大水大肥。</p>
+                </li>
+                 <li>
+                    <div><span>03</span><span>控制秋梢溃疡</span></div>
+                    <p>新梢特别是重要的秋梢一定要及时预防溃疡，嫩梢发出后到老熟必须喷药一到两次，预防胜于治疗，因为溃疡发病后治疗效果不好，对于已经染病的秋梢，应该及时剪掉并带出果园。</p>
+                    <!--<img src="http://mmbiz.qpic.cn/mmbiz_png/lPnEcs2En7N27IRRibGZiaZZ7ImwqtpFWtIHZ9aKLaAGfFWKrQBPrS8RUm1cHiciaTibLQNicDibC7ldJdeD7gUL9hMicQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1"/>-->
+                    <img src="../../../image/win_home_tech_transfer_info_img6.png"/>
+                    <p class="varietyImgInfo"><span>图6沃柑叶片溃疡病</span><span>来源：网络</span></p>
+                    <p>常见的药物有有机铜如喹啉铜、络氨铜、中生菌素、春雷霉素、枯草芽孢杆菌等等，内吸性药物+内吸性药物可以增加效果，有机铜和抗生素都有内吸性，所以能够增强药效。</p>
+               		<p style="margin-top: 0.5rem;">文章来源于网络，如有侵权请联系删除！</p>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+//返回上一级********************************************************************
+	function back() {
+		api.closeWin();
+	}
+
+</script>
+</html>

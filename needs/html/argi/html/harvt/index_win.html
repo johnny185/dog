@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>采收首页</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../css/api.css">
+		<script type="text/javascript" src="../../script/rem.js"></script>
+		<style type="text/css">
+			*{
+            	box-sizing: border-box;
+	        }
+	        html,body{
+	            width:100%;
+	            /*height:100%;*/
+	        }
+	        body{
+	            position: relative;
+	            overflow-y: hidden;
+	            background-color: #fff;
+	        }
+	        header{
+	            position: fixed;
+	            left: 0;
+	            top: 0;
+	            z-index:99;
+	            width: 100%;
+	            height:1.35rem;
+	            background: #00c558;
+	        }
+	        header #title{
+	            position: relative;
+	            width:100%;
+	            height: 0.88rem;
+	            line-height: 0.88rem;
+	            text-align: center;
+	            font-size: 0.38rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+	        }
+	        
+			#banner {
+				position: relative;
+				width: 100%;
+				height: 3.94rem;
+				margin-top:1.33rem;
+			}
+			#banner .wrap {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			#banner .wrap > img {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			#content {
+				position: relative;
+				width: 100%;
+				background: #f2f2f2;
+				padding-bottom: 0.1rem;
+			}
+			#content ul {
+				width: 100%;
+			}
+			#content ul li {
+				width: 100%;
+				height: 2.38rem;
+				background: #fff;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-flow: row;
+				flex-flow: row;
+				-webkit-box-align: center;
+				box-align: center;
+				align-items: center;
+			}
+			#content ul li:first-of-type {
+				margin-bottom: 0.1rem;
+			}
+			#content ul li > div {
+				position: relative;
+				height: 100%;
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			#content ul li > div:first-of-type {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				-webkit-align-items: flex-start;
+				box-align: flex-start;
+				align-items: flex-start;
+				padding-left: 0.4rem;
+			}
+			#content ul li > div:last-of-type {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-pack: end;
+				-webkit-justify-content: flex-end;
+				justify-content: flex-end;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+				align-items: center;
+				padding-right: 0.36rem;
+			}
+			#content ul li > div:first-of-type > p{
+				position:relative;
+				top:-0.4rem;
+			}
+			#content ul li > div:first-of-type > p span:first-of-type{
+				font-size: 0.35rem !important;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #6D8792;
+				padding-bottom: 0.13rem;
+			}
+			#content ul li > div:first-of-type > p > span:last-of-type {
+				display: inline-block;
+				vertical-align: center;
+				width: 0.22rem;
+				height: 0.22rem;
+				margin-left: 0.12rem;
+				background-image: url(../../image/harvest_in.png);
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+			}
+			#content ul li > div:first-of-type > p:last-of-type {
+				font-size: 0.28rem;
+				font-family: PingFangSC-Regular, sans-serif;
+				color: #FE9A02;
+				padding-top: 0.13rem;
+			}
+			#content ul .harvest_record > div:last-of-type > img {
+				position: relative;
+				width: 2.52rem;
+				height: 1.16rem;
+			}
+		</style>
+	</head>
+	<body>
+		<!--<header id="header">
+			<div>
+				采收
+			</div>
+		</header>-->
+		<header id="header">
+	        <div id="title">
+	                                 采收
+	        </div>
+	    </header>
+		<div id="banner">
+			<div class="wrap"><img src="../../image/harvest_banner2.png">
+			</div>
+		</div>
+		<div id="content">
+			<ul>
+				<li class="harvest_record" onclick="jobsheet()">
+					<div>
+						<p>
+							<span>记工单</span><span></span>
+						</p>
+						<p>
+							快捷记工，简单易用
+						</p>
+					</div>
+					<div>
+						<img src="../../image/harvest_record.png">
+					</div>
+				</li>
+				<!--<li class="harvest_transport">
+				<div>
+				<p><span>运输单</span><span></span></p>
+				<p>数据精准，运输无忧</p>
+				</div>
+				<div>
+				<img src="../../image/harvest_transport.png">
+				</div>
+				</li>-->
+			</ul>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function(){
+	        var header = $api.byId('header'); 
+	        $api.fixStatusBar(header);
+	//		修改状态栏颜色
+	//		api.setStatusBarStyle({
+	//	        style: 'light',
+	//	        color: "#00c558",
+	//      });
+		};
+		
+		
+		function jobsheet() {
+			$api.openWin({
+				name : "list_win",
+				url : "widget://html/harvt/jobsheet/list_win.html",
+				reload : true,
+				selecteIndex : '3',
+				slidBackEnabled : false,
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		}
+	</script>
+</html>

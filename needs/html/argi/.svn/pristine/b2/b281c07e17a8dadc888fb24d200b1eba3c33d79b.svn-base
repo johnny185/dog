@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>运输单列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../res/css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/themes/aui-theme-style1.css"/>
+		<style>
+			.aui-list {
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			.aui-card-options + .aui-card-options .aui-list {
+				padding-top: 0
+			}
+		</style>
+	</head>
+	<body  class="body-bg-white">
+	<header class="aui-bar aui-bar-nav aui-bar-gray" id="aui-header">
+			<a class="aui-pull-left aui-btn" tapmode onclick="closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title">
+				记工单
+			</div>
+		</header>
+		<div class="aui-content">
+			<div class="aui-searchbar" id="search">
+				<div class="aui-searchbar-input aui-border-radius">
+					<i class="aui-iconfont aui-icon-search"></i>
+					<input type="search" placeholder="请输入搜索内容" id="search-input">
+					<div class="aui-searchbar-clear-btn">
+						<i class="aui-iconfont aui-icon-close"></i>
+					</div>
+				</div>
+				<div class="aui-searchbar-btn" tapmode>
+					取消
+				</div>
+				<button class="argi-btn argi-btn-primary" style="width:80px;height:80px;background-color:#5eb95e;border-color:#5eb95e" id="btnSearch">
+					搜索
+				</button>
+			</div>
+			<div id="list"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.parseTapmode();
+			harvesttralistFrm.configMoule();
+			harvesttralistFrm.initModule();
+		};
+		var harvesttralistFrm = (function() {
+			//记录页面需要操作的dom
+			//domMap = {}, setDomMap, fetchList, listSearch,configMoule, initModule;
+			//模块内部操作dom的所有方法写在这
+			setDomMap = function() {
+				domMap = {
+					$list : $api.byId('list'),
+					$btnSearch : $api.byId('btnSearch')
+				}
+				//$api.addEvt(domMap.$inputVal,'change',listSearch)
+				$api.addEvt(domMap.$btnSearch, 'click', listSearch)
+			}
+			//记录页面需要操作的dom
+			
+			fetchList = function() {
+				pds.ajaxSubmit({
+					url : "app/harvesttransportorder/shippingdocumentlist",
+					success : function(res) {
+						//alert(JSON.stringify(res))
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '';
+								str += '<div class="aui-card-options" onclick="detail(' + data[i].id + ')"><div class="aui-list aui-list-noborder aui-list-nooptions">';
+								str += '<div class="aui-list-block"><ul><li class="aui-list-item"> <div class="aui-list-item-inner"><div class="aui-list-item-title">发运日期</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportTime + '</div></div></li>';
+								str += '<li class="aui-list-item"> <div class="aui-list-item-inner"> <div class="aui-list-item-title">装运量</div>';
+								str += ' <div class="aui-list-item-right">' + data[i].transportQutilty + '</div></div></li>';
+								str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-title">司机姓名</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportName + '</div></div></li>';
+								str += '<li class="aui-list-item"> <div class="aui-list-item-inner"> <div class="aui-list-item-title">联系方式</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportPhone + '</div>  </div> </li>';
+								str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-title">车牌号码</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportCarNumber + '</div></div></li></ul></div></div></div>';
+								$api.append(domMap.$list, str);
+							}
+						}
+					}
+				})
+			}
+			listSearch = function() {
+				var $inputVal = $api.val($api.byId('search-input'));
+				if ($inputVal == '') {
+					api.alert({
+						msg : '请输入内容'
+					})
+					return;
+				}
+				pds.ajaxSubmit({
+					url : "app/harvesttransportorder/searchShipDocument",
+					data : {
+						'transport' : $inputVal
+					},
+					success : function(res) {
+						$api.html(domMap.$list, '');
+						if (res.status == 'ok') {
+							var data = res.data;
+							for (var i = 0; i < data.length; i++) {
+								var str = '';
+								str += '<div class="aui-card-options" onclick="detail(' + data[i].id + ')"><div class="aui-list aui-list-noborder aui-list-nooptions">';
+								str += '<div class="aui-list-block"><ul><li class="aui-list-item"> <div class="aui-list-item-inner"><div class="aui-list-item-title">发运日期</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportTime + '</div></div></li>';
+								str += '<li class="aui-list-item"> <div class="aui-list-item-inner"> <div class="aui-list-item-title">装运量</div>';
+								str += ' <div class="aui-list-item-right">' + data[i].transportQutilty + '</div></div></li>';
+								str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-title">司机姓名</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportName + '</div></div></li>';
+								str += '<li class="aui-list-item"> <div class="aui-list-item-inner"> <div class="aui-list-item-title">联系方式</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportPhone + '</div>  </div> </li>';
+								str += '<li class="aui-list-item"><div class="aui-list-item-inner"><div class="aui-list-item-title">车牌号码</div>';
+								str += '<div class="aui-list-item-right">' + data[i].transportCarNumber + '</div></div></li></ul></div></div></div>';
+								$api.append(domMap.$list, str);
+							}
+						}
+					}
+				})
+			}
+			detail=function(id) {
+			alert(id)
+			   $api.openWin({
+				name : "detail_win",
+				url : "widget://html/harvt/transport/detail_win.html",
+				reload : true,
+				selecteIndex : '3',
+				slidBackEnabled : false,
+				pageParam : {
+					"id" : id
+				},
+				animation : {
+					type : "movein", //动画类型（详见动画类型常量）
+					subType : "from_right", //动画子类型（详见动画子类型常量）
+					duration : 300 //动画过渡时间，默认300毫秒
+				}
+			});
+		   }
+			//模块的所有公开方法写到这里
+			configMoule = function() {//可以有参数
+			}
+			
+			initModule = function() {//可以有参数
+				setDomMap();
+				fetchList();
+			}
+			//-------end 操作方法-----
+			//return 公用函数
+			return {
+				configMoule : configMoule,
+				initModule : initModule
+			}
+		})();
+		
+	</script>
+</html>

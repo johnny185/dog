@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>运输单列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../.././res/css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../.././res/css/aui.css"/>
+    	<link rel="stylesheet" type="text/css" href="../../../.././res/themes/aui-theme-style1.css"/>
+		<style>
+			.aui-list{padding-top:20px;padding-bottom:20px;}
+			.aui-card-options + .aui-card-options .aui-list{padding-top:0}
+		</style>
+	</head>
+	<body>
+	<div class="aui-content">
+	
+	<div class="aui-searchbar" id="search">
+        <div class="aui-searchbar-input aui-border-radius">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <input type="search" placeholder="请输入搜索内容" id="search-input">
+            <div class="aui-searchbar-clear-btn">
+                <i class="aui-iconfont aui-icon-close"></i>
+            </div>
+        </div>
+        <div class="aui-searchbar-btn" tapmode>取消</div>
+    </div>
+    
+    
+    <div class="aui-card-options">
+		<div class="aui-list aui-list-noborder aui-list-nooptions">
+			<div class="aui-list-block">
+			<ul>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">发运日期</div>
+	                    <div class="aui-list-item-right">2017.06.30</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">装运量</div>
+	                    <div class="aui-list-item-right">18头+16斤</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">司机姓名</div>
+	                    <div class="aui-list-item-right">李二</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">联系方式</div>
+	                    <div class="aui-list-item-right">101010</div>
+	                </div>
+	            </li>
+	            <li class="aui-list-item">
+	                <div class="aui-list-item-inner">
+	                    <div class="aui-list-item-title">车牌号码</div>
+	                    <div class="aui-list-item-right">202020</div>
+	                </div>
+	            </li>
+	        </ul>
+	        </div>
+	    </div>
+	  </div>
+	  
+	  
+	  </div>
+			
+	</body>
+		<script type="text/javascript" src="../../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../script/api.js"></script>
+		<script type="text/javascript" src="../../../script/pds.ajax.js"></script>
+		<script type="text/javascript">
+		
+			apiready = function() {
+				//获取运输单信息
+				getMessage();
+				api.parseTapmode();
+			};
+			
+			var searchBar = document.querySelector(".aui-searchbar");
+		    var searchBarInput = document.querySelector(".aui-searchbar input");
+		    var searchBarBtn = document.querySelector(".aui-searchbar .aui-searchbar-btn");
+		    var searchBarClearBtn = document.querySelector(".aui-searchbar .aui-searchbar-clear-btn");
+		    if(searchBar){
+		        searchBarInput.onclick = function(){
+		            searchBarBtn.style.marginRight = 0;
+		        }
+		        searchBarInput.oninput = function(){
+		            if(this.value.length){
+		                searchBarClearBtn.style.display = 'block';
+		                searchBarBtn.classList.add("aui-text-info");
+		                searchBarBtn.textContent = "搜索";
+		            }else{
+		                searchBarClearBtn.style.display = 'none';
+		                searchBarBtn.classList.remove("aui-text-info");
+		                searchBarBtn.textContent = "取消";
+		            }
+		        }
+		    }
+		    searchBarClearBtn.onclick = function(){
+		        this.style.display = 'none';
+		        searchBarInput.value = '';
+		        searchBarBtn.classList.remove("aui-text-info");
+		        searchBarBtn.textContent = "取消";
+		    }
+		    searchBarBtn.onclick = function(){
+		        var keywords = searchBarInput.value;
+		        if(keywords.length){
+		            searchBarInput.blur();
+		            document.getElementById("search-keywords").textContent = keywords;
+		        }else{
+		            this.style.marginRight = "-"+this.offsetWidth+"px";
+		            searchBarInput.value = '';
+		            searchBarInput.blur();
+		        }
+		    }
+			
+			
+			//返回上一级
+			function back() {
+				api.closeWin();
+			}
+			//获取运输单信息
+			function getMessage() {
+				pds.ajaxSubmit({
+					url : "app/customer/getOrderList?t=" + new Date(),
+					success : function(res) {
+						var el = $api.byId("mes_grid");
+						$(el).html("");
+						var data = res.data;
+						alert(JSON.stringify(data))
+						for (var i = 0; i < data.length; i++) {
+							var str = '<div class="argi-lists-in" onclick="detail(' + data[i].id + ')"><a href="javascript:void(0);"><div class="argi-flex-img"><img src="../../../image/farm_map1.jpg" /></div><div class="argi-flex-infos"><p class="argi-p"><span>发运日期</span><span>' + data[i].name + '</span></p><p class="argi-p"><span>装运量</span><span>' + data[i].provinceCode + data[i].cityCode + '</span></p><p class="argi-p"><span>司机姓名</span><span>' + data[i].contactPerson + '</span></span></p><p class="argi-p"><span>联系方式</span><span>' + data[i].contactPerson + '</span></span></p><p class="argi-p"><span>车牌号码</span><span>' + data[i].contactPerson + '</span></p></div><span class="arrow-a"><img class="sm-button" src="../../../image/next-button.png"></span></a></div>'
+							$api.append(el, str);
+						}
+					},
+					error : function(e) {
+						api.alert({
+							msg : "服务器异常，请联系管理员!!!"
+						});
+					}
+				});
+			}
+
+			//搜索信息
+			function search() {
+				var data = $("#search").val();
+				var empty = $('#mes_grid').html("");
+				pds.ajaxSubmit({
+					url : "app/customer/getOrderList",
+					data : {
+						seach : data
+					},
+					success : function(res) {
+						var el = $api.byId("mes_grid");
+						var data = res.data;
+						for (var i = 0; i < data.length; i++) {
+							var str = '<div class="argi-lists-in" onclick="detail(' + data[i].id + ')"><a href="javascript:void(0);"><div class="argi-flex-img"><img src="../../../image/farm_map1.jpg" /></div><div class="argi-flex-infos"><p class="argi-p"><span>发运日期</span><span>' + data[i].name + '</span></p><p class="argi-p"><span>装运量</span><span>' + data[i].provinceCode + data[i].cityCode + '</span></p><p class="argi-p"><span>司机姓名</span><span>' + data[i].contactPerson + '</span></span></p><p class="argi-p"><span>联系方式</span><span>' + data[i].contactPerson + '</span></span></p><p class="argi-p"><span>车牌号码</span><span>' + data[i].contactPerson + '</span></p></div><span class="arrow-a"><img class="sm-button" src="../../../image/next-button.png"></span></a></div>'
+							$api.append(el, str);
+						}
+					}
+				});
+			}
+			//进入运输单详情页面
+			function detail(id) {
+				$api.openWin({
+					name : 'harvest_transport_detail',
+					url : 'widget://html/harvest/new_harvest/harvest_transport/harvest_transport_detail.html',
+					reload : true,
+					selecteIndex : '3',
+					pageParam : {
+						"id" : id
+					},
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+		</script>
+</html>

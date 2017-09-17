@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>我的</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>我的</h4>
+					</div>
+					<!-- <a href="./../home/home.html">
+					<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a> -->
+				</div>
+				<!-- 内容 -->
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="center">
+						<div class="profile-container">
+							<div class="profile">
+								<a href="#" onclick="mypostion1();"><img class = "profile-img" src="../../image/user_profile_1.png"></a>
+							</div>
+						</div>
+					</div>
+					<div class="menu1st">
+						<ul class="">
+							<!--<li>
+								<div class="main">
+									<a href="javascript:void(0);"> <h5>推荐给好友</h5>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li>-->
+							<!--业务推广管理新增-->
+							<li onClick="openBusiness()">
+								<div class="main">
+									<a href="javascript:void(0);"> <h5>业务推广管理</h5>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li>
+							<!-- <li>
+								<div class="main">
+									<a href="mysettings/about.html"> <h5>关于慧种地</h5>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li> -->
+
+							<li onClick="openChangePassword()">
+								<div class="main">
+									<a href="javascript:void(0);"> <h5>修改密码</h5>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li>
+							<li>
+								<div class="main">
+									<a href="#" onclick="mypostion();"> <h5>我的位置</h5>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li>
+							<!-- <li  onClick="logout()">
+							<div class="main">
+							<a href="javascript:void(0);">
+							<h5>退出</h5>
+							<div class="next-block">
+							<span class = "nextBtn" id="next-button">
+							<img class="sm-button" src="../../image/next-button.png">
+							</span>
+							</div>
+							</a>
+							</div>
+							</li> -->
+						</ul>
+					</div >
+					<br>
+					<br>
+					<div class="logoutmenu">
+						<ul class="">
+							<li  onClick="logout()">
+								<div class="main">
+									<a href="javascript:void(0);"> <!-- <span class = "logouticon" id="next-button">
+									<img src="../../image/shutdown.png">
+									</span> --> <span><h5 class="logouttext clear">退出</h5></span> </a>
+								</div>
+							</li>
+						</ul>
+					</div >
+				</div>
+				<!-- 底部菜单栏 -->
+				<!--	            <div class="nav fixed">
+				<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				</ul>
+				</div>-->
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/common/api.js"></script>
+		<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+		<script type="text/javascript">
+			var userId = null;
+			apiready = function() {
+				userId = $api.getStorage("userId");
+			}
+			/* 退出   */
+			function logout() {
+				api.confirm({
+					//	    title: '',
+					msg : "你确定要退出吗?",
+					buttons : ['确定', '取消']
+				}, function(ret, err) {
+					if (ret) {
+						if (ret.buttonIndex * 1 == 1) {
+							//退出
+							$api.setStorage("userId", null);
+							$api.setStorage('argi_login_username', null);
+							$api.setStorage('argi_login_password', null);
+							api.closeToWin({
+								name : "root",
+								url : "../login/login.html",
+								slidBackEnabled : false,
+								reload : true,
+								animation : {
+									type : "movein", //动画类型（详见动画类型常量）
+									subType : "from_right", //动画子类型（详见动画子类型常量）
+									duration : 300 //动画过渡时间，默认300毫秒
+								}
+							});
+							api.execScript({
+								name : 'root',
+								//frameName:'harvest_workorder_list',
+								script : 'cleanAccount();'
+							});
+						}
+					}
+				});
+			}
+
+			function openChangePassword() {
+				$api.openWin({
+					name : 'change_password',
+					url : 'widget://html/mysetting/mysettings/settings/change_password.html',
+					reload : true,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+
+			function openBusiness() {
+				$api.openWin({
+					name : 'business',
+					url : 'widget://html/mysetting/mysettings/business.html',
+					reload : true,
+					selecteIndex:'4'
+//					animation : {
+//						type : "movein", //动画类型（详见动画类型常量）
+//						subType : "from_right", //动画子类型（详见动画子类型常量）
+//						duration : 300 //动画过渡时间，默认300毫秒
+//					}
+				});
+			}
+			function mypostion(){
+				$api.openWin({
+	                name: 'mypostion',
+	                url: 'widget://html/mysetting/mysettings/mypostion.html',
+	                selecteIndex:'4'// 点亮第4个图标
+                });
+			}
+			function mypostion1(){
+//				api.openWin({
+//	                name: 'mypostion1',
+//	                url: '../../res/index.html'
+//              });
+			}
+		</script>
+	</body>
+</html>

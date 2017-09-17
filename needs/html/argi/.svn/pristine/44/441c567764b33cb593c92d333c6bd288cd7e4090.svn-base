@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>其他信息</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+ 	<style>
+	 	.content{
+	 		font-size: 0.27rem;
+	 		color:#706969;
+	 		position:relative;
+	 		background-color:#f2f2f2;
+	 	} 	
+	 	.top_img{
+	 		width: 100%;
+	 		height:2.33rem;
+	 		background:url("../../../image/business_img/b_b.png") no-repeat;
+	 		background-size:100% 100%;
+	 	}
+	 	.text{
+	 		width: 6.79rem;
+	 		overflow:hidden;
+	 		background-color:#fff;
+	 		margin:0 auto;
+	 		position:relative;
+	 		top:-1.29rem;
+	 		border-radius:0.1rem;
+	 	}
+	 	.basic{
+	 		margin:0.47rem 0 0.1rem;
+	 		width:1.38rem;
+	 		height:0.4rem;
+	 		color:#FFF;
+	 		background-color:#66bd14;
+	 		border-bottom-right-radius: 0.2rem;
+	 		border-top-right-radius: 0.2rem;
+	 		text-align:center;
+	 	}
+	 	.item{
+	 		width:100%;
+	 		min-height:0.77rem;
+	 		line-height:0.77rem;
+	 		border-bottom:1px solid #f2f2f2;
+	 		padding: 0 0.23rem;
+	 		box-sizing: border-box;
+	 		overflow: hidden;
+	 	}
+	 	.input{
+	 		width:3.8rem;
+	 		height:0.77rem;
+	 		line-height:0.77rem;
+	 		color:#706969;
+	 		padding-left:0.1rem;
+	 		box-sizing: border-box;
+	 	}
+	 	.text .item:last-child{
+	 		border:none;
+	 	}
+	 	.item div,.item span,input{
+	 		display:inline-block;
+	 		font-size: 0.27rem;
+	 	}
+	 	.item .left{
+	 		min-width:1.2rem;
+	 		float: left;
+	 	}
+	 	.item .inner{
+	 		width:3.4rem;
+	 	}
+	 	.item .right{
+	 		float:right;
+	 		background:url("../../../image/business_img/b_add.png") no-repeat left center;
+	 		background-size:0.3rem;
+	 		padding-left:0.4rem;
+	 		box-sizing:border-box;
+	 	}
+	 	.item .check{
+	 		float:right;
+	 	}
+	 	.area{
+	 		float: right;
+	 	}
+	 	.phone{
+	 		overflow: hidden;
+	 		position:relative;
+	 	}
+	 	.phone .import{
+	 		position:absolute;
+	 		right:0;
+	 		top: 50%;
+	 		margin-top:-0.4rem;
+	 		width:0.8rem;
+	 		text-align:right;
+	 		background:url("../../../image/business_img/b_in.png") no-repeat top right;
+	 		background-size:0.38rem 0.38rem;
+	 		padding-top:0.4rem;
+	 		box-sizing:border-box;
+	 		background-color:#fff;
+	 	}
+	 	
+	 	.check_out{
+	 		position:absolute;
+	 		top:0;
+	 		left:0;
+	 		background:rgba(0,0,0,0.3);
+	 		width: 100%;
+	 		height:100%;
+	 		z-index: 1000;
+	 	}
+	 	.select{
+	 		display:block;
+	 		width: 3rem;
+	 		height:0.5rem;
+	 		background-color:#fff;
+	 		margin:0 auto;
+	 		margin-top:50%;
+	 	}
+	 	
+	 	
+	 	/*textarea提示信息字颜色*/		
+		.input::-webkit-input-placeholder {
+		  color: #d1cdcd;
+		}
+		.input:-moz-placeholder {
+		   color: #d1cdcd;
+		}
+		.input:-ms-input-placeholder {
+		   color: #d1cdcd;
+		}
+    </style>
+</head>
+<body>
+
+  		<div class="content">
+  		
+  			<div class="top_img"></div>
+			<!--select遮罩层-->
+			<div class="check_out"  style="display: none">
+				<select name="place" id="" class="select">
+				
+					<option value="">请选择</option>
+					<option value="">456</option>
+					<option value="">233455</option>
+				</select>
+			</div>
+			
+			
+			
+			<div class="text">
+				<div class="basic">详细信息</div>
+				
+				<div class="item">
+					<span class="left">主要作物</span>
+					<input type="text" class="input" placeholder="请输入主要作物"/>
+				</div>
+				
+				<div class="item">
+					<span class="left">种植面积</span>
+					<input type="text" class="input" placeholder="请输入面积"/>
+					<div class="area">
+						亩(含合作)
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">平均产量</span>
+					<input type="text" class="input" placeholder="请输入平均产量"/>
+					<div class="area">
+						斤/亩
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">农产品销售渠道</span>
+					<input type="text" class="input" placeholder="请输入农产品销售渠道"/>
+				</div>
+				<div class="item">
+					<span class="left">年销售额</span>
+					<input type="text" class="input" placeholder="请输入年销售额"/>
+					<div class="area">
+						万元
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">其他经营收入</span>
+					<input type="text" class="input" placeholder="请输入其他经营收入"/>
+				</div>
+				<div class="item">
+					<span class="left">固定资产类型</span>
+					<!--公司性质-->
+					<span class="inner"></span>
+					<div class="check">
+						请选择>
+					</div>
+				</div>	
+				<div class="item">
+					<span class="left">固定资产价值</span>
+					<input type="text" class="input" placeholder="请输入固定资产价值"/>
+					<div class="area">
+						万元
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">合作意向</span>
+					<!--公司性质-->
+					<span class="inner"></span>
+					<div class="check">
+						请选择>
+					</div>
+				</div>	
+				<div class="item">
+					<span class="left">其他合作意向</span>
+					<input type="text" class="input" placeholder="请输入其他合作意向"/>
+				</div>
+				<div class="item">
+					<span class="left">现有金融合作</span>
+					<input type="text" class="input" placeholder="请输入现有金融合作"/>
+				</div>
+				<div class="item">
+					<span class="left">农资产品应用情况</span>
+					<input type="text" class="input" placeholder="请输入农资产品应用情况"/>
+				</div>
+			
+			</div>
+  		</div>
+   
+   
+   
+
+<script type="text/javascript" src="../../../script/api.js" ></script>
+<script type="text/javascript" src="../../../script/rem.js"></script>
+
+
+</body>
+<script type="text/javascript">
+  		apiready = function(){
+	
+	
+		};
+</script>
+</html>

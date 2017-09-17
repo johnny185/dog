@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>等级标准</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/reset.css"/>
+    <style>
+    	body{
+    		width: 100%;
+    		padding-top: 3.28rem;
+            background: #fafafa;
+    	}
+    	#top{
+            position:fixed;
+            left:0;
+            top:0;
+            width: 100%;
+            height: 3.28rem;
+            padding-bottom: 0.1rem;
+            background: #00c558;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display:flex;
+
+            /*-webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;*/
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+
+            -webkit-box-pack: end;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center; 
+            align-items: center;
+        }
+        #top div:first-of-type{
+            padding:0.3rem 0;
+            font-size: 0.36rem;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+        }
+        #top div:last-of-type{
+            width: 1.7rem;
+            height:1.8rem;
+            background-image: url(../../../../image/harvest_grade_standard_topIcon.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center;
+        }
+        #content,#content ul{
+            width: 100%;
+
+        }
+        #content ul li{
+            position: relative;
+            width: 100%;
+            padding: 0 0.4rem 0.1rem 0.18rem;
+            border-bottom: solid 1px #d5d5d5;
+        }
+        #content ul li p:first-of-type{
+            line-height: 0.7rem;
+            font-size: 0.30rem;font-family: PingFangSC-Regular, sans-serif;color: #5a5756;
+        }
+        #content ul li p:first-of-type span:first-of-type{
+            position: relative;
+            display: inline-block;
+            vertical-align: center;
+            width: 0.28rem;
+            height:0.28rem;
+            margin-right: 0.13rem;
+            background-image: url(../../../../image/harvest_grade_standard_listIcon.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center;
+        }
+         #content ul li p:last-of-type{
+            padding-left: 0.4rem;
+            line-height: 0.35rem;
+            font-size: 0.24rem;font-family: PingFangSC-Regular, sans-serif;color: #7a8377;
+        }
+    </style>
+</head>
+<body>
+	<div id="top">
+		<div>等级标准</div>
+		<div></div>
+	</div>
+    <div id="content">
+        <ul>
+            <li>
+                <p><span></span><span>一等品</span></p>
+                <p>一等品为果实直径在10cm，没有虫眼，颜色鲜红纯正，重量在500g左右</p>
+            </li>
+            <li>
+                <p><span></span><span>一等品</span></p>
+                <p>一等品为果实直径在10cm，没有虫眼，颜色鲜红纯正，重量在500g左右</p>
+            </li>
+            <li>
+                <p><span></span><span>一等品</span></p>
+                <p>一等品为果实直径在10cm，没有虫眼，颜色鲜红纯正，重量在500g左右</p>
+            </li>
+            <li>
+                <p><span></span><span>一等品</span></p>
+                <p>一等品为果实直径在10cm，没有虫眼，颜色鲜红纯正，重量在500g左右</p>
+            </li>
+            <li>
+                <p><span></span><span>一等品</span></p>
+                <p>一等品为果实直径在10cm，没有虫眼，颜色鲜红纯正，重量在500g左右</p>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../../../script/api.js"></script>
+<script type="text/javascript" src="../../../../script/rem.js"></script>
+<script type="text/javascript" src="../../../../script/jquery.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+</script>
+</html>

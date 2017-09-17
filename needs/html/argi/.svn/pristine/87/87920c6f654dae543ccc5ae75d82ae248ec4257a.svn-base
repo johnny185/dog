@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>植保信息</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+		<style>
+			html, body {
+				background-color: #fff;
+			}
+			/*#content {
+			 width: 100%;
+			 margin-top: 52px;
+			 background: #ccc;
+			 }
+			 .block {
+			 width: 50%;
+			 height: 50px;
+			 border: 1px solid #66BB6A;
+			 float: left;
+			 }*/
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>植保信息</h4> </span>
+					<a href="../mysettings_index.html"> <span class = "banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<!-- 内容区域 -->
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<div class="album-group argi-flex" id="content" style="margin-top:0;">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src= "../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			getBlock(api.pageParam.farmId);
+		};
+		function getBlock(farmId) {
+			pds.ajaxSubmit({
+				url : "app/customer/findLandCount",
+				data : {
+					id : farmId
+				},
+				success : function(res) {
+					var el = $api.byId("content");
+					var data = res.data;
+					if (data.length == 0) {
+						alert("该基地未添加地块");
+					}
+					
+					for (var i = 0; i < data.length; i++) {
+					 //alert(data[i].landType)
+						if (data[i].landType == 1) {alert(1)
+							var str = '<div class="argi-flex-2 album-box2"data-id="' + data[i].id + '"><div class="album-list-2">' + data[i].landName + '<img src="../../../../image/farm_map1.jpg"></div><a class="position-btn"onclick="cropList(this)">录入</a></div>';
+						} else {
+							var str = '<div class="argi-flex-2 album-box2"data-id="' + data[i].id + '"><div class="album-list-2">' + data[i].landName + '<img src="../../../../image/aa.png"></div><a class="position-btn"onclick="cropList(this)">录入</a></div>';
+						}
+						$api.append(el, str);
+					}
+				}
+			})
+		}
+
+		function cropList(obj) {
+			var landId = $(obj).closest('.block').attr("data-id");
+			//alert(landId)
+			//进入资源列表页面
+			function listCheck(landId) {
+				api.openWin({
+					name : "crop_list.html",
+					url : "crop_list.html",
+					pageParam : {
+						"landId" : landId
+					},
+					//reload:true,
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+			listCheck(landId);
+		}
+	</script>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/swiper.min.css"/>
+		<script type="text/javascript" src="../../script/swiper.min.js"></script>
+		<script src="../../script/jquery.min.js"></script>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			.clearFloat:after {
+				content: "";
+				display: block;
+				clear: both;
+				visibility: hidden;
+			}
+			body {
+				position: fixed;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				/*border:solid 1px red;*/
+				/*overflow: hidden;*/
+				/*background:blue;*/
+			}
+			body > div {
+				height: 33.5%;
+				background: #35B9D0;
+				color: white;
+			}
+			/*头部*/
+			#weather-top {
+				/*border:solid 1px red;*/
+			}
+			#weather-top > div {
+				float: left;
+				height: 100%;
+				/*border:solid 1px black;*/
+			}
+			.weather-top-left {
+				padding: 20px 0 0 20px;
+				width: 35%;
+			}
+			.weather-top-left ul li {
+				padding: 10px 0;
+				padding-left: 5px;
+				font-size: 12px;
+			}
+			.weather-top-left ul li:first-of-type {
+				padding-left: 0;
+			}
+			.weather-top-left #qualityId {
+				width: 150%;
+			}
+			.weather-top-middle {
+				width: 40%;
+				position: relative;
+				padding-left: 15px;
+				/*border:solid 1px blue;*/
+			}
+			.weather-top-middle > h5 {
+				height: 30px;
+				line-height: 50px;
+				margin-top: 20px;
+				text-indent: 25px;
+				/*border:solid 1px red;*/
+			}
+			.weather-top-middle > p {
+				/*border:solid 1px black;*/
+				text-indent: 10px;
+				margin-top: 3px;
+			}
+			.weather-top-middle > div {
+				height: 90px;
+				/*margin-left: 5px;*/
+				/*border:solid 1px green;*/
+				position: relative;
+			}
+			.weather-top-middle > div > span:first-of-type {
+				font-size: 84px;
+				font-weight: 100;
+				/*border:solid 1px red;*/
+			}
+			.weather-top-middle > div > span:last-of-type {
+				font-size: 52px;
+				font-weight: 200;
+				position: absolute;
+				top: -20px;
+				right: -17px;
+			}
+			.weather-top-right {
+				padding: 10px;
+				width: 25%;
+			}
+			.weather-top-right > div:first-of-type {
+				width: 60px;
+				height: 60px;
+				margin-top: 20px;
+			}
+			.weather-top-right > div:first-of-type > img {
+				width: 100%;
+				height: 100%;
+			}
+			.weather-top-right > div:last-of-type {
+				width: 20px;
+				font-size: 18px;
+				padding: 5px 0 0 20px;
+			}
+			/*中部*/
+			#weather-middle ul {
+				height: 100%;
+				padding: 30px 0;
+				/*border:solid 1px red;*/
+			}
+			#weather-middle > ul > li {
+				height: 100%;
+				float: left;
+				width: 25%;
+				border-right: solid 1px #CEE0F0;
+				/*padding-top: 5px;*/
+			}
+			#weather-middle > ul > li:last-of-type {
+				border-right: none;
+			}
+			#weather-middle > ul > li > div {
+				/*border:solid 1px blue;*/
+				text-align: center;
+				font-size: 14px;
+				padding: 7px 0;
+			}
+			#weather-middle > ul > li > div:first-of-type {
+				padding: 0;
+			}
+			#weather-middle > ul > li > div > img {
+				width: 40px;
+				height: 40px;
+			}
+			/*底部*/
+			#weather-bottom {
+				/*border:solid 1px green;*/
+			}
+			#weather-bottom .swiper-container, #weather-bottom .swiper-wrapper, #weather-bottom .swiper-slide {
+				height: 100%;
+			}
+			#weather-bottom .swiper-slide > img {
+				width: 100%;
+				height: 150%;
+				margin-top: -20px;
+			}
+			#weather-bottom .swiper-scrollbar {
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 3px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="weather-top">
+			<div class="weather-top-left">
+				<ul>
+					<li style="font-size:18px" id="curDateId">
+						<!-- 7月1日 -->
+					</li>
+					<li id="weekId">
+						<!-- 星期六 -->
+					</li>
+					<li id="windId">
+						<!-- 西北风二级 -->
+					</li>
+					<li id="jiangshuiId">
+						<!-- 降水概率  -->
+					</li>
+				</ul>
+			</div>
+			<div class="weather-top-middle">
+				<h5 id="positionId"><!-- 西城区 --></h5>
+				<div >
+					<span id="temperatureId"></span>
+					<span>。</span>
+				</div>
+				<p id="nowTemperatureId">
+					<!-- <span >34/23</span> -->
+				</p>
+			</div>
+			<div class="weather-top-right">
+				<div id="weatherPicId">
+					<!-- <img src="../image/sun.png"/>  -->
+				</div>
+				<div>
+					<span id="weatherId"> <!-- 雷阵雨  --></span>
+				</div>
+			</div>
+		</div>
+		<div id="weather-middle">
+			<ul class="clearFloat">
+				<!-- <li>
+				<div><img src="../image/occasional_snow.png"/>
+				</div>
+				<div>
+				37°/24°
+				</div>
+				<div>
+				周日
+				</div>
+				</li>
+				<li>
+				<div><img src="../image/sun.png"/>
+				</div>
+				<div>
+				37°/24°
+				</div>
+				<div>
+				周一
+				</div>
+				</li>
+				<li>
+				<div><img src="../image/sun.png"/>
+				</div>
+				<div>
+				37°/24°
+				</div>
+				<div>
+				周二
+				</div>
+				</li>
+				<li>
+				<div><img src="../image/occasional_snow.png"/>
+				</div>
+				<div>
+				37°/24°
+				</div>
+				<div>
+				周三
+				</div>
+				</li> -->
+			</ul>
+		</div>
+		<div id="weather-bottom">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img class="swiper-zoom-container" src="./weather/slide1.jpg" />
+					</div>
+					<div class="swiper-slide">
+						<img class="swiper-zoom-container" src="./weather/slide2.jpg" />
+					</div>
+					<div class="swiper-slide">
+						<img class="swiper-zoom-container" src="./weather/slide3.jpg" />
+					</div>
+				</div>
+				<!-- 如果需要分页器 -->
+				<!--<div class="swiper-pagination"></div>-->
+				<!--如果需要前进、后退按钮-->
+				<!--<div class="swiper-button-prev swiper-button-white"></div>-->
+				<!--<div class="swiper-button-next swiper-button-white"></div>-->
+				<!--如果需要底部滚动条控制-->
+				<div class="swiper-scrollbar"></div>
+			</div>
+		</div>
+		
+		<!-- 网络异常提示 -->
+		<iframe src="../connect-error.html" width="100%" height="35" frameborder="0" style="position:fixed;left:0;top:0;display:none;"></iframe>
+	</body>
+	
+	<script type="text/javascript">
+		apiready = function() {
+			api.addEventListener({
+				name : 'offline'
+			}, function(ret, err) {
+				// 展示网络异常的样式！！！
+				$("iframe").show();
+			});
+			api.addEventListener({
+				name : 'online'
+			}, function(ret, err) {
+				location.reload([true])   ;
+				$("iframe").hide();			
+			});
+			//禁止body滚动
+			document.body.addEventListener('touchmove', function(event) {
+				event.preventDefault();
+			}, false);
+			//用于初始化一个Swiper，返回初始化后的Swiper实例。
+			var mySwiper = new Swiper('#weather-bottom .swiper-container', {
+				// 控制点****************************************************************
+				autoplay : 3000, //可选选项，自动滑动
+				autoplayDisableOnInteraction : false, //用户操作swiper之后，是否禁止autoplay。默认为true：停止。如果设置为false，用户操作swiper之后自动切换不会停止，每次都会重新启动autoplay。
+				loop:true,//环路播放
+				zoom : true, //焦距功能：双击slide会放大，并且在手机端可双指触摸缩放，需要在slide中增加类名swiper-zoom-container。
+				zoomMax : 2, //最大缩放焦距（放大倍率）。
+				//effect : 'fade',//slide切换效果（淡入淡出）
+				// touchRatio: 0.4, //触摸距离与slide滑动距离的比率。
+				freeMode : false, //默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合
+				longSwipesRatio : 0.6, //进行longSwipes时触发swiper所需要的最小拖动距离比例，即定义longSwipes距离比例。值越大触发Swiper所需距离越大。最大值0.5。
+				resistance : true, //开启边缘抵抗。当swiper已经处于第一个或最后一个slide时，继续拖动Swiper会离开边界，释放后弹回。边缘抵抗就是拖离边界时的抵抗力。值为false时禁用，将slide拖离边缘时完全没有抗力。可以通过resistanceRatio设定抵抗力大小。
+				resistanceRatio : 0, //边缘抵抗设置为零时，完全抵抗，到达边缘处无法拖动
+				touchMoveStopPropagation : true, //true时阻止touchmove冒泡事件
+				prevButton : '#weather-bottom .swiper-button-prev',
+				nextButton : '#weather-bottom .swiper-button-next',
+				//滚动条*****************************************************************
+//				scrollbar : '#weather-bottom .swiper-scrollbar',
+//				scrollbarHide : false, //滚动条位置
+//				scrollbarDraggable : true, //该参数设置为true时允许拖动滚动条。
+//				scrollbarSnapOnRelease : true ,//如果为true，释放滚动条时slide自动贴合。
+			});
+			//  		js修改滚动条样式
+			$("#weather-bottom .swiper-scrollbar").children().css({
+				"background" : "green",
+			})
+			// 获取时间
+			getCurDate();
+			// 获取周
+			getWeeek();
+			var cacheWeather = localStorage.getItem(storageKey);
+			var cacheAddress = localStorage.getItem(addressKey);
+			// 判断网络状态，如果没网，展示缓存数据
+			if (api.connectionType == "none" || api.connectionType == "unknown") {
+				// 展示网络异常的样式
+				$("iframe").show();
+				// 展示缓存数据
+				if(cacheWeather){
+					showWeatherMsg(JSON.parse(cacheWeather));
+				}		
+				// 展示位置
+				$("#positionId").text(cacheAddress);		
+				return;
+			}
+			var map = api.require('bMap');
+			map.getLocation({
+				accuracy : '10m',
+				autoStop : true,
+				filter : 1
+			}, function(ret, err) {//localStorage.clear();
+				if (ret.status) {
+					var lon = ret.lon;
+					//大
+					var lat = ret.lat;
+					if (cacheWeather == null) {//alert(1);
+						getWeatherMsg(lon, lat);
+					} else {//alert(2)
+						var nowTime = new Date();
+						var cacheTime = 1800;
+						// 缓存时间半小时
+						// 缓存时间
+						var oldTime = localStorage.getItem(oldWeatherTimeKey);
+						if ((nowTime.getTime() - oldTime) / 1000 > cacheTime) {
+							//alert(3)
+							// 重新获取天气数据
+							getWeatherMsg(lon, lat);
+						} else {//alert(4)
+							// 在缓存时间内展示旧数据
+							showWeatherMsg(JSON.parse(cacheWeather));
+							$("#positionId").text(cacheAddress);
+						}
+					}
+					map.getNameFromCoords({
+						lon : lon,
+						lat : lat
+					}, function(ret, err) {
+						if (ret.status) {
+							// 得到区县名
+							$("#positionId").text(ret.district);
+							localStorage.setItem(addressKey, ret.district);
+						}
+						map.stopLocation();
+					});
+				} else {
+					//api.alert({msg: err.code});
+				}
+			});
+			
+		};
+		//var weatherMsg = null;
+		var storageKey = "weather";
+		var oldWeatherTimeKey = "oldTime";
+		var addressKey = "address";
+		// 根据经纬度从阿里获取天气数据
+		function getWeatherMsg(lon, lat) {
+			var url = "https://ali-weather.showapi.com/gps-to-weather?from=5&lat=" + lat + "&lng=" + lon + "&need3HourForcast=0&needAlarm=0&needHourData=0&needIndex=0&needMoreDay=1";
+			$.ajax({
+				url : url,
+				type : "get",
+				beforeSend : function(req) {
+					req.setRequestHeader("Authorization", "APPCODE acacbfc4fac2472996b28490cd77c8be");
+				},
+				dataType : "json",
+				success : function(data) {
+					// 加入缓存
+					localStorage.setItem(storageKey, JSON.stringify(data));
+					localStorage.setItem(oldWeatherTimeKey, new Date().getTime());
+					// 时间加入
+					//storage.setItem(oldWeatherTimeKey, new Date());
+					// 展示天气数据
+					showWeatherMsg(data);
+				},
+				error : function(e) {
+					alert("网络异常，请重试");
+				}
+			});
+		}
+
+		function showWeatherMsg(data) {
+			var weather = data.showapi_res_body;
+			var now = weather.now;
+			//alert(JSON.stringify(weather.f1));
+			// 空气质量
+			//alert("空气质量："+now.aqiDetail.quality);
+			//$("#qualityId").html("空气质量 <span>" + now.aqiDetail.quality + "</span>");
+			// 风力
+			$("#windId").html(now.wind_direction + now.wind_power);
+			// 天气
+			$("#weatherId").html(now.weather);
+			// 天气小图标
+			$("#weatherPicId").html("<img src='" + now.weather_pic + "'/>");
+			// 实时温度
+			$("#temperatureId").html(now.temperature);
+			// 展示一周的数据
+			//var dateArray = ["f1", "f2", "f3", "f4", "f5", "f6", "f7"];
+			var html;
+			var w = weather.f1;
+			// 当天的最高和最低气温
+			$("#nowTemperatureId").html("<span>" + w.day_air_temperature + "°/" + w.night_air_temperature + "°</span>");
+			if (w.jiangshui) {
+				// 降水概率
+				$("#jiangshuiId").html("降水概率："+w.jiangshui);
+			}
+			w = weather.f2;
+			var tag = getTag(w);
+			//"<li>" + "<div><img src='" + w.day_weather_pic + "'/></div>" + "<div>" + w.day_air_temperature + "°/" + w.night_air_temperature + "°" + "</div>" + "<div>" + getWeatherWeek(w.weekday) + "</div>" + "</li>"
+			w = weather.f3;
+			tag += getTag(w);
+			//"<li>" + "<div><img src='" + w.day_weather_pic + "'/></div>" + "<div>" + w.day_air_temperature + "°/" + w.night_air_temperature + "°" + "</div>" + "<div>" + getWeatherWeek(w.weekday) + "</div>" + "</li>"
+			w = weather.f4;
+			tag += getTag(w);
+			//"<li>" + "<div><img src='" + w.day_weather_pic + "'/></div>" + "<div>" + w.day_air_temperature + "°/" + w.night_air_temperature + "°" + "</div>" + "<div>" + getWeatherWeek(w.weekday) + "</div>" + "</li>"
+			w = weather.f5;
+			tag += getTag(w);
+			//"<li>" + "<div><img src='" + w.day_weather_pic + "'/></div>" + "<div>" + w.day_air_temperature + "°/" + w.night_air_temperature + "°" + "</div>" + "<div>" + getWeatherWeek(w.weekday) + "</div>" + "</li>"
+			$(".clearFloat").html(tag);
+		}
+
+		function getTag(w) {
+			return "<li>" + "<div><img src='" + w.day_weather_pic + "'/></div><div>"+w.day_weather+"</div>" + "<div>" + w.day_air_temperature + "°/" + w.night_air_temperature + "°" + "</div>" + "<div>" + getWeatherWeek(w.weekday) + "</div>" + "</li>"
+		}
+
+		function getCurDate() {
+			var d = new Date();
+			var month = add_zero(d.getMonth() + 1);
+			var days = add_zero(d.getDate());
+			$("#curDateId").html(month + "月" + days + "日 ");
+		}
+
+		function add_zero(temp) {
+			if (temp < 10) {
+				return "0" + temp;
+			} else {
+				return temp;
+			}
+		}
+
+		function getWeatherWeek(weekday) {
+			var week;
+			return switchWeek(weekday)
+		}
+
+		function switchWeek(dayNum) {
+			var week;
+			switch (dayNum) {
+				case 1:
+					week = "星期一";
+					break;
+				case 2:
+					week = "星期二";
+					break;
+				case 3:
+					week = "星期三";
+					break;
+				case 4:
+					week = "星期四";
+					break;
+				case 5:
+					week = "星期五";
+					break;
+				case 6:
+					week = "星期六";
+					break;
+				default:
+					week = "星期天";
+			}
+			return week;
+		}
+
+		function getWeeek() {
+			var d = new Date();
+			$("#weekId").html(switchWeek(d.getDay()));
+		}
+	</script>
+</html>

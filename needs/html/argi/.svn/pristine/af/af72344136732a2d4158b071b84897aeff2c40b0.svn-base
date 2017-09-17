@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>新增客户</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+		<script type="text/javascript" src="../../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+		<script type="text/javascript" src="../../script/common/doT.min.js"></script>
+		<script type="text/javascript" src="../../script/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+		<script type="text/javascript" src="../../script/common/availdate-v1.0.2.js"></script>
+		<script type="text/javascript" src="../../script/common/zepto.touchWipe.js"></script>
+		<script type="text/javascript" src="../../script/common/form2js.js"></script>
+		<script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+		<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+		<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4 >新增基地</h4> </span>
+					<a > <span class = "banner-btn banner-back-btn">
+						<input  type='button' name='return' value='返回' onclick="back();">
+					</span> </a>
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="container sub-container-notop">
+				<div class="full-main">
+					<div class="sub-container">
+						<form id="formId">
+							基地名称
+							<input id="farmName" name="farmName" type="text" maxlength="20"/>
+							<br />
+							基地面积
+							<input id="farmArea" name="farmArea" type="text" maxlength="12"/>
+							<br />
+							负责人
+							<input id="farmUserName" name="farmUserName" type="text" maxlength="20"/>
+							<br />
+							手机号
+							<input id="farmMobile" name="farmMobile" type="text" maxlength="12"/>
+							<br />
+							<button onclick="address();">
+								基地地址
+							</button>
+							<input id="addressName" name="" type="text" maxlength="20"/>
+							<input id="farmProvinceCode" name="farmProvinceCode"  type="hidden" maxlength="20"/>
+							<input id="farmCityCode" name="farmCityCode" type="hidden" maxlength="20"/>
+							<input id="farmCountyCode" name="farmCountyCode" type="hidden" maxlength="20"/>
+							基地详细地址
+							<input id="farmAddress" name="farmAddress" type="text" maxlength="20"/>
+							<br />
+							流转年限
+							<input id="limitYears" name="limitYears" type="text" maxlength="5"/>
+							<br />
+							冷库面积
+							<input id="farmStorageArea" name="farmStorageArea" type="text" maxlength="12"/>
+							<br />
+							基地简介
+							<input id="farmRemark" name="farmRemark" type="text" maxlength="4000"/>
+							<br />
+							<!-- 公司ID
+							<input id="farmOfficeId" name="farmOfficeId" type="text"/>
+							<br /> -->
+						</form>
+					</div>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+			<div class="forbiden">
+				<input id="submitId"  type="button" value="保存" style="color: green" onclick="saveFarmInfo()"/>
+			</div>
+			<br />
+			<br />
+			<a onclick="goLand();">地块详情</a>
+			<br/>
+			<br />
+			<br />
+			<a onclick="goCropProtection();">植保详情</a>
+			<br />
+			<br />
+			<br />
+			<br />
+		</div>
+		<script type="text/javascript">
+			var pageParam = null;
+			var farmId = null;
+			apiready = function() {
+				pageParam = api.pageParam;
+			};
+			function saveFarmInfo() {
+				// 提交按钮失效,避免重复添加
+				$("#submitId").attr("disabled", "disabled");
+				var farm = {};
+				farm.farmName = $('#farmName').val();
+				farm.farmArea = $('#farmArea').val();
+				farm.farmUserName = $('#farmUserName').val();
+				farm.farmMobile = $('#farmMobile').val();
+				farm.farmProvinceCode = $('#farmProvinceCode').val();
+				farm.farmCityCode = $('#farmCityCode').val();
+				farm.farmCountyCode = $('#farmCountyCode').val();
+				farm.farmAddress = $('#farmAddress').val();
+				farm.limitYears = $('#limitYears').val();
+				farm.farmStorageArea = $('#farmStorageArea').val();
+				farm.farmRemark = $('#farmRemark').val();
+				farm.farmOfficeId = pageParam.farmOfficeId;
+				pds.ajaxSubmit({
+					url : "app/farm/saveFarmData",
+					data : {
+						"data" : JSON.stringify(farm)
+					}, //
+					success : function(e) {
+						if (e.status == 'error') {
+							// 让提交按钮生效
+							$('#submitId').removeAttr("disabled");
+							alert(e.message);
+						} else {
+							// 得到新增基地的ID
+							farmId = e.data.id;
+							alert("添加成功，若要修改请进详情页面！");
+						}
+					},
+					error : function(e) {
+						// 让提交按钮生效
+						$('#submitId').removeAttr("disabled");
+						alert("服务器错误，请联系管理员!");
+					}
+				});
+			}
+
+			// 进入地块详情
+			function goLand() {
+				if (farmId > 0) {
+					api.openWin({
+						name : 'LandManagement',
+						url : '../land/LandManagement.html',
+						pageParam : {
+							"farmId" : farmId
+						}
+					});
+				} else {
+					alert("请先保存基地信息");
+				}
+			}
+
+			// 进入植保详情
+			function goCropProtection() {
+				if (farmId > 0) {
+					api.openWin({
+						name : 'crop_message',
+						url : '../mysetting/mysettings/crop/crop_message.html',
+						pageParam : {
+							"farmId" : farmId
+						}
+					});
+				} else {
+					alert("请先保存基地信息");
+				}
+			}
+
+			//返回
+			function back() {
+				api.closeWin({
+				});
+				// 执行win_home窗口里的exec()方法
+				api.execScript({
+					name : "customer_add",
+					script : "exec('farm_add');"
+				});
+			}
+
+			//跳转到省市区县选择页面
+			function address() {
+				api.openWin({
+					name : 'adress_province',
+					url : '../mysetting/mysettings/address/address_province.html',
+					reload : true,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					},
+					// name指定的是回跳的窗口名，fun指定的是回调用的方法名
+					pageParam : {
+						"name" : "farm_save",						
+						"fun" : "getAddressCodes"
+					}
+				});
+			}
+
+			// 获取选择省市的code码
+			function getAddressCodes(addressName, proCode, cityCode, countryCode) {
+				alert(addressName);
+				$("#addressName").val(addressName);
+				$("#farmProvinceCode").val(proCode);
+				$("#farmCityCode").val(cityCode);
+				$("#farmCountyCode").val(countryCode);
+			}
+		</script>
+	</body>
+</html>

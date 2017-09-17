@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新建农技问题</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <link rel="stylesheet" href="../../../css/actionsheet.css" />
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <script type="text/javascript" src="../../../script/remote.config.js"></script>
+ 	<style>
+	 	.content{
+	 		font-size: 0.27rem;
+	 		color:#706969;
+	 		position:relative;
+	 		background-color:#f2f2f2;
+	 	} 	
+	 	.top_img{
+	 		width: 100%;
+	 		height:2.33rem;
+	 		background:url("../../../image/business_img/b_b.png") no-repeat;
+	 		background-size:100% 100%;
+	 	}
+	 	.text{
+	 		width: 6.79rem;
+	 		overflow:hidden;
+	 		background-color:#fff;
+	 		margin:0 auto;
+	 		position:relative;
+	 		top:-1.29rem;
+	 		border-radius:0.1rem;
+	 	}
+	 	.basic{
+	 		margin:0.47rem 0 0.47rem;
+	 		width:1.36rem;
+	 		height:0.41rem;
+	 		line-height:0.4rem;
+	 		color:#FFF;
+	 		font-size:0.26rem;
+	 		background-color:#66bd14;
+	 		border-bottom-right-radius: 0.2rem;
+	 		border-top-right-radius: 0.2rem;
+	 		text-align:center;
+	 	}
+	 	
+		.item{
+	 		width:100%;
+	 		min-height:0.77rem;
+	 		line-height:0.77rem;
+	 		border-top:1px solid #f2f2f2;
+	 		padding: 0 0.23rem;
+	 		box-sizing: border-box;
+	 		overflow: hidden;
+	 	}
+	 	.check{
+	 		float:right;
+	 	}
+	 	.input{
+	 		height:0.77rem;
+	 		line-height:0.77rem;
+	 		padding-left:0.1rem;
+	 		color:#706969;
+	 		box-sizing: border-box;
+	 		flex:1;
+	 		-webkit-flex:1;
+	 	}
+	 	
+	 	.item .left{
+	 		min-width:1.2rem;
+	 		float: left;
+	 		font-size:0.26rem;
+	 		color:#727171;
+	 	}
+	 	/*textarea提示信息字颜色*/		
+		.input::-webkit-input-placeholder {
+		  color: #d1cdcd;
+		}
+		.input:-moz-placeholder {
+		   color: #d1cdcd;
+		}
+		.input:-ms-input-placeholder {
+		   color: #d1cdcd;
+		}
+		
+		
+		.camera{
+		  margin:0.6rem 0 0.3rem;
+		}
+		.camera img{
+		  width:0.85rem;
+		  height:0.66rem;
+		  margin:0 auto;
+		}
+		.camera_header{
+		   color:#797980;
+		   font-size:0.3rem;
+		   text-align:center;
+		}
+		.camera_describle{
+		   margin:0.3rem 0 0.5rem;
+		   color:#B7B7BA;
+		   font-size:0.18rem;
+		   text-align:center;
+		}
+		
+		.item .input.input_b{
+		 float:right;
+		 width:5.0rem;
+		 height:0.50rem;
+		 line-height:0.50rem;
+		 margin:0.1rem 0 0.1rem;
+		 border:1px solid #ccc;
+		}
+		.item.posItem{
+		  position:relative;
+		}
+		.posItem .posImg{
+		  width: 0.3rem;
+          height: 0.4rem;
+          position: absolute;
+          right: 0.35rem;
+          top: 0.15rem;
+		}
+		.item .bottom{
+	 		width:100%;
+	 		overflow: hidden;
+	 	}
+	 	.text_box{
+	 		width:100%;
+	 		height:1.57rem;
+	 		border:1px solid #d5d3d3;
+	 		color:#706969;
+	 		padding:0.2rem;
+	 		box-sizing: border-box;
+	 		overflow:hidden;
+	 		line-height:0.4rem;
+	 	}
+	 	.do_box{
+	 		width:100%;
+	 		color:#706969;
+	 		overflow:hidden;
+	 		min-height:0.7rem;
+ 		    display: inherit;
+	 	}
+	 	#bottom{
+            width:100%;
+            overflow:hidden;
+            padding:0.12rem 0.12rem;
+            box-sizing: border-box;
+        }
+        .btn{
+            display:block;
+            width:100%;
+            height:0.77rem;
+            background:#ef8233;
+            color:#fff;
+            font-size:0.3rem;
+            text-align:center;
+            line-height: 0.77rem;
+            border:none;
+            border-radius:0.1rem;
+        }
+        
+        /*textarea提示信息字颜色*/		
+		textarea::-webkit-input-placeholder {
+		  color: #d1cdcd;
+		}
+		textarea:-moz-placeholder {
+		   color: #d1cdcd;
+		}
+		textarea:-ms-input-placeholder {
+		   color: #d1cdcd;
+		}
+   
+    </style>
+</head>
+<body>
+  		<div class="content" id="content">
+  			<div class="top_img"></div>
+			<div class="text">
+				<div class="basic">作物照片</div>
+				<div class="camera">
+				  <img src="../../../image/che_img/camera.png"  alt="" />
+				</div>
+				<div class="camera_header">拍照并且上传图片</div>
+				<div class="camera_describle">（请对作物全景、根系、病株全景、叶片正面、叶片反面等拍照）</div>
+				<div class="basic">问题情况</div>
+				
+				<div class="item posItem">
+					<span class="left">发生地点</span>
+					<input type="text" id="location" readonly="readonly"  class="input input_b" placeholder="点击定位" value=""/>
+					<input type="hidden" id="provinceCode"/>
+					<input type="hidden" id="cityCode"/>
+					
+					<img class="posImg"src="../../../image/che_img/b_add.png" alt="" />
+					<input type="text" id="address" class="input input_b"  placeholder="请输入详细地点" value=""/>
+			    </div>
+			   
+				 <div class="item">
+					<span class="left">种了什么</span>
+					<span class="inner" ></span>
+					<input type="hidden" value=""/>
+					<div class="check" >
+						请选择 (必填) >
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">怎么种的</span>
+					<span class="inner" ></span>
+					<input type="hidden" value=""/>
+					<div class="check" >
+						请选择 (必填) >
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">发生状况</span>
+					<span class="inner" ></span>
+					<input type="hidden" value=""/>
+					<div class="check" >
+						请选择 (必填) >
+					</div>
+				</div>
+				<div class="item">
+					<span class="left">最近天气</span>
+					<span class="inner" ></span>
+					<input type="hidden" value=""/>
+					<div class="check" >
+						请选择 (必填) >
+					</div>
+				</div>
+				<div class="item" style="border-bottom:1px solid #f2f2f2;">
+					<span class="left">最近3-5天在地里干了啥</span>
+					
+					<textarea  id="recentWork" class=" do_box"placeholder="请描述最近地里做了什么" maxlength="200"  name="text" ></textarea>
+							
+				</div>
+				
+				<div class="item" style="border:none;">
+					<span class="left">有什么问题（必填）</span>
+					<div class="bottom">
+						<textarea id="question" class="text_box" maxlength="200"  name="text"></textarea>
+					</div>			
+				</div>
+				<div class="item" style="border:none;">
+					<span class="left">解决方法（必填）</span>
+					<div class="bottom">
+						<textarea id="question" class="text_box" maxlength="200"  name="text" ></textarea>
+					</div>			
+				</div>
+				<div id="bottom">
+                      <button class="btn" id="saveBtn">保存</button>
+                </div>
+			</div>
+  		</div>
+</body>
+</html>

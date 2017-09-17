@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <script type="text/javascript" src="../../../script/remote.config.js"></script>
+    <title>我的周报</title> 
+ 	<style>
+  		.list_item{
+  			width:6.61rem;
+  			line-height:0.66rem;
+  			margin:0 auto;
+  			margin-top:0.17rem;
+  			padding:0 0.17rem;
+  			box-sizing:border-box;
+  			border:1px solid #00c558;
+  			border-top-left-radius:0.1rem;
+  			border-bottom-right-radius:0.1rem;
+  			font-size:15px;
+  			color:#949996;	
+  			font-family:PingFang SC Regular;
+  			overflow:hidden;
+  		}
+  		.list_item div{
+  			display:inline-block;
+		}
+		.date{
+			margin:0 0.1rem;
+		}
+  		
+  		.content .list_item:first-child{
+  			margin-top:0.24rem;
+  		}
+  		.time{
+  			float:right;
+  		}
+    </style>
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+</head>
+<body>
+<script id="weektmpl" type="text/x-dot-template">
+		{{~it:value:index}}
+		<div class="list_item" item='{{=value.item}}'>
+			<div class="name">{{=value.name}}</div>
+			<div class="date">{{=value.weekDate}}</div>
+			<div class="time">{{=value.statusDesc}}</div>
+		</div>
+		{{~}}
+</script>
+  		<div class="content" id="context">
+  			<!--<div class="list_item">
+  				<div class="name">张三</div>
+  				<div class="date">2017年8月17日</div>
+  				<div class="time">待审阅</div>
+  			</div>-->
+  			
+  		</div>
+</body>
+	
+</html>

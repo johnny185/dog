@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>基本信息</title>
+    <link rel="stylesheet" href="../../../css/aui.css" />
+    <link rel="stylesheet" href="../../../css/aui_bar.css" />
+    <style>
+    	.aui-pull-left span{
+  			display:block;
+  			width:15px;
+  			height:18px;
+  			background:url("../../../image/business_img/back.png") no-repeat;
+	 		background-size:100% 100%;
+  		}
+  		.aui-bar-nav .aui-pull-left {
+	    	width: 50px;
+	    }
+   
+    </style>
+</head>
+<body>
+	    
+	
+     <header class="aui-bar aui-bar-nav" id="aui-header">
+        <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+            <span></span>
+        </a>
+        <div class="aui-title">基本信息</div>
+        <a class="aui-pull-right aui-btn aui-btn-outlined" id="btnSave" onclick="save()">
+            <span >保存</span>
+        </a>
+     </header>
+     
+	    
+	    
+<script type="text/javascript" src="../../../script/api.js"></script>
+
+</body>
+
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header); 
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        if(api.pageParam.ifSave===1){
+         $api.css($api.byId('btnSave'),'display:none');
+        }
+        api.openFrame({
+            name: 'infor_frm',
+            url: 'infor_frm.html',
+            bounces: true,
+            reload: true,
+            pageParam:api.pageParam,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        })
+    };
+    function closeWin(){
+        api.closeWin({
+        });
+       
+    }
+    function save(){
+    	api.sendEvent({
+	        name:'onSaveBaseInfo'
+        });
+    }
+</script>
+</html>

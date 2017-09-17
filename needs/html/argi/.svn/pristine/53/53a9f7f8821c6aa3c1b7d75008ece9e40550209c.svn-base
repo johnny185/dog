@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../../res/css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../res/themes/aui-theme-style1.css"/>
+		<!--<script type="text/javascript" src="../../../script/rem.js"></script>-->
+		<style>
+		  	header{
+		  	    z-index:9999;
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height:68px;
+				background: #00c558;
+			}
+			
+			header #title{
+				padding-top:7px;
+				position: relative;
+				width:100%;
+				height: 68px;
+				/* line-height: 68px; */
+				text-align: center;
+				font-size: 18px;font-family: PingFangSC-Regular, sans-serif;color: #fff;
+			}
+			header #title span{
+				display: inline-block;
+				position: absolute;
+				left: 13px;
+				bottom: 40px;
+				width: 12px;
+				height: 18px;
+				background-image: url(../../../image/harvest_back.png);
+				background-position: center;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+			}
+		</style>
+	</head>
+	<body >
+		<header id="aui-header">
+			<div id="title">
+				<span onclick="closeWin()"></span>
+				记工单
+			</div>
+		</header>
+		<footer class="aui-bar aui-bar-tab aui-active" style="border-top:solid 1px #e47833" id="footer">
+            <div class="aui-bar-tab-item aui-text-white" tapmode style="width: auto;text-align:left;padding-left:0.75rem">
+           
+        </div>
+        <div class="aui-bar-tab-item aui-text-white" tapmode style="width: auto;background:#ff7a00;">
+        	<button style="background:#ff7a00; font-size:0.9rem;border: none;" class="aui-btn " id="save" style="font-size: 16px;">
+        		存一下
+        	</button>
+        </div>
+
+    </footer>
+		
+	</body>
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	
+	<script>
+		window.apiready = function() {	
+		var header = $api.byId('aui-header');
+    	var headerPos = $api.offset(header);
+    	var footer = $api.byId('footer');
+    	var footerPos = $api.offset(footer);
+	    $api.fixStatusBar(header);
+	    var btnSave = $api.byId('save');
+		$api.addEvt(btnSave, 'click', function(){
+			api.sendEvent({
+	            name:'onSaveJobSheet'
+            });
+		});
+		var ios=0;
+	    api.parseTapmode();
+        var strDM = api.systemType;
+        if (strDM == 'ios') {
+            ios=5;
+        }
+        var isAndroid = (/android/gi).test(navigator.appVersion);
+        var gap = isAndroid?0:5   
+    	api.openFrame({   //打开frame
+	        name: 'edit_frm',
+	        url: './edit_frm.html',
+	        bounces: true, // 页面打开是否是否弹动
+	        pageParam:{
+	         id:api.pageParam.id
+	        },
+	        rect: {
+	            x: 0,
+	            y: headerPos.h-ios,
+	            w: 'auto',
+	            h: (api.winHeight - (footerPos.h)) - headerPos.h + gap
+	        }
+	    });
+	}
+	window.closeWin = function() {
+		api.sendEvent({
+	        name:'onCloseJobSheet'
+        });
+	}
+	
+	
+	</script>
+</html>

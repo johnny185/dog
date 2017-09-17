@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>省</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class='banner fixed center'>
+					<span class="banner-title center"> <h4>地区选择</h4> </span>
+					<a href="javascript:void(0)" ; onclick="back();"> <span class="banner-btn banner-back-btn">
+						<input id = 'return-btn' type='button' name='return' value=''>
+					</span> </a>
+				</div>
+				<!-- 内容区域 -->
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<p class="layer-title">
+							<span>定位到的位置</span>
+						</p>
+						<p class="layer-block">
+							<span>定位城市：</span><span class="location">定位中...</span>
+						</p>
+						<p class="layer-title">
+							<span>全部</span>
+						</p>
+						<ul id="provinceAll"></ul>
+						<div class="container-panel">
+							<ul class="infos-list-panel" id="provinceAll"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../../../script/jquery.min.js"></script>
+	<script src="../../../../script/common/api.js"></script>
+	<script src= "../../../../script/common/zepto.min.js"></script>
+	<script src="../../../../script/common/pds.ajax.js"></script>
+	<script type="text/javascript">
+		var name;
+		var fun;
+		var frameName;
+		apiready = function() {
+			province();
+			name = api.pageParam.name;
+			frameName = api.pageParam.frameName;
+			fun = api.pageParam.fun;
+			if (!name || !frameName || !fun) {
+				alert("系统出错，请联系管理员！");
+			}
+			var map = api.require('bMap');
+			map.getLocation({
+				accuracy : '100m',
+				autoStop : true,
+				filter : 1
+			}, function(ret, err) {
+				if (ret.status) {
+					var lon = ret.lon;
+					//大
+					var lat = ret.lat;
+					//小,
+					map.getNameFromCoords({
+						lon : lon,
+						lat : lat
+					}, function(ret, err) {
+						if (ret.status) {
+							var app = null;
+							var province = ret.province;
+							//alert(ret.province +","+ret.city);
+							if (ret.province == ret.city) {
+								province = province.substr(0, province.length - 1);
+								app = ret.city + ret.district;
+							} else {
+								app = ret.province + ret.city;
+							}
+							var district = ret.district;
+							if (ret.district == undefined) {
+								district = '';
+							}
+							//alert(JSON.stringify(ret))
+							//app = province + ret.city + district;
+							ad = province + "_" + ret.city;
+							//alert(ad);
+							$(".location").html(app);
+							$(".location").on('click', function() {
+								var location = $('.location').text();
+								pds.ajaxSubmit({
+									url : "/app/question/findCode",
+									data : {
+										name : ad
+									},
+									success : function(res) {
+										//alert(res.data)
+										api.closeToWin({
+											name : name
+										});
+										//刷新数据
+										api.execScript({
+											name : name,
+											frameName : frameName,
+											script : fun + "('" + location + "','" + res.data[0] + "','" + res.data[1] + "');"
+											//script : fun + "('" + provinceName + cityName + $text + "','" + provinceCode + "','" + cityCode + "','" + $code + "');"
+										});
+									}
+								});
+							})
+						}
+					});
+				} else {
+				}
+			})
+		};
+		//返回上一级
+		function back() {
+			api.closeWin();
+		}
+
+		var provinceName;
+		var provinceCode;
+		function province() {
+			pds.ajaxSubmit({
+				url : "/app/market/findProAreaList",
+				success : function(res) {
+					var el = $api.byId("provinceAll");
+					var data = res.data;
+					for (var i = 0; i < data.length; i++) {
+						var str = '<li class="infos-panel-line argi-flex-addr" onclick="city(this)" data-id="' + data[i].id + '"data-code="' + data[i].code + '"><p>' + data[i].name + '</p><span class="arrow-a"><img class="sm-button" src="../../../../image/next-button.png"></span></li>';
+						$api.append(el, str);
+					}
+				}
+			});
+		}
+
+		var provinceId;
+		function city(obj) {
+			var $text = $(obj).find('p').text();
+			provinceName = $text;
+			var $code = $(obj).attr("data-code");
+			provinceCode = $code;
+			provinceId = $(obj).attr("data-id");
+			//进入选择地区市页面
+			function proCity(provinceId, provinceCode, provinceName) {
+				$api.openWin({
+					name : "address_city",
+					url : "widget://html/mysetting/mysettings/pro_city/address_city.html",
+					reload : true,
+					selecteIndex : '4',
+					pageParam : {
+						"provinceId" : provinceId,
+						"provinceName" : provinceName,
+						"provinceCode" : provinceCode,
+						"name" : name,
+						"frameName" : frameName,
+						"fun" : fun
+					},
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+
+			proCity(provinceId, provinceCode, provinceName);
+		}
+
+		function getAddress(adressFullName, pcode, ccode) {
+			$('.location').text(adress + ',' + pcode + ',' + ccode);
+		}
+	</script>
+</html>

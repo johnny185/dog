@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>审阅周报详情</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/mui/css/mui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/mui/css/mui.picker.min.css">
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    
+ 	<style>
+ 		.content{
+ 			font-size:0.28rem;
+ 			color:#949996;
+ 		}
+ 		/*顶部信息*/
+ 		.detail{
+ 			width:100%;
+ 			height:2.9rem;
+ 			overflow: hidden;
+ 			padding:0.55rem 1.25rem 0;
+ 			box-sizing:border-box;
+ 		}
+ 		div,span{
+ 			display:inline-block;
+ 		}
+	 	.detail .number,.detail .area{
+ 			width:1.9rem;
+ 			height:1.9rem;
+ 			float:left;
+ 			text-align:center;
+ 			padding-top:0.55rem;
+ 			box-sizing:border-box;
+ 		}
+ 		.detail .number{
+ 			background:url("../../../image/business_img/v_b.png")no-repeat center center;
+ 			background-size:1.9rem 1.9rem;
+ 			color:#66c6ad;
+ 		}
+ 		.detail .area{
+ 			background:url("../../../image/business_img/v_y.png")no-repeat center center;
+ 			background-size:1.9rem 1.9rem;
+ 			float:right;
+ 			color:#f7c36f;
+ 		}
+ 		.top_n,.bottom{
+ 			width:100%;
+ 		}
+ 		.top_n{
+ 			font-size:0.36rem;
+ 		}
+ 		.bottom{
+ 			font-size:0.26rem;
+ 			line-height:0.45rem;
+ 		}
+ 		.space{
+ 			width:100%;
+ 			height:0.1rem;
+ 			background-color:#f5f5f5;
+ 		}
+ 		/*底部列表样式*/
+ 		.list{
+ 			width:100%;
+ 			overflow: hidden;
+ 			padding:0 0.2rem;
+ 			box-sizing:border-box;
+ 		}
+ 		.list .item{     
+ 			width:100%;
+ 			overflow: hidden;
+ 			border:1px solid #f3f6f6;
+ 			margin-bottom:0.23rem;
+ 			padding-bottom:0.2rem;
+ 			box-sizing:border-box;
+ 		}
+ 		.list .item .top,.list .item .item_l{  
+ 			width:100%;   
+ 			line-height:0.6rem;
+ 			padding:0 0.25rem;
+ 			box-sizing:border-box;
+ 		}
+ 		.list .item .top{
+ 			margin-bottom:0.2rem;
+ 			color:#745c3b;
+ 		}
+ 		.list .item .top .name{
+ 			float:right;
+ 		}
+ 		.list .item .item_l div{ 
+ 			width:50%; 
+ 			text-align:left;
+ 			float:left;
+ 		}
+ 		.list .item:nth-child(odd) .top{  
+ 			background:url("../../../image/business_img/v_by.png")no-repeat;
+ 			background-size:100% 100%;
+ 		}
+ 		.list .item:nth-child(even) .top{  
+ 			background:url("../../../image/business_img/v_bb.png")no-repeat;
+ 			background-size:100% 100%;
+ 		}
+ 		/*tab切换*/
+ 		.tab{
+ 			width:100%;
+ 			height:2.05rem;
+ 			overflow: hidden;
+ 		}
+ 		.clear { 
+ 			zoom:1; 
+ 		}
+		.clear:after { 
+			visibility:hidden;
+			display:block; 
+			font-size:0; 
+			content:"1"; 
+			clear:both; 
+			height:0; 
+		}
+		.btn{ 
+			width:100%;
+			height:0.66rem;
+			line-height:0.66rem;
+			border-bottom:1px solid #f3f6f6;
+			-webkit-box-flex: flex;
+			display:flex;
+			justify-content: space-around;
+		}
+		.btn span { 
+			margin-left:0.4rem;
+			text-align: center;
+			padding:0 0.2rem;
+ 			box-sizing:border-box;
+		}
+		.con { 
+			display:none; 
+			width:100%;
+			padding:0.43rem 0.25rem 0.38rem 0.25rem;
+			box-sizing:border-box;
+			overflow: hidden;
+		}
+		.active{
+			color:#00C558;
+			border-bottom: 2px solid #00b651;
+		}
+		.con .serch{ 
+			display:inline-block;
+			width:100%;
+			height:0.53rem;
+			background-color:#fff;
+			border:1px solid #00c558;
+			background:url("../../../image/business_img/v_s.png")no-repeat 2.75rem center;
+			background-size:0.25rem 0.25rem;
+			color: #a6a8a3;
+			font-size:0.26rem;
+ 			text-align:center;
+ 			border-radius:0;
+		}
+		.date{ 
+			padding:0 0.2rem;	
+			box-sizing: border-box;
+		}
+		.searchView,.searchView ul{
+			width:100%;
+			height:100%;
+		}
+		.searchView ul{
+			margin: 0;
+			padding:0 0.2rem;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+		.searchView ul li{
+			text-align:center;
+			width:50%;
+			height:100%;
+			float:left;
+			padding:0.2rem;
+			box-sizing: border-box;
+		}
+		.searchView ul li button{
+			display:inline-block;
+			width:100%;
+			height:0.45rem;
+			background-color:#fff;
+			border:1px solid #00c558;
+			color: #a6a8a3;
+			font-size:0.26rem;
+ 			text-align:center;
+ 			margin-top:0.1rem;
+ 			border-radius:0;
+ 			padding:0;
+ 			line-height: 0.45rem;
+		}
+		
+		.recordLists{
+			position: relative;
+			width: 100%;
+			margin-top: 0.6rem;
+		}
+		.recordLists ul{
+			background: #fff;
+			margin-bottom: 0.14rem;
+			border-radius: 0.1rem;
+		}
+		.recordLists li{
+			width: 100%;
+			padding: 0rem 0.2rem 0rem 0.34rem;
+			border-bottom: solid 1px #ebebeb;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display:flex;
+
+			-webkit-box-orient: horizontal;
+			-webkit-flex-flow: row;
+			flex-flow: row;
+
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			font-size: 0.23rem;font-family: PingFangSC-Regular, sans-serif;color: #86888a;
+		}
+		.recordLists li p{
+			/*padding: 0.3rem 0;*/
+			line-height: 0.6rem;
+		}
+		.recordLists li p span{
+			margin-left: 0.2rem;
+		}
+		/*input提示信息字颜色*/		
+		input::-webkit-input-placeholder {
+		  color: #a6a8a3;
+		}
+		input:-moz-placeholder {
+		  color: #a6a8a3;
+		}
+		input:-ms-input-placeholder {
+		  color: #a6a8a3;
+		}
+    </style>
+</head>
+<body>
+
+</script>
+  		<div class="content" id="context">
+  			
+  			
+  			<!--顶部内容-->
+  			<div class="detail">
+  				<div class="number">
+  					<div class="top_n"><span>10</span>个</div>
+  					<div class="bottom">客户总数</div>
+  				</div>
+  				<div class="area">
+  					<div class="top_n"><span>100</span>万亩</div>
+  					<div class="bottom">签约面积</div>
+  				</div>
+  			
+  			</div>
+  			<div class="space"></div>
+  			
+  			<div class="tab">
+  			
+				 <div class="btn clear"><span class="active">客户名称</span><span>业务员</span><span>拜访时间</span></div>
+				 <div class="con"><input class="serch" type="text" placeholder="搜索" /></div>
+				 <div class="con"><input class="serch" type="text" placeholder="搜索" /></div>
+				 <div class="con date">
+				 
+				 	<div class="searchView" style="height:180px;">
+						<ul>
+							<li>
+								<span>开始时间</span>
+								<button type="text" id="start" readonly="readonly" class="sDate" placeholder="请选择日期"></button>
+								
+							</li>
+							<li>
+								<span>截止时间</span>
+								<button type="text" id="end" readonly="readonly" class="sDate" placeholder="请选择日期"></button>
+							</li>
+							
+						</ul>
+					</div>
+				
+				 </div>
+					
+  			</div>
+  			<!--底部列表-->
+  			<div class="list">
+  				<div class="item">
+  					<div class="top">
+  						<span class="number">100001</span>
+  						<span class="name">客户一</span>
+  					</div>
+  					<div class="item_l">
+  						<div class="left">
+  							客户状态： <span>初次拜访</span>
+  						</div>
+  						<div class="right">
+  							所属业务员： <span>业务员A</span>
+  						</div>
+  					</div>
+  					<div class="item_l">
+  						<div class="left">
+  							主要作物： <span>水稻</span>
+  						</div>
+  						<div class="right">
+  							种植面积： <span>3000亩</span>
+  						</div>
+  					</div>
+  					
+  				</div>
+  				<div class="item">
+  					<div class="top">
+  						<span class="number">100001</span>
+  						<span class="name">客户一</span>
+  					</div>
+  					<div class="item_l">
+  						<div class="left">
+  							客户状态： <span>初次拜访</span>
+  						</div>
+  						<div class="right">
+  							所属业务员： <span>业务员A</span>
+  						</div>
+  					</div>
+  					<div class="item_l">
+  						<div class="left">
+  							主要作物： <span>水稻</span>
+  						</div>
+  						<div class="right">
+  							种植面积： <span>3000亩</span>
+  						</div>
+  					</div>
+  			
+  			
+  			</div>
+  			
+  		</div>
+</body>
+
+
+	<script type="text/javascript" src="../../../script/jquery.js"></script>
+	<script type="text/javascript" src="../../../script/mui/mui.min.js"></script>
+	<script type="text/javascript" src="../../../script/mui/mui.picker.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+<script type="text/javascript">
+
+
+		$(function(){
+		
+			  $(".con").eq(0).show();
+			  
+			  $(".btn span").click(function(){
+				    $(".btn span").removeClass("active");
+				  	$(this).addClass("active");
+				    var num =$(".btn span").index(this);
+				    $(".con").hide();
+				    $(".con").eq(num).show().slblings().hide();
+			  })
+			  
+			  
+			  mui.init();
+			　var btns = mui('.sDate');
+			　
+			　btns.each(function(i,btn){
+			　　btn.addEventListener('tap',function(){
+					var result = $(this)[0];
+					var dtpicker = new mui.DtPicker({  
+					    type: "date",//设置日历初始视图模式  
+					    labels: ['Year', 'Mon', 'Day'],//设置默认标签区域提示语  
+					  
+					})  
+					dtpicker.show(function(rs) {  
+					
+					    result.innerText =rs.text;
+　　　　　　　　				dtpicker.dispose();
+					})  
+					
+		
+			　},false);
+			});
+		
+		})
+		
+
+</script>
+</html>

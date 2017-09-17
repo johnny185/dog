@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>详情页</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/icons.min.css" />
+		<!--<link rel="stylesheet" type="text/css" href="../css/af.ui.css" />-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../css/kendo.default.min.css" />
+			<link rel="stylesheet" type="text/css" href="../css/kendo.common.min.css" />
+		<style>
+			body{background:#fff;}
+			#header {
+				height: 46px;
+				width: 100%;
+				font-size: 18px;
+				color: #fff;
+				text-align: center;
+				background-color: #66BB6A;
+				border-bottom: 1px solid #2ba399;
+				line-height: 46px;
+			}
+			.back {
+				font-size: 0px;
+				padding: 0 5px;
+			}
+			.back .title {
+				font-size: 20px;
+				vertical-align: middle;
+			}
+			.favorite, .share {
+				display: inline-block;
+				line-height: 46px;
+			}
+			.flex-full {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			/*icon*/
+			.i-logo {
+				display: inline-block;
+				padding: 23px;
+				background: url(../image/ic_action_home.png) no-repeat center center;
+				-webkit-background-size: 34px;
+				background-size: 34px;
+				vertical-align: middle;
+			}
+			.i-back {
+				display: inline-block;
+				padding: 23px 10px;
+				background: url(../image/ic_global_title_bar_48_back.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			.i-favorite {
+				display: inline-block;
+				padding: 20px;
+				background: url(../image/ic_action_favorite_off.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			.i-share {
+				display: inline-block;
+				padding: 20px;
+				background: url(../image/ic_action_share.png) no-repeat center center;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				vertical-align: top;
+			}
+			.btn_login {
+				display: block;
+				color: #000000;
+				margin-left: 70px;
+				text-align: center;
+				border-radius: 18px;
+				height: 40px;
+				width: 80px;
+				line-height: 40px;
+				border: 1px solid #EEEEEE;
+				background-color: #2BAF2B;
+				color: #FFFFFF;
+				font-size: 14px;
+			}
+			.btn_quit {
+				display: block;
+				color: #000000;
+				margin: 0 40px;
+				text-align: center;
+				border-radius: 18px;
+				height: 40px;
+				width: 80px;
+				line-height: 40px;
+				border: 1px solid #CECECE;
+				background-color: #738FFE;
+				color: #FFFFFF;
+				font-size: 14px;
+			}
+			.fl {
+				float: left;
+			}
+			.listBlockMax-infos p {
+				clear: both;
+			}
+			.opt-num {
+				position: absolute;
+				top: 7px;
+				right: 20px;
+			}
+			.order-list {
+				position: relative;
+				font-size: 14px;
+				padding: 15px 20px;
+				border-bottom: 1px solid #e7e7e7;
+			}
+			.order-l {
+				float: left;
+			}
+			.order-r {
+				float: right;
+				font-size: 16px;
+			}
+			.order-r.sum {
+				color: orange;
+			}
+			.opt-num {
+				position: absolute;
+				top: 7px;
+				right: 20px;
+			}
+			.opt-btn-increase {
+				border-radius: 5px;
+				background-color: #666;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				background: #ddd url(../image/ic_add.png) no-repeat center center;
+				-webkit-background-size: 16px;
+				background-size: 16px;
+				vertical-align: middle;
+			}
+			.opt-btn-reduce {
+				border-radius: 5px;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				background: #ddd url(../image/ic_subtract.png) no-repeat center center;
+				-webkit-background-size: 16px;
+				background-size: 16px;
+				vertical-align: middle;
+			}
+			.opt-btn-increase, .opt-btn-reduce, .opt-input {
+				display: inline-block;
+			}
+			.opt-input {
+				background: url(../image/bg_edit_selected.9.png) no-repeat left -17px;
+				width: 39px;
+				height: 30px;
+				padding-left: 8px;
+			}
+			.opt-input input {
+				width: 24px;
+				text-align: center;
+			}
+			.opt-input input:focus {
+				border: none;
+				outline: none;
+			}
+			.opt-btn-increase.active, .opt-btn-reduce.active {
+				background-color: #32b9a8;
+			}
+			.input-txt{ 
+				width:100px;
+				border:1px solid #d2d2d2; 
+				background-color:#fff; /* 背景色透明 */ 
+			}
+			.input-feeback-txt{ 
+				width:160px;
+				border:1px solid #d2d2d2; 
+				background-color:#fff; /* 背景色透明 */ 
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div id="wrap">
+				<div id="header">
+					<div class="btn back" tapmode="topbar-active" onclick="closeWin();">
+						<i class="i-back"></i>
+						<span class="title">返回</span>
+					</div>
+				</div>
+				<div id="content">
+					<div data-template="li-template" data-bind="source:resources"></div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="../script/api.js"></script>
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../script/pds.ajax.js"></script>
+		
+	    <script type="text/javascript" src="../script/kendo.core.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.data.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.binder.min.js"></script>
+		<script type="text/javascript" src="../script/kendo.all.min.js"></script>
+		
+	
+		<script id="li-template" type="text/x-kendo-template">
+			<!-- 待确认工单二级页 -->
+			<div style="display: block" data-title="PG20160307001" id="mainInSub-in1">
+			<ul id="feedbackId">
+			<li class="listBlockMax">
+			<h3 class="listBlockMax-title"><i class="icon"></i><span>工单内容</span></h3>
+			<div class="listBlockMax-infos">
+			<p><span>基地名称：</span><span>#:workOrderData.farmName#</span></p>
+			<p><span>地块名称：</span><span>#:workOrderData.landName#</span></p>
+			<p><span>品名：</span><span>#:workOrderData.catalogName#</span></p>
+			<p><span>品种：</span><span>#:workOrderData.categoryName#</span></span></p>
+			<p><span>要求开始时间：</span><span>#:kendo.toString(kendo.parseDate(processData.startDate, "yyyy-MM-dd"), "yyyy-MM-dd" )#</span></p>
+			<p><span>要求结束时间：</span><span>#:kendo.toString(kendo.parseDate(processData.endDate, "yyyy-MM-dd"), "yyyy-MM-dd" )#</span></p>
+			<p><span>实际开始时间：</span><sapn><input id="beginDate" class="input-feeback-txt" type="date" data-bind="value:feedbackData.startDate" ></sapn></p>
+			<p><span>实际结束时间：</span><sapn><input id="endDate"  class="input-feeback-txt" type="date" data-bind="value:feedbackData.endDate" ></sapn></p>
+			<p><span>要求执行面积：</span><span>#:workOrderData.plantArea#亩</span></span></p><!-- <p><span>工单执行面积：</span><span>#:workOrderData.plantArea#亩</span></p> -->
+			<p>
+				<span>实际执行面积：</span>
+				<span><input data-bind="value:feedbackData.plantArea" type="number" id="sNum" class="input-txt" onkeyup="change(document.getElementById('sNum').value)">亩</span>
+			</p>
+			<p><span>执行工序：</span><span></span>#:processData.name#</p>
+			<p><span>考核标准：</span>
+				# if(processData.standardsList!=null){ #
+				# for(var i = 0;i<processData.standardsList.length;i++){ #
+					<span>#: processData.standardsList[i] #</span>
+				# } #
+				# } #
+			</p>
+			</div>
+			<h3 class="listBlockMax-title"><i class="icon"></i><span>资源用量</span></h3>
+			</li>
+			#if(feedbackData.resourceList !=null){#
+			    <li data-template="resourceList-template" data-bind="source:feedbackData.resourceList"></li>
+			#}#
+			<li class="listBlockMax">
+			<div>
+			<p><span>发起人：</span><span>#:workOrderData.createUser#</span></p>
+			<p><span>发起时间：</span><span>#:workOrderData.assignDate#</span></p>
+			</div>
+			</li>
+			</ul>
+			<div class="btn_zu">
+			<div class="btn_login fl" id="login" tapmode="" flag='1'  disabledflag="1" onclick="submit(this)">提交</div>
+			</div>
+			</div>
+		</script>
+		<script id="resourceList-template" type="text/x-kendo-template">
+			<li class="listBlockMax">
+				
+				<div class="">
+						<div class="listBlockMax-infos">
+						    <p>
+				                <span>资源类型：</span><span>#:resPriIdName#</span>
+			                </p>
+							<p>
+								<span>资源名称：</span><span>#:resSubIdName#</span>
+							</p>
+							<p>
+								<span>能力值：</span><span class="clearb"> <b>#:emp(resultVal)# </b><b> #:emp(resultValUnitName)#</b></span>
+							</p>
+							<p>
+								<span>资源用量：</span>
+								<span class="clearb">
+									<b><input type="number" class="classinput input-txt" data-bind="value:resTotal" flag ="#:id#" id="sNum1" onkeyup="change1(document.getElementById('sNum1').value)">
+								</b>
+								<b> #:resourceUnitName#</b>
+								</span>
+							</p>
+						</div>
+					
+						<p class="autoMsgs">
+							# if(materialData != null){ #
+								<span class="autoMsgsA8">物料名称:</span><span>#:materialData.matSubName #</span>
+								<span class="autoMsgsA8">规格:</span><span>#:materialData.matSpec #</span>
+								<span class="autoMsgsA8">产地:</span><span>#:materialData.matHabitat #</span>
+								
+							# } #
+						</p>
+				</div>
+			
+			</li>
+		
+		</script>
+		<script type="text/javascript">
+		
+		     function emp(val){
+	  		      if(val== null || val == undefined){
+	  			      val = "";
+	  		      }
+  		           return val;
+  	          };
+		    
+		
+            function change(str) {
+              document.getElementById("sNum").value = str.replace(/^\+?(\d*\.\d{3})$/,"");
+            }
+            
+            function change1(str) {
+              document.getElementById("sNum1").value = str.replace(/^\+?(\d*\.\d{3})$/,"");
+            }
+		
+			var pageParams = null;
+			
+			function closeWin() {
+				api.closeWin();
+			}
+			
+	       var datacheck = function(){
+			
+				 var beginDate=$("#beginDate").val(); 
+				 var endDate=$("#endDate").val(); 
+				 var d1 = new Date(beginDate.replace(/\-/g, "\/")); 
+				 var d2 = new Date(endDate.replace(/\-/g, "\/")); 
+				 
+				 if(endDate==""||endDate==null){
+				     api.alert({
+                          msg: '请输入开始时间!'
+                     },function(ret,err){
+                     	
+                     });
+				      return true; 
+				 }
+				 
+				 if(beginDate==""||beginDate==null){
+				     alert("请输入开始时间!");
+				      return true; 
+				 }
+				
+				  if(beginDate!=""&&endDate!=""&&d1 >d2) 
+				 { 
+				  alert("开始时间不能大于结束时间!"); 
+				  return true; 
+				 }
+						
+			}
+			
+			var viewModel = null;
+			var plantArea = null;
+			var feedbackResource = {};
+	
+			apiready = function() {
+			
+//		        $("#start").kendoDateTimePicker({
+//                  value:new Date()
+//              });
+                
+                
+//               $("#start").kendoDatePicker({
+//					   depth: "decade",
+//					   start: "decade",
+//					   format: "yyyy",
+//					   culture: "zh-CN",
+//					   min:new Date()
+//				});
+			
+			
+			
+				pageParams = api.pageParam;
+				var getOrderDetails = function(){
+					pds.ajaxSubmit({
+						url:"app/workorder/getOrderDetails",
+						data:pageParams,
+						success:function(e){
+					        var data = e.data;
+							plantArea = data.feedbackData.plantArea;
+//							plantArea = data.workOrderData.plantArea;
+							var feedbackDataTemp =$.extend({},data.feedbackData);
+							var resourceList = feedbackDataTemp.resourceList;
+							if(resourceList && resourceList.length>0){
+								for(var i=0;i<resourceList.length;i++){
+									var resource = resourceList[i];
+									feedbackResource[resource.id]=resource.resTotal;
+								}
+							}
+							viewModel = kendo.observable({
+								resources : data
+							});
+							
+							kendo.bind("#content", viewModel);
+						},
+						error:function(e){
+							alert("服务器异常，请联系管理员!");
+						}
+					});
+				}
+				getOrderDetails();
+			}
+			
+		 /**
+		  * 校验资源总量 
+		  */
+		 function checkResTotal(){
+			var flag = true;
+			var inputArray = $(".classinput");
+			if(inputArray && inputArray.length>0){
+				inputArray.each(function(){
+					    if($(this).val() == null || $(this).val() == ""){
+					      alert("资源用量不能为空");
+					      flag = false
+				    	  return true;
+				        }
+				        
+				       
+				        
+					        if($(this).val() <= "0"){
+						      alert("资源用量不能小于等于0");
+						      flag = false
+					    	  return true;
+					        }
+					if(viewModel.resources.feedbackData.resourceList.length!=0){ 
+					  if(viewModel.resources.feedbackData.resourceList[0].materialData!=null){   
+				        if(feedbackResource[$(this).get(0).getAttribute("flag")]*1<$(this).val()*1){
+							alert("资源用量不能大于"+feedbackResource[$(this).get(0).getAttribute("flag")]);
+							flag = false
+							return true;
+						}
+					   }
+					}
+				});
+			 }
+			 return flag;
+		}
+		/**
+		 * 提交反馈单 
+		 */
+		function submit(dom) {
+			var submitFlag = dom.getAttribute("disabledflag")*1;
+			
+			if(submitFlag != 1){
+				alert("请勿重复提交");
+				return;
+			}else{
+				
+			}
+			
+			var datach  = datacheck();
+			
+			if(datach){
+			
+			    return;
+			}
+			
+			if(viewModel.resources.feedbackData.plantArea == null || viewModel.resources.feedbackData.plantArea == ""){
+				alert("种植面积不能为空");
+				return;
+			}
+			if(plantArea*1 < viewModel.resources.feedbackData.plantArea*1 ){
+				 alert("种植面积不能超过工"+plantArea+"亩");
+				 return;
+			}
+			if(!checkResTotal()){
+				return;
+			}
+			var data = {
+				'data' : JSON.stringify(viewModel.resources)
+			};
+			$(dom).attr("disabledflag", 2);
+			data.userId = $api.getStorage("userId");
+			pds.ajaxSubmit({
+					url:"app/workorder/updateFeedback",
+					data:data,
+					success:function(e){
+				        $(dom).attr("disabledflag", 00);
+//						api.openWin({
+//							name : 'win_home',
+//						    url : 'win_home.html',
+//							reload: true,
+//						    animation:{ 
+//	                                type:"movein",              //动画类型（详见动画类型常量）
+//	                                subType:"from_right",       //动画子类型（详见动画子类型常量）
+//	                                duration:300                //动画过渡时间，默认300毫秒
+//	      		                }	
+//						});
+                  
+                             api.closeToWin({                          		
+                                  name : 'win_home',
+                                  url : 'win_home.html',
+                                  reload:true,
+                                  animation:{
+                                      type:"movein",              //动画类型（详见动画类型常量）
+                                      subType:"from_right",       //动画子类型（详见动画子类型常量）
+                                      duration:300                //动画过渡时间，默认300毫秒
+                                  }
+                              });
+                             api.alert({msg:"提交成功!"});
+
+                              //刷新确认单统计数据
+                              api.execScript({
+                                  name:'win_home',
+                                  frameName: 'frm_homeMain',
+                                  script: 'refreshStatusList();'
+                              });
+
+                    },
+					error:function(e){
+						$(dom).attr("disabledflag", 1);
+						alert("服务器异常，请联系管理员!");
+					}
+			});
+		}
+	
+		</script>
+	</body>
+</html>

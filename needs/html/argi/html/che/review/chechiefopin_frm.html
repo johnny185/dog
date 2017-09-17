@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>审批意见总监页</title> 
+    <link rel="stylesheet" href="../../../css/public.css" />
+    <script type="text/javascript" src="../../../script/rem.js"></script>
+    <script type="text/javascript" src="../../../script/remote.config.js"></script>
+ 	<style>
+	 	html,body{
+	 		background-color:#f7f6f6;
+	 	}
+  		.content{
+  			width:100%;
+  			overflow: hidden;
+  			padding:0.27rem 0.24rem;
+  			box-sizing:border-box;
+  			font-size:0.28rem;
+  			color:#706969;
+  			background-color:#f7f6f6;
+  		}
+  		.text{
+  			width:100%;
+  			overflow: hidden;
+  			margin-bottom:0.48rem;
+  			line-height:0.5rem;
+  		} 
+  		.text textarea,.input{
+  			width:100%;
+  			height:2.13rem;
+  			border:1px solid #dbd9d9;
+  			background-color:#fff;
+  			color:#706969;
+  			padding:0.2rem;
+  			box-sizing:border-box;
+  			line-height:0.5rem;
+  		} 
+  		.input{ 
+  			margin-bottom:0.2rem;
+  		}
+  		span{
+  			display:inline-block;
+  		}
+  		
+  		/*input提示信息字颜色*/		
+		.input::-webkit-input-placeholder {
+		  color: #a6a8a3;
+		}
+		.input:-moz-placeholder {
+		  color: #a6a8a3;
+		}
+		.input:-ms-input-placeholder {
+		  color: #a6a8a3;
+		}
+    </style>
+    
+</head>
+<body>
+	
+<script id="chiefopinTmpl" type="text/x-dot-template">
+	{{~it:value}}
+		<div class="text">
+			<textarea name="text" readonly="readonly" id="">{{=value.reviewOpinion}} </textarea>
+			<div class="bottom">
+				<span class="opinion">{{=value.statusDesc}}</span>
+				<span class="date">{{=value.createDate}}</span>
+			</div>
+		</div>
+	{{~}}
+</script>
+	
+	<div class="content">
+	
+		<textarea class="input" name="text" id="chiefOpinionText" placeholder="请输入审批意见"></textarea>
+		
+		<div  id="context">
+		
+		</div>
+		
+	</div>
+</body>
+</html>

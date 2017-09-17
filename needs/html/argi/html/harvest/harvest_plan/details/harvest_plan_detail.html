@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>采收计划-详情</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../css/harvest-style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+</head>
+<body>
+	<div class='full-main'> 
+			<div class = 'banner fixed'>
+				<div class="banner-title">
+					<h4>详情</h4>
+				</div>
+				<a href="javascript:void(0);"  onclick="back();">
+					<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return'></span>
+				</a>
+			</div>
+	</div>
+
+	<div class="container sub-container-notop">
+			<div>
+				<div class="table-banner fixed-banner">
+						<table class="table-plan-title"> 
+							<tr>
+								<th style="width:31%;">采收日期</th>
+								<th style="width: 20%;">采收量</th>
+								<th style="width: 20%;">人工数</th>
+								<th style="text-align:center;width: 19%;" class="assignOpt">派单</th>
+							</tr>
+						</table>
+				</div>
+				<div class="table-banner sub-sub-container3">
+					<table class="table-plan-title">
+						<thead>
+							<tr style="visibility: hidden;"> 
+								<th style="width:31%;">采收日期</th>
+								<th style="width: 20%;">采收量</th>
+								<th style="width: 19%;">人工数</th>
+								<th style="text-align:left;width: 20%;" class="assignOpt">派单</th>
+							</tr>
+						</thead>
+						<tbody id="harvestItemContainer">
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+	<div class="short-container2" id="confirmHarvestPlanBtn" style="">
+		<div class="main">
+			<div class="center">
+				<input opt-flag="1" id = "d2-0-btn" class="btn-style2 clear harvestPlanBtn" type="button" value="接单">
+				<input opt-flag="2" id = "d2-0-btn" class="btn-style5 clear harvestPlanBtn" type="button" value="退回">
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+<script id="harvestItemTmp" type="text/x-dot-template">
+{{~it :value:index }}
+	<tr>
+		<td>{{= value.realStartDateStr }}</td>
+		<td>{{= value.realQuantity }}</td>
+		<td>{{= value.realPersons }}</td>
+		<td class="assignOpt" style="padding-left: 15px;">
+			{{? value.itemStatus == 0  ||  value.itemStatus == 2}}
+				<input class="btn-style3" type="button" value="派单" tapmode="" onclick="toHarvestPlanAssign({{= value.id }});">
+			{{?}}
+		</td>
+	</tr>
+{{~}}
+</script>
+<script type="text/javascript">
+var userId = null;
+var harvestPlanId = null;
+var harvestPlanStatus = null;
+apiready = function(){
+	userId = $api.getStorage("userId");
+	harvestPlanId = api.pageParam.planId;
+	harvestPlanStatus = api.pageParam.harvestPlanStatus;
+	getHarvestPlanDetails(userId,harvestPlanId);
+}
+
+/*  回退事件 */
+function back(){
+	 api.closeWin();
+	  //刷新数据
+	  api.execScript({
+	  	  name:'harvest_index_frm',
+	      frameName:'harvest_plan_list',
+	      script: 'getDataList('+userId+',"'+harvestPlanStatus+'",'+1+');'
+	  });
+}
+
+/* 加载采收计划详情  */
+function getHarvestPlanDetails(loginId,harvestPlanId){
+	$("#harvestItemContainer").html("");
+	var params = {"userId":loginId,"id":harvestPlanId};
+	pds.ajaxSubmit({
+		url:"app/harvestplan/getHarvestPlanDetails",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			var model = e.data;
+			if(!model){
+				return;
+			}
+			/* 填充采收批次信息   */
+			var dataInter = model.harvestItemsList;
+			if(dataInter && dataInter.length>0){
+				var interText = doT.template($("#harvestItemTmp").text());
+				$("#harvestItemContainer").html(interText(dataInter));
+			}
+			/* 处理接单按钮  */
+			var planStatus = model.planStatus;
+			if(planStatus =="CONFIRMING"){
+				$("#confirmHarvestPlanBtn").show();
+				$(".assignOpt").hide();
+			}else{
+				$(".assignOpt").show();
+				$("#confirmHarvestPlanBtn").remove();
+			}	
+		},
+		error:function(e){
+			api.alert({msg:"服务器错误，请联系管理员!"});
+		}
+	});
+}
+
+/* 采收计划 接单、退回  */
+function updateHarvestPlanStatus(optType,loginId,harvestPlanId,successCallback,errorCallback){
+	var params = {"userId":loginId,"id":harvestPlanId,"flag":optType};
+	pds.ajaxSubmit({
+		url:"app/harvestplan/updateHarvestPlanStatus",
+		data:{"data":JSON.stringify(params)},
+		success:function(e){
+			if(successCallback){
+				successCallback.call(null,e.data);
+			}
+		},
+		error:function(e){
+			if(errorCallback){
+				errorCallback.call(null,e.data);
+			}
+		}
+	});
+}
+
+/* 跳转至采收计划派单页面  */
+function toHarvestPlanAssign(harvestPlanItemId){
+	api.openWin({
+        name: "harvest_plan_assign_order",
+        url:  "./harvest_plan_assign_order.html",
+        pageParam: {
+        				"harvestPlanId":harvestPlanId,
+        				"harvestPlanItemId":harvestPlanItemId,
+        				"harvestPlanStatus":harvestPlanStatus
+        			},
+        slidBackEnabled:false,
+        reload:true,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+	});
+}
+
+/* 采收计划确认、退回按钮  */
+$(".harvestPlanBtn").off("click");
+$(".harvestPlanBtn").on("click",function(){
+	var that = $(this);
+	var optType = that.attr("opt-flag")*1;
+	$(".harvestPlanBtn").attr("disabled","disabled");
+	updateHarvestPlanStatus(optType,userId,harvestPlanId,function(){
+		if(optType == 1){
+			$("#confirmHarvestPlanBtn").remove();
+			$(".assignOpt").show();
+		}else{
+			back();
+		}
+	},function(){
+		$(".harvestPlanBtn").removeAttr("disabled");
+		api.alert({msg:"服务器错误，请联系管理员!"});
+	});
+});
+</script>
+</body>
+</html>

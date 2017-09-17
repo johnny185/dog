@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>我的设置</title>
+	    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../css/mystyle.css">
+	    <link rel="stylesheet" type="text/css" href="../../../css/mysettings.css">
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	        	<!-- 顶部菜单栏 -->
+	            <div class = 'banner fixed center'>
+
+					<span class="banner-title center">
+						<h4 >我的设置</h4>
+					</span>
+					<a href="../mysettings.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+			</div>
+			</div>
+
+			<!-- 内容 -->
+			<div class="full-main clear">	
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="menu1st">
+		            	<ul class="">
+		            		<li>
+		            			<div class="main">
+		            				<a href="settings/change_password.html">
+		            					<h5>修改密码</h5>
+		            					<div class="next-block">
+							            	<span class = "nextBtn" id="next-button">
+								                <img class="sm-button" src="../../../image/next-button.png">
+								            </span>
+							            </div>
+		            				</a>
+		            			</div>
+		            		</li>
+		            		<li>
+		            			<div class="main">
+		            				<a href="">
+		            					<h5>清除缓存</h5>
+		            					<div class="next-block">
+							            	<span class = "nextBtn" id="next-button">
+								                <img class="sm-button" src="../../../image/next-button.png">
+								            </span>
+							            </div>
+		            				</a>
+		            			</div>
+		            		</li>
+		            	</ul>
+		            </div >
+
+	            </div>
+	            </div>
+	            <!-- 底部菜单栏 -->
+	           <!--  <div class="nav fixed">
+	            	<ul>
+	            		<li>
+	            		</li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            	</ul>
+	            </div> -->
+			</div>
+	    </div>      
+
+	    <script type="text/javascript" src= "../../../script/jquery.min.js"></script>
+	    <script type="text/javascript">
+			inputClick($("#oldp"));
+			inputBlur($("#oldp"));
+			inputClick($("#newp"));
+			inputBlur($("#newp"));
+			inputClick($("#newp2"));
+			inputBlur($("#newp2"));
+
+	    	function inputClick(d){
+	    		d.click( function(){
+	    			if(this.value != null){
+						this.type = 'password';
+						this.value='';
+					}
+				$("#" + d.attr('id') + "img").attr("src","../../../image/lock-green.png");	
+	    		});
+	    	}
+
+	    	function inputBlur(d){
+	    		d.blur( function(){
+		    		var oldValue = $(this).val();
+				    if(oldValue == ""){
+				        $(this).val(this.defaultValue);
+				        this.type = 'textarea';
+				    }
+					else {
+						this.type = 'password';
+						this.value = this.value;
+					}
+					$("#" + d.attr('id') + "img").attr("src","../../../image/lock.png");	
+	    		});
+	    	}
+	    	
+	    </script>
+	</body>
+</html>
+
+

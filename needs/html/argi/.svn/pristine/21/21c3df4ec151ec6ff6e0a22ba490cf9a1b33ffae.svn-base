@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户管理</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+	<script type="text/javascript" src="../../../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../../../script/kendo.binder.min.js"></script>
+	<script type="text/javascript" src="../../../../script/api.js"></script>
+	<script type="text/javascript" src="../../../../script/pds.ajax.js"></script>
+    <style>
+    	
+    		.areas {padding-left:10px; padding-right:10px;}
+			.areas > div {
+				margin-top:10px;
+				margin-bottom:10px;
+			}
+			.areas > div label {
+				color:#c4c4c4;
+				width:70px;
+				text-align:right;
+			}
+			.img-list {
+				margin-left:-3px;
+				margin-right:-3px;
+			}
+			.img-list li {
+				position:relative;
+				display:inline-block;
+				padding-left:3px;
+				padding-right:3px;
+				margin-bottom:10px;
+				overflow:hidden;
+				float:left;
+			}
+			.img-name {
+				font-size:14px;
+				font-weight:normal;
+				line-height:32px;
+				color:#c4c4c4;
+			}
+			.imgbox {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				background-color: #fbfbfb;
+				border: 1px solid #ddd;
+				/* Firefox */
+				/*display:-moz-box;
+				-moz-box-pack:center;
+				-moz-box-align:center;*/
+				
+				/* Safari, Chrome, and Opera */
+				/*display:-webkit-box;
+				-webkit-box-pack:center;
+				-webkit-box-align:center;*/
+				
+				/* W3C */
+				/*display:box;
+				box-pack:center;
+				box-align:center;*/	
+			}
+			.imgbox2 {
+				display:table-cell;
+				width:100px;
+				height:100px;
+				text-align: center;
+				vertical-align:middle;
+				border: 1px solid #ddd;
+			}
+			.imgbox img,
+			.imgbox2 img {
+				width:100%;
+				height:100%;
+				display:block;
+			}
+			#gallery {
+			background-color: #FFFFFF;
+			padding: 10px;
+			width: 100%;
+			}
+			#gallery ul { list-style: none; }
+			#gallery ul li { display: inline; }
+			#gallery ul img {
+				border: 5px solid #3e3e3e;
+				border-width: 5px 5px 20px;
+			}
+			#gallery ul a:hover img {
+				border: 5px solid #fff;
+				border-width: 5px 5px 20px;
+				color: #fff;
+			}
+			#gallery ul a:hover { color: #fff; }
+			.reverse input {
+				background-size: 35px;
+			}
+    	
+    </style>
+</head>
+<body>
+<div class="container">
+ <div class="full-main">
+ 	<!-- 顶部菜单栏 -->
+    <div class = 'banner fixed center'>
+		<span class="banner-title center">
+			<h4 >经营信息</h4>
+		</span>
+		<a href="customers_look.html">
+			<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+		</a>
+	</div>
+	<!-- 内容区域 -->
+	<div class="sub-container-notop">
+		<div class="argi-body">
+			<div class="container-panel">
+			<ul class="infos-list-panel">
+				<li class="infos-panel-line argi-flex">
+					<div>客户来源</div>
+					<div class="argi-flex-2">
+						<input id="customerSource" type="text" placeholder="请输入客户来源" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>运营模式</div>
+					<div class="argi-flex-2">
+						<select id="operativeType" class="select-form-control" name="" >
+							
+						</select>
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>主营业务</div>
+					<div class="argi-flex-2">
+						<input id="mainBusiness" type="text" placeholder="请输入主营业务" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>营业额（元）</div>
+					<div class="argi-flex-2">
+						<input id="money" type="text" placeholder="金额/元" class="argi-input-control" />
+					</div>
+				</li>
+				<li class="infos-panel-line argi-flex">
+					<div>备注</div>
+					<div class="argi-flex-2">
+						<textarea id="remarks" placehoder="选填项" class="argi-textarea-control"></textarea>
+					</div>
+				</li>
+				
+			</ul>
+			</div>
+			<div class="album-group argi-flex">
+				<div class="flex-full center">客户相关信息上传（如营业执照）</div>
+				<div class="areas">
+				<!--照片-->
+			    <ul ><!-- data-template="li-template" data-bind="source:imagedata" -->
+				   <span  class="gallery">
+						<span class="reverse">
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </span>
+				     </span>
+				     <span  class="gallery">
+						<span class="reverse">
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </span>
+				     </span>
+				      <span  class="gallery">
+						<span class="reverse">
+							 <img id="gallery01" name ="image" src=''  width="80px" alt="" border="2px" onclick="preview(this)">
+			             </span>
+				     </span>
+				</ul> 
+			</div>
+			</div>
+			
+			<div class="foot-btn-group">
+				<div class="argi-flex">
+					<div class="argi-flex-1"><a href="customers_look.html" class="argi-btn argi-btn-big btn-full argi-btn-default">返回</a></div>
+					<div class="argi-flex-1"><button href="#" class="argi-btn argi-btn-big btn-full argi-btn-success" onclick="saveCustomerInfo()">保存</button></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+ </div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+		//定义全局变量
+	   var gloableData = null;
+	   var viewModel = null;
+	    var url = null;
+	//获取客户等级字典数据
+	function getCusterGradeDict(){
+		pds.ajaxSubmit({
+					 url:"app/customer/findCustomerNews",					 
+					 success:function(e){
+						 $.each(e.data,function(index,val){						
+						 	 $("#operativeType").append( "<option value='"+val.value+"'>"+val.label+"</option>");						 	
+						 });				     
+						   
+					}					
+				});
+			}
+			
+	//获取客户信息
+	function getCustomerInfo(customerId){
+		var office={};
+		office.id=customerId;
+		pds.ajaxSubmit({
+				url:"app/customer/getCustomer",
+				data:{"data":JSON.stringify(office)},
+				success:function(e){
+								var customer=e.data;										
+						 	 if(customer != null){									  				 							    
+							     $("#customerSource").val(customer.customerSource);
+								 $("#mainBusiness").val(customer.mainBusiness);
+								 $("#money").val(customer.money);
+								 $("#remarks").val(customer.remarks);
+								$("#operativeType").val(customer.operativeType);
+							 }						 	
+										     			
+					
+					},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+	}
+	//获取照片信息
+	  function getTaskDetail(data1){
+		 pds.ajaxSubmit({
+				url:"app/farmland/get_customerNews",
+				data:{'id':data1},
+				success:function(e){
+				    gloableData = e.data;
+				    if(gloableData.soilTemp!=null&&gloableData.moisture!=null){
+				      document.getElementById("soiltemp").value =gloableData.soilTemp;
+				      document.getElementById("moisture").value =gloableData.moisture;
+				     }                          
+				  
+				    
+				     viewModel = kendo.observable({
+			            
+			          //  soiltemp: gloableData.soilTemp,
+			            weather : gloableData.weather,
+			       		  code  : gloableData.code,
+			       	temperature : gloableData.temperature,
+			       	   leaveNum : gloableData.leaveNum,
+			       	 cropHeight : gloableData.cropHeight,
+			       diseasesFlag : gloableData.diseasesFlag,
+			          pestsFlag : gloableData.pestsFlag,
+			       	   //moisture : gloableData.moisture,
+			       	  weedsFlag : gloableData.weedsFlag,
+			        cropRemarks : gloableData.cropRemarks,	
+			       leaveDiameter: gloableData.leaveDiameter,
+			          imagedata : gloableData.appFarmlandPic,
+			        cropRemarks : gloableData.cropRemarks,
+			            remarks : gloableData.cropRemarks
+			        });
+			        kendo.bind("#bigdiv", viewModel);
+			     
+			       
+			     var images = document.getElementsByName("image");
+			        for(var i =0;i<images.length;i++){
+			            if(viewModel.imagedata[i]!=null && viewModel.imagedata[i]!='undefined' && viewModel.imagedata[i]!=undefined){
+			               if(viewModel.imagedata[i].filePath !=null &&viewModel.imagedata[i].filePath!='undefined'&& viewModel.imagedata[i].filePath!=undefined){
+			                 images[i].setAttribute('src',url+"/attach/view/"+viewModel.imagedata[i].id);
+			                }
+			            }
+			        }
+			        
+				},
+				error:function(e){
+					alert("服务器异常，请联系管理员!");
+				}
+			});
+		}
+		//保存
+		function saveCustomerInfo(){
+		if(customerId != null){
+			var saveFlag = 1;
+			office.id=customerId;
+			office.customerSource=$("#customerSource").val();
+		office.operativeType=$("#operativeType").val();
+		office.mainBusiness=$("#mainBusiness").val();
+		office.money=$("#money").val();
+		office.remarks=$("#remarks").val();	
+		office.saveFlag =saveFlag;   
+		pds.ajaxSubmit({
+					url:"app/customer/saveCustomer",
+					data:{"data":JSON.stringify(office)},
+					success:function(e){
+						api.alert("修改成功");
+					},
+					error:function(e){
+						
+						api.alert({msg:"服务器错误，请联系管理员!"});
+					}
+				});
+		}else{
+			return false;
+		}
+		
+		
+	}
+		//点击图片
+		function preview(dom){
+		       imagUrls = [];
+		       var images = document.getElementsByName("image");
+		       for(var i =0;i<images.length;i++){
+		           imagUrls.push(images[i].getAttribute("src"));
+		       }
+		
+		   var imageBrowser = api.require('imageBrowser');
+				imageBrowser.openImages({
+				    imageUrls: imagUrls
+				});			  
+		}
+	apiready = function(){
+	
+		getCusterGradeDict();//初始化下拉框的值
+		var customerIdEdit= api.pageParam.customerId;
+			customerId=customerIdEdit;
+			if(customerId != null){
+				getCustomerInfo(customerId);
+			}
+		var data = customerId;
+		
+	   getTaskDetail(data);
+	   baseUrl = pds.defaultUri;
+	  url = baseUrl.substring(0,baseUrl.length-1);	
+	};
+</script>
+</html>

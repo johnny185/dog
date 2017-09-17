@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>历史记工查看</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/sui/sm.css">
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+</head>
+
+<body>
+  <header class="aui-bar aui-bar-nav" id="aui-header" style="background-color: #00c558">
+            <div class="aui-pull-left aui-btn">
+              <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+                <span class="aui-iconfont aui-icon-left"></span>
+              </a>
+            </div>
+            <div class="aui-title">历史记工查看</div>
+  </header>
+<script type="text/javascript" src="../../lib/harvest/xb_historyView_home.js?ea1bb08562824f2d486a"></script></body>
+<script type="text/javascript">function closeWin(){api.closeWin({})}apiready=function(){xbhistoryView.init()}</script>
+
+</html>

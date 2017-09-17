@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>运输单列表</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../.././res/css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed center'>
+					<span class="banner-title center"> <h4>运输单</h4> </span>
+					<a href="javascript:void(0)"; onclick="back();"> <span class = "banner-btn banner-back-btn"> <!-- <input id = 'return-btn' type='button' name='return' value=''> --> </span> </a>
+				</div>
+				<!-- 内容区域 -->
+				<div class="sub-container-notop">
+					<div class="argi-body">
+						<div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+							<div class="aui-info-item">
+								<span class="aui-margin-l-5">司机姓名</span>
+							</div>
+							<div class="aui-info-item">
+								杨先生
+							</div>
+						</div>
+						<div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+							<div class="aui-info-item">
+								<span class="aui-margin-l-5">联系方式</span>
+							</div>
+							<div class="aui-info-item">
+								1111111
+							</div>
+						</div>
+						<div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+							<div class="aui-info-item">
+								<span class="aui-margin-l-5">车牌号码</span>
+							</div>
+							<div class="aui-info-item">
+								10000
+							</div>
+						</div>
+						<!--表格-->
+						<table>
+							<thead>
+								<th>基地名称</th>
+								<th>地块</th>
+								<th>品种</th>
+								<th>品名</th>
+								<th>级别</th>
+								<th>数量</th>
+								<th>单位</th>
+							</thead>
+							<tbody id="list"></tbody>
+						</table>
+						<!--返回按钮-->
+						<div class="foot-btn-group">
+							<div class="argi-flex">
+								<div class="argi-flex-1"onclick="back()">
+									<a href="#" class="argi-btn argi-btn-big btn-full argi-btn-success">返回</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript" src="../../../.././script/jquery.min.js"></script>
+			<script type="text/javascript" src="../../../.././script/api.js"></script>
+			<script type="text/javascript" src="../../../.././script/pds.ajax.js"></script>
+			<script type="text/javascript">
+				var id;
+				apiready = function() {
+					getTransMes(api.pageParam.id);
+				};
+				//返回上一级
+				function back() {
+					api.closeWin();
+				}
+
+				//获取运输单信息
+				function getTransMes(id) {
+					pds.ajaxSubmit({
+						url : "app/customer/getOrderList?t=" + new Date(),
+						data : {
+							id : id
+						},
+						success : function(res) {
+							var data = res.data;
+							alert(JSON.stringify(data))
+							var el = $api.byId("list");
+							for (var i = 0; i < data.length; i++) {
+								var str = '<tr><td>基地名称</td><td>地块</td><td>品种</td><td>品名</td><td>级别</td><td>数量</td><td>单位</td></tr>';
+								$api.append(el, str);
+							}
+						},
+						error : function(e) {
+							api.alert({
+								msg : "服务器异常，请联系管理员!!!"
+							});
+						}
+					});
+				}
+
+				//返回按钮
+				function detail(id) {
+					$api.openWin({
+						name : 'harvest_transport_detail',
+						url : 'widget://html/harvest/new_harvest/harvest_transport/harvest_transport_detail.html',
+						reload : true,
+						selecteIndex : '3',
+						pageParam : {
+							"id" : id
+						},
+						animation : {
+							type : "movein", //动画类型（详见动画类型常量）
+							subType : "from_right", //动画子类型（详见动画子类型常量）
+							duration : 300 //动画过渡时间，默认300毫秒
+						}
+					});
+				}
+			</script>
+	</body>
+</html>

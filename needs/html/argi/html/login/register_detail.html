@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>完善资料</title>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/login-style.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/mystyle.css"/>
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>完善资料</h4>
+					</div>
+					<a href="register.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+				<div class="sub-container-notop">
+					<div class="center">
+	            		<form class="register-form-2">
+	            			<div class="register-input-container-2">
+	            				<div class="register-input-sub-container-2">
+		            				<div class="register-input-ta-container3 input-b-border">
+			            				<img class="register-input-img3" id = "contact-imgcontact" src="../../image/contact.png">
+			            				<input type="textera" id = "contact" name="" value="联系人姓名" class="login-input-ta">
+			            			</div>
+			            			<div class="register-input-ta-container3 input-b-border">
+			            				<img class="register-input-img3" id = "pw-img" src="../../image/department.png">
+			            				<input type="textera" id = "company" name="" value="企业名称" class="login-input-ta">
+			            			</div>
+			            			<div class="register-input-ta-container3 input-b-border">
+			            				<img class="register-input-img3" id = "card-img" src="../../image/card.png">
+			            				<input type="textera" id = "card" name="" value="企业法人" class="login-input-ta">
+			            			</div>
+			            			<div class="register-input-ta-container3  ">
+			            				<img class="register-input-img3" id = "geo-img" src="../../image/geo.png">
+			            				<input type="textera" id = "geo" name="" value="所属地区" class="login-input-ta input-b-border">
+			            			</div>
+			            			<div class="register-input-ta-container3 input-b-border">
+			            				<input type="textera" id = "moregeo" name="" value="详细地址" class="login-input-ta-2">
+			            			</div>
+			            		</div>
+	            			</div>
+
+	            			<div class="register-input-sub-container-2">
+	            				<span class="register-input-cb">
+		            				<div class="login-input-cb-l ">
+		            					<label class = "upload-img-text">营业执照: </label>
+		            				</div>
+		            				<div class="login-input-cb-r ">
+		            					<div class="file">
+		            						<input class = "upload-img" id = "yyzz" type="file" name="" value="" />点击上传文件
+		            					</div>
+		            				</div>
+		            			</span>
+		            			<span class="register-input-cb">
+		            				<div class="login-input-cb-l ">
+		            					<label class = "upload-img-text">法人证件: </label>
+		            				</div>
+		            				<div class="login-input-cb-r ">
+		            					<div class="file">
+		            						<input class = "upload-img" id = "yyzz" type="file" name="" value="" />点击上传文件
+		            						<!-- <img src="../../image/department.png"> -->
+		            					</div>
+		            				</div>
+		            			</span>
+			            		
+		            			<div class="register-btn-container">
+		            				<a class = "btn-login2" href="home.html"><input type="submit" class = "btn-login-text2" name=""  value="保存"></a>
+		            			</div>
+		            			<div class="register-btn-container">
+		            				<a class = "btn-login" href="home.html"><input type="submit" class = "btn-login-text" name=""  value="提交"></a>
+		            			</div>
+	            			</div>
+	 
+	            		</form>
+	            	</div>
+	            </div>
+	            </div>
+				</div>
+	        </div>      
+	    </div>
+
+	    <script type="text/javascript" src= "../../script/jquery.min.js"></script>
+	   
+	    <script src="../../script/city/Popt.js"></script>
+		<script src="../../script/city/cityJson.js"></script>
+		<script src="../../script/city/citySet.js"></script>
+	    <script src="../../script/api.js"></script>
+	      <script src="../../script/swiper.min.js"></script>
+		<!-- click input effect -->
+	    <script type="text/javascript">
+			$("#geo").click(function (e) {
+				SelCity(this,e);
+			});
+			$("#city2").click(function (e) {
+				SelCity(this,e);
+			});
+
+			$("#contact").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#contact-img").attr("src","../../image/contact_green.png");
+			});
+			$("#contact").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#contact-img").attr("src","../../image/contact.png");
+			});
+			
+			$("#company").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#pw-img").attr("src","../../image/department_green.png");
+			});
+			$("#company").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#pw-img").attr("src","../../image/department.png");
+			});
+
+			$("#card").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#card-img").attr("src","../../image/card_green.png");
+			});
+			$("#card").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#card-img").attr("src","../../image/card.png");
+			});
+
+			$("#geo").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#geo-img").attr("src","../../image/geo_green.png");
+			});
+			$("#geo").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#geo-img").attr("src","../../image/geo.png");
+			});
+
+			$("#moregeo").click(function(){
+				if(this.value != null)
+				this.value='';
+				$("#geo-img").attr("src","../../image/geo_green.png");
+			});
+			$("#moregeo").blur(function(){
+				var oldValue = $(this).val();
+			    if(oldValue == ""){
+			            $(this).val(this.defaultValue);
+			    }
+				$("#geo-img").attr("src","../../image/geo.png");
+			});
+			// $("#verifycode").click(function(){
+			// 	if(this.value != null)
+			// 	this.value='';
+			// 	$("#vc-img").attr("src","../../image/password1-green.png");
+			// });
+			// $("#verifycode").blur(function(){
+			// 	var oldValue = $(this).val();
+			//     if(oldValue == ""){
+			//             $(this).val(this.defaultValue);
+			//     }
+			// 	this.value = this.defaultValue;
+			// 	$("#vc-img").attr("src","../../image/password1.png");
+			// });			
+	    </script>
+	    <script type="text/javascript">
+	         apiready = function() {
+	             alert(document.getElementById("contact").value);
+	         }
+	    </script>
+	</body>
+</html>
+
+
+

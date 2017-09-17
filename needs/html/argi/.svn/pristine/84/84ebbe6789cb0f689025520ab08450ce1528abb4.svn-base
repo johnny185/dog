@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>我的</title>
+		<link rel="stylesheet" type="text/css" href="../../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="../../../../css/mysettings.css">
+		<style>
+			.headBtn{
+				color:black;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="full-main">
+				<!-- 顶部菜单栏 -->
+				<div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>个人资料</h4>
+					</div>
+					<a href="javascript:void(0);" class="back" onclick="back()">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+				<!-- 内容 -->
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="menu1st">
+						<ul class="">
+							<li onClick="imageActionSheet()">
+								<div class="main">
+									<a href="javascript:void(0);"> <h5>头像:</h5>
+									<div class="next-block">
+										<span class = "headBtn" id="next-button"> 
+											<img class = "profile-img" id="photo" src="../../../../image/main_username_login.png">
+										</span>
+									</div>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li>
+							 <!--onclick="openNameSetPage()"-->
+							<li>
+								<div class="main">
+									<a href="#" > <h5>姓名:</h5>
+									<div class="next-block">
+										<span class = "headBtn" id="headName"> 
+										</span>
+									</div>
+									<!--
+									暂时隐藏
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../../../image/next-button.png"> </span>
+									</div> 
+									-->
+									</a>
+								</div>
+							</li>
+							<li onClick="openEmailSetPage()">
+								<div class="main">
+									<a href="javascript:void(0);"> <h5>邮箱:</h5>
+									<div class="next-block">
+										<span class = "headBtn" id="headEmail"> 
+										</span>
+									</div>
+									<div class="next-block">
+										<span class = "nextBtn" id="next-button"> <img class="sm-button" src="../../../../image/next-button.png"> </span>
+									</div> </a>
+								</div>
+							</li>
+							<li>
+								<div class="main">
+									<a href="#" > <h5>公司:</h5>
+									<div class="next-block">
+										<span class = "headBtn" > 
+											<input type="textarea" id="company" value="暂无所属公司" style="text-align: right" readonly="readonly"/>
+										</span>
+									</div>
+									</a>
+								</div>
+							</li>
+
+						</ul>
+					</div >
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../../../script/common/api.js"></script>
+		<script type="text/javascript" src="../../../../script/common/zepto.min.js"></script>
+		<script type="text/javascript" src="../../../../script/common/pds.ajax.js"></script>
+		<script type="text/javascript">
+		
+		// 姓名设置界面
+		function openNameSetPage(){
+			$api.openWin({
+					name : 'chanage_username',
+					url : 'widget://html/mysetting/mysettings/mine/update_username.html',
+					reload : true,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+		}
+		
+		// 选择照片弹出框
+		function imageActionSheet(){
+	        api.actionSheet({
+	            title: '选择照片',
+	            cancelTitle: '取消',
+	            buttons: ['拍照','从相册中选择']
+	        },function(ret,err){
+	        	// 相册选择
+	        	var sourceType = "album";
+	        	if(3 == ret.buttonIndex){
+	        		return ;
+	        	}
+	        	// 拍照
+	        	if(ret.buttonIndex == 1){
+					sourceType = "camera";	        	
+	        	}
+	        	api.getPicture({
+	        		sourceType : sourceType,
+	        		encodingType : "jpg",
+	        		mediaValue : "pic"
+                },function(ret,err){
+        		 if(ret && ret.data!=""){
+        		 // 上传图片到服务器
+				   pds.ajaxSubmit({
+						url:"attach/upload",
+						fileData: {file: ret.data},
+						success:function(e){
+						  if (e) {
+					  		console.log(e);
+					  		 // 更新图片 关联 用户id 和 业务主键
+							 pds.ajaxSubmit({
+							 	url:"app/sys/updateUserPhoto",
+								data: {file: JSON.stringify(e.data)},
+								success:function(e){
+									api.alert({msg : '上传图片成功!'});
+								},
+								error:function(e){
+									alert("服务器异常，请联系管理员!");
+								}
+							 });
+				          }
+						},
+						error:function(e){
+							alert("服务器异常，请联系管理员!");
+						}
+					});
+        		$("#photo").attr("src",ret.data);
+	        }
+    	})
+    	})
+    	}
+    	
+    	function openEmailSetPage(){
+				$api.openWin({
+					name : 'chanage_email',
+					url : 'widget://html/mysetting/mysettings/mine/chanage_email.html',
+					pageParam : {oldEmail : $("#headEmail").text()},
+					reload : true,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+    	}
+		
+		
+		/* 退出   */
+			function logout() {
+				api.confirm({
+					//	    title: '',
+					msg : "你确定要退出吗?",
+					buttons : ['确定', '取消']
+				}, function(ret, err) {
+					if (ret) {
+						if (ret.buttonIndex * 1 == 1) {
+							//退出
+//							$api.setStorage("userId", null);
+//							$api.setStorage('argi_login_username', null);
+//							$api.setStorage('argi_login_password', null);
+							api.closeToWin({
+								name : "root",
+								url : "../login/login.html",
+								slidBackEnabled : false,
+								reload : true,
+								animation : {
+									type : "movein", //动画类型（详见动画类型常量）
+									subType : "from_right", //动画子类型（详见动画子类型常量）
+									duration : 300 //动画过渡时间，默认300毫秒
+								}
+							});
+//							api.execScript({
+//								name : 'root',
+//								//frameName:'harvest_workorder_list',
+//								script : 'cleanAccount();'
+//							});
+						}
+					}
+				});
+			}
+			
+			function back(){
+	 			api.closeWin();
+			}
+			var userId = null;
+			function getUserInfo(){
+				pds.ajaxSubmit({
+					url:"app/customer/getUserMsg",
+					data:{},
+					success:function(e){
+						var user = e.data.user;
+						var sex = e.data.sex;
+						var email = e.data.email;
+						var photo = e.data.photo;
+						var company = e.data.office;
+						$("#headName").text(user);
+						$("#headSex").text(sex);
+						$("#headEmail").text(email);
+						$("#company").val(company);
+						if(photo != undefined && photo != null && photo != ""){
+							$("#photo").attr("src",pds.defaultUri+'/'+photo);
+						}
+					},
+					error:function(e){
+						api.alert({msg: '服务器异常，请联系管理员!!'});
+					}
+				});	    
+			}
+			apiready = function() {
+			
+				
+				api.addEventListener({
+		            name:'viewappear'
+		        },function(ret,err){
+		        	getUserInfo();
+		        });
+				userId = $api.getStorage("userId");
+
+			}
+			
+			
+		</script>
+	</body>
+</html>

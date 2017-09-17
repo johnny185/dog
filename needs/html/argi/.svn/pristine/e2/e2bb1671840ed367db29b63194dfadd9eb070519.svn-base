@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mysettings.css">
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/pds.ajax.js"></script>
+    <script type="text/javascript" src="../../script/kendo.core.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.data.min.js"></script>
+	<script type="text/javascript" src="../../script/kendo.binder.min.js"></script>
+	<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+	<script type="text/javascript" src="../../script/getLoacat.js"></script>
+    <style>
+	    table{
+	       width: 99%;
+	       border-collapse: collapse;
+	   }
+	   td{
+	       width:25%;
+	       padding: 1% 2%;
+	       border:1px solid #999;
+	   }
+    </style>
+</head>
+<body>
+	<div>
+		<div>
+			<table>
+				<tr>
+					<td>日期</td>
+					<td>工序属性</td>
+					<td>地块</td>
+					<td>金额</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		//var farmId = api.pageParam.farmId;
+		pds.ajaxSubmit({
+			url:"app/farmland/getFarmingList?farmId="+1974,
+			success:function(result){
+				if(result.status == 'ok' && result.data.length > 0){
+					for(var i = 0;i<result.data.length;i++){
+						var data = result.data[i];
+						var tr = "<tr onclick = 'show("+data.id+")'><td>"+data.farDate+"</td><td>"+data.proName+"</td><td>"+data.landName+"</td><td>"+data.farResMoney+"</td></tr>";
+						$("table").append(tr);
+					}
+				}
+			}
+		});
+	};
+	
+	//点击进入农事记录单详情页面
+	function show(id){
+		api.openFrame({
+	          name: 'farming_detail',
+	          url: '../../html/land/farming_detail.html',
+	          pageParam:{
+	          "id":id
+	          } 
+    	});
+	}
+	
+</script>
+</html>

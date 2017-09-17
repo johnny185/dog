@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>历史记工查看</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css">
+	<link rel="stylesheet" type="text/css" href="../../css/sui/sm.min.css">
+	<script type="text/javascript" src="../../script/sui/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/sui/sm.min.js"></script>
+	<script type="text/javascript" src="../../script/jquery.cust.min.2.js"></script>
+	<script type="text/javascript" src="../../script/remote.config.js"></script>
+	<style>
+		#history-content>ul>div {
+			background-color: #236b8e;
+		}
+
+		#head_img {
+			width: 100%;
+			height: 100px;
+			background-image: url('../../image/history_record_check.png');
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			background-position: center;
+		}
+
+		#head_img>div {
+			border: 1px solid #fff;
+			width: 50%;
+			border-radius: 40px;
+			background-color: transparent;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+
+<body>
+	
+	<div class="page-group">
+		<div class="page page-current">
+			
+			<div style="height:50px;text-align:center">
+				<div id="head_img">
+					<div class="aui-btn aui-btn-primary aui-btn-block" id="datetime-picker">查记工点我哦</div>
+				</div>
+			</div>
+
+			<div id="history-content">
+			</div>
+
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="../../lib/harvest/xb_historyView_frm.js?ea1bb08562824f2d486a"></script></body>
+<script type="text/javascript">$("#datetime-picker").datetimePicker({value:[]}),apiready=function(){$.init()}</script>
+
+</html>

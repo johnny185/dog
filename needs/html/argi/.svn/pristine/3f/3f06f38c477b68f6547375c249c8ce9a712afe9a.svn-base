@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>采收首页</title>
+		<link rel="stylesheet" type="text/css" href="../../.././res/css/aui.css"/>
+	</head>
+	<body>
+		<header class="aui-bar aui-bar-nav" id="aui-header">
+			<div class="aui-title">
+				<!-- 记工单 -->
+			</div>
+		</header>
+		<section class="aui-content-padded">
+			<div class="aui-card-list">
+				<!--<div
+				class="aui-card-list-header">
+				卡片布局
+				头部区域
+				</div>-->
+				<div class="aui-card-list-content-padded">
+					<div class="aui-btn aui-btn-info aui-btn-block" onclick="record()">
+						记工单
+					</div>
+					<div class="aui-btn aui-btn-info aui-btn-block" onclick="transport()">
+						运输单
+					</div>
+				</div>
+				<!--	<div class="aui-
+				card-list-footer">
+				底部区域
+				</div>-->
+			</div>
+		</section>
+		<section class="aui-content">
+			<div class="aui-card-list">
+				<div class="aui-card-list-header">
+					采收量变化图
+				</div>
+				<div class="aui-card-list-content">
+					<div id="main" style="width: 600px;height:400px;"></div>
+				</div>
+			</div>
+		</section>
+	</body>
+	<script type="text/javascript" src="../../.././script/api.js"></script>
+	<script type="text/javascript" src="../../.././script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../.././script/pds.ajax.js"></script>
+	<script type="text/javascript" src="../../.././script/echarts/echarts.min.3.js"></script>
+</html>
+<script type="text/javascript">
+	//1） 采收量的图表展示：展示每个采收日下的各个基地以及每个基地下的地块的采收量；
+	//2） 跳转到记工单; record()
+	//3） 跳转到运输单; transport()
+	// 难点：采收量的图表展示
+	//    @author 张三
+	//     @date 2010-09-09
+	//     @version 1.0
+	//     @update
+	apiready = function() {
+		harvestIndexWin.configMoule();
+		harvestIndexWin.initModule();
+	};
+	var harvestIndexWin = (function() {
+		//-------begin 模块变量------------------------------------------------
+		var configMap = {
+			//图形配置项
+			stackBarOption : {
+				tooltip : {
+					trigger : 'axis',
+					axisPointer : {// 坐标轴指示器，坐标轴触发有效
+						type : 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+					}
+				},
+				legend : {
+					//data : ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他']
+				},
+				grid : {
+					left : '3%',
+					right : '4%',
+					bottom : '3%',
+					containLabel : true
+				},
+				yAxis : [{
+					type : 'value'
+				}],
+				xAxis : [{
+					type : 'category',
+					data : null
+				}],
+				series : null
+			}
+		},
+		//放置模块状态数据
+		stateMap = {
+			mockData : [{
+				hdate : '1999-09-09',
+				farmList : [{
+					farmId : '111',
+					farmName : '基地一',
+					catList : [{
+						catName : '西蓝花',
+						quantity : '123'
+					}],
+					quantity : '3456',
+					landList : [{
+						landId : '1',
+						landName : '地块轩',
+						quantity : 100
+					}]
+				}, {
+					farmId : '112',
+					farmName : '基地二',
+					catList : [{
+						catName : '西蓝花',
+						quantity : '112'
+					}],
+					quantity : '3456',
+					landList : [{
+						landId : '1',
+						landName : '地块刘',
+						quantity : 101
+					}]
+				}]
+			}, {
+				hdate : '2001-09-09',
+				farmList : [{
+					farmId : '111',
+					farmName : '基地三',
+					catList : [{
+						catName : '西蓝花',
+						quantity : '123'
+					}],
+					quantity : '3456',
+					landList : [{
+						landId : '1',
+						landName : '地块张',
+						quantity : 102
+					}]
+				}, {
+					farmId : '112',
+					farmName : '基地四',
+					catList : [{
+						catName : '西蓝花',
+						quantity : '123'
+					}],
+					quantity : '3456',
+					landList : [{
+						landId : '1',
+						landName : '地块杨',
+						quantity : 103
+					}]
+				}]
+			}]
+		},
+		//记录页面需要操作的dom
+		domMap = {}, makeMockXAxis, makeMockSeries, setDomMap, configMoule, initModule;
+		//-------end 模块变量-----------------------------------------------------
+		//-------begin 工具方法-----
+		//构建图形的x轴数据
+		makeMockXAxis = function() {
+			return stateMap.mockData.map(function(it) {
+				return it.hdate;
+			});
+		}
+		//构建图形的序列数据
+		//[{
+		//   name:'邮件营销',
+		//   type:'bar',
+		//   stack: '广告',
+		//   data:[120, 132, 101, 134, 90, 230, 210]
+		//}]
+		makeMockSeries = function() {
+			var landMap = {}
+			stateMap.mockData.forEach(function(it) {
+				var hdate = it.hdate;
+				var farmList = it.farmList;
+				farmList.forEach(function(farm) {
+					var farmId = farm.farmId;
+					var landList = farm.landList;
+					landList.forEach(function(land) {
+						var landId = land.landId;
+						var landName = land.landName;
+						var key = farmId + '-' + landId;
+						var landSer = landMap[key];
+						if (!landSer) {
+							landSer = {
+								name : landName,
+								type : 'bar',
+								stack : '' + farmId,
+								data : []
+							};
+							landMap[key] = landSer;
+						}
+						landSer.data.push(land.quantity);
+					})
+				});
+			});
+			return Object.keys(landMap).map(function(it) {
+				return landMap[it];
+			})
+		}
+		//-------end 工具方法-----
+		//-------begin 操作dom方法-----
+		//模块内部操作dom的所有方法写在这
+		setDomMap = function() {
+		}
+		//-------end 操作方法-----
+		//-------begin 公开方法-----
+		//模块的所有公开方法写到这里
+		configMoule = function() {//可以有参数
+			//点击进入记工单页面
+			 record= function() {
+				$api.openWin({
+					name : "harvest_record_list",
+					url : "widget://html/harvest/new_harvest/harvest_record/harvest_record_list.html",
+					reload : true,
+					selecteIndex : '3',
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+			//点击进入运输单页面
+		 transport=	function() {
+				$api.openWin({
+					name : "harvest_transport_list",
+					url : "widget://html/harvest/new_harvest/harvest_transport/harvest_transport_list.html",
+					reload : true,
+					selecteIndex : '3',
+					slidBackEnabled : false,
+					animation : {
+						type : "movein", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					}
+				});
+			}
+		}
+		initModule = function() {//可以有参数
+			var myChart = echarts.init($('#main').get(0));
+			configMap.stackBarOption.xAxis[0].data = makeMockXAxis();
+			configMap.stackBarOption.series = makeMockSeries();
+			console.log(JSON.stringify(configMap.stackBarOption));
+			myChart.setOption(configMap.stackBarOption);
+			setDomMap();
+		}
+		//-------end 操作方法-----
+		//return 公用函数
+		return {
+			configMoule : configMoule,
+			initModule : initModule
+		}
+	})(); 
+</script>
+</body>
+</html> 

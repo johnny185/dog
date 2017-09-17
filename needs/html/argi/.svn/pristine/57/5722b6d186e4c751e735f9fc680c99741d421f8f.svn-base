@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	    <title>关于</title>
+	    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../../css/mystyle.css">
+	    <link rel="stylesheet" type="text/css" href="../../../css/mysettings.css">
+	</head>
+	<body>
+	   <div class="container">
+	        <div class="full-main">
+	        	<!-- 顶部菜单栏 -->
+	            <div class = 'banner fixed'>
+					<div class="banner-title">
+						<h4>关于慧种地</h4>
+					</div>
+					<a href="../mysettings_index.html">
+						<span class = "banner-btn banner-back-btn"><input id = 'return-btn' type='button' name='return' value=''></span>
+					</a>
+				</div>
+				<!-- 内容 -->
+				<div class="sub-container-notop sub-container-nobottom">
+					<div class="center">
+	            		<div class="logo-container">
+	            			<div class="logo" style="width: 170px;height: 85px;">
+	            				<img class = "logo-img" src="../../../image/hui.png">
+	            			</div>
+	            			<!--<h5>慧种地 Version 1.0.0 (1234567)</h5>-->
+	            		</div>
+	            	</div>
+	            
+		            <div class="menu1st">
+		            	<ul class="">
+		            		<li>
+		            			<div class="main">
+		            				<a href="about/newfunctions.html">
+		            					<h5>功能介绍</h5>
+		            					<div class="next-block">
+							            	<span class = "nextBtn" id="next-button">
+								                <img class="sm-button" src="../../../image/next-button.png">
+								            </span>
+							            </div>
+		            				</a>
+		            			</div>
+		            		</li>
+		            		<li>
+		            			<div class="main">
+		            				<a href="about/services.html">
+		            					<h5>服务协议</h5>
+		            					<div class="next-block">
+							            	<span class = "nextBtn" id="next-button">
+								                <img class="sm-button" src="../../../image/next-button.png">
+								            </span>
+							            </div>
+		            				</a>
+		            			</div>
+		            		</li>
+		            		<li>
+		            			<div class="main">
+		            				<a href="about/privacy.html">
+		            					<h5>隐私政策</h5>
+		            					<div class="next-block">
+							            	<span class = "nextBtn" id="next-button">
+								                <img class="sm-button" src="../../../image/next-button.png">
+								            </span>
+							            </div>
+		            				</a>
+		            			</div>
+		            		</li>
+		            		<li>
+		            			<div class="main">
+		            				<a href="about/copyright.html">
+		            					<h5>版权信息</h5>
+		            					<div class="next-block">
+							            	<span class = "nextBtn" id="next-button">
+								                <img class="sm-button" src="../../../image/next-button.png">
+								            </span>
+							            </div>
+		            				</a>
+		            			</div>
+		            		</li>
+		            	</ul>
+		            </div >
+
+	            </div>
+	            <!-- 底部菜单栏 -->
+	            <div class="nav fixed"style="background:#fafafa;">
+	            	<ul>
+	            		<li>
+	            		</li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            		<li></li>
+	            	</ul>
+	            </div>
+
+			</div>
+	    </div>      
+	</body>
+</html>
+
+

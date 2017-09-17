@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>种植首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../../css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../../css/plant.css">
+	<script type="text/javascript" src="../../script/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="../../script/echarts/macarons.js"></script>
+</head>
+<body onload="loaded()">
+	<div class="container">
+		<div class="full-main">
+			<!-- 派图 -->
+			<div class="pi-container" id="resourceView">
+			
+			</div>
+			<!-- 导航 -->
+			<div class="nav-container">
+				<div class="main">
+					<table class="nav-table">
+						<tr>
+							<td type="workorder" workOrderStatus="CONFIRMING" onclick="showOrderList(this);">
+								<a href="javascript:void(0);"><img src="../../image/confirm.png"></a>
+								<span>待确认</span>
+							</td>
+							<td type="feedback" workOrderStatus="FEEDBACKING" onclick="showOrderList(this);">
+								<a href="javascript:void(0);"><img src="../../image/feedback.png"></a>
+								<span>待反馈</span>
+							</td>
+							<td type="feedback" workOrderStatus="FEEDBACKED" onclick="showOrderList(this);">
+								<a href="javascript:void(0);"><img src="../../image/check.png"></a>
+								<span>待验收</span>
+							</td>
+						</tr>
+						<tr>
+							<td type="feedback" workOrderStatus="ASSESSING" onclick="showOrderList(this);">
+								<a href="javascript:void(0);"><img src="../../image/review.png"></a>
+								<span>待评价</span>
+							</td>
+							<td type="feedback" workOrderStatus="COMPLETED" onclick="showOrderList(this);">
+								<a href="javascript:void(0);"><img src="../../image/complete.png"></a>
+								<span>已完成</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- 计划进度 -->
+			<div class="plan-container">
+				<div class="plan-title">
+					<HR width="35%" color=#99999 SIZE=3 class="hr-l">
+					<h1>计划进度</h1>
+					<HR width="35%" color=#99999 SIZE=3 class="hr-l">
+				</div>
+				<!-- 地块一 -->
+				<div>
+					<div class="plan-sub-title testborder">
+						<div class="col-5 left inlineblock">
+							<span>地块一</span>
+						</div>
+						<div class="col-5 right inlineblock">
+							<span>西兰花</span>
+						</div>
+					</div>
+					
+					<div class="plan-chart">
+						<div class="wrapper">
+							<div class="scroller">
+								<!-- 地块一 -->
+								<span class="timegroup chart1-people1">
+									<img class="timeimg" src="../../image/time.png">
+									<div class="timetext">2016.05.22</div>
+								</span>
+								<div class="clear peoplegroup">
+									<span class="peopleimg chart1-people1"><img src="../../image/people1.png"></span>
+									<span class="peopleimg chart1-people2"><img src="../../image/people2.png"></span>
+									<span class="peopleimg chart1-people3"><img src="../../image/people3.png"></span>
+									<span class="peopleimg chart1-people4"><img src="../../image/people4.png"></span>
+									<span class="peopleimg chart1-people5"><img src="../../image/people5.png"></span>
+									<span class="peopleimg chart1-people6"><img src="../../image/people6.png"></span>	
+								</div>					
+								<div class="line-chart">
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="red-line"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<br>
+									<div class="line-text-first clear" >整地</div><!-- <span >整地</span> -->
+									<div class="line-text" >安顿</div>
+									<div class="line-text" >杀毒</div>
+									<div class="line-text" >旋地</div>
+									<div class="line-text" >定植</div>
+									<div class="line-text" >打药</div>
+									<div class="line-text" >施肥</div>
+									<div class="line-text" >浇水</div>
+									<div class="line-text" >采摘</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 地块2 -->
+				<div>
+					<div class="plan-sub-title testborder">
+						<div class="col-5 left inlineblock">
+							<span>地块二</span>
+						</div>
+						<div class="col-5 right inlineblock">
+							<span>西兰花</span>
+						</div>
+					</div>
+					
+					<div class="plan-chart">
+						<div class="wrapper2">
+							<div class="scroller2">
+								<span class="timegroup chart2-time">
+									<img class="timeimg" src="../../image/time.png">
+									<div class="timetext">2016.05.22</div>
+								</span>
+								<div class="clear peoplegroup">
+									<span class="peopleimg chart2-people1"><img src="../../image/people1.png"></span>
+									<span class="peopleimg chart2-people2"><img src="../../image/people2.png"></span>
+									<span class="peopleimg chart2-people3"><img src="../../image/people3.png"></span>
+									<span class="peopleimg chart2-people4"><img src="../../image/people4.png"></span>
+									<span class="peopleimg chart2-people5"><img src="../../image/people5.png"></span>
+									<span class="peopleimg chart2-people6"><img src="../../image/people6.png"></span>	
+								</div>					
+								<div class="line-chart">
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="red-line"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<br>
+									<div class="line-text-first clear" >整地</div>
+									<div class="line-text" >安顿</div>
+									<div class="line-text" >杀毒</div>
+									<div class="line-text" >旋地</div>
+									<div class="line-text" >定植</div>
+									<div class="line-text" >打药</div>
+									<div class="line-text" >施肥</div>
+									<div class="line-text" >浇水</div>
+									<div class="line-text" >采摘</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 地块3 -->
+				<div>
+					<div class="plan-sub-title testborder">
+						<div class="col-5 left inlineblock">
+							<span>地块三</span>
+						</div>
+						<div class="col-5 right inlineblock">
+							<span>西兰花</span>
+						</div>
+					</div>
+					
+					<div class="plan-chart">
+						<div class="wrapper3">
+							<div class="scroller3">
+								<span class="timegroup chart3-time">
+									<img class="timeimg" src="../../image/time.png">
+									<div class="timetext">2016.05.22</div>
+								</span>
+								<div class="clear peoplegroup">
+									<span class="peopleimg chart3-people1"><img src="../../image/people1.png"></span>
+									<span class="peopleimg chart3-people2"><img src="../../image/people2.png"></span>
+									<span class="peopleimg chart3-people3"><img src="../../image/people3.png"></span>
+									<span class="peopleimg chart3-people4"><img src="../../image/people4.png"></span>
+									<span class="peopleimg chart3-people5"><img src="../../image/people5.png"></span>
+									<span class="peopleimg chart3-people6"><img src="../../image/people6.png"></span>	
+								</div>					
+								<div class="line-chart">
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="red-line"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<div class="point"></div>
+									<br>
+									<div class="line-text-first clear" >整地</div>
+									<div class="line-text" >安顿</div>
+									<div class="line-text" >杀毒</div>
+									<div class="line-text" >旋地</div>
+									<div class="line-text" >定植</div>
+									<div class="line-text" >打药</div>
+									<div class="line-text" >施肥</div>
+									<div class="line-text" >浇水</div>
+									<div class="line-text" >采摘</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>					
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/common/api.js"></script>
+<script type="text/javascript" src="../../script/common/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/common/pds.ajax.js"></script>
+<script type="text/javascript" src="../../script/common/doT.min.js"></script>
+<script type="text/javascript" src="../../script/scroll/build/iscroll.js"></script>
+<script type="text/javascript">
+
+var gloableData = null;
+apiready = function(){
+	refreshStatusList();
+	
+	getResourceEchartsData(function(optionsData){
+      var chart = echarts.init(document.getElementById('resourceView'),"macarons");
+  	  chart.setOption(optionsData);
+	});
+}
+	  
+function refreshStatusList(){
+    pds.ajaxSubmit({
+        url:"app/workorder/getStatusList",
+        data:{userId : $api.getStorage("userId")},
+        success:function(e){
+           gloableData = e.data;
+        },
+        error:function(e){
+           api.alert({msg:"服务器错误，请联系管理员!"});
+        }
+    });
+}
+
+function getObjByCondition(gloableData,status){    
+	if(!(gloableData && gloableData.length>0)){
+		return;
+	}
+	var tmpOrder = null;
+	for(var i=0;i<gloableData.length;i++){
+		var order = gloableData[i];
+		if(order.workOrderStatus == status){
+			tmpOrder = order;
+			break;
+		}
+	}
+	return tmpOrder;
+}
+	    
+/* 待确认工单列表的页面  */
+function showOrderList(obj) {
+	var tmpStatus = $(obj).attr("workOrderStatus");
+	var convertObj = getObjByCondition(gloableData,tmpStatus);
+	var userId = $api.getStorage("userId");
+ 	var data = $.extend({}, convertObj,{executorId: userId});
+    $api.openWin({
+        name: 'win_orderList',
+        url:  'widget://html/win_orderList.html',
+        pageParam: data,
+        slidBackEnabled:false,
+        reload:true,
+        animation:{
+            type:"movein",                //动画类型（详见动画类型常量）
+            subType:"from_right",       //动画子类型（详见动画子类型常量）
+            duration:300                //动画过渡时间，默认300毫秒
+        }
+    });
+}
+
+/** 加载种植资源echarts 图表 */
+function getResourceEchartsData(callback){
+    pds.ajaxSubmit({
+        url:"app/workorder/getResourceEchartsData",
+        data:{userId : $api.getStorage("userId")},
+        success:function(e){
+        	if(callback){
+        		callback.call(null,JSON.parse(e.data));
+        	}
+        },
+        error:function(e){
+           api.alert({msg:"服务器错误，请联系管理员!"});
+        }
+    });
+}
+
+
+/* 工序图   */
+var myScroll, myScroll2, myScroll3;
+function loaded () {
+	myScroll = new IScroll('.wrapper', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+	myScroll2 = new IScroll('.wrapper2', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+	myScroll3 = new IScroll('.wrapper3', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+}
+
+
+</script>
+</html>
+
